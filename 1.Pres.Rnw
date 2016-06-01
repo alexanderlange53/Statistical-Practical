@@ -33,7 +33,7 @@
 \end{frame}
 
 
-\section{Daten} 
+\section{Datengrundlage} 
 \subsection{Zensus}
 \begin{frame}\frametitle{Zensus}
 
@@ -46,6 +46,11 @@
 
 \subsection{Melderegister}
 \begin{frame}\frametitle{Melderegister}
+
+\end{frame}
+
+\subsection{Shapefiles mit Stadtteilen}
+\begin{frame}\frametitle{Shapefiles mit Stadtteilen}
 
 \end{frame}
 
