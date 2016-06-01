@@ -29,6 +29,7 @@
 \item Datensätze sowohl der Grundgesamtheit, als auch der Stichproben 
 \item Verwendung von sowohl strukturellen- als auch räumlichen Informationen
 \item Ziel: Durch geeignete Modelle und der Stichproben die Informationen der Grundgesamtheit schätzen
+\item Test
 \end{itemize}
 \end{frame}
 
