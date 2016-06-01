@@ -1,23 +1,53 @@
 
 \documentclass{beamer}
-\usetheme{Singapore}
+\usetheme[compress]{Singapore}
 \usepackage{german}
 \usepackage[utf8]{inputenc}
 \usepackage{adjustbox}
+\setbeamertemplate{navigation symbols}{}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,center]{author in head/foot}%
+    \usebeamerfont{author in
+head/foot}%
+  \insertshortauthor\hspace{1em}\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
 
 
 \begin{document}
+<<<<<<< HEAD
 \SweaveOpts{concordance=TRUE}
 %\SweaveOpts{concordance=TRUE}
+=======
+
+>>>>>>> af21c7e28d090c325963151a19f34638349f26ac
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
 \author{Kai Husmann, Alexander Lange} 
+\institute{Georg-August-Universität Göttingen}
 \date{\today}
-\logo{\includegraphics[scale=0.23]{logo_goe}}
 
+{
+\setbeamertemplate{footline}{} 
 \begin{frame}
 \titlepage
 \end{frame}
+}
+\addtocounter{framenumber}{-1}
 
 \begin{frame}
 \frametitle{Inhaltsverzeichnis}\tableofcontents
@@ -43,21 +73,20 @@
 \centering
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
-\begin{tabular}{lc|cc}
-\multicolumn{4}{l}{Anzahl Beobachtungen Grundgesamtheit: 470.190}     \\ 
-\multicolumn{4}{l}{Anzahl Beobachtungen Stichprobe: 4.082}     \\ \hline \hline
-\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c}{\textbf{Modus}} \\ 
-\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Frau & Frau \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Nominal & Ledig & Verheiratet \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 \\ \hline
-\multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 \\ \hline
-\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% \\ \hline
-\multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 \\ \hline
-\multicolumn{1}{l|}{Gewicht} & ?  & &\\ \hline
-\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter \\ \hline \hline
+\begin{tabular}{lc|cc|c}
+\multicolumn{5}{l}{Anzahl Beobachtungen Grundgesamtheit: 470.190}     \\ 
+\multicolumn{5}{l}{Anzahl Beobachtungen Stichprobe: 4.082}     \\ \hline \hline
+\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}} & \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{}\\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & \\ \hline
+\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Frau & Frau & Binom. \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Nominal & Ledig & Verheiratet & Multinom. \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & \\ \hline
+\multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 & \\ \hline
+\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% & \\ \hline
+\multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 & \\ \hline
+\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter & Binom. \\ \hline \hline
 \end{tabular}
 
 }
@@ -72,21 +101,21 @@
 \centering
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
-\begin{tabular}{lc|cc}
+\begin{tabular}{lc|cc|c}
 \multicolumn{4}{l}{Anzahl Beobachtungen Grundgesamtheit: 380.238}     \\ 
 \multicolumn{4}{l}{Anzahl Beobachtungen Stichprobe: 14.671}     \\ \hline \hline
-\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c}{\textbf{Modus}} \\ 
-\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Mann & Mann \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70-$<$75 & 75-$<$80 \\ \hline
-\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstständige ohne Beschäftigte & Angestellte \\ \hline
-\multicolumn{1}{l|}{Beamte} & Ordinal  & Kein Beamter & Kein Beamter \\ \hline
-\multicolumn{1}{l|}{Gebäudetyp} & Mehrfamilienhaus 3-6 W. & Mehrfamilienhaus $>$13 W. &\\ \hline
-\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter \\ \hline \hline
+\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}}& \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{} \\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & \\ \hline
+\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Mann & Mann & Binom. \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet & Multinom.\\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 & \\ \hline
+\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstst. o. Beschäftigte & Angestellte & \\ \hline
+\multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein & Binom./Pois.\\ \hline
+\multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienh. 3-6 W. & Mehrfamilienh. $>$13 W. & \\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Wohnzwecke vermietet & Wohnzwecke vermietet & \\ \hline \hline
 \end{tabular}
 }
 \end{table}
