@@ -68,20 +68,20 @@ head/foot}%
 \centering
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
-\begin{tabular}{lc|cc}
-\multicolumn{4}{l}{Anzahl Beobachtungen Grundgesamtheit: 470.190}     \\ 
-\multicolumn{4}{l}{Anzahl Beobachtungen Stichprobe: 4.082}     \\ \hline \hline
-\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c}{\textbf{Modus}} \\ 
-\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Frau & Frau \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Nominal & Ledig & Verheiratet \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 \\ \hline
-\multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 \\ \hline
-\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% \\ \hline
-\multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 \\ \hline
-\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter \\ \hline \hline
+\begin{tabular}{lc|cc|c}
+\multicolumn{5}{l}{Anzahl Beobachtungen Grundgesamtheit: 470.190}     \\ 
+\multicolumn{5}{l}{Anzahl Beobachtungen Stichprobe: 4.082}     \\ \hline \hline
+\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}} & \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{}\\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & \\ \hline
+\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Frau & Frau & Binom. \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Nominal & Ledig & Verheiratet & Multinom. \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & \\ \hline
+\multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 & \\ \hline
+\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% & \\ \hline
+\multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 & \\ \hline
+\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter & Binom. \\ \hline \hline
 \end{tabular}
 
 }
@@ -96,21 +96,21 @@ head/foot}%
 \centering
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
-\begin{tabular}{lc|cc}
+\begin{tabular}{lc|cc|c}
 \multicolumn{4}{l}{Anzahl Beobachtungen Grundgesamtheit: 380.238}     \\ 
 \multicolumn{4}{l}{Anzahl Beobachtungen Stichprobe: 14.671}     \\ \hline \hline
-\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c}{\textbf{Modus}} \\ 
-\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Mann & Mann \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 \\ \hline
-\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstständige ohne Beschäftigte & Angestellte \\ \hline
-\multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein \\ \hline
-\multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienhaus 3-6 W. & Mehrfamilienhaus $>$13 W. \\ \hline
-\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Zu Wohnzwecken vermietet & Zu Wohnzwecken vermietet \\ \hline \hline
+\multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}}& \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{} \\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & \\ \hline
+\multicolumn{1}{l|}{Geschlecht} &  Nominal  & Mann & Mann & Binom. \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet & Multinom.\\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 & \\ \hline
+\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstst. o. Beschäftigte & Angestellte & \\ \hline
+\multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein & Binom./Pois.\\ \hline
+\multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienh. 3-6 W. & Mehrfamilienh. $>$13 W. & \\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Wohnzwecke vermietet & Wohnzwecke vermietet & \\ \hline \hline
 \end{tabular}
 }
 \end{table}
