@@ -30,11 +30,15 @@ head/foot}%
 
 \begin{document}
 <<<<<<< HEAD
+<<<<<<< HEAD
 \SweaveOpts{concordance=TRUE}
 %\SweaveOpts{concordance=TRUE}
 =======
 
 >>>>>>> af21c7e28d090c325963151a19f34638349f26ac
+=======
+
+>>>>>>> d157764cc395b16cdc96f3ed335235f4b81f56b1
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
 \author{Kai Husmann, Alexander Lange} 
