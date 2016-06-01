@@ -106,7 +106,7 @@ head/foot}%
 \multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet \\ \hline
 \multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70-$<$75 & 75-$<$80 \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 \\ \hline
 \multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstständige ohne Beschäftigte & Angestellte \\ \hline
 \multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein \\ \hline
 \multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienhaus 3-6 W. & Mehrfamilienhaus $>$13 W. \\ \hline
