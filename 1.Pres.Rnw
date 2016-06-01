@@ -33,7 +33,7 @@ head/foot}%
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
 \author{Kai Husmann, Alexander Lange} 
-\institute{Georg-August-Universität Göttingen}
+\institute{Georg-August Universität Göttingen}
 \date{\today}
 
 {
