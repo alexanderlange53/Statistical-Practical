@@ -1,22 +1,51 @@
 
 \documentclass{beamer}
-\usetheme{Singapore}
+\usetheme[compress]{Singapore}
 \usepackage{german}
 \usepackage[utf8]{inputenc}
 \usepackage{adjustbox}
+\setbeamertemplate{navigation symbols}{}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,center]{author in head/foot}%
+    \usebeamerfont{author in
+head/foot}%
+  \insertshortauthor\hspace{1em}\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
 
+%\setbeamertemplate{sidebar right}{}
+%\setbeamertemplate{footline}{%
+%\hfill\usebeamertemplate***{navigation symbols}
+%\hspace{1cm}\insertframenumber{}/\inserttotalframenumber}
 
 \begin{document}
 %\SweaveOpts{concordance=TRUE}
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
 \author{Kai Husmann, Alexander Lange} 
+\institute{Georg-August-Universität Göttingen}
 \date{\today}
-\logo{\includegraphics[scale=0.23]{logo_goe}}
-
+%\logo{\includegraphics[scale=0.23]{logo_goe}}
+{
+\setbeamertemplate{footline}{} 
 \begin{frame}
 \titlepage
 \end{frame}
+}
+\addtocounter{framenumber}{-1}
 
 \begin{frame}
 \frametitle{Inhaltsverzeichnis}\tableofcontents
@@ -55,7 +84,6 @@
 \multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 \\ \hline
 \multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% \\ \hline
 \multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 \\ \hline
-\multicolumn{1}{l|}{Gewicht} & ?  & &\\ \hline
 \multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter \\ \hline \hline
 \end{tabular}
 
@@ -83,9 +111,9 @@
 \multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 \\ \hline
 \multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70-$<$75 & 75-$<$80 \\ \hline
 \multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstständige ohne Beschäftigte & Angestellte \\ \hline
-\multicolumn{1}{l|}{Beamte} & Ordinal  & Kein Beamter & Kein Beamter \\ \hline
-\multicolumn{1}{l|}{Gebäudetyp} & Mehrfamilienhaus 3-6 W. & Mehrfamilienhaus $>$13 W. &\\ \hline
-\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter \\ \hline \hline
+\multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein \\ \hline
+\multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienhaus 3-6 W. & Mehrfamilienhaus $>$13 W. \\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Zu Wohnzwecken vermietet & Zu Wohnzwecken vermietet \\ \hline \hline
 \end{tabular}
 }
 \end{table}
