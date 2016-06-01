@@ -9,7 +9,7 @@
 \SweaveOpts{concordance=TRUE}
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
-\author{Kai Husmann, Alexander Lange} 
+\author{Kai Husmann, Alexander Lange, Test} 
 \date{\today}
 \logo{\includegraphics[scale=0.25]{logo_goe}}
 
