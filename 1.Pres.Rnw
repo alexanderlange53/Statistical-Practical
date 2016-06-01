@@ -26,19 +26,16 @@ head/foot}%
 }
 \makeatother
 
-%\setbeamertemplate{sidebar right}{}
-%\setbeamertemplate{footline}{%
-%\hfill\usebeamertemplate***{navigation symbols}
-%\hspace{1cm}\insertframenumber{}/\inserttotalframenumber}
+
 
 \begin{document}
-%\SweaveOpts{concordance=TRUE}
+
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
 \author{Kai Husmann, Alexander Lange} 
 \institute{Georg-August-Universität Göttingen}
 \date{\today}
-%\logo{\includegraphics[scale=0.23]{logo_goe}}
+
 {
 \setbeamertemplate{footline}{} 
 \begin{frame}
