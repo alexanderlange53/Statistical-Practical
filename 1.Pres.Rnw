@@ -30,14 +30,19 @@ head/foot}%
 
 \begin{document}
 << include=F >>=
-require(ggplot2);require(reshape2);require(colorspace) # package loading
+require(ggplot2);require(reshape2);require(colorspace);require(gridExtra) # package loading
 Grund <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
                     header = T, sep = ';')
 Stich <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-theme_set(theme_bw(20)) # Grafik theme
+theme_set(theme_bw(12)) # Grafik theme
 colo <- diverge_hsv(3)
-source("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Skripte/barplot")
+get_legend<-function(myggplot){
+  tmp <- ggplot_gtable(ggplot_build(myggplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
 @
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
@@ -100,8 +105,56 @@ source("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Skripte/b
 \end{frame}
 
 \begin{frame}
-<<echo=F, out.width='6cm', fig.align='center'>>=
-barplot(Grund$Altersklasse, Stich$Altersklasse, Alterklasse)
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center'>>=
+layout <- matrix(c(1,1,2,2,3,3,4,4), nrow = 2, byrow = T)
+# Altersklasse
+count1 <- as.data.frame(table(Grund$Altersklasse))
+count2 <- as.data.frame(table(Stich$Altersklasse))
+Alter <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Alter) <- c('Altersklasse', 'Grundgesamtheit', 'Stichprobe')
+Alter <- melt(Alter, id = 'Altersklasse')
+b1 <- ggplot(Alter, aes(x = Altersklasse, y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  theme(legend.position = 'bottom', legend.title = element_blank())
+
+legend <- get_legend(b1)
+b1 <- b1+ theme(legend.position="none")
+
+# Familienstand 
+count1 <- as.data.frame(table(Grund$Familienstand))
+count2 <- as.data.frame(table(Stich$Familienstand))
+Familienstand <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Familienstand) <- c('Familienstand', 'Grundgesamtheit', 'Stichprobe')
+Familienstand <- melt(Familienstand, id = 'Familienstand')
+b2 <- ggplot(Familienstand, aes(x = Familienstand, y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  theme(legend.position = 'none', legend.title = element_blank())
+
+# Haushaltsgröße
+count1 <- as.data.frame(table(Grund$Haushaltsgroesse))
+count2 <- as.data.frame(table(Stich$Haushaltsgroesse))
+Haushaltsgroesse <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Haushaltsgroesse) <- c('Haushaltsgroesse', 'Grundgesamtheit', 'Stichprobe')
+Haushaltsgroesse <- melt(Haushaltsgroesse, id = 'Haushaltsgroesse')
+b3 <- ggplot(Haushaltsgroesse, aes(x = Haushaltsgroesse, y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  theme(legend.position = 'none', legend.title = element_blank())
+
+# ALG II
+count1 <- as.data.frame(table(Grund$ALGII))
+count2 <- as.data.frame(table(Stich$ALGII))
+ALGII <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(ALGII) <- c('ALGII', 'Grundgesamtheit', 'Stichprobe')
+ALGII <- melt(ALGII, id = 'ALGII')
+b4 <- ggplot(ALGII, aes(x = ALGII, y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  theme(legend.position = 'none', legend.title = element_blank())
+
+grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2), c(3,4), c(5,5)), widths = c(3.5, 3.5), heights = c(2,2,0.5))
 @
 \end{frame}
 
