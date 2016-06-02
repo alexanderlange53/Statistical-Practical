@@ -142,14 +142,24 @@ head/foot}%
 
 \end{frame}
 
-\section{Methoden} 
-\subsection{Generalisierte Lineare Modelle}
+\section{Methoden}
+\subsection{Binäre Modelle}
 \begin{frame}
-\frametitle{Generalisierte Lineare Modelle}
+\frametitle{Binäre Modelle}
+
 \begin{itemize}
-\item Logit, Probit, CLogLog Regression
+\item Logit \\
+$h(\eta)=\frac{exp(\eta)}{1+exp{\eta}}, $, logistic cdf
+\item Probit \\
+$\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) dx $, standard normal cdf
+\item Complementary Log-Log \\
+$h(\eta)=1-exp(-exp(-\eta))$, extreme value cdf
 
 \end{itemize}
+
+
+
+
 
 \end{frame}
 
