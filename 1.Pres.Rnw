@@ -148,23 +148,39 @@ head/foot}%
 \frametitle{Binäre Modelle}
 
 \begin{itemize}
-\item Logit \\
+\item Logit Modell\\
 $h(\eta)=\frac{exp(\eta)}{1+exp{\eta}}, $, logistic cdf
-\item Probit \\
+\item Probit Modell\\
 $\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) dx $, standard normal cdf
-\item Complementary Log-Log \\
+\item Komplementäres Log-Log Modell\\
 $h(\eta)=1-exp(-exp(-\eta))$, extreme value cdf
 
 \end{itemize}
-
-
-
-
-
 \end{frame}
+
+\subsection{Kategorielle Modelle}
+\begin{frame}
+\frametitle{Kategorielle Modelle}
+
+\begin{itemize}
+\item Multinomiales Logit Modell (sl.106) \\
+$h(\eta)=\frac{exp(\eta)}{1+exp{\eta}}, $, logistic cdf
+\item Kumulatives geordnetes Logit Modell (sl. 117) = Prop. Odds Modell\\
+$\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) dx $, standard normal cdf
+
+
+\end{itemize}
+\end{frame}
+
 
 \subsection{Splines}
 \begin{frame}
+\begin{itemize}
+\item Penalised-Spline (Elmar slides)
+\item Tensor Penalised spline (Elmar slides)
+\end{itemize}
+
+
 \frametitle{Splines}
 
 \end{frame}
