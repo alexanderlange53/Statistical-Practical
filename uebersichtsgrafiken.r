@@ -35,6 +35,8 @@ ze_g <-readShapePoints("/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Ausw
 bgcol <- 'gray90'
 setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/GIS/Uebersichtsgrafiken/')
 
+hist(bf_g$field_4)
+
 # Plots Buergerunfragen #
 
 #-------------------------------------------------------------------------#

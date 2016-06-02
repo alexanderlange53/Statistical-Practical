@@ -82,7 +82,7 @@ head/foot}%
 \multicolumn{5}{l}{Anzahl Beobachtungen Stichprobe: 4.082}     \\ \hline \hline
 \multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}} & \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
 \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{}\\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & \\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & Kum. Logit\\ \hline
 \multicolumn{1}{l|}{Geschlecht} &  Nominal  & Frau & Frau & Binom. \\ \hline
 \multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Nominal & Ledig & Verheiratet & Multinom. \\ \hline
@@ -90,7 +90,9 @@ head/foot}%
 \multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 & \\ \hline
 \multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% & \\ \hline
 \multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 & \\ \hline
-\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter & Binom. \\ \hline \hline
+\multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter & Binom. \\ \hline 
+\multicolumn{1}{l|}{Gauß-Krüger X} &   &  & & \\ \hline 
+\multicolumn{1}{l|}{Gauß-Krüger Y} &   &  & & \\ \hline \hline
 \end{tabular}
 
 }
@@ -119,7 +121,10 @@ head/foot}%
 \multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstst. o. Beschäftigte & Angestellte & \\ \hline
 \multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein & Binom./Pois.\\ \hline
 \multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienh. 3-6 W. & Mehrfamilienh. $>$13 W. & \\ \hline
-\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Wohnzwecke vermietet & Wohnzwecke vermietet & \\ \hline \hline
+\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Wohnzwecke vermietet & Wohnzwecke vermietet & \\ \hline
+\multicolumn{1}{l|}{Gauß-Krüger X} &   &  & & \\ \hline 
+\multicolumn{1}{l|}{Gauß-Krüger Y} &   &  & & \\ \hline 
+\hline
 \end{tabular}
 }
 \end{table}
@@ -132,9 +137,8 @@ head/foot}%
 
 \end{frame}
 
-
-\subsection{Shapefiles mit Stadtteilen}
-\begin{frame}\frametitle{Shapefiles mit Stadtteilen}
+\section{Datenlage}
+\begin{frame}\frametitle{Modellwahl}
 
 \end{frame}
 
@@ -142,6 +146,10 @@ head/foot}%
 \subsection{Generalisierte Lineare Modelle}
 \begin{frame}
 \frametitle{Generalisierte Lineare Modelle}
+\begin{itemize}
+\item Logit, Probit, CLogLog Regression
+
+\end{itemize}
 
 \end{frame}
 
@@ -156,6 +164,9 @@ head/foot}%
 \begin{frame}\frametitle{Modellwahl}
 
 \end{frame}
+
+
+
 
 \section[Quellen]{Referenzen}
 \begin{frame}\frametitle{Quellen \& Literatur}
