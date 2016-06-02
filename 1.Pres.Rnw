@@ -30,10 +30,14 @@ head/foot}%
 
 \begin{document}
 << include=F >>=
-require(ggplot2);require(reshape2);require(colorspace);require(gridExtra) # package loading
+require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales) # package loading
 Grund <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
                     header = T, sep = ';')
 Stich <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
+                  header = T, sep = ';')
+Grundz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
+                  header = T, sep = ';')
+Stichz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
                   header = T, sep = ';')
 theme_set(theme_bw(12)) # Grafik theme
 colo <- diverge_hsv(3)
@@ -188,6 +192,63 @@ grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2
 
 \end{frame}
 
+\begin{frame}
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center'>>=
+layout <- matrix(c(1,1,2,2,3,3,4,4), nrow = 2, byrow = T)
+# Altersklasse
+count1 <- as.data.frame(table(Grundz$alter))
+count2 <- as.data.frame(table(Stichz$alter))
+Alter <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Alter) <- c('Altersklasse', 'Grundgesamtheit', 'Stichprobe')
+Alter <- melt(Alter, id = 'Altersklasse')
+b1 <- ggplot(Alter, aes(x = Altersklasse, y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  scale_y_continuous(breaks= pretty_breaks()) +
+  theme(legend.position = 'bottom', legend.title = element_blank())
+
+legend <- get_legend(b1)
+b1 <- b1+ theme(legend.position="none")
+
+# Beamte
+count1 <- as.data.frame(table(Grundz$beamte))
+count2 <- as.data.frame(table(Stichz$beamte))
+Beamter <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Beamter) <- c('Beamter', 'Grundgesamtheit', 'Stichprobe')
+Beamter <- melt(Beamter , id = 'Beamter')
+b2 <- ggplot(Beamter , aes(x = Beamter , y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  scale_y_continuous(breaks= pretty_breaks()) +
+  theme(legend.position = 'none', legend.title = element_blank())
+
+# Gebaeudetyp
+count1 <- as.data.frame(table(Grundz$gebaeudetyp))
+count2 <- as.data.frame(table(Stichz$gebaeudetyp))
+Gebaeudetyp <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Gebaeudetyp) <- c('Gebaeudetyp', 'Grundgesamtheit', 'Stichprobe')
+Gebaeudetyp <- melt(Gebaeudetyp, id = 'Gebaeudetyp')
+b3 <- ggplot(Gebaeudetyp, aes(x = Gebaeudetyp, y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  scale_y_continuous(breaks= pretty_breaks()) +
+  theme(legend.position = 'none', legend.title = element_blank(), axis.text.x=element_blank())
+
+# Wohnfläche
+count1 <- as.data.frame(table(Grundz$wohnflaeche))
+count2 <- as.data.frame(table(Stichz$wohnflaeche))
+Wohnfläche <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Wohnfläche) <- c('Wohnfläche', 'Grundgesamtheit', 'Stichprobe')
+Wohnfläche <- melt(Wohnfläche , id = 'Wohnfläche')
+b4 <- ggplot(Wohnfläche , aes(x = Wohnfläche , y = value, fill = variable)) +
+  geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  scale_y_continuous(breaks= pretty_breaks()) +
+  theme(legend.position = 'none', legend.title = element_blank(), axis.text.x=element_blank())
+
+grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2), c(3,4), c(5,5)), widths = c(3.5, 3.5), heights = c(2,2,0.5))
+@
+\end{frame}
 
 \subsection{Melderegister}
 \begin{frame}\frametitle{Melderegister}
