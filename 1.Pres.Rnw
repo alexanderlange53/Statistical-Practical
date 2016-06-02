@@ -29,16 +29,16 @@ head/foot}%
 
 
 \begin{document}
-<<<<<<< HEAD
-<<<<<<< HEAD
-\SweaveOpts{concordance=TRUE}
-%\SweaveOpts{concordance=TRUE}
-=======
-
->>>>>>> af21c7e28d090c325963151a19f34638349f26ac
-=======
-
->>>>>>> d157764cc395b16cdc96f3ed335235f4b81f56b1
+<< include=F >>=
+require(ggplot2);require(reshape2);require(colorspace) # package loading
+Grund <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
+                    header = T, sep = ';')
+Stich <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
+                  header = T, sep = ';')
+theme_set(theme_bw(20)) # Grafik theme
+colo <- diverge_hsv(3)
+source("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Skripte/barplot")
+@
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
 \author{Kai Husmann, Alexander Lange} 
@@ -69,7 +69,7 @@ head/foot}%
 \end{frame}
 
 
-\section{Datengrundlage} 
+\section{Datengrundlage}
 
 \subsection{Bürgerumfrage}
 \begin{frame}\frametitle{Bürgerumfrage}
@@ -99,7 +99,11 @@ head/foot}%
 \end{table}
 \end{frame}
 
-
+\begin{frame}
+<<echo=F, out.width='6cm', fig.align='center'>>=
+barplot(Grund$Altersklasse, Stich$Altersklasse, Alterklasse)
+@
+\end{frame}
 
 \subsection{Zensus}
 \begin{frame}\frametitle{Zensus}
@@ -137,10 +141,6 @@ head/foot}%
 
 \end{frame}
 
-\section{Datenlage}
-\begin{frame}\frametitle{Modellwahl}
-
-\end{frame}
 
 \section{Methoden} 
 \subsection{Generalisierte Lineare Modelle}
