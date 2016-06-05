@@ -34,17 +34,17 @@ head/foot}%
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);
 require(ggmap) # package loading
-Grund <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
+Grund <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
                     header = T, sep = ';')
-Stich <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
+Stich <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-Grundz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
+Grundz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
                   header = T, sep = ';')
-Stichz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
+Stichz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-bürg <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe")  
-b <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Geodaten/bezirke", layer = "bezirke")
-pop <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
+bürg <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe") 
+b <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+pop <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
 
 
 theme_set(theme_bw(12)) # Grafik theme
@@ -99,14 +99,14 @@ get_legend<-function(myggplot){
 \multicolumn{5}{l}{Anzahl Beobachtungen Stichprobe: 4.082}     \\ \hline \hline
 \multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}} & \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
 \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{}\\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & Kum. Logit\\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & Logistisch\\ \hline
 \multicolumn{1}{l|}{Geschlecht} &  Nominal  & Frau & Frau & Binom. \\ \hline
 \multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Nominal & Ledig & Verheiratet & Multinom. \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & \\ \hline
-\multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 & \\ \hline
-\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% & \\ \hline
-\multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 & \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & Logistisch\\ \hline
+\multicolumn{1}{l|}{Wohndauer} & Ordinal  & $>$10 & $>$10 & Logistisch\\ \hline
+\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 4\% - 6\% & 4\% - 6\% & Logistisch\\ \hline
+\multicolumn{1}{l|}{Ein/Zweifamilienhäuser} & Ordinal  & 7 & 7 & Logistisch\\ \hline
 \multicolumn{1}{l|}{Eigentümer} & Nominal  & (Nicht enthalten) & Mieter & Binom. \\ \hline 
 \multicolumn{1}{l|}{Gauß-Krüger X} &   &  & & \\ \hline 
 \multicolumn{1}{l|}{Gauß-Krüger Y} &   &  & & \\ \hline \hline
@@ -268,16 +268,16 @@ grid.arrange(g1, g2, ncol = 2)
 \multicolumn{4}{l}{Anzahl Beobachtungen Stichprobe: 14.671}     \\ \hline \hline
 \multicolumn{1}{l|}{\textbf{Variable}} & \multicolumn{1}{c|}{\textbf{Skalenniveau}} & \multicolumn{2}{c|}{\textbf{Modus}}& \multicolumn{1}{c}{\textbf{Verteilung}} \\ 
 \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{} & G & S & \multicolumn{1}{l}{} \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & \\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 18-25 & 30-35 & Logistisch\\ \hline
 \multicolumn{1}{l|}{Geschlecht} &  Nominal  & Mann & Mann & Binom. \\ \hline
 \multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet & Multinom.\\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & Multinom. \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 & \\ \hline
-\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstst. o. Beschäftigte & Angestellte & \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & Logistisch \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 & Logistisch\\ \hline
+\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstst. o. Beschäftigte & Angestellte & Multinom.\\ \hline
 \multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein & Binom./Pois.\\ \hline
-\multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienh. 3-6 W. & Mehrfamilienh. $>$13 W. & \\ \hline
-\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Wohnzwecke vermietet & Wohnzwecke vermietet & \\ \hline
+\multicolumn{1}{l|}{Gebäudetyp} & Nominal & Mehrfamilienh. 3-6 W. & Mehrfamilienh. $>$13 W. & Multinom.\\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung} & Nominal & Wohnzwecke vermietet & Wohnzwecke vermietet & Multinom.\\ \hline
 \multicolumn{1}{l|}{Gauß-Krüger X} &   &  & & \\ \hline 
 \multicolumn{1}{l|}{Gauß-Krüger Y} &   &  & & \\ \hline 
 \hline
@@ -358,11 +358,11 @@ grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2
 
 \begin{itemize}
 \item Logit Modell\\
-$h(\eta)=\frac{exp(\eta)}{1+exp{\eta}}, $, logistic cdf
+$h(\eta)=\frac{exp(\eta)}{1+exp(\eta)}$, Logistische Verteilung
 \item Probit Modell\\
-$\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) dx $, standard normal cdf
+$\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) dx $, Normalverteilung
 \item Komplementäres Log-Log Modell\\
-$h(\eta)=1-exp(-exp(-\eta))$, extreme value cdf
+$h(\eta)=1-exp(-exp(-\eta))$, Extremwertverteilung
 
 \end{itemize}
 \end{frame}
@@ -372,23 +372,26 @@ $h(\eta)=1-exp(-exp(-\eta))$, extreme value cdf
 \frametitle{Kategorielle Modelle}
 
 \begin{itemize}
-\item Multinomiales Logit Modell (sl. 106)\\
-$P(y_i = 1)=\frac{exp(x_i'\beta)}{1+exp(x_i'\beta)}$, multinomial cdf
-\item Kumulatives geordnetes Logit Modell (sl. 117) = Prop. Odds Modell\\
-$P(y_i <= r)=\frac{exp(x_i'\beta)}{1+exp(x_i'\beta)}$, logistic cdf ??? 
+\item Multinomiales Logit Modell\\
+$P(y_i = 1)=\frac{exp(\textbf{x}_i' \boldsymbol{\beta} )}{1+exp(\textbf{x}_i' \boldsymbol{\beta})}$, Multinomialverteilung
+$P(y_i = 0)=1-P(y_i = 1)$
+\item Kumulatives geordnetes Modell\\
+$log(\frac{P(y_i \le r)}{P(y_i > r)})=\theta_r+\textbf{x}_i' \tilde{\boldsymbol{\beta}}$, Logistische Verteilung
+% Weitere Modelle moeglich: Logit, Probit, CLogLog
+
 \item Sequentielles Modell\\
-$P(y_i = r | y_i < r) = F()$, any cfd F (sl. 120)
+$P(y_i = r | y_i \ge r) = F(\theta_r+\textbf{x}_i' \tilde{\boldsymbol{\beta}})$, Jede kumulative Verteilungsfunktion F
 \end{itemize}
 
 \end{frame}
 
-\subsection{Geomodelle}
+\subsection{Geostatistische Modelle}
 \begin{frame}
 \begin{itemize}
-\item Ordinal Kriging
-$slide 88$
-\item GMRF ,sl. 139
-if regionalization in sub areas is necessary
+\item Universelles Kriging\\
+$y(\textbf{s})=\mu(\textbf{s})+W(\textbf{s})+ \varepsilon(\textbf{s}),$\\
+mit $W(\textbf{s})\sim N(\boldsymbol{\mu},\boldsymbol{\Sigma})$
+% evtl. noch GMRF, falls Regionaliseirung
 \end{itemize}
 \frametitle{Geomodelle}
 \end{frame}
@@ -397,21 +400,20 @@ if regionalization in sub areas is necessary
 \begin{frame}
 
 \begin{itemize}
-\item Penalised B Spline (Elmar slides)
-\item Tensor Penalised B spline (Elmar slides)
-- also possible: ordered, unordered,...
-\item Thin Plate Spline als Radiale Basis Funktion (Elmar Slides 24)
-\end{itemize}
+\item Penalisierter Spline \\
+$\textbf{f}_{q}(\textbf{z}_{q})$
+\item Räumliche Effekte als Tensor Produkt Spline \\
+$f_{spat}(s_x,s_y)$
+\item Lineare parametrische Einflüsse \\
+$\textbf{x}_p' \boldsymbol{\beta}$\\
+\item Regressionsmodell\\
+$P(x_i = r) = \beta_0+ \textbf{x}_p' \boldsymbol{\beta} + \textbf{f}_{q}(\textbf{z}_{q}) + f_{spat}(s_x,s_y)$
 
+%\item Thin Plate Spline als Radiale Basis Funktion (Elmar Slides 24)
+\end{itemize}
 
 \frametitle{Splines}
 
 \end{frame}
-
-
-
-
-
-
 
 \end{document}
