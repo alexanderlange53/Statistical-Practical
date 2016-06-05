@@ -30,7 +30,8 @@ head/foot}%
 
 \begin{document}
 << include=F >>=
-require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales) # package loading
+require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
+require(rgdal);require(rgeos);require(ggmap) # package loading
 Grund <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
                     header = T, sep = ';')
 Stich <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
@@ -39,6 +40,11 @@ Grundz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertu
                   header = T, sep = ';')
 Stichz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
                   header = T, sep = ';')
+bürg <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe")  
+b <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+pop <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
+
+
 theme_set(theme_bw(12)) # Grafik theme
 colo <- diverge_hsv(3)
 get_legend<-function(myggplot){
@@ -144,7 +150,7 @@ names(Haushaltsgroesse) <- c('Haushaltsgroesse', 'Grundgesamtheit', 'Stichprobe'
 Haushaltsgroesse <- melt(Haushaltsgroesse, id = 'Haushaltsgroesse')
 b3 <- ggplot(Haushaltsgroesse, aes(x = Haushaltsgroesse, y = value, fill = variable)) +
   geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
-  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') + xlab('Haushaltsgröße') +
   theme(legend.position = 'none', legend.title = element_blank())
 
 # ALG II
@@ -159,6 +165,93 @@ b4 <- ggplot(ALGII, aes(x = ALGII, y = value, fill = variable)) +
   theme(legend.position = 'none', legend.title = element_blank())
 
 grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2), c(3,4), c(5,5)), widths = c(3.5, 3.5), heights = c(2,2,0.5))
+@
+\end{frame}
+
+\begin{frame}
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center', message=F, warning=F>>=
+library(memisc)
+bürg.d <- data.frame(bürg)
+bürg.dd <- as.data.frame(c(bürg.d[,c(1, 2,3,6)]))
+names(bürg.dd) <- c('id', 'long', 'lat', 'natio')
+bürg.dd$natio[bürg.dd$natio==1] <- "Deutsch"
+bürg.dd$natio[bürg.dd$natio==2] <- "Nicht Deutsch"
+bü <- melt(bürg.dd, id = c('id', 'long', 'lat'))
+
+ggplot() + geom_polygon(data=b, aes(x=long, y=lat, group=group), fill="grey40",colour="white", alpha=0.5)+  
+  labs(x=NULL, y=NULL, title=NULL)+
+  geom_point(data=bü, aes(x=long, y=lat, fill = value, group = value, shape = value, size = value), color = 'black') +
+  scale_fill_manual(values = c(colo[1], colo[3]), labels = c("Deutsch","Nicht Deutsch"))+
+  scale_shape_manual(values=c(21, 22))+
+  scale_size_manual(values=c(1.5, 1.5)) +
+      coord_equal(1)+
+   #theme_bw(15) +
+  theme(
+    plot.background = element_blank()
+    ,panel.grid.major = element_blank()
+    ,panel.grid.minor = element_blank()
+    ,panel.border = element_blank()
+    ,legend.position = 'bottom'
+    ,axis.text.x=element_blank()
+    ,axis.text.y=element_blank()
+    ,axis.ticks.y=element_blank()
+    ,axis.ticks.x=element_blank()
+    ,legend.title = element_blank()
+  ) +
+  guides(fill = guide_legend(override.aes = list(size=6)))
+@
+\end{frame}
+
+\begin{frame}
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center', message=F, warning=F>>=
+library(memisc)
+S <- spTransform(bürg, CRS("+proj=longlat +datum=WGS84"))
+map <- get_map(location=rowMeans(bbox(S)), zoom=12, maptype = 'roadmap')
+S.d <- as.data.frame(S)
+S.dd <- as.data.frame(c(S.d[,c(6,14,15)]))
+names(S.dd) <- c( 'natio', 'long', 'lat')
+S.dd$natio[S.dd$natio==1] <- 0
+S.dd$natio[S.dd$natio==2] <- 1
+SSS <- S.dd[which(S.dd$natio==1),]
+
+g1 <- ggmap(map) + geom_density2d(data = SSS, 
+                             aes(x = long, y = lat), size = 0.3) +
+  stat_density2d(
+  aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+  size = 2, bins = 4, data = SSS,
+  geom = "polygon"
+)  + theme(
+  legend.position = 'none'
+  ,axis.text.x=element_blank()
+  ,axis.text.y=element_blank()
+  ,axis.ticks.y=element_blank()
+  ,axis.ticks.x=element_blank()
+) + labs(title = 'Stichprobe')
+
+pops <- spTransform(pop, CRS("+proj=longlat +datum=WGS84"))
+map2 <- get_map(location=rowMeans(bbox(pops)), zoom=12, maptype = 'roadmap')
+pop.d <- data.frame(pops)
+pop.dd <- as.data.frame(c(pop.d[,c(13,14,6)]))
+names(pop.dd) <- c('long', 'lat', 'natio')
+pop.dd$natio[pop.dd$natio==1] <- 0
+pop.dd$natio[pop.dd$natio==2] <- 1
+SSSp <- pop.dd[which(pop.dd$natio==1),]
+
+g2 <- ggmap(map2) + geom_density2d(data = SSSp, 
+                             aes(x = long, y = lat), size = 0.3) +
+  stat_density2d(
+  aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+  size = 2, bins = 4, data = SSSp,
+  geom = "polygon"
+)  + theme(
+  legend.position = 'none'
+  ,axis.text.x=element_blank()
+  ,axis.text.y=element_blank()
+  ,axis.ticks.y=element_blank()
+  ,axis.ticks.x=element_blank()
+) + labs(title = 'Grundgesamtheit')
+
+grid.arrange(g1, g2, ncol = 2)
 @
 \end{frame}
 
@@ -177,7 +270,7 @@ grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2
 \multicolumn{1}{l|}{Geschlecht} &  Nominal  & Mann & Mann & Binom. \\ \hline
 \multicolumn{1}{l|}{Nationalität} & Nominal  & Deutsch & Deutsch & Binom. \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Nominal & Verheiratet & Verheiratet & Multinom.\\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & 2 & 2 & Multinom. \\ \hline
 \multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 70 - $<$75 & 75 - $<$80 & \\ \hline
 \multicolumn{1}{l|}{Stellung Beruf} & Nominal  & Selbstst. o. Beschäftigte & Angestellte & \\ \hline
 \multicolumn{1}{l|}{Beamter} & Nominal & Nein & Nein & Binom./Pois.\\ \hline
@@ -231,7 +324,7 @@ Gebaeudetyp <- melt(Gebaeudetyp, id = 'Gebaeudetyp')
 b3 <- ggplot(Gebaeudetyp, aes(x = Gebaeudetyp, y = value, fill = variable)) +
   geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
   scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') +
-  scale_y_continuous(breaks= pretty_breaks()) +
+  scale_y_continuous(breaks= pretty_breaks()) + xlab('Gebäudetyp') +
   theme(legend.position = 'none', legend.title = element_blank(), axis.text.x=element_blank())
 
 # Wohnfläche
