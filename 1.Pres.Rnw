@@ -30,19 +30,21 @@ head/foot}%
 
 \begin{document}
 << include=F >>=
+
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
-require(rgdal);require(rgeos);require(ggmap) # package loading
-Grund <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
+require(rgdal);require(rgeos);
+require(ggmap) # package loading
+Grund <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
                     header = T, sep = ';')
-Stich <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
+Stich <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-Grundz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
+Grundz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
                   header = T, sep = ';')
-Stichz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
+Stichz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-bürg <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe")  
-b <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
-pop <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
+bürg <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe")  
+b <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Geodaten/bezirke", layer = "bezirke")
+pop <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum//Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
 
 
 theme_set(theme_bw(12)) # Grafik theme
@@ -370,21 +372,35 @@ $h(\eta)=1-exp(-exp(-\eta))$, extreme value cdf
 \frametitle{Kategorielle Modelle}
 
 \begin{itemize}
-\item Multinomiales Logit Modell (sl.106) \\
-$h(\eta)=\frac{exp(\eta)}{1+exp{\eta}}, $, logistic cdf
+\item Multinomiales Logit Modell (sl. 106)\\
+$P(y_i = 1)=\frac{exp(x_i'\beta)}{1+exp(x_i'\beta)}$, multinomial cdf
 \item Kumulatives geordnetes Logit Modell (sl. 117) = Prop. Odds Modell\\
-$\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) dx $, standard normal cdf
-
-
+$P(y_i <= r)=\frac{exp(x_i'\beta)}{1+exp(x_i'\beta)}$, logistic cdf ??? 
+\item Sequentielles Modell\\
+$P(y_i = r | y_i < r) = F()$, any cfd F (sl. 120)
 \end{itemize}
+
 \end{frame}
 
+\subsection{Geomodelle}
+\begin{frame}
+\begin{itemize}
+\item Ordinal Kriging
+$slide 88$
+\item GMRF ,sl. 139
+if regionalization in sub areas is necessary
+\end{itemize}
+\frametitle{Geomodelle}
+\end{frame}
 
 \subsection{Splines}
 \begin{frame}
+
 \begin{itemize}
-\item Penalised-Spline (Elmar slides)
-\item Tensor Penalised spline (Elmar slides)
+\item Penalised B Spline (Elmar slides)
+\item Tensor Penalised B spline (Elmar slides)
+- also possible: ordered, unordered,...
+\item Thin Plate Spline als Radiale Basis Funktion (Elmar Slides 24)
 \end{itemize}
 
 
@@ -393,26 +409,8 @@ $\Phi(\eta)=\int_{-\infty} ^ {\eta} \frac{1}{\sqrt{2 \pi}}exp(-\frac{1}{2}x^2) d
 \end{frame}
 
 
-\section{Modellwahl}
-\begin{frame}\frametitle{Modellwahl}
-
-\end{frame}
 
 
-
-
-\section[Quellen]{Referenzen}
-\begin{frame}\frametitle{Quellen \& Literatur}
-
-\begin{thebibliography}{9}
-\bibitem[Beamerpaket]{paket} \emph{Beamer Paket} \\ 
-\text{http://latex-beamer.sourceforge.net/}
-\bibitem[Beamerdokumentation]{doku} \emph{User's Guide to the Beamer} 
-\bibitem[Dante]{dante} \emph{DANTE e.V.} \text{http://www.dante.de}   
-\end{thebibliography}
-
-
-\end{frame}
 
 
 
