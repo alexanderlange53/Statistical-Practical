@@ -143,14 +143,14 @@ b2 <- ggplot(Familienstand, aes(x = Familienstand, y = value, fill = variable)) 
   theme(legend.position = 'none', legend.title = element_blank())
 
 # Haushaltsgröße
-count1 <- as.data.frame(table(Grund$Haushaltsgroesse))
-count2 <- as.data.frame(table(Stich$Haushaltsgroesse))
-Haushaltsgroesse <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
-names(Haushaltsgroesse) <- c('Haushaltsgroesse', 'Grundgesamtheit', 'Stichprobe')
-Haushaltsgroesse <- melt(Haushaltsgroesse, id = 'Haushaltsgroesse')
-b3 <- ggplot(Haushaltsgroesse, aes(x = Haushaltsgroesse, y = value, fill = variable)) +
+count1 <- as.data.frame(table(Grund$Nationalitaet))
+count2 <- as.data.frame(table(Stich$Nationalitaet))
+Nationalitaet <- cbind(count1[1], count1[,2]/sum(count1[,2]), (count2[,2])/sum(count2[,2]))
+names(Nationalitaet) <- c('Nationalitaet', 'Grundgesamtheit', 'Stichprobe')
+Nationalitaet <- melt(Nationalitaet, id = 'Nationalitaet')
+b3 <- ggplot(Nationalitaet, aes(x = Nationalitaet, y = value, fill = variable)) +
   geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
-  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') + xlab('Haushaltsgröße') +
+  scale_fill_manual(values=c(colo[1], colo[3])) + ylab('Relative Häufigkeit') + xlab('Nationalität') +
   theme(legend.position = 'none', legend.title = element_blank())
 
 # ALG II
