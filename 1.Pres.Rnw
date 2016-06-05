@@ -347,6 +347,21 @@ grid.arrange(b1,b2,b3,b4,legend, ncol = 2, nrow = 3, layout_matrix = rbind(c(1,2
 
 \subsection{Melderegister}
 \begin{frame}\frametitle{Melderegister}
+\begin{table}
+\centering
+\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+           max width=\textwidth}{
+\begin{tabular}{lc|cc|c}
+\multicolumn{4}{l}{Anzahl Beobachtungen: 591.887}     \\ \hline \hline
+\multicolumn{4}{c}{\textbf{Variable}}\\ \hline
+\multicolumn{4}{c}{Altersklasse} \\ \hline
+\multicolumn{4}{c}{Geschlecht} \\ \hline
+\multicolumn{4}{c}{Familienstand} \\ \hline
+\multicolumn{4}{c}{Nationalität} \\ \hline
+\hline
+\end{tabular}
+}
+\end{table}
 
 \end{frame}
 
