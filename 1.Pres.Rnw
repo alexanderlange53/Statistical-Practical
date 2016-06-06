@@ -34,17 +34,17 @@ head/foot}%
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);
 require(ggmap) # package loading
-Grund <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
+Grund <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/population_aufbereitet.txt', 
                     header = T, sep = ';')
-Stich <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
+Stich <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/buergerumfrage/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-Grundz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
+Grundz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/population_aufbereitet.txt', 
                   header = T, sep = ';')
-Stichz <- read.csv('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
+Stichz <- read.csv('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt', 
                   header = T, sep = ';')
-bürg <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe") 
-b <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
-pop <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
+bürg <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_stichprobe") 
+b <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+pop <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/Buergerumfrage", layer = "buergerumfrage_grundgesamtheit")  
 
 
 theme_set(theme_bw(12)) # Grafik theme
