@@ -4,11 +4,22 @@
 
 library(Hmisc)
 
-setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
+bearbeiter = 'Kai'
+
+if(bearbeiter == 'Alex') {
+  setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
 
 # loading data
-Neu <- spss.get('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Ukneib/Buergerumfrage_Kneib.SAV',
+  Neu <- spss.get('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Ukneib/Buergerumfrage_Kneib.SAV',
                  use.value.labels=TRUE)
+} else {
+  setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/')
+  Neu <- spss.get('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Daten_Kneib2/Daten_Kneib/Buergerumfrage_Kneib.SAV',
+                use.value.labels=TRUE)
+}
+
+
+
 # names
 names(Neu) <- c('Bewertung Wohngegend', 'Meinung zu Stuttgart 21', 'Personenzahl im Haushalt',
                 'Monatliches Netto Haushaltseinkommen', 'Altersklasse Befragter', 'Geschlecht',
