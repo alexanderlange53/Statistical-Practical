@@ -8,7 +8,14 @@ require(rgdal);require(rgeos);
 require(ggmap)
 
 # loading data
-dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+bearbeiter <- 'Kai'
+if(bearbeiter == 'Alex') {
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+} else {
+  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+}
+
+
 
 # Ordinal/Nominal Variables
 

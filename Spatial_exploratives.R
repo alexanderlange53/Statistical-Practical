@@ -6,10 +6,20 @@
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);require(ggmap)
 
+bearbeiter = 'Kai'
 # loading data
-dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
-                   dec = '.')
-bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+if(bearbeiter == 'Alex'){
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
+                     dec = '.')
+  bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+} else {
+  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten//Stuttgart21_aufbereitet.csv',
+                     dec = '.')
+  bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
+  
+}
+
+
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'X', 'Y')
 ST21 <- dataS[myvar]
@@ -45,9 +55,10 @@ ggplot() + geom_polygon(data=bezirke, aes(x=long, y=lat, group=group), fill="gre
 ######### Relative frequency plots ##############
 
 # transform to spatial class
-coordinates(ST21) <- ~ long + lat 
+coordinates(ST21) <- ~ long + lat
 # assign CRS
-proj4string(ST21) <- CRS("+init=epsg:4839")
+# proj4string(ST21) <- CRS("+init=epsg:4839")
+proj4string(ST21) <- CRS("+init=epsg:31467")
 # reproject data
 ST21 <- spTransform(ST21, CRS("+proj=longlat +datum=WGS84"))
 # loading map
