@@ -4,7 +4,7 @@
 
 library(Hmisc)
 
-bearbeiter = 'Kai'
+bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -80,5 +80,13 @@ Neu2$Familienstand[Neu$Familienstand == 'ledig'] <- 'ledig'
 Neu2$Familienstand[Neu$Familienstand == 'verheiratet; eingetragene Lebenspartnerschaft'] <- 'verheiratet'
 Neu2$Familienstand[Neu$Familienstand == 'verwitwet'] <- 'verwitwet'
 Neu2$Familienstand[Neu$Familienstand == 'geschieden'] <- 'geschieden'
+
+# ordering ordinal data
+Neu2$`Personenzahl im Haushalt` <- ordered(Neu2$`Personenzahl im Haushalt` , levels = c('1', '2', '3', '4', 
+                                                                                      '>5'))
+Neu2$`Monatliches Netto Haushaltseinkommen` <- ordered(Neu2$`Monatliches Netto Haushaltseinkommen` , levels = c('<900', '900-<2000', '2000-<2900', '2900-<4000', 
+                                                                                                                '4000-<5000', '>5000'))
+Neu2$`Altersklasse Befragter` <- ordered(Neu2$`Altersklasse Befragter` , levels = c('15-<25', '25-<35', '35-<45', '45-<55', 
+                                                                                    '55-<65', '>65'))
 
 write.table(Neu2, file="Stuttgart21_aufbereitet.csv", sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
