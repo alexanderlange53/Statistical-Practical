@@ -13,7 +13,12 @@
 rm(list=ls())
 
 ## Pakete laden und Arbeitsordner setzen ##
-setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+bearbeiter = 'Alex'
+if(bearbeiter == 'Alex') {
+  setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
+} else {
+  setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+}
 
 library("ROCR")
 library("mgcv")
@@ -23,7 +28,11 @@ library("splines")
 source('./erster_test_functions.R')
 
 ## Einlesen ##
-zensus_sample <- read.table("/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt", header=TRUE, sep=";")
+if(bearbeiter == 'Alex') {
+  zensus_sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt", header=TRUE, sep=";")
+} else {
+  zensus_sample <- read.table("/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt", header=TRUE, sep=";")
+}
 
 #-------------------#
 ## Datenauswertung ##
