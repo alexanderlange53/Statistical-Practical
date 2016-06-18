@@ -55,3 +55,37 @@ summary(model1)
 plot(model1, pages = 1)
 gam.check(model1)
 model1$family$getTheta(TRUE)
+
+
+#-------------# Schätzung mit transformierter response Variable #-------------#
+
+# Zusammenführen von 'Sehr gut' und 'Gut' zu Zustimmung und 'Sehr Schlecht' und 'Schlecht' zu Ablehnend 
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 2){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 1
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 3){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 2
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 4){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 5){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+
+# Nur noch drei Kategorien bei response
+verteilung <- ocat(R=3)
+
+# Erstellen der Schätzfunktion
+formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
+
+# GAM Schätzung
+model2 <- gam(formel, data = dataS, family= verteilung, method = 'REML')
+summary(model2)
+plot(model2, pages = 1)
+gam.check(model2)
+model2$family$getTheta(TRUE)
