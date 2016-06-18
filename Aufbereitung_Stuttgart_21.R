@@ -23,7 +23,7 @@ if(bearbeiter == 'Alex') {
 # names
 names(Neu) <- c('Bewertung Wohngegend', 'Meinung zu Stuttgart 21', 'Personenzahl im Haushalt',
                 'Monatliches Netto Haushaltseinkommen', 'Altersklasse Befragter', 'Geschlecht',
-                'Familienstand', 'Nationanlität', 'Stadtbezirk', 'Stadtteil', 'X', 'Y')
+                'Familienstand', 'Nationalität', 'Stadtbezirk', 'Stadtteil', 'X', 'Y')
 
 # Omitting NA's
 Neu <- na.omit(Neu)
@@ -50,9 +50,9 @@ Neu2$`Meinung zu Stuttgart 21` [Neu$`Meinung zu Stuttgart 21` == 'Schlechte Mein
 Neu2$`Meinung zu Stuttgart 21` [Neu$`Meinung zu Stuttgart 21` == 'Sehr schlechte Meinung'] <- 5
 Neu2$`Meinung zu Stuttgart 21` [Neu$`Meinung zu Stuttgart 21` == 'Weiß nicht' | Neu$`Meinung zu Stuttgart 21` =='Keine Angabe'] <- 6
 
-Neu2$Nationanlität <- ''
-Neu2$Nationanlität[Neu$Nationanlität == 'Deutsch <einschl. deutsch und andere'] <- 'Deutsch'
-Neu2$Nationanlität[Neu$Nationanlität == 'Andere'] <- 'Nicht Deutsch'
+Neu2$Nationalität <- ''
+Neu2$Nationalität[Neu$Nationalität == 'Deutsch <einschl. deutsch und andere'] <- 'Deutsch'
+Neu2$Nationalität[Neu$Nationalität == 'Andere'] <- 'Nicht Deutsch'
 
 Neu2$`Personenzahl im Haushalt` <- ''
 Neu2$`Personenzahl im Haushalt`[Neu$`Personenzahl im Haushalt` == '1 Person'] <- 1

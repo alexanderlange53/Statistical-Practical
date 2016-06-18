@@ -26,7 +26,7 @@ count4 <- as.data.frame(table(dataS$Monatliches.Netto.Haushaltseinkommen))
 count5 <- as.data.frame(table(dataS$Altersklasse.Befragter))
 count6 <- as.data.frame(table(dataS$Geschlecht))
 count7 <- as.data.frame(table(dataS$Familienstand))
-count8 <- as.data.frame(table(dataS$Nationanlität))
+count8 <- as.data.frame(table(dataS$Nationalität))
 
 # plots
 theme_set(theme_bw(12)) # Grafik theme
