@@ -8,14 +8,12 @@ require(rgdal);require(rgeos);
 require(ggmap)
 
 # loading data
-bearbeiter <- 'Kai'
+bearbeiter <- 'Alex'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 } else {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
-
-
 
 # Ordinal/Nominal Variables
 
@@ -36,6 +34,8 @@ colo <- diverge_hsv(3) # different color palette
 
 # Bewertung Wohngegend
 # rearranging of groups
+count1$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
+                 'Sehr schlecht', 'Keine Angabe')
 count1$Var1 <- factor(count1$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
                                                           'Sehr schlecht', 'Keine Angabe'))
 # Plotting              
@@ -47,6 +47,8 @@ Wohngegend
 
 # Meinung über Stuttgart 21
 # rearranging of groups
+count2$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
+                 'Sehr schlecht', 'Keine Angabe')
 count2$Var1 <- factor(count2$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
                                               'Sehr schlecht', 'Keine Angabe'))
 # Plotting  
@@ -58,6 +60,8 @@ Stuttgart21
 
 # Personen im Haushalt
 # rearranging of groups
+count3$Var1 <- c('1', '2', '3', '4', 
+                 '>5')
 count3$Var1 <- factor(count3$Var1, levels = c('1', '2', '3', '4', 
                                               '>5'))
 # Plotting              
@@ -69,6 +73,8 @@ Personen
 
 # Monatliches Netto haushaltseinkommen
 # # rearranging of groups
+count4$Var1 <- c('<900', '900-<2000', '2000-<2900', '2900-<4000', 
+                 '4000-<5000', '>5000')
 count4$Var1 <- factor(count4$Var1, levels = c('<900', '900-<2000', '2000-<2900', '2900-<4000', 
                                               '4000-<5000', '>5000'))
 # Plotting              
@@ -80,6 +86,8 @@ Einkommen
 
 # Altersklasse
 # # rearranging of groups
+count5$Var1 <- c('15-<25', '25-<35', '35-<45', '45-<55', 
+                 '55-<65', '>65')
 count5$Var1 <- factor(count5$Var1, levels = c('15-<25', '25-<35', '35-<45', '45-<55', 
                                               '55-<65', '>65'))
 # Plotting              
