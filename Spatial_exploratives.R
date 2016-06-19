@@ -1,12 +1,12 @@
 ########################
 # Spatial exploratives #
 ########################
-
+rm(list=ls())
 # loading packages
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);require(ggmap)
 
-bearbeiter = 'Kai'
+bearbeiter = 'Alex'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
@@ -22,7 +22,16 @@ if(bearbeiter == 'Alex'){
 
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'X', 'Y')
-ST21 <- dataS[myvar]
+ST22 <- dataS[myvar]
+ST21 <- ST22
+# numerical classes into factor classes
+ST21$Meinung.zu.Stuttgart.21 <- ''
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 1] <- 'Sehr gut'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 2] <- 'Gut'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 3] <- 'Neutral'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 4] <- 'Schlecht'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 5] <- 'Sehr schlecht'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 6] <- 'Keine Angabe'
 # assigning names
 names(ST21) <- c('Meinung', 'long', 'lat') 
 # reshaping data frame for plotting
@@ -57,7 +66,6 @@ ggplot() + geom_polygon(data=bezirke, aes(x=long, y=lat, group=group), fill="gre
 # transform to spatial class
 coordinates(ST21) <- ~ long + lat
 # assign CRS
-# proj4string(ST21) <- CRS("+init=epsg:4839")
 proj4string(ST21) <- CRS("+init=epsg:31467")
 # reproject data
 ST21 <- spTransform(ST21, CRS("+proj=longlat +datum=WGS84"))
