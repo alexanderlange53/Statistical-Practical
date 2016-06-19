@@ -5,7 +5,6 @@
 # Zuletzt bearbeitet: 17.06.2016
 # von: Kai
 
-#Test: Naechste Nerdstufe - GIT@home + Unilaufwerk
 
 #---------------------#
 ## Datenvorbereitung ##
