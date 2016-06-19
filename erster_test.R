@@ -14,11 +14,12 @@
 rm(list=ls())
 
 ## Pakete laden und Arbeitsordner setzen ##
-bearbeiter = 'Alex'
+bearbeiter = 'Kai'
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
 } else {
-  setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+  #setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+  setwd('/media/kai/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical')
 }
 
 library("ROCR")
@@ -27,12 +28,14 @@ library("splines")
 
 # Hilfsfunktionen
 source('./erster_test_functions.R')
+source('./prediction.R')
 
 ## Einlesen ##
 if(bearbeiter == 'Alex') {
   zensus_sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt", header=TRUE, sep=";")
 } else {
-  zensus_sample <- read.table("/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Rohdaten/zensus/sample_aufbereitet.txt", header=TRUE, sep=";")
+  zensus_sample <- read.table("./Rohdaten/zensus/sample_aufbereitet.txt", header=TRUE, sep=";")
+  zensus_population <- read.table("./Rohdaten/zensus/population_aufbereitet.txt", header=TRUE, sep=";")
 }
 
 #-------------------#
@@ -49,7 +52,7 @@ verteilung <- binomial()
 # Gewichte
 gewichte <- "gewicht"
 
-# raeumlicher Effekt
+# raeumlicher Effekt ueber Tensor Spline
 seff <- "s(xcoord, ycoord, bs=\"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
@@ -61,10 +64,15 @@ nonpars <- c("alter","wohnflaeche","haushaltsgroesse")
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
 
 ## gam Aufruf ##
-gam(formel , weights = zensus_sample[, gewichte], family = verteilung, link = logit, method = "REML", data = zensus_sample)
+t1 <- gam(formel , weights = zensus_sample[, gewichte], family = verteilung, link = logit, method = "REML", data = zensus_sample)
 
 ## gam Analyse ##
+t1
+plot(t1, pages = 1)
+gam.check(t1) # Sieht katastrophal aus. Aber Die Residuenanalyse ist ja bei kategoriellen Modellen auch sowieso nicht einfach zu interpretieren.
+summary(t1)
 
+prediction(t1)
 
 
 #### Beispiel 2: Geordneter Response Zensus ####
