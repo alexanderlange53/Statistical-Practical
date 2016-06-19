@@ -4,7 +4,7 @@
 
 library(Hmisc)
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -13,8 +13,8 @@ if(bearbeiter == 'Alex') {
   Neu <- spss.get('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Ukneib/Buergerumfrage_Kneib.SAV',
                  use.value.labels=TRUE)
 } else {
-  setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/')
-  Neu <- spss.get('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Daten_Kneib2/Daten_Kneib/Buergerumfrage_Kneib.SAV',
+  setwd('/media/kai/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+  Neu <- spss.get('./Rohdaten/buergerumfrage_neu/Buergerumfrage_Kneib.SAV',
                 use.value.labels=TRUE)
 }
 
@@ -83,4 +83,9 @@ Neu2$Familienstand[Neu$Familienstand == 'verheiratet; eingetragene Lebenspartner
 Neu2$Familienstand[Neu$Familienstand == 'verwitwet'] <- 'verwitwet'
 Neu2$Familienstand[Neu$Familienstand == 'geschieden'] <- 'geschieden'
 
-write.table(Neu2, file="Stuttgart21_aufbereitet.csv", sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+if (bearbeiter == "Alex") {
+  write.table(Neu2, file="Stuttgart21_aufbereitet.csv", sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+} else {
+  write.table(Neu2, file = "./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+}
+
