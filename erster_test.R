@@ -2,7 +2,7 @@
 #### Erster Versuch unterschiedliche gam zu parameterisieren ####
 #---------------------------------------------------------------#
 
-# Zuletzt bearbeitet: 1.06.2016
+# Zuletzt bearbeitet: 19.06.2016
 # von: Kai
 
 

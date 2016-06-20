@@ -11,14 +11,14 @@ require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
 } else {
-  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten//Stuttgart21_aufbereitet.csv',
+  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
   
@@ -94,7 +94,7 @@ model2$family$getTheta(TRUE)
 
 #-------------# Schätzung mit diskreter räumlicher information #-----------------#
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
@@ -122,9 +122,15 @@ verteilung <- ocat(R=5)
 
 # Extrahieren der räumlichen Informationen der Stadtbezirke
 bezirke@data$id <- rownames(bezirke@data)
-helpdf<- fortify(bezirke, region = "id")
+helpdf <- fortify(bezirke, region = "id")
 bb <- merge(helpdf, bezirke@data, by = 'id', all.x = T)
 bb2 <- select(bb, long, lat, STADTBEZIR)
+
+bb3 <- list()
+for(i in levels(factor(bb2$STADTBEZIR))) {
+  bb3[[i]] <- bb2[bb2$STADTBEZIR == i, c('long', 'lat')]
+  
+}
 
 
 # raeumlicher Effekt
