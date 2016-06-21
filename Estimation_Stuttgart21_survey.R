@@ -273,7 +273,7 @@ Y <- c(rep(404074, length(u)))
 D <- c(rep(0, length(u)))
 pseudo.a <- as.data.frame(cbind(B, MM, P, M, A, G, FF, N, Sb, as.character(u), X, Y))
 names(pseudo.a)<- names(dataS)
-pseudo.a$Gewicht  <- 0
+pseudo.a$Gewicht  <- 0.1
 # erstellen der Pseudobeobachtungen II
 pseudo <- as.data.frame(cbind(fehlende.b$Var2, as.character(fehlende.b$Var1)))
 P <- c(rep(1,nrow(pseudo)))
@@ -290,7 +290,7 @@ D <- c(rep(0, nrow(pseudo)))
 pseudo.b <- as.data.frame(cbind(B, fehlende.b$Var2, P, M, A, G, FF, N, Sb, as.character(fehlende.b$Var1), X, Y))
 names(pseudo.b)<- names(dataS)
 # Pseudo Beobachtungen mit 0 gewichten
-pseudo.b$Gewicht  <- 0
+pseudo.b$Gewicht  <- 0.1
 # Rest mit 1 gewichten
 dataS$Gewicht <- 1
 dataS <- rbind(dataS, pseudo.b, pseudo.a)
@@ -309,8 +309,10 @@ nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Ne
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
 
 # GAM Schätzung
-model4 <- gam(formel,  weights = dataS$Gewicht, data = dataS, family= verteilung, method = 'REML')
-summary(model4)
-plot(model4, pages = 1)
-gam.check(model4)
-model4$family$getTheta(TRUE)
+model5 <- gam(formel,  weights = dataS$Gewicht, data = dataS, family= verteilung, method = 'REML')
+summary(model5)
+plot(model5, pages = 1)
+gam.check(model5)
+model5$family$getTheta(TRUE)
+
+# link zu simon woods lösung: http://r.789695.n4.nabble.com/MRF-smoothers-in-MGCV-specifying-neighbours-td4690164.html
