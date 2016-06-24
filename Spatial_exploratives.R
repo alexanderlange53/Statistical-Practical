@@ -61,8 +61,8 @@ ggplot() + geom_polygon(data=bezirke, aes(x=long, y=lat, group=group), fill="gre
   ) +
   guides(color = guide_legend(override.aes = list(size=5)))
 
-######### Relative frequency plots ##############
-
+#-------------------------------------------# Relative frequency plots #------------------------------------------------#
+colo <- diverge_hsv(3)
 # transform to spatial class
 coordinates(ST21) <- ~ long + lat
 # assign CRS
@@ -70,31 +70,143 @@ proj4string(ST21) <- CRS("+init=epsg:31467")
 # reproject data
 ST21 <- spTransform(ST21, CRS("+proj=longlat +datum=WGS84"))
 # loading map
-map <- get_map(location= rowMeans(bbox(ST21)), zoom=12, maptype = 'roadmap', scale = 2)
+map <- get_map(location= rowMeans(bbox(ST21)), zoom=11, maptype = 'roadmap', scale = 2)
 # transform back to data frame for ggplot
 ST21.g <- as.data.frame(ST21)
-# getting high ratings
+
+#--------------#
+# 5 Kategorien #
+#--------------#
+
+# getting ratings
 SS <- ST21.g[which(ST21.g$Meinung=='Sehr gut'),]
 # plotting map
-g1 <- ggmap(map) + geom_density2d(data = SS, 
-                                  aes(x = long, y = lat), size = 0.3) +
+g1 <- ggmap(map, extent = 'device', legend = 'topright') + 
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
     size = 2, bins = 4, data = SS,
     geom = "polygon"
   ) +
- theme(
-    legend.position = 'none'
-    ,axis.text.x=element_blank()
-    ,axis.text.y=element_blank()
-    ,axis.ticks.y=element_blank()
-    ,axis.ticks.x=element_blank()
-  ) + labs(title = 'Kontinuierlich')
-g1 
-# Plot ist auf jeden fall noch verbesserungswürdig, äußere Beobachtungen sind abgeschnitten.
-# Alternative ist bisher nur eine Ansicht von sehr weit weg. Sinnvolle Legende einfügen
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Sehr gut \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g1 
 
-#---------------------# Diskrete Informationen mit Stadtbezirken #--------------------------#
+# getting ratings
+SS2 <- ST21.g[which(ST21.g$Meinung=='Gut'),]
+# plotting map
+g2 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = SS2,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Gut \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g2 
+
+# getting ratings
+SS3 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
+# plotting map
+g3 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = SS3,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Neutral \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g3 
+
+# getting ratings
+SS4 <- ST21.g[which(ST21.g$Meinung=='Schlecht'),]
+# plotting map
+g4 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = SS4,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Schlecht \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g4
+
+# getting ratings
+SS5 <- ST21.g[which(ST21.g$Meinung=='Sehr schlecht'),]
+# plotting map
+g5 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = SS5,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Sehr schlecht \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g5
+
+grid.arrange(g1,g2,g3,g4,g5, nrow = 2)
+
+#--------------#
+# 3 Kategorien #
+#--------------#
+
+# getting ratings
+S3 <- ST21.g[which(ST21.g$Meinung=='Sehr gut' | ST21.g$Meinung=='Gut'),]
+# plotting map
+g31 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = S3,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Zustimmung \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g1 
+
+# getting ratings
+S32 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
+# plotting map
+g32 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = S32,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Neutral \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g3 
+
+# getting ratings
+S4 <- ST21.g[which(ST21.g$Meinung=='Schlecht' | ST21.g$Meinung=='Sehr schlecht'),]
+# plotting map
+g34 <- ggmap(map, extent = 'device', legend = 'topright') + 
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 4, data = S4,
+    geom = "polygon"
+  ) +
+  scale_fill_gradient(low=colo[1], high = colo[3])+
+  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  labs(fill = 'Ablehnung \n Dichte') +
+  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+#g4
+
+grid.arrange(g31,g32,g34, nrow = 1)
+
+#-----------------------------------# Diskrete Informationen mit Stadtbezirken #--------------------------------------#
 # Für Farbpalette
 colo <- diverge_hsv(3)
 
@@ -124,9 +236,9 @@ bb2$anteil <- as.numeric(as.character(bb2$anteil))
 bb2 <- bb2[order(bb2$order),]
 
 # Plotten der Meinung 'Sehr gut' pro Bezirk
-g2 <- ggplot(data=bb2, aes(x=long, y=lat, group=group, fill = anteil))+  
+d1 <- ggplot(data=bb2, aes(x=long, y=lat, group=group, fill = anteil))+  
   geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title= 'Diskret Stadtbezirke') +
+  labs(x=NULL, y=NULL, title= 'Sehr Gut') +
   scale_fill_gradient(name = "Prozent", low = colo[2], high = colo[1], guide = "colorbar",
                       breaks = pretty_breaks(n = 5)) +
   coord_equal(1)+
@@ -142,7 +254,9 @@ g2 <- ggplot(data=bb2, aes(x=long, y=lat, group=group, fill = anteil))+
     ,axis.ticks.y=element_blank()
     ,axis.ticks.x=element_blank()
     )
-g2
+d1
+
+
 #---------------------# Diskrete Informationen mit Stadtteilen #--------------------------#
 
 # Einladen der Stadtteildaten
