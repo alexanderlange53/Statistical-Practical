@@ -218,24 +218,55 @@ gam.check(model4)
 model4$family$getTheta(TRUE)
 
 
-#----------------------------------------------------------------------------#
-# Schätzung mit 3 Kategorien und den Stadtbezirken als räumliche Information #
-#----------------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+# Schätzung mit 3 Kategorien und den Stadtteilen als räumliche Information #
+#--------------------------------------------------------------------------#
 
 bearbeiter = 'Alex'
 # laden der Stadtteilinformationen
 if(bearbeiter == 'Alex'){
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
+                     dec = '.')
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
 } else {
+  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
+                     dec = '.')
   stadtteile <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
 }
+
+# Da die Kategorie 'Keine Angabe' nicht in das Schema der geordneten Kategorien passt und keine Informationen
+# enthält wirde sie entfernt.
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
+    dataS$Meinung.zu.Stuttgart.21[i] <- NA
+  }}
+dataS <- na.omit(dataS)
+
+# Zusammenführen von 'Sehr gut' und 'Gut' zu Zustimmung und 'Sehr Schlecht' und 'Schlecht' zu Ablehnend 
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 2){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 1
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 3){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 2
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 4){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 5){
+    dataS$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
 
 # Extrahieren der räumlichen Informationen der Stadtbezirke
 stadtteile@data$id <- rownames(stadtteile@data)
 helpdf <- fortify(stadtteile, region = "id")
 bb <- merge(helpdf, stadtteile@data, by = 'id', all.x = T)
-bb2 <- select(bb, long, lat, STADTTEIL, order)
-#bb2$STADTTEIL <- factor(bb2$STADTTEIL, levels = bb2[order(bb2$order), 'STADTTEIL'])
+bb2 <- select(bb, long, lat, STADTTEIL)
+
+# Listenstruktur erstellen für Makrov random field im spline
 bb3 <- list()
 for(i in levels(factor(bb2$STADTTEIL))) {
   bb3[[i]] <- bb2[bb2$STADTTEIL == i, c('long', 'lat')]
@@ -248,33 +279,34 @@ zt <- list(polys = bb3)
 # Lösung: Pseudobeobachtung erstellen und danach mit 0 gewichten.
 
 m <- as.data.frame(table(dataS$Stadtteil, dataS$Meinung.zu.Stuttgart.21)) # Um zu sehen wo Beobachtungen fehlen
-fehlende.b <- filter(m, Freq == 0)
+fehlende.b <- filter(m, Freq == 0) # Stadtteile in denen Beobachtungen fehlen
 
 # Weiteres Problem: Einige Stadtteile wie z.B. der Wald im Westen haben gar keine Beobachtungen.
 # Darum weitere Pseudobeobachtungen
-stadtteile.pol <- as.data.frame(table(bb2$STADTTEIL))
-stadtteile.dat <- as.data.frame(table(dataS$Stadtteil))
+stadtteile.pol <- as.data.frame(table(bb2$STADTTEIL)) # Alle Stadtteile mit räumlichen Informationen
+stadtteile.dat <- as.data.frame(table(dataS$Stadtteil)) # Alle Stadtteile mit Beobachtungen
 names(stadtteile.dat) <- c('Var1', 'Freq2')
 unterschied <- merge(stadtteile.pol, stadtteile.dat, all.x = T)
-unterschied <- filter(unterschied, is.na(Freq2))
-u <- rep(as.character(unterschied[,1]), 3)
-# erstellen der Pseudobeobachtungen II
+unterschied <- filter(unterschied, is.na(Freq2)) # Leere Polygone wie z.B. der Wald
+u <- c(rep(as.character(unterschied[,1]), 3)) # jeweils eine Beobachtung jeder Kategorie erstellen
+# erstellen der Pseudobeobachtungen für Stadtteile mit gar keinen Beobachtungen
 MM <- c(rep(1, nrow(unterschied)), rep(2, nrow(unterschied)), rep(3, nrow(unterschied)))
 P <- c(rep(1,length(u)))
 M <- c(rep(1,length(u)))
 A <- c(rep(1,length(u)))
 B <- c(rep(1,length(u)))
-N <- c( rep('Deutsch',length(u)))
-G <- c( rep('Männlich' ,length(u)))  
-FF <- c( rep('ledig',length(u)))
+N <- c(rep('Deutsch',length(u)))
+G <- c(rep('Männlich' ,length(u)))  
+FF <- c(rep('ledig',length(u)))
 Sb <- c(rep('Mitte', length(u)))
-X <- c( rep(3513518,length(u)))
+X <- c(rep(3513518,length(u)))
 Y <- c(rep(404074, length(u)))
 D <- c(rep(0, length(u)))
 pseudo.a <- as.data.frame(cbind(B, MM, P, M, A, G, FF, N, Sb, as.character(u), X, Y))
 names(pseudo.a)<- names(dataS)
-pseudo.a$Gewicht  <- 0.1
-# erstellen der Pseudobeobachtungen II
+# Gewichte einführen, um bias zu verhindern
+pseudo.a$Gewicht  <- 0
+# erstellen der Pseudobeobachtungen für Stadtteile mit parziel fehlenden Beobachtungen
 pseudo <- as.data.frame(cbind(fehlende.b$Var2, as.character(fehlende.b$Var1)))
 P <- c(rep(1,nrow(pseudo)))
 M <- c(rep(1,nrow(pseudo)))
@@ -290,29 +322,49 @@ D <- c(rep(0, nrow(pseudo)))
 pseudo.b <- as.data.frame(cbind(B, fehlende.b$Var2, P, M, A, G, FF, N, Sb, as.character(fehlende.b$Var1), X, Y))
 names(pseudo.b)<- names(dataS)
 # Pseudo Beobachtungen mit 0 gewichten
-pseudo.b$Gewicht  <- 0.1
-# Rest mit 1 gewichten
-dataS$Gewicht <- 1
-dataS <- rbind(dataS, pseudo.b, pseudo.a)
+pseudo.b$Gewicht  <- 0
+# Echte Beobachtungen mit 1 gewichten
+dat.teile <- dataS
+dat.teile$Gewicht <- 1
+names(pseudo.a)<- names(dat.teile)
+names(pseudo.b)<- names(dat.teile)
+# Zusammmenfügen von echten und pseudo Beobachtungen
+dat.teile <- rbind(dat.teile, pseudo.b, pseudo.a)
+dat.teile <- dat.teile[order(dat.teile$Stadtteil),]
+
+# Einige Variablen sind fälschlicherweise als Character gespeichert
+dat.teile$Bewertung.Wohngegend <- as.integer(dat.teile$Bewertung.Wohngegend)
+dat.teile$Personenzahl.im.Haushalt <- as.integer(dat.teile$Personenzahl.im.Haushalt)
+dat.teile$Monatliches.Netto.Haushaltseinkommen <- as.integer(dat.teile$Monatliches.Netto.Haushaltseinkommen)
+dat.teile$Altersklasse.Befragter <- as.integer(dat.teile$Altersklasse.Befragter)
+dat.teile$Meinung.zu.Stuttgart.21 <- as.numeric(dat.teile$Meinung.zu.Stuttgart.21)
+
+# Angleichen der Factor levels der Daten und des Markov random fields
+dat.teile$Stadtteil <- factor(dat.teile$Stadtteil, levels = names(zt$polys))
 
 response <- "Meinung.zu.Stuttgart.21"
+verteilung <- ocat(R=3)
 # raeumlicher Effekt
 seff <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
+# Zeigt die Anzahl der klassen der Variablen. Knots vom spline sind by default = 10, wenn die Anzahl der Klassen aber weniger 
+# als 10 sind, kann dies zu Problemen führen.
+unique(dat.teile$Altersklasse.Befragter)
+unique(dat.teile$Personenzahl.im.Haushalt)
+unique(dat.teile$Monatliches.Netto.Haushaltseinkommen)
+
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k= 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
 
 # GAM Schätzung
-model5 <- gam(formel,  weights = dataS$Gewicht, data = dataS, family= verteilung, method = 'REML')
+model5 <- gam(formel,  weights = dat.teile$Gewicht, data = dat.teile, family= verteilung, method = 'REML')
 summary(model5)
 plot(model5, pages = 1)
 gam.check(model5)
 model5$family$getTheta(TRUE)
-
-# link zu simon woods lösung: http://r.789695.n4.nabble.com/MRF-smoothers-in-MGCV-specifying-neighbours-td4690164.html
