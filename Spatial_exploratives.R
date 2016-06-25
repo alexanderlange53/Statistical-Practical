@@ -70,10 +70,13 @@ proj4string(ST21) <- CRS("+init=epsg:31467")
 # reproject data
 ST21 <- spTransform(ST21, CRS("+proj=longlat +datum=WGS84"))
 # loading map
-map <- get_map(location= rowMeans(bbox(ST21)), zoom=11, maptype = 'roadmap', scale = 2)
+map <- get_map(location= rowMeans(bbox(ST21)), zoom=11, maptype = 'terrain', scale = 2)
 # transform back to data frame for ggplot
 ST21.g <- as.data.frame(ST21)
 
+bezirke.t <- spTransform(bezirke, CRS("+proj=longlat"))
+bezirke.t.f <- fortify(bezirke.t, region = 'id')
+bezirke.t.f.m <
 #--------------#
 # 5 Kategorien #
 #--------------#
@@ -81,76 +84,76 @@ ST21.g <- as.data.frame(ST21)
 # getting ratings
 SS <- ST21.g[which(ST21.g$Meinung=='Sehr gut'),]
 # plotting map
-g1 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g1 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = SS,
+    size = 2, bins = 6, data = SS,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Sehr gut \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
-#g1 
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
+g1 
 
 # getting ratings
 SS2 <- ST21.g[which(ST21.g$Meinung=='Gut'),]
 # plotting map
-g2 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g2 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = SS2,
+    size = 2, bins = 6, data = SS2,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Gut \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g2 
 
 # getting ratings
 SS3 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
 # plotting map
-g3 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g3 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = SS3,
+    size = 2, bins = 6, data = SS3,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Neutral \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g3 
 
 # getting ratings
 SS4 <- ST21.g[which(ST21.g$Meinung=='Schlecht'),]
 # plotting map
-g4 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g4 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = SS4,
+    size = 2, bins = 6, data = SS4,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Schlecht \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g4
 
 # getting ratings
 SS5 <- ST21.g[which(ST21.g$Meinung=='Sehr schlecht'),]
 # plotting map
-g5 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g5 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = SS5,
+    size = 2, bins = 6, data = SS5,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Sehr schlecht \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g5
 
 grid.arrange(g1,g2,g3,g4,g5, nrow = 2)
@@ -162,46 +165,46 @@ grid.arrange(g1,g2,g3,g4,g5, nrow = 2)
 # getting ratings
 S3 <- ST21.g[which(ST21.g$Meinung=='Sehr gut' | ST21.g$Meinung=='Gut'),]
 # plotting map
-g31 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g31 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = S3,
+    size = 2, bins = 6, data = S3,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Zustimmung \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g1 
 
 # getting ratings
 S32 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
 # plotting map
-g32 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g32 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = S32,
+    size = 2, bins = 6, data = S32,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Neutral \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g3 
 
 # getting ratings
 S4 <- ST21.g[which(ST21.g$Meinung=='Schlecht' | ST21.g$Meinung=='Sehr schlecht'),]
 # plotting map
-g34 <- ggmap(map, extent = 'device', legend = 'topright') + 
+g34 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 4, data = S4,
+    size = 2, bins = 6, data = S4,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[1], high = colo[3])+
-  scale_alpha(range = c(0.1,0.6), guide=FALSE) +
+  scale_fill_gradient(low=colo[2], high = colo[1])+
+  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
   labs(fill = 'Ablehnung \n Dichte') +
-  xlim(9.08, 9.35) + ylim(48.7, 48.86)
+  xlim(9.035, 9.35) + ylim(48.69, 48.87)
 #g4
 
 grid.arrange(g31,g32,g34, nrow = 1)
@@ -257,7 +260,7 @@ d1 <- ggplot(data=bb2, aes(x=long, y=lat, group=group, fill = anteil))+
 d1
 
 
-#---------------------# Diskrete Informationen mit Stadtteilen #--------------------------#
+#-----------------------------------------# Diskrete Informationen mit Stadtteilen #---------------------------------------#
 
 # Einladen der Stadtteildaten
 bearbeiter = 'Alex'
@@ -275,8 +278,8 @@ ST <- dataS[myvar]
 beob.teile <- as.data.frame(table(ST$Stadtteil))
 meinung.teile <-as.data.frame(table(ST$Stadtteil, ST$Meinung.zu.Stuttgart.21))
 
-# Anteile 'Sehr gut' berechnen 
-anteil <- (meinung.teile$Freq[1:141]/beob.teile$Freq)*100
+# Anteile 'Zustimmung' berechnen 
+anteil <- ((meinung.teile$Freq[1:141] + meinung.teile$Freq[142:282])/beob.teile$Freq)*100
 M.teile.sg <- as.data.frame(cbind(as.character(beob.teile$Var1), anteil))
 
 # ID variable erzeugen um objecte zu verbinden
@@ -293,11 +296,11 @@ bbs2$anteil <- as.numeric(as.character(bbs2$anteil))
 # Sortieren um polygone richtig zu plotten
 bbs2 <- bbs2[order(bbs2$order),]
 
-# Plotten der Meinung 'Sehr gut' pro Stadtteil
-g3 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
+# Plotten der Meinung 'Zustimmung' pro Stadtteil
+t1 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
   geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title='Diskret Stadtteile') +
-  scale_fill_gradient(name = "Prozent", low = colo[2], high = colo[1], guide = "colorbar",na.value="black",
+  labs(x=NULL, y=NULL, title=NULL) +
+  scale_fill_gradient2(name = "Zustimmung \n  Prozent",midpoint = 50, low = colo[1], mid = colo[2], high = colo[3], guide = "colorbar",na.value="black",
                       breaks = pretty_breaks(n = 5)) +
   coord_equal(1)+
   theme_bw(15) +
@@ -312,9 +315,84 @@ g3 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+
     ,axis.ticks.y=element_blank()
     ,axis.ticks.x=element_blank()
   )
-g3
+#t1
 
-# Alle 3 möglichkeiten der Darstellung zum Vergleich
-grid.arrange(g1, g2, g3, ncol = 3)
-# Alle drei plots zeigen in etwas das gleich: Gewisse cluster von Zustimmung sind vorhanden, Zustimmung eher im Nordosten.
-# Plot 3 zeigt am genausten wo Zustimmung hoch und wo nicht
+# Anteile 'Neutral' berechnen 
+anteil <- ((meinung.teile$Freq[283:423])/beob.teile$Freq)*100
+M.teile.sg <- as.data.frame(cbind(as.character(beob.teile$Var1), anteil))
+
+# ID variable erzeugen um objecte zu verbinden
+colnames(M.teile.sg) <- c('id', 'anteil')
+Stadtteile@data$id <- rownames(Stadtteile@data)
+watershedPoints <- fortify(Stadtteile, region = "id")
+
+# Data Frame und Spatial object verbinden
+bbs <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+colnames(M.teile.sg) <- c('STADTTEIL', 'anteil')
+bbs2 <- merge(bbs, M.teile.sg, by = 'STADTTEIL', all.x = T)
+bbs2$anteil <- as.numeric(as.character(bbs2$anteil))
+
+# Sortieren um polygone richtig zu plotten
+bbs2 <- bbs2[order(bbs2$order),]
+
+# Plotten der Meinung 'Neutral' pro Stadtteil
+t2 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
+  geom_polygon(color = "black") +
+  labs(x=NULL, y=NULL, title=NULL) +
+  scale_fill_gradient2(name = "Neutral \n  Prozent",midpoint = 50, low = colo[1], mid = colo[2], high = colo[3], guide = "colorbar",na.value="black",
+                       breaks = pretty_breaks(n = 5)) +
+  coord_equal(1)+
+  theme_bw(15) +
+  theme(
+    plot.background = element_blank()
+    ,panel.grid.major = element_blank()
+    ,panel.grid.minor = element_blank()
+    ,panel.border = element_blank()
+    ,legend.position = 'right'
+    ,axis.text.x=element_blank()
+    ,axis.text.y=element_blank()
+    ,axis.ticks.y=element_blank()
+    ,axis.ticks.x=element_blank()
+  )
+#t2
+
+# Anteile 'Ablehnung' berechnen 
+anteil <- ((meinung.teile$Freq[424:564] + meinung.teile$Freq[565:705])/beob.teile$Freq)*100
+M.teile.sg <- as.data.frame(cbind(as.character(beob.teile$Var1), anteil))
+
+# ID variable erzeugen um objecte zu verbinden
+colnames(M.teile.sg) <- c('id', 'anteil')
+Stadtteile@data$id <- rownames(Stadtteile@data)
+watershedPoints <- fortify(Stadtteile, region = "id")
+
+# Data Frame und Spatial object verbinden
+bbs <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+colnames(M.teile.sg) <- c('STADTTEIL', 'anteil')
+bbs2 <- merge(bbs, M.teile.sg, by = 'STADTTEIL', all.x = T)
+bbs2$anteil <- as.numeric(as.character(bbs2$anteil))
+
+# Sortieren um polygone richtig zu plotten
+bbs2 <- bbs2[order(bbs2$order),]
+
+# Plotten der Meinung 'Ablehnung' pro Stadtteil
+t3 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
+  geom_polygon(color = "black") +
+  labs(x=NULL, y=NULL, title=NULL) +
+  scale_fill_gradient2(name = "Ablehnung \n  Prozent",midpoint = 50, low = colo[1], mid = colo[2], high = colo[3], guide = "colorbar",na.value="black",
+                       breaks = pretty_breaks(n = 5)) +
+  coord_equal(1)+
+  theme_bw(15) +
+  theme(
+    plot.background = element_blank()
+    ,panel.grid.major = element_blank()
+    ,panel.grid.minor = element_blank()
+    ,panel.border = element_blank()
+    ,legend.position = 'right'
+    ,axis.text.x=element_blank()
+    ,axis.text.y=element_blank()
+    ,axis.ticks.y=element_blank()
+    ,axis.ticks.x=element_blank()
+  )
+#t3
+
+grid.arrange(t1, t2, t3, nrow = 1)
