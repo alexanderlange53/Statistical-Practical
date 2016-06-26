@@ -272,128 +272,60 @@ if(bearbeiter == 'Alex'){
   Stadtteile <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
 }
 
+#-------------------------#
+# 3 Kategorien facet wrap #
+#-------------------------#
+
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'Stadtteil', 'X', 'Y')
 ST <- dataS[myvar]
-# Ermittlung der Zustimmung in den Stadtteilen ('Sehr gut')
+
+# Ermittlung der Zustimmung in den Stadtteilen
 beob.teile <- as.data.frame(table(ST$Stadtteil))
 meinung.teile <-as.data.frame(table(ST$Stadtteil, ST$Meinung.zu.Stuttgart.21))
 
-# Anteile 'Zustimmung' berechnen 
-anteil <- ((meinung.teile$Freq[1:141] + meinung.teile$Freq[142:282])/beob.teile$Freq)*100
-M.teile.sg <- as.data.frame(cbind(as.character(beob.teile$Var1), anteil))
+# Anteile berechnen 
+Zustimmung <- ((meinung.teile$Freq[1:141] + meinung.teile$Freq[142:282])/beob.teile$Freq)*100
+Zustimmung.a <- as.data.frame(cbind(as.character(beob.teile$Var1), Zustimmung))
+Zustimmung.a$Meinung <- as.factor('Zustimmung')
+Neutral <- ((meinung.teile$Freq[283:423])/beob.teile$Freq)*100
+Neutral.a <- as.data.frame(cbind(as.character(beob.teile$Var1), Neutral))
+Neutral.a$Meinung <- as.factor('Neutral')
+Ablehnung <- ((meinung.teile$Freq[424:564] + meinung.teile$Freq[565:705])/beob.teile$Freq)*100
+Ablehnung.a <- as.data.frame(cbind(as.character(beob.teile$Var1), Ablehnung))
+Ablehnung.a$Meinung <- as.factor('Ablehnung')
 
 # ID variable erzeugen um objecte zu verbinden
-colnames(M.teile.sg) <- c('id', 'anteil')
 Stadtteile@data$id <- rownames(Stadtteile@data)
 watershedPoints <- fortify(Stadtteile, region = "id")
 
 # Data Frame und Spatial object verbinden
 bbs <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
-colnames(M.teile.sg) <- c('STADTTEIL', 'anteil')
-bbs2 <- merge(bbs, M.teile.sg, by = 'STADTTEIL', all.x = T)
-bbs2$anteil <- as.numeric(as.character(bbs2$anteil))
+colnames(Zustimmung.a) <- c('STADTTEIL', 'anteil', 'Meinung')
+colnames(Neutral.a) <- c('STADTTEIL', 'anteil', 'Meinung')
+colnames(Ablehnung.a) <- c('STADTTEIL', 'anteil', 'Meinung')
+bbz <- merge(bbs, Zustimmung.a, by = 'STADTTEIL', all.x = T)
+bbn <- merge(bbs, Neutral.a, by = 'STADTTEIL', all.x = T)
+bba <- merge(bbs, Ablehnung.a, by = 'STADTTEIL', all.x = T)
+s.facet <- rbind(bbz, bbn, bba)
+s.facet$anteil <- as.numeric(as.character(s.facet$anteil))
 
 # Sortieren um polygone richtig zu plotten
-bbs2 <- bbs2[order(bbs2$order),]
+s.facet <- s.facet[order(s.facet$order),]
+s.facet <- na.omit(s.facet)
 
-# Plotten der Meinung 'Zustimmung' pro Stadtteil
-t1 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
+ggplot(data=s.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
   geom_polygon(color = "black") +
   labs(x=NULL, y=NULL, title=NULL) +
-  scale_fill_gradient2(name = "Zustimmung \n  Prozent",midpoint = 50, low = colo[1], mid = colo[2], high = colo[3], guide = "colorbar",na.value="black",
-                      breaks = pretty_breaks(n = 5)) +
-  coord_equal(1)+
-  theme_bw(15) +
-  theme(
-    plot.background = element_blank()
-    ,panel.grid.major = element_blank()
-    ,panel.grid.minor = element_blank()
-    ,panel.border = element_blank()
-    ,legend.position = 'right'
-    ,axis.text.x=element_blank()
-    ,axis.text.y=element_blank()
-    ,axis.ticks.y=element_blank()
-    ,axis.ticks.x=element_blank()
-  )
-#t1
-
-# Anteile 'Neutral' berechnen 
-anteil <- ((meinung.teile$Freq[283:423])/beob.teile$Freq)*100
-M.teile.sg <- as.data.frame(cbind(as.character(beob.teile$Var1), anteil))
-
-# ID variable erzeugen um objecte zu verbinden
-colnames(M.teile.sg) <- c('id', 'anteil')
-Stadtteile@data$id <- rownames(Stadtteile@data)
-watershedPoints <- fortify(Stadtteile, region = "id")
-
-# Data Frame und Spatial object verbinden
-bbs <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
-colnames(M.teile.sg) <- c('STADTTEIL', 'anteil')
-bbs2 <- merge(bbs, M.teile.sg, by = 'STADTTEIL', all.x = T)
-bbs2$anteil <- as.numeric(as.character(bbs2$anteil))
-
-# Sortieren um polygone richtig zu plotten
-bbs2 <- bbs2[order(bbs2$order),]
-
-# Plotten der Meinung 'Neutral' pro Stadtteil
-t2 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
-  geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title=NULL) +
-  scale_fill_gradient2(name = "Neutral \n  Prozent",midpoint = 50, low = colo[1], mid = colo[2], high = colo[3], guide = "colorbar",na.value="black",
+  scale_fill_gradient(name = "Anteil\n in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
                        breaks = pretty_breaks(n = 5)) +
+  scale_alpha(range = c(0.3,1), guide=FALSE) +
   coord_equal(1)+
   theme_bw(15) +
   theme(
-    plot.background = element_blank()
-    ,panel.grid.major = element_blank()
-    ,panel.grid.minor = element_blank()
-    ,panel.border = element_blank()
-    ,legend.position = 'right'
+    legend.position = 'right'
     ,axis.text.x=element_blank()
     ,axis.text.y=element_blank()
     ,axis.ticks.y=element_blank()
     ,axis.ticks.x=element_blank()
-  )
-#t2
-
-# Anteile 'Ablehnung' berechnen 
-anteil <- ((meinung.teile$Freq[424:564] + meinung.teile$Freq[565:705])/beob.teile$Freq)*100
-M.teile.sg <- as.data.frame(cbind(as.character(beob.teile$Var1), anteil))
-
-# ID variable erzeugen um objecte zu verbinden
-colnames(M.teile.sg) <- c('id', 'anteil')
-Stadtteile@data$id <- rownames(Stadtteile@data)
-watershedPoints <- fortify(Stadtteile, region = "id")
-
-# Data Frame und Spatial object verbinden
-bbs <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
-colnames(M.teile.sg) <- c('STADTTEIL', 'anteil')
-bbs2 <- merge(bbs, M.teile.sg, by = 'STADTTEIL', all.x = T)
-bbs2$anteil <- as.numeric(as.character(bbs2$anteil))
-
-# Sortieren um polygone richtig zu plotten
-bbs2 <- bbs2[order(bbs2$order),]
-
-# Plotten der Meinung 'Ablehnung' pro Stadtteil
-t3 <- ggplot(data=bbs2, aes(x=long, y=lat, group=group, fill = anteil))+  
-  geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title=NULL) +
-  scale_fill_gradient2(name = "Ablehnung \n  Prozent",midpoint = 50, low = colo[1], mid = colo[2], high = colo[3], guide = "colorbar",na.value="black",
-                       breaks = pretty_breaks(n = 5)) +
-  coord_equal(1)+
-  theme_bw(15) +
-  theme(
-    plot.background = element_blank()
-    ,panel.grid.major = element_blank()
-    ,panel.grid.minor = element_blank()
-    ,panel.border = element_blank()
-    ,legend.position = 'right'
-    ,axis.text.x=element_blank()
-    ,axis.text.y=element_blank()
-    ,axis.ticks.y=element_blank()
-    ,axis.ticks.x=element_blank()
-  )
-#t3
-
-grid.arrange(t1, t2, t3, nrow = 1)
+  ) + facet_wrap(~Meinung, nrow = 1)
