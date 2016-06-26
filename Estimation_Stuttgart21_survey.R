@@ -48,7 +48,7 @@ seff <- "s(X, Y, bs=\"tp\")"
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -59,6 +59,8 @@ summary(model1)
 plot(model1, pages = 1)
 gam.check(model1)
 model1$family$getTheta(TRUE)
+
+saveRDS(model1, 'model1.rds')
 
 #-------------------------------------------------------------#
 # Schätzung mit transformierter response Variable (3 Klassen) #
@@ -94,6 +96,8 @@ summary(model2)
 plot(model2, pages = 1)
 gam.check(model2)
 model2$family$getTheta(TRUE)
+
+saveRDS(model2, 'model2.rds')
 
 #---------------------------------# Schätzung mit diskreter räumlicher information #---------------------------------------#
 
@@ -146,7 +150,7 @@ seff <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)"
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -157,6 +161,8 @@ summary(model3)
 plot(model3, pages = 1)
 gam.check(model3)
 model3$family$getTheta(TRUE)
+
+saveRDS(model3, 'model3.rds')
 
 #-----------------------------------------#
 # Bezirke als Informationen und 3 Klassen #
@@ -205,7 +211,7 @@ seff <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)"
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -217,6 +223,7 @@ plot(model4, pages = 1)
 gam.check(model4)
 model4$family$getTheta(TRUE)
 
+saveRDS(model4, 'model4.rds')
 
 #--------------------------------------------------------------------------#
 # Schätzung mit 3 Kategorien und den Stadtteilen als räumliche Information #
@@ -368,3 +375,5 @@ summary(model5)
 plot(model5, pages = 1)
 gam.check(model5)
 model5$family$getTheta(TRUE)
+
+saveRDS(model5, 'model5.rds')
