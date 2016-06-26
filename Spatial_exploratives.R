@@ -5,7 +5,7 @@ rm(list=ls())
 # loading packages
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);require(ggmap);require(sp);require(maptools);require(rvest)
-
+require(dplyr)
 bearbeiter = 'Alex'
 # loading data
 if(bearbeiter == 'Alex'){
@@ -312,10 +312,12 @@ s.facet$anteil <- as.numeric(as.character(s.facet$anteil))
 
 # Sortieren um polygone richtig zu plotten
 s.facet <- s.facet[order(s.facet$order),]
+pol.na <- filter(s.facet, is.na(Meinung))
+plo.na <- select(pol.na, STADTTEIL, id, long, lat, order, group)
 s.facet <- na.omit(s.facet)
 
-ggplot(data=s.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
-  geom_polygon(color = "black") +
+ggplot() +  geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
+  geom_polygon(data=s.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil), color = "black") +
   labs(x=NULL, y=NULL, title=NULL) +
   scale_fill_gradient(name = "Anteil\n in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
                        breaks = pretty_breaks(n = 5)) +
