@@ -75,143 +75,72 @@ map <- get_map(location= rowMeans(bbox(ST21)), zoom=11, maptype = 'terrain', sca
 ST21.g <- as.data.frame(ST21)
 
 bezirke.t <- spTransform(bezirke, CRS("+proj=longlat"))
-bezirke.t.f <- fortify(bezirke.t, region = 'id')
-bezirke.t.f.m <
-#--------------#
-# 5 Kategorien #
-#--------------#
+
+#-------------------------#
+# 5 Kategorien facet wrap #
+#-------------------------#
 
 # getting ratings
 SS <- ST21.g[which(ST21.g$Meinung=='Sehr gut'),]
-# plotting map
-g1 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = SS,
-    geom = "polygon"
-  ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Sehr gut \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-g1 
-
-# getting ratings
 SS2 <- ST21.g[which(ST21.g$Meinung=='Gut'),]
-# plotting map
-g2 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = SS2,
-    geom = "polygon"
-  ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Gut \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g2 
-
-# getting ratings
 SS3 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
-# plotting map
-g3 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = SS3,
-    geom = "polygon"
-  ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Neutral \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g3 
-
-# getting ratings
 SS4 <- ST21.g[which(ST21.g$Meinung=='Schlecht'),]
-# plotting map
-g4 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = SS4,
-    geom = "polygon"
-  ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Schlecht \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g4
-
-# getting ratings
 SS5 <- ST21.g[which(ST21.g$Meinung=='Sehr schlecht'),]
+
+# erstellen des neuen data frames
+data.f <- rbind(SS, SS2, SS3, SS4, SS5)
+data.f$Meinung <- factor(data.f$Meinung, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht'))
+
 # plotting map
-g5 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
+ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = SS5,
+    size = 2, bins = 8, data = data.f,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Sehr schlecht \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g5
+  theme_bw(15) +
+  scale_fill_gradient(low=colo[2], high = 'darkblue')+
+  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
+  labs(fill = 'Dichte') +
+  xlim(9.035, 9.32) + ylim(48.69, 48.87) +
+  facet_wrap(~ Meinung)
 
-grid.arrange(g1,g2,g3,g4,g5, nrow = 2)
 
-#--------------#
-# 3 Kategorien #
-#--------------#
+#-------------------------#
+# 3 Kategorien facet wrap #
+#-------------------------#
 
 # getting ratings
 S3 <- ST21.g[which(ST21.g$Meinung=='Sehr gut' | ST21.g$Meinung=='Gut'),]
-# plotting map
-g31 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = S3,
-    geom = "polygon"
-  ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Zustimmung \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g1 
-
-# getting ratings
 S32 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
-# plotting map
-g32 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = S32,
-    geom = "polygon"
-  ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Neutral \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g3 
-
-# getting ratings
 S4 <- ST21.g[which(ST21.g$Meinung=='Schlecht' | ST21.g$Meinung=='Sehr schlecht'),]
-# plotting map
-g34 <- ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
+
+# erstellen des neuen data frames
+S3$Meinung <- 'Zustimmung'
+S4$Meinung <- 'Ablehnung'
+data.facet <- rbind(S3, S32, S4)
+data.facet$Meinung <- factor(data.facet$Meinung, levels = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+# Plotting map
+ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
   stat_density2d(
     aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 6, data = S4,
+    size = 2, bins = 8, data = data.facet,
     geom = "polygon"
   ) +
-  scale_fill_gradient(low=colo[2], high = colo[1])+
-  scale_alpha(range = c(0.2,0.7), guide=FALSE) +
-  labs(fill = 'Ablehnung \n Dichte') +
-  xlim(9.035, 9.35) + ylim(48.69, 48.87)
-#g4
+  theme_bw(15) +
+  scale_fill_gradient(low=colo[2], high = 'darkblue')+
+  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
+  labs(fill = 'Dichte') +
+  xlim(9.035, 9.32) + ylim(48.69, 48.87) +
+  facet_wrap(~ Meinung)
 
-grid.arrange(g31,g32,g34, nrow = 1)
 
 #-----------------------------------# Diskrete Informationen mit Stadtbezirken #--------------------------------------#
-# Für Farbpalette
-colo <- diverge_hsv(3)
+
+#--------------------------#
+# 5 Kategorien facet wraps #
+#--------------------------#
 
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'Stadtbezirk', 'X', 'Y')
@@ -221,44 +150,116 @@ ST <- dataS[myvar]
 beob.bez <- as.data.frame(table(ST$Stadtbezirk))
 meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST$Meinung.zu.Stuttgart.21))
 
-# Relative Anteile 'Sehr gut'
-anteil <- (meinung.bez$Freq[1:23]/beob.bez$Freq)*100
-M.bez.sg <- as.data.frame(cbind(as.character(beob.bez$Var1), anteil))
-                          
+# Relative Anteile 
+SG <- (meinung.bez$Freq[1:23]/beob.bez$Freq)*100
+SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
+SGA$Meinung <- as.factor('Sehr gut')
+G <- (meinung.bez$Freq[24:46]/beob.bez$Freq)*100
+GA <- as.data.frame(cbind(as.character(beob.bez$Var1), G))
+GA$Meinung <- as.factor('Gut')
+N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
+N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
+N.A$Meinung <- as.factor('Neutral')
+S <- (meinung.bez$Freq[70:92]/beob.bez$Freq)*100
+SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
+SA$Meinung <- as.factor('Schlecht')
+S.S <- (meinung.bez$Freq[93:115]/beob.bez$Freq)*100
+S.SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S.S))
+S.SA$Meinung <- as.factor('Sehr schlecht')
+
 # ID variable erzeugen um Data Frame und Spatial object zu verbinden
-colnames(M.bez.sg) <- c('id', 'anteil')
 bezirke@data$id <- rownames(bezirke@data)
 watershedPoints <- fortify(bezirke, region = "id")
 
 # Errechneten Anteile und räumliche Informationen verbinden
 bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
-colnames(M.bez.sg) <- c('STADTBEZIR', 'anteil')
-bb2 <- merge(bb, M.bez.sg, by = 'STADTBEZIR')
-bb2$anteil <- as.numeric(as.character(bb2$anteil))
-# Sortieren damit Poylogene richtig geplottet werden
-bb2 <- bb2[order(bb2$order),]
+colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(GA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(S.SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
+bbGA <- merge(bb, GA, by = 'STADTBEZIR')
+bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
+bbSA <- merge(bb, SA, by = 'STADTBEZIR')
+bbSSA <- merge(bb, S.SA, by = 'STADTBEZIR')
 
-# Plotten der Meinung 'Sehr gut' pro Bezirk
-d1 <- ggplot(data=bb2, aes(x=long, y=lat, group=group, fill = anteil))+  
+# erstellen des neuen data Frames
+b.facet <- rbind(bbSGA, bbGA, bbNA, bbSA, bbSSA)
+b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
+
+# Sortieren damit Poylogene richtig geplottet werden
+b.facet <- b.facet[order(b.facet$order),]
+
+# Plotten 
+ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
   geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title= 'Sehr Gut') +
-  scale_fill_gradient(name = "Prozent", low = colo[2], high = colo[1], guide = "colorbar",
+  labs(x=NULL, y=NULL, title= NULL) +
+  scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
                       breaks = pretty_breaks(n = 5)) +
+  scale_alpha(range = c(0.3,1), guide=FALSE) +
   coord_equal(1)+
   theme_bw(15) +
   theme(
-    plot.background = element_blank()
-    ,panel.grid.major = element_blank()
-    ,panel.grid.minor = element_blank()
-    ,panel.border = element_blank()
-    ,legend.position = 'right'
+    legend.position = 'right'
     ,axis.text.x=element_blank()
     ,axis.text.y=element_blank()
     ,axis.ticks.y=element_blank()
     ,axis.ticks.x=element_blank()
-    )
-d1
+  ) + facet_wrap(~ Meinung)
 
+#-------------------------#
+# 3 Kategorien facet wrap #
+#-------------------------#
+
+# Relative Anteile 
+SG <- ((meinung.bez$Freq[1:23] + meinung.bez$Freq[24:46]) /beob.bez$Freq)*100
+SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
+SGA$Meinung <- as.factor('Zustimmung')
+N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
+N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
+N.A$Meinung <- as.factor('Neutral')
+S <- ((meinung.bez$Freq[70:92] + meinung.bez$Freq[93:115])/beob.bez$Freq)*100
+SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
+SA$Meinung <- as.factor('Ablehnung')
+
+
+# ID variable erzeugen um Data Frame und Spatial object zu verbinden
+bezirke@data$id <- rownames(bezirke@data)
+watershedPoints <- fortify(bezirke, region = "id")
+
+# Errechneten Anteile und räumliche Informationen verbinden
+bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
+colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
+bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
+bbSA <- merge(bb, SA, by = 'STADTBEZIR')
+
+# erstellen des neuen data Frames
+b.facet <- rbind(bbSGA, bbNA, bbSA)
+b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
+
+# Sortieren damit Poylogene richtig geplottet werden
+b.facet <- b.facet[order(b.facet$order),]
+
+# Plotten 
+ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
+  geom_polygon(color = "black") +
+  labs(x=NULL, y=NULL, title= NULL) +
+  scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
+                      breaks = pretty_breaks(n = 5)) +
+  scale_alpha(range = c(0.3,1), guide=FALSE) +
+  coord_equal(1)+
+  theme_bw(15) +
+  theme(
+    legend.position = 'right'
+    ,axis.text.x=element_blank()
+    ,axis.text.y=element_blank()
+    ,axis.ticks.y=element_blank()
+    ,axis.ticks.x=element_blank()
+  ) + facet_wrap(~ Meinung)
 
 #-----------------------------------------# Diskrete Informationen mit Stadtteilen #---------------------------------------#
 
