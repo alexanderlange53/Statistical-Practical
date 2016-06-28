@@ -47,8 +47,8 @@ seff <- "s(X, Y, bs=\"tp\")"
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
-# Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
+# Potenziell nichtparametrisch zu modellierende Kovariablen (Erstmal ohne Einkommen)
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
