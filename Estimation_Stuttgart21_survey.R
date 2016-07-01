@@ -133,6 +133,33 @@ model2.b$family$getTheta(TRUE)
 AIC(model2.b)
 saveRDS(model2, 'model2.rds')
 
+## Modell 2.c - Kovariaten: - Wechselwirkungen
+
+# raeumlicher Effekt
+seff <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+
+# Parametrisch zu modellierende Kovariablen
+pars <- c( "Nationalität", "Geschlecht")
+
+# Potenziell nichtparametrisch zu modellierende Kovariablen (Erstmal ohne Einkommen)
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5", "Bewertung.Wohngegend, k = 5", "Monatliches.Netto.Haushaltseinkommen, k = 5")
+
+# Nichtparametzrische Wechselwirkungen
+
+# Erstellen der Schätzfunktion
+formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
+
+# GAM Schätzung
+model2.c <- gam(formel, data = dataS, family= verteilung, method = 'REML')
+summary(model2.c)
+# Personenzahl im Haushalt ist zwar nie sign. Die WW zwischen Personenzahl und Haushaltsgroesse aber schon: -> Macht Sinn, weil ja manchmak auch die Kinder befragt werden, das weiss man ja nicht bei dieser Erhebung
+plot(model2.c, pages = 1)
+gam.check(model2.c)
+model2.b$family$getTheta(TRUE)
+AIC(model2.b)
+saveRDS(model2, 'model2.rds')
+
+
 
 #---------------------------------# Schätzung mit diskreter räumlicher information #---------------------------------------#
 
