@@ -106,8 +106,33 @@ summary(model2)
 plot(model2, pages = 1)
 gam.check(model2)
 model2$family$getTheta(TRUE)
-
+AIC(model2)
 saveRDS(model2, 'model2.rds')
+
+## Modell 2.b - Kovariaten: alle
+
+# raeumlicher Effekt
+seff <- "s(X, Y, bs=\"tp\")"
+
+# Parametrisch zu modellierende Kovariablen
+pars <- c("Familienstand", "Nationalität", "Geschlecht")
+
+# Potenziell nichtparametrisch zu modellierende Kovariablen (Erstmal ohne Einkommen)
+nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5", "Bewertung.Wohngegend, k = 5", "Monatliches.Netto.Haushaltseinkommen, k = 5")
+
+
+# Erstellen der Schätzfunktion
+formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
+
+# GAM Schätzung
+model2.b <- gam(formel, data = dataS, family= verteilung, method = 'REML')
+summary(model2.b)
+plot(model2.b, pages = 1)
+gam.check(model2.b)
+model2.b$family$getTheta(TRUE)
+AIC(model2.b)
+saveRDS(model2, 'model2.rds')
+
 
 #---------------------------------# Schätzung mit diskreter räumlicher information #---------------------------------------#
 
@@ -115,18 +140,27 @@ saveRDS(model2, 'model2.rds')
 # Bezirke als Informationen und 5 Klassen #
 #-----------------------------------------#
 
-bearbeiter = 'Alex'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
-} else {
+} 
+
+if(bearbeiter == 'Kai@Home'){
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Neue_Daten/Stuttgart21_aufbereitet.csv',
+                     dec = '.')
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+}
+
+if(bearbeiter == 'Kai@Work') {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
-  
 }
+
+
+
 
 # Da die Kategorie 'Keine Angabe' nicht in das Schema der geordneten Kategorien passt und keine Informationen
 # enthält wirde sie entfernt.
@@ -173,6 +207,8 @@ gam.check(model3)
 model3$family$getTheta(TRUE)
 
 saveRDS(model3, 'model3.rds')
+
+
 
 #-----------------------------------------#
 # Bezirke als Informationen und 3 Klassen #
