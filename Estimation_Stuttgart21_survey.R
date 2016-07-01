@@ -11,18 +11,28 @@ require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
-} else {
+}
+
+if(bearbeiter == 'Kai@Home'){
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Neue_Daten/Stuttgart21_aufbereitet.csv',
+                     dec = '.')
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+}
+
+if(bearbeiter == 'Kai@Work') {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
-  
 }
+
+
+
 # Hilfsfunktionen
 source('./erster_test_functions.R')
 
