@@ -12,16 +12,28 @@ require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 
 # Laden von Populationen
-Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet.txt')
-Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet.txt')
+
+bearbeiter = 'Alex'
+# loading data
+if(bearbeiter == 'Alex'){
+  Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet.txt')
+  Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet.txt')
+}
+if(bearbeiter == 'Kai@Home'){
+  
+}
+if(bearbeiter == 'Kai@Work') {
+
+}
+
 
 #--------------------------------------------------#
 # Populationen in die Form der Schätzungen bringen #
 #--------------------------------------------------#
 
 # Auswahl der passenden Variablen
-u.p <- select(Umfrage, Haushaltsgroesse,Altersklasse,Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY )
-names(u.p) <- c("Personenzahl.im.Haushalt","Altersklasse.Befragter","Geschlecht","Familienstand","Nationalität","X" ,"Y")
+u.p <- select(Umfrage, Haushaltsgroesse,Altersklasse,Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil )
+names(u.p) <- c("Personenzahl.im.Haushalt","Altersklasse.Befragter","Geschlecht","Familienstand","Nationalität","X" ,"Y", 'Stadtteil')
 
 # Anpassen der Akltersklassen
 u.p2 <- u.p
@@ -62,11 +74,11 @@ pred.pop.u.5 <- predict.gam(model1, newdata = u.p2, type = 'response')
 pred.pop.u.3 <- predict.gam(model2, newdata = u.p2, type = 'response')
 
 # Räumliche Informationen dazu fügen
-pred.pop.u.5 <- cbind(pred.pop.u.5, u.p2$X, u.p2$Y)
-pred.pop.u.3 <- cbind(pred.pop.u.3, u.p2$X, u.p2$Y)
+pred.pop.u.5 <- cbind(pred.pop.u.5, u.p2$X, u.p2$Y, u.p2$Stadtteil)
+pred.pop.u.3 <- cbind(pred.pop.u.3, u.p2$X, u.p2$Y, u.p2$Stadtteil)
 
-colnames(pred.pop.u.5) <- c('1', '2', '3', '4', '5', 'X', 'Y')
-colnames(pred.pop.u.3) <- c('1', '2', '3', 'X', 'Y')
+colnames(pred.pop.u.5) <- c('1', '2', '3', '4', '5', 'X', 'Y', 'Stadtteil')
+colnames(pred.pop.u.3) <- c('1', '2', '3', 'X', 'Y', 'Stadtteil')
 
 # Speichern der Geschätzten Grundgesamtheit
 write.table(pred.pop.u.5, file="Pop_geschätzt_u_5.csv", sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
