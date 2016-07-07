@@ -62,6 +62,8 @@ nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
+# Eine Schätzfunktion ohne Kovariablen zum Testen
+#formel <- make.formula(response = response, fixed = seff, c(), c())
 
 # GAM Schätzung
 model1 <- gam(formel, data = dataS, family= verteilung, method = 'REML')
