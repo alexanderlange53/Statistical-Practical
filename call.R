@@ -10,13 +10,13 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Kai@Work'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
 } 
 if(bearbeiter == 'Kai@Work') {
-  setwd('/media/kai/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+  setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
@@ -24,7 +24,7 @@ if(bearbeiter == 'Kai@Home') {
 
 
 source("stepAIC.R")
-#source("evaluation.R")
+source("evaluation.R")
 #source("prediction.R")
 
 library("ROCR")
@@ -38,9 +38,10 @@ library("splines")
 sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
 
 for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 6){
-    sample$Meinung.zu.Stuttgart.21[i] <- NA
-  }}
+  if(sample$Meinung.zu.Stuttgart.21[i] == 6) {
+      sample$Meinung.zu.Stuttgart.21[i] <- NA
+    }
+}
 sample <- na.omit(sample)
 
 
@@ -109,6 +110,7 @@ seed <- 123
 ## Step AIC ##
 step.model <- stepAIC()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
+<<<<<<< HEAD
 # Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
 
 AIC(step.model$model.spat)
@@ -117,7 +119,8 @@ AIC(step.model$model.spatonly)
 summary(step.model$model.spat)
 ## lauft bis hier
 
-save(step.model, file="step.model.Rdata")
+
+#save(step.model, file="step.model.Rdata")
 
 
 #load("step.model.Rdata")
@@ -134,7 +137,10 @@ if(parallel)
   }
 }
 
+
 pred <- prediction(step.model)
+
+
 
 
 
