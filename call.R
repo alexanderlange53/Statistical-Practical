@@ -66,13 +66,13 @@ gewichte <- "Gewicht"
 
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der r?umliche Effekt)
-fixed <- "s(X, Y, bs=\"tp\")"
+fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
+nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
 
 # Dieser Teil kann von uns nicht uebernommen werden, da keine Population existiert
 # # Vorhersagedatensatz (Informationen aus der Grundgesamtheit) und
@@ -109,8 +109,14 @@ seed <- 123
 ## Step AIC ##
 step.model <- stepAIC()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
+# Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
 
-## bis hier 
+AIC(step.model$model.spat)
+AIC(step.model$model.nospat)
+AIC(step.model$model.spatonly)
+summary(step.model$model.spat)
+## lauft bis hier
+
 save(step.model, file="step.model.Rdata")
 
 
@@ -127,8 +133,8 @@ if(parallel)
     wmat[,b] <- sample[indmat[,b],gewichte]
   }
 }
+
 pred <- prediction(step.model)
-evaluate()
 
 
 
