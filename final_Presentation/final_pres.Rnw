@@ -1,0 +1,187 @@
+\documentclass{beamer}
+\usetheme[compress]{Singapore}
+\usepackage{german}
+\usepackage[utf8]{inputenc}
+\usepackage{adjustbox}
+\setbeamertemplate{navigation symbols}{}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,center]{author in head/foot}%
+    \usebeamerfont{author in
+head/foot}%
+  \insertshortauthor\hspace{1em}\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=2ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\begin{document}
+
+<< include=F >>=
+
+require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
+require(rgdal);require(rgeos);
+require(ggmap) # package loading
+
+theme_set(theme_bw(12)) # Grafik theme
+colo <- diverge_hsv(3)
+get_legend<-function(myggplot){
+  tmp <- ggplot_gtable(ggplot_build(myggplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
+# Einladen der Daten
+bearbeiter <- 'Alex'
+if(bearbeiter == 'Alex') {
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+} else {
+  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+}
+@
+
+\title{Kleinräumige extrapolation von Umfragedaten}   
+\author{Kai Husmann, Alexander Lange} 
+\institute{Georg-August-Universität Göttingen}
+\date{\today}
+
+{
+\setbeamertemplate{footline}{} 
+\begin{frame}
+\titlepage
+\end{frame}
+}
+\addtocounter{framenumber}{-1}
+
+\begin{frame}
+\frametitle{Inhaltsverzeichnis}\tableofcontents
+\end{frame}
+
+\section{Einleitung}
+\begin{frame}\frametitle{Einleitung} 
+\begin{itemize}
+\item Daten zur Bevölkerungsstruktur von Stuttgart aus unterschiedlichen Erhebungen
+\item Datensätze sowohl der Grundgesamtheit, als auch der Stichproben 
+\item Verwendung von sowohl strukturellen- als auch räumlichen Informationen
+\item Ziel: Durch geeignete Modelle und der Stichproben die Informationen der Grundgesamtheit schätzen
+\end{itemize}
+\end{frame}
+
+\section{Deskriptive Statistik}
+\subsection{Datengrundlage}
+\begin{frame}\frametitle{Datengrundlage}
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center'>>=
+# Creating Bar plots of Variables
+# counting frequencies
+theme_set(theme_bw(10))
+count1 <- as.data.frame(table(dataS$Bewertung.Wohngegend))
+count2 <- as.data.frame(table(dataS$Meinung.zu.Stuttgart.21))
+
+# Bewertung Wohngegend
+# rearranging of groups
+count1$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
+                 'Sehr schlecht', 'Keine Angabe')
+count1$Var1 <- factor(count1$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
+                                                          'Sehr schlecht', 'Keine Angabe'))
+# Plotting              
+Wohngegend <- ggplot(count1, aes(x = Var1, y = Freq)) + 
+              geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
+              theme(legend.position = 'bottom', legend.title = element_blank()) +
+              labs(x = 'Bewertung Wohngegend', y = 'Häufigkeit', title = NULL)
+
+# Meinung über Stuttgart 21
+# rearranging of groups
+count2$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
+                 'Sehr schlecht', 'Keine Angabe')
+count2$Var1 <- factor(count2$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
+                                              'Sehr schlecht', 'Keine Angabe'))
+# Plotting  
+Stuttgart21 <- ggplot(count2, aes(x = Var1, y = Freq)) + 
+               geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
+               theme(legend.position = 'bottom', legend.title = element_blank()) +
+               labs(x = 'Meinung zu Stuttgart 21', y = 'Häufigkeit', title = NULL)
+dataC <- dataS
+for(i in 1:nrow(dataC)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 6){
+    dataC$Meinung.zu.Stuttgart.21[i] <- NA
+  }}
+dataC <- na.omit(dataC)
+for(i in 1:nrow(dataC)){
+  if(dataC$Bewertung.Wohngegend[i] == 6){
+    dataC$Bewertung.Wohngegend[i] <- NA
+  }}
+dataC <- na.omit(dataC)
+# Zusammenführen von 'Sehr gut' und 'Gut' zu Zustimmung und 'Sehr Schlecht' und 'Schlecht' zu Ablehnend 
+for(i in 1:nrow(dataC)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 2){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 1
+  }}
+for(i in 1:nrow(dataC)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 3){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 2
+  }}
+for(i in 1:nrow(dataC)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 4){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+for(i in 1:nrow(dataC)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 5){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+
+for(i in 1:nrow(dataC)){
+  if(dataC$Bewertung.Wohngegend[i] == 2){
+    dataC$Bewertung.Wohngegend[i] <- 1
+  }}
+for(i in 1:nrow(dataC)){
+  if(dataC$Bewertung.Wohngegend[i] == 3){
+    dataC$Bewertung.Wohngegend[i] <- 2
+  }}
+for(i in 1:nrow(dataC)){
+  if(dataC$Bewertung.Wohngegend[i] == 4){
+    dataC$Bewertung.Wohngegend[i] <- 3
+  }}
+for(i in 1:nrow(dataC)){
+  if(dataC$Bewertung.Wohngegend[i] == 5){
+    dataC$Bewertung.Wohngegend[i] <- 3
+  }}
+
+count1 <- as.data.frame(table(dataC$Bewertung.Wohngegend))
+count2 <- as.data.frame(table(dataC$Meinung.zu.Stuttgart.21))
+# Bewertung Wohngegend
+# rearranging of groups
+count1$Var1 <- c('Zustimmung', 'Neutral', 'Ablehnung')
+count1$Var1 <- factor(count1$Var1, levels = c('Zustimmung', 'Neutral',  
+                 'Ablehnung'))
+# Plotting              
+Wohngegend2 <- ggplot(count1, aes(x = Var1, y = Freq)) + 
+              geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
+              theme(legend.position = 'bottom', legend.title = element_blank()) +
+              labs(x = 'Bewertung Wohngegend', y = 'Häufigkeit', title = NULL)
+# Bewertung Wohngegend
+# rearranging of groups
+count1$Var2 <- c('Zustimmung', 'Neutral', 
+                 'Ablehnung')
+count1$Var2 <- factor(count1$Var2, levels = c('Zustimmung', 'Neutral', 
+                 'Ablehnung'))
+# Plotting  
+Stuttgart212 <- ggplot(count2, aes(x = Var1, y = Freq)) + 
+               geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
+               theme(legend.position = 'bottom', legend.title = element_blank()) +
+               labs(x = 'Meinung zu Stuttgart 21', y = 'Häufigkeit', title = NULL)      
+grid.arrange(Wohngegend, Stuttgart21, Wohngegend2, Stuttgart212, ncol = 2)
+@
+\end{frame}
+
+\end{document}
