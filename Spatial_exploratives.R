@@ -273,12 +273,16 @@ ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = ante
 #-----------------------------------------# Diskrete Informationen mit Stadtteilen #---------------------------------------#
 
 # Einladen der Stadtteildaten
-bearbeiter = 'Alex'
+
 # loading data
 if(bearbeiter == 'Alex'){
   Stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto/", layer = "Stadtteile_netto")
-} else {
-  Stadtteile <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
+}
+if(bearbeiter == 'Kai@Home'){
+  Stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+}
+if(bearbeiter == 'Kai@Work'){
+  Stadtteile <- readOGR(dsn = "", layer = "Stadtteile_netto")
 }
 
 #-------------------------#
