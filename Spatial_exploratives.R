@@ -5,12 +5,12 @@ rm(list=ls())
 # loading packages
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);require(ggmap);require(sp);require(maptools);require(rvest)
-require(dplyr)
+require(dplyr);require(gstat);require(raster)
 
 
 # loading data
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
@@ -143,6 +143,45 @@ ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t
   labs(fill = 'Dichte') +
   xlim(9.035, 9.32) + ylim(48.69, 48.87) +
   facet_wrap(~ Meinung)
+
+#-----------------------------------# Variogram zu Gauss Krüger Informationen #---------------------------------------#
+
+dataC <- dataS
+for(i in 1:nrow(dataS)){
+  if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
+    dataS$Meinung.zu.Stuttgart.21[i] <- NA
+  }}
+dataS <- na.omit(dataS)
+# Zusammenführen von 'Sehr gut' und 'Gut' zu Zustimmung und 'Sehr Schlecht' und 'Schlecht' zu Ablehnend 
+for(i in 1:nrow(dataC)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 2){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 1
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 3){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 2
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 4){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+for(i in 1:nrow(dataS)){
+  if(dataC$Meinung.zu.Stuttgart.21[i] == 5){
+    dataC$Meinung.zu.Stuttgart.21[i] <- 3
+  }}
+
+coordinates(dataC) <- ~X+Y
+proj4string(dataC) <- CRS("+init=epsg:31467")
+
+
+vario <- variogram(Meinung.zu.Stuttgart.21~1, dataC)
+variom <- variogram(Meinung.zu.Stuttgart.21~1, width=3,cutoff=100, dataC, map = T)
+
+theme_set(theme_bw(15))
+ggplot(vario,aes(x=dist,y=gamma,size=np)) + geom_point()
+
+plot(vario)
+plot(variom)
 
 
 #-----------------------------------# Diskrete Informationen mit Stadtbezirken #--------------------------------------#
@@ -340,3 +379,8 @@ ggplot() +  geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), f
     ,axis.ticks.y=element_blank()
     ,axis.ticks.x=element_blank()
   ) + facet_wrap(~Meinung, nrow = 1)
+
+#------------------------------------------# Variogramme #------------------------------------------------------#
+
+# Sind das equilvalent zur Korrelationsmatrix für räumliche Daten.
+

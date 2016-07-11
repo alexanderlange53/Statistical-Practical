@@ -10,10 +10,11 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
+  sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/media/kai/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
@@ -111,8 +112,7 @@ step.model <- stepAIC()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
 
 ## bis hier 
-save(step.model, file="step.model.Rdata")
-
+saveRDS(step.model, file="step.model.Rdata")
 
 #load("step.model.Rdata")
 if(parallel)
