@@ -97,13 +97,13 @@ for(i in 1:nrow(dataS)){
   }}
 
 # Nur noch drei Kategorien bei response
-verteilung <- ocat(R=3)
+verteilung <- ocat(R=3) # Ordered Categ.
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
 
 # GAM Schätzung
-model2 <- gam(formel, data = dataS, family= verteilung, method = 'REML')
+model2 <- gam(formel, data = dataS, family= verteilung)
 summary(model2)
 plot(model2, pages = 1)
 gam.check(model2)

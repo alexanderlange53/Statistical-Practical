@@ -17,7 +17,7 @@ if(bearbeiter == 'Alex') {
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
 } 
 if(bearbeiter == 'Kai@Work') {
-  setwd('/media/kai/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
+  setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
@@ -25,7 +25,7 @@ if(bearbeiter == 'Kai@Home') {
 
 
 source("stepAIC.R")
-#source("evaluation.R")
+source("evaluation.R")
 #source("prediction.R")
 
 library("ROCR")
@@ -39,10 +39,33 @@ library("splines")
 sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
 
 for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 6){
-    sample$Meinung.zu.Stuttgart.21[i] <- NA
-  }}
+  if(sample$Meinung.zu.Stuttgart.21[i] == 6) {
+      sample$Meinung.zu.Stuttgart.21[i] <- NA
+    }
+}
+
 sample <- na.omit(sample)
+
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 2){
+    sample$Meinung.zu.Stuttgart.21[i] <- 1
+  }
+}
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 3){
+    sample$Meinung.zu.Stuttgart.21[i] <- 2
+    }
+}
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 4){
+    sample$Meinung.zu.Stuttgart.21[i] <- 3
+  }
+}
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 5){
+    sample$Meinung.zu.Stuttgart.21[i] <- 3
+  }
+}
 
 
 #------------------#
@@ -59,7 +82,8 @@ sample <- na.omit(sample)
 
 # Zielgröße & Verteilungsannahme
 response <- "Meinung.zu.Stuttgart.21"
-verteilung <- ocat(R=5)
+verteilung <- ocat(R=3)
+
 
 # Gewichte
 sample$Gewicht <- 1
@@ -67,13 +91,14 @@ gewichte <- "Gewicht"
 
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der r?umliche Effekt)
-fixed <- "s(X, Y, bs=\"tp\")"
+fixed <- "s(X, Y, bs=\"tp\") "
+#+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
+nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
 
 # Dieser Teil kann von uns nicht uebernommen werden, da keine Population existiert
 # # Vorhersagedatensatz (Informationen aus der Grundgesamtheit) und
@@ -102,7 +127,7 @@ modellwahl <- TRUE
 intervalle <- TRUE
 nboot <- 10
 coverage <- 0.95
-parallel <- FALSE # Funktioniert noch nicht
+parallel <- FALSE
 ncore <- 20
 seed <- 123
 
@@ -110,9 +135,23 @@ seed <- 123
 ## Step AIC ##
 step.model <- stepAIC()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
+# Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
 
+AIC(step.model$model.spat)
+AIC(step.model$model.nospat)
+AIC(step.model$model.spatonly)
+summary(step.model$model.spat)
+## lauft bis hier
+
+<<<<<<< HEAD
 ## bis hier 
 saveRDS(step.model, file="step.model.Rdata")
+=======
+evaluate(step.model)
+
+#save(step.model, file="step.model.Rdata")
+
+>>>>>>> 307f9ddb223e98d526f50ee7c7bcd30a7838644a
 
 #load("step.model.Rdata")
 if(parallel)
@@ -127,8 +166,11 @@ if(parallel)
     wmat[,b] <- sample[indmat[,b],gewichte]
   }
 }
+
+
 pred <- prediction(step.model)
-evaluate()
+
+
 
 
 
