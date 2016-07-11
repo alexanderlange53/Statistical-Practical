@@ -5,11 +5,21 @@ evaluation.in <- function(model)
   pred$y <- apply(pred, 1, which.max)
   #pred$y <- 1*(pred$mu>=0.5)
   tab <- table(sample[,response], pred$y)
-  classification <- round(sum(diag(tab))/sum(tab),4)
-
-  pred1 <- ROCR::prediction(pred$mu, sample[,response])
-  rocr <- performance(pred1, "tpr", "fpr")
-  auc <- round(performance(pred1, measure="auc")@y.values[[1]],4)
+  if (dim(tab)[1] == dim(tab)[2]) {
+    classification <- round(sum(diag(tab))/sum(tab),4)
+  } else {
+    if(!all(colnames(tab) %in% rownames(tab))){
+      
+    }
+    if(!all(rownames(tab) %in% colnames(tab))){
+      
+    }
+  }
+  
+  # AUC Analyse funktioniert leider nur für Bionmialverteilte Daten
+  # pred1 <- ROCR::prediction(pred$y, sample[,response])
+  # rocr <- performance(pred1, "tpr", "fpr")
+  # auc <- round(performance(pred1, measure="auc")@y.values[[1]],4)
 
 #  plot(rocr)
   return(list(classification=classification, auc=auc))

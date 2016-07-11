@@ -10,7 +10,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Kai@Home'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -42,7 +42,29 @@ for(i in 1:nrow(sample)){
       sample$Meinung.zu.Stuttgart.21[i] <- NA
     }
 }
+
 sample <- na.omit(sample)
+
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 2){
+    sample$Meinung.zu.Stuttgart.21[i] <- 1
+  }
+}
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 3){
+    sample$Meinung.zu.Stuttgart.21[i] <- 2
+    }
+}
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 4){
+    sample$Meinung.zu.Stuttgart.21[i] <- 3
+  }
+}
+for(i in 1:nrow(sample)){
+  if(sample$Meinung.zu.Stuttgart.21[i] == 5){
+    sample$Meinung.zu.Stuttgart.21[i] <- 3
+  }
+}
 
 
 #------------------#
@@ -59,7 +81,8 @@ sample <- na.omit(sample)
 
 # Zielgröße & Verteilungsannahme
 response <- "Meinung.zu.Stuttgart.21"
-verteilung <- ocat(R=5)
+verteilung <- ocat(R=3)
+
 
 # Gewichte
 sample$Gewicht <- 1
@@ -67,7 +90,8 @@ gewichte <- "Gewicht"
 
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der r?umliche Effekt)
-fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+fixed <- "s(X, Y, bs=\"tp\") "
+#+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
@@ -102,7 +126,7 @@ modellwahl <- TRUE
 intervalle <- TRUE
 nboot <- 10
 coverage <- 0.95
-parallel <- FALSE # Funktioniert noch nicht
+parallel <- FALSE
 ncore <- 20
 seed <- 123
 
@@ -110,7 +134,6 @@ seed <- 123
 ## Step AIC ##
 step.model <- stepAIC()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
-<<<<<<< HEAD
 # Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
 
 AIC(step.model$model.spat)
@@ -119,6 +142,7 @@ AIC(step.model$model.spatonly)
 summary(step.model$model.spat)
 ## lauft bis hier
 
+evaluate(step.model)
 
 #save(step.model, file="step.model.Rdata")
 
