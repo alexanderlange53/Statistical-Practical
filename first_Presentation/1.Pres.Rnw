@@ -1,4 +1,3 @@
-
 \documentclass{beamer}
 \usetheme[compress]{Singapore}
 \usepackage{german}
