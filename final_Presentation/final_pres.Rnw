@@ -240,4 +240,64 @@ ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t
 @
 \end{frame}
 
+\begin{frame}\frametitle{Diskrete Informationen zu Stadtbezirken}
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center', message=F, warning=F>>=
+# selcting variables of interest
+myvar <- c('Meinung.zu.Stuttgart.21', 'Stadtbezirk', 'X', 'Y')
+ST <- dataS[myvar]
+# Ermittlung der Zustimmung in den Stadtteilen ('Sehr gut')
+beob.bez <- as.data.frame(table(ST$Stadtbezirk))
+meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST$Meinung.zu.Stuttgart.21))
+# Relative Anteile 
+SG <- ((meinung.bez$Freq[1:23] + meinung.bez$Freq[24:46]) /beob.bez$Freq)*100
+SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
+SGA$Meinung <- as.factor('Zustimmung')
+N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
+N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
+N.A$Meinung <- as.factor('Neutral')
+S <- ((meinung.bez$Freq[70:92] + meinung.bez$Freq[93:115])/beob.bez$Freq)*100
+SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
+SA$Meinung <- as.factor('Ablehnung')
+
+
+# ID variable erzeugen um Data Frame und Spatial object zu verbinden
+bezirke@data$id <- rownames(bezirke@data)
+watershedPoints <- fortify(bezirke, region = "id")
+
+# Errechneten Anteile und räumliche Informationen verbinden
+bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
+colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
+colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
+bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
+bbSA <- merge(bb, SA, by = 'STADTBEZIR')
+
+# erstellen des neuen data Frames
+b.facet <- rbind(bbSGA, bbNA, bbSA)
+b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
+
+# Sortieren damit Poylogene richtig geplottet werden
+b.facet <- b.facet[order(b.facet$order),]
+
+# Plotten 
+ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
+  geom_polygon(color = "black") +
+  labs(x=NULL, y=NULL, title= NULL) +
+  scale_fill_gradient(name = "Anteil in %", low = colo[2], high = 'darkblue', guide = "colorbar",
+                      breaks = pretty_breaks(n = 5)) +
+  scale_alpha(range = c(0.3,1), guide=FALSE) +
+  coord_equal(1)+
+  theme_bw(10) +
+  theme(
+    legend.position = 'bottom'
+    ,axis.text.x=element_blank()
+    ,axis.text.y=element_blank()
+    ,axis.ticks.y=element_blank()
+    ,axis.ticks.x=element_blank()
+  ) + facet_wrap(~ Meinung)
+@
+\end{frame}
+
+
 \end{document}
