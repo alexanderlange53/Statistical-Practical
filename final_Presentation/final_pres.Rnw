@@ -30,10 +30,10 @@ head/foot}%
 << include=F >>=
 
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
-require(rgdal);require(rgeos);
-require(ggmap) # package loading
+require(rgdal);require(rgeos);require(sp);require(maptools);require(rvest)
+require(ggmap);require(dplyr);require(gstat);require(raster) # package loading
 
-theme_set(theme_bw(12)) # Grafik theme
+
 colo <- diverge_hsv(3)
 get_legend<-function(myggplot){
   tmp <- ggplot_gtable(ggplot_build(myggplot))
@@ -46,6 +46,7 @@ get_legend<-function(myggplot){
 bearbeiter <- 'Alex'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+  bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
 } else {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
@@ -79,8 +80,8 @@ if(bearbeiter == 'Alex') {
 \end{frame}
 
 \section{Deskriptive Statistik}
-\subsection{Datengrundlage}
-\begin{frame}\frametitle{Datengrundlage}
+\subsection{Response Variablen}
+\begin{frame}\frametitle{Response Variablen}
 <<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center'>>=
 # Creating Bar plots of Variables
 # counting frequencies
@@ -88,29 +89,24 @@ theme_set(theme_bw(10))
 count1 <- as.data.frame(table(dataS$Bewertung.Wohngegend))
 count2 <- as.data.frame(table(dataS$Meinung.zu.Stuttgart.21))
 
-# Bewertung Wohngegend
 # rearranging of groups
-count1$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                 'Sehr schlecht', 'Keine Angabe')
-count1$Var1 <- factor(count1$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                                                          'Sehr schlecht', 'Keine Angabe'))
-# Plotting              
-Wohngegend <- ggplot(count1, aes(x = Var1, y = Freq)) + 
-              geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-              theme(legend.position = 'bottom', legend.title = element_blank()) +
-              labs(x = 'Bewertung Wohngegend', y = 'Häufigkeit', title = NULL)
+count1$Var1 <- c('S. gut', 'Gut', 'Neutral', 'Schlecht', 
+                 'S. schlecht', 'K. Angabe')
+count1$Var1 <- factor(count1$Var1, levels = c('S. gut', 'Gut', 'Neutral', 'Schlecht', 
+                                                          'S. schlecht', 'K. Angabe'))
+count2$Var1 <- c('S. gut', 'Gut', 'Neutral', 'Schlecht', 
+                 'S. schlecht', 'K. Angabe')
+count2$Var1 <- factor(count2$Var1, levels = c('S. gut', 'Gut', 'Neutral', 'Schlecht', 
+                                              'S. schlecht', 'K. Angabe'))
+count1$stat <- 'Bewertung Wohngegend'
+count2$stat <- 'Meinung Stuttgart 21'
+cc <- rbind(count1, count2)
 
-# Meinung über Stuttgart 21
-# rearranging of groups
-count2$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                 'Sehr schlecht', 'Keine Angabe')
-count2$Var1 <- factor(count2$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                                              'Sehr schlecht', 'Keine Angabe'))
 # Plotting  
-Stuttgart21 <- ggplot(count2, aes(x = Var1, y = Freq)) + 
+plot1 <- ggplot(cc, aes(x = Var1, y = Freq)) + 
                geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-               theme(legend.position = 'bottom', legend.title = element_blank()) +
-               labs(x = 'Meinung zu Stuttgart 21', y = 'Häufigkeit', title = NULL)
+               labs(x = NULL, y = 'Häufigkeit')  + facet_wrap(~ stat) 
+
 dataC <- dataS
 for(i in 1:nrow(dataC)){
   if(dataC$Meinung.zu.Stuttgart.21[i] == 6){
@@ -159,28 +155,88 @@ for(i in 1:nrow(dataC)){
 
 count1 <- as.data.frame(table(dataC$Bewertung.Wohngegend))
 count2 <- as.data.frame(table(dataC$Meinung.zu.Stuttgart.21))
-# Bewertung Wohngegend
 # rearranging of groups
 count1$Var1 <- c('Zustimmung', 'Neutral', 'Ablehnung')
 count1$Var1 <- factor(count1$Var1, levels = c('Zustimmung', 'Neutral',  
                  'Ablehnung'))
-# Plotting              
-Wohngegend2 <- ggplot(count1, aes(x = Var1, y = Freq)) + 
-              geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-              theme(legend.position = 'bottom', legend.title = element_blank()) +
-              labs(x = 'Bewertung Wohngegend', y = 'Häufigkeit', title = NULL)
-# Bewertung Wohngegend
-# rearranging of groups
-count1$Var2 <- c('Zustimmung', 'Neutral', 
+count2$Var1 <- c('Zustimmung', 'Neutral', 
                  'Ablehnung')
-count1$Var2 <- factor(count1$Var2, levels = c('Zustimmung', 'Neutral', 
+count2$Var1 <- factor(count2$Var1, levels = c('Zustimmung', 'Neutral', 
                  'Ablehnung'))
+count1$stat <- 'Bewertung Wohngegend'
+count2$stat <- 'Meinung Stuttgart 21'
+cc <- rbind(count1, count2)
 # Plotting  
-Stuttgart212 <- ggplot(count2, aes(x = Var1, y = Freq)) + 
+plot2 <- ggplot(cc, aes(x = Var1, y = Freq)) + 
                geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-               theme(legend.position = 'bottom', legend.title = element_blank()) +
-               labs(x = 'Meinung zu Stuttgart 21', y = 'Häufigkeit', title = NULL)      
-grid.arrange(Wohngegend, Stuttgart21, Wohngegend2, Stuttgart212, ncol = 2)
+               labs(x = NULL, y = 'Häufigkeit')  + facet_wrap(~ stat) 
+
+grid.arrange(plot1, plot2, ncol = 1)
+@
+\end{frame}
+
+\subsection{Räumliche Statistik}
+\begin{frame}\frametitle{Gauss-Krüger Informationen}
+<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center', message=F, warning=F>>=
+# selcting variables of interest
+myvar <- c('Meinung.zu.Stuttgart.21', 'X', 'Y')
+ST22 <- dataS[myvar]
+ST21 <- ST22
+# numerical classes into factor classes
+ST21$Meinung.zu.Stuttgart.21 <- ''
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 1] <- 'Sehr gut'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 2] <- 'Gut'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 3] <- 'Neutral'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 4] <- 'Schlecht'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 5] <- 'Sehr schlecht'
+ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 6] <- 'Keine Angabe'
+# assigning names
+names(ST21) <- c('Meinung', 'long', 'lat') 
+ST21$long <- as.numeric(as.character(ST21$long))
+ST21$lat <- as.numeric(as.character(ST21$lat))
+# transform to spatial class
+coordinates(ST21) <- ~ long + lat
+# assign CRS
+proj4string(ST21) <- CRS("+init=epsg:31467")
+# reproject data
+ST21 <- spTransform(ST21, CRS("+proj=longlat +datum=WGS84"))
+# loading map
+map <- get_map(location= rowMeans(bbox(ST21)), zoom=11, maptype = 'terrain', scale = 2)
+# transform back to data frame for ggplot
+ST21.g <- as.data.frame(ST21)
+
+bezirke.t <- spTransform(bezirke, CRS("+proj=longlat"))
+# getting ratings
+S3 <- ST21.g[which(ST21.g$Meinung=='Sehr gut' | ST21.g$Meinung=='Gut'),]
+S32 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
+S4 <- ST21.g[which(ST21.g$Meinung=='Schlecht' | ST21.g$Meinung=='Sehr schlecht'),]
+
+# erstellen des neuen data frames
+S3$Meinung <- 'Zustimmung'
+S4$Meinung <- 'Ablehnung'
+data.facet <- rbind(S3, S32, S4)
+data.facet$Meinung <- factor(data.facet$Meinung, levels = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+# Plotting map
+ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
+  stat_density2d(
+    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
+    size = 2, bins = 8, data = data.facet,
+    geom = "polygon"
+  ) +
+  theme_bw(10) +
+  theme(axis.line=element_blank(),
+      axis.text.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks=element_blank(),
+      axis.title.x=element_blank(),
+      axis.title.y=element_blank(),
+      legend.position = 'bottom') +
+  scale_fill_gradient(low=colo[2], high = 'darkblue')+
+  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
+  labs(fill = 'Dichte') +
+  xlim(9.035, 9.32) + ylim(48.69, 48.87) +
+  facet_wrap(~ Meinung, nrow = 1)
 @
 \end{frame}
 
