@@ -3,6 +3,7 @@
 \usepackage{german}
 \usepackage[utf8]{inputenc}
 \usepackage{adjustbox}
+\usepackage{color}
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
 \setbeamertemplate{footline}
@@ -31,7 +32,7 @@ head/foot}%
 
 require(ggplot2);require(reshape2);require(colorspace);require(gridExtra);require(scales)
 require(rgdal);require(rgeos);require(sp);require(maptools);require(rvest)
-require(ggmap);require(dplyr);require(gstat);require(raster) # package loading
+require(ggmap);require(dplyr);require(gstat)#;require(raster) # package loading
 
 
 colo <- diverge_hsv(3)
@@ -47,6 +48,7 @@ bearbeiter <- 'Alex'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+  Stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto/", layer = "Stadtteile_netto")
 } else {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
@@ -72,15 +74,41 @@ if(bearbeiter == 'Alex') {
 \section{Einleitung}
 \begin{frame}\frametitle{Einleitung} 
 \begin{itemize}
-\item Daten zur Bevölkerungsstruktur von Stuttgart aus unterschiedlichen Erhebungen
-\item Datensätze sowohl der Grundgesamtheit, als auch der Stichproben 
-\item Verwendung von sowohl strukturellen- als auch räumlichen Informationen
-\item Ziel: Durch geeignete Modelle und der Stichproben die Informationen der Grundgesamtheit schätzen
+\item Daten zur Bevölkerungsstruktur Stuttgarts
+\item Nur Informationen aus der Stichrobe enthalten, \underline{keine} Grundgesamtheit aus dieser Erhebung verfügbar
+\item Hochrechnung der Informationen mithilfe der Grundgesamtheiten aus \underline{anderen} Erhebungen (Bürgerumfrage und Zensus)
+\item Brücksichtigung von unterschiedlichen räumlichen Effekten
+\item Ziel: Extrapolation der Informationen aus der Stichprobe und Möglichkeit der Validierung finden
 \end{itemize}
 \end{frame}
 
 \section{Deskriptive Statistik}
-\subsection{Response Variablen}
+\subsection{Datensatz}
+
+\begin{frame}\frametitle{Datensatz}
+\begin{table}
+\centering
+\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+           max width=\textwidth}{
+\begin{tabular}{l|c}
+\multicolumn{2}{l}{Anzahl Beobachtungen Stichprobe: 3.143}     \\ \hline \hline
+\textbf{Variable} & \textbf{Anzahl Klassen} \\ \hline
+\textcolor{blue}{Bewertung Wohngegend} &  \textcolor{blue}{6} \\ \hline
+\textcolor{blue}{Meinung Stuttgart 21} &  \textcolor{blue}{6} \\ \hline
+Personenanzahl im Haushalt & 5 \\ \hline
+\textcolor{red}{Monatliches Netto Haushaltseinkommen} & \textcolor{red}{6} \\ \hline
+Altersklasse Befragter & 6 \\ \hline
+Geschlecht & 2 \\ \hline
+Familiensatnd & 4 \\ \hline
+Nationalität & 2 \\ \hline
+Stadtbezirk & 23 \\ \hline 
+Stadtteil &  142 \\ \hline 
+Gauß-Krüger &   \\ \hline \hline
+\end{tabular}
+}
+\end{table}
+\end{frame}
+
 \begin{frame}\frametitle{Response Variablen}
 <<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center'>>=
 # Creating Bar plots of Variables
@@ -98,8 +126,8 @@ count2$Var1 <- c('S. gut', 'Gut', 'Neutral', 'Schlecht',
                  'S. schlecht', 'K. Angabe')
 count2$Var1 <- factor(count2$Var1, levels = c('S. gut', 'Gut', 'Neutral', 'Schlecht', 
                                               'S. schlecht', 'K. Angabe'))
-count1$stat <- 'Bewertung Wohngegend'
-count2$stat <- 'Meinung Stuttgart 21'
+count1$stat <- 'Bewertung Wohngegend Original'
+count2$stat <- 'Meinung Stuttgart 21 Original'
 cc <- rbind(count1, count2)
 
 # Plotting  
@@ -163,8 +191,8 @@ count2$Var1 <- c('Zustimmung', 'Neutral',
                  'Ablehnung')
 count2$Var1 <- factor(count2$Var1, levels = c('Zustimmung', 'Neutral', 
                  'Ablehnung'))
-count1$stat <- 'Bewertung Wohngegend'
-count2$stat <- 'Meinung Stuttgart 21'
+count1$stat <- 'Bewertung Wohngegend Transformiert'
+count2$stat <- 'Meinung Stuttgart 21 Transformiert'
 cc <- rbind(count1, count2)
 # Plotting  
 plot2 <- ggplot(cc, aes(x = Var1, y = Freq)) + 
@@ -175,9 +203,9 @@ grid.arrange(plot1, plot2, ncol = 1)
 @
 \end{frame}
 
-\subsection{Räumliche Statistik}
+\subsection{Räumliche Effekte}
 \begin{frame}\frametitle{Gauss-Krüger Informationen}
-<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center', message=F, warning=F>>=
+<<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'X', 'Y')
 ST22 <- dataS[myvar]
@@ -241,7 +269,7 @@ ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t
 \end{frame}
 
 \begin{frame}\frametitle{Diskrete Informationen zu Stadtbezirken}
-<<echo=F, fig.width='7cm', fig.height=4.5, fig.align='center', message=F, warning=F>>=
+<<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'Stadtbezirk', 'X', 'Y')
 ST <- dataS[myvar]
@@ -299,5 +327,78 @@ ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = ante
 @
 \end{frame}
 
+\begin{frame}\frametitle{Diskrete Informationen zu Stadtteilen}
+<<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
+# selcting variables of interest
+myvar <- c('Meinung.zu.Stuttgart.21', 'Stadtteil', 'X', 'Y')
+ST <- dataS[myvar]
+
+# Ermittlung der Zustimmung in den Stadtteilen
+beob.teile <- as.data.frame(table(ST$Stadtteil))
+meinung.teile <-as.data.frame(table(ST$Stadtteil, ST$Meinung.zu.Stuttgart.21))
+
+# Anteile berechnen 
+Zustimmung <- ((meinung.teile$Freq[1:141] + meinung.teile$Freq[142:282])/beob.teile$Freq)*100
+Zustimmung.a <- as.data.frame(cbind(as.character(beob.teile$Var1), Zustimmung))
+Zustimmung.a$Meinung <- as.factor('Zustimmung')
+Neutral <- ((meinung.teile$Freq[283:423])/beob.teile$Freq)*100
+Neutral.a <- as.data.frame(cbind(as.character(beob.teile$Var1), Neutral))
+Neutral.a$Meinung <- as.factor('Neutral')
+Ablehnung <- ((meinung.teile$Freq[424:564] + meinung.teile$Freq[565:705])/beob.teile$Freq)*100
+Ablehnung.a <- as.data.frame(cbind(as.character(beob.teile$Var1), Ablehnung))
+Ablehnung.a$Meinung <- as.factor('Ablehnung')
+
+# ID variable erzeugen um objecte zu verbinden
+Stadtteile@data$id <- rownames(Stadtteile@data)
+watershedPoints <- fortify(Stadtteile, region = "id")
+
+# Data Frame und Spatial object verbinden
+bbs <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+colnames(Zustimmung.a) <- c('STADTTEIL', 'anteil', 'Meinung')
+colnames(Neutral.a) <- c('STADTTEIL', 'anteil', 'Meinung')
+colnames(Ablehnung.a) <- c('STADTTEIL', 'anteil', 'Meinung')
+bbz <- merge(bbs, Zustimmung.a, by = 'STADTTEIL', all.x = T)
+bbn <- merge(bbs, Neutral.a, by = 'STADTTEIL', all.x = T)
+bba <- merge(bbs, Ablehnung.a, by = 'STADTTEIL', all.x = T)
+s.facet <- rbind(bbz, bbn, bba)
+s.facet$anteil <- as.numeric(as.character(s.facet$anteil))
+
+# Sortieren um polygone richtig zu plotten
+s.facet <- s.facet[order(s.facet$order),]
+pol.na <- filter(s.facet, is.na(Meinung))
+plo.na <- select(pol.na, STADTTEIL, id, long, lat, order, group)
+s.facet <- na.omit(s.facet)
+
+ggplot() +  geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
+  geom_polygon(data=s.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil), color = "black") +
+  labs(x=NULL, y=NULL, title=NULL) +
+  scale_fill_gradient(name = "Anteil in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
+                       breaks = pretty_breaks(n = 5)) +
+  scale_alpha(range = c(0.3,1), guide=FALSE) +
+  coord_equal(1)+
+  theme_bw(10) +
+  theme(
+    legend.position = 'bottom'
+    ,axis.text.x=element_blank()
+    ,axis.text.y=element_blank()
+    ,axis.ticks.y=element_blank()
+    ,axis.ticks.x=element_blank()
+  ) + facet_wrap(~Meinung, nrow = 1)
+@
+\end{frame}
+
+\section{Methodik}
+\subsection{Model}
+
+\begin{frame}\frametitle{Modellierung}
+
+\end{frame}
+
+\subsection{Modellwahl}
+\subsection{Prediction}
+
+\section{Ergbenisse}
+\subsection{GAM Schätzung}
+\subsection{Prediction}
 
 \end{document}

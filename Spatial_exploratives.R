@@ -73,6 +73,8 @@ ggplot() + geom_polygon(data=bezirke, aes(x=long, y=lat, group=group), fill="gre
 #-------------------------------------------# Relative frequency plots #------------------------------------------------#
 colo <- diverge_hsv(3)
 # transform to spatial class
+ST21$long <- as.numeric(as.character(ST21$long))
+ST21$lat <- as.numeric(as.character(ST21$lat))
 coordinates(ST21) <- ~ long + lat
 # assign CRS
 proj4string(ST21) <- CRS("+init=epsg:31467")
