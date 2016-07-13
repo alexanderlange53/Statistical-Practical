@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{adjustbox}
 \usepackage{color}
+\usepackage{amsbsy}
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
 \setbeamertemplate{footline}
@@ -90,20 +91,20 @@ if(bearbeiter == 'Alex') {
 \centering
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
-\begin{tabular}{l|c}
+\begin{tabular}{l|c|c}
 \multicolumn{2}{l}{Anzahl Beobachtungen Stichprobe: 3.143}     \\ \hline \hline
-\textbf{Variable} & \textbf{Anzahl Klassen} \\ \hline
-\textcolor{blue}{Bewertung Wohngegend} &  \textcolor{blue}{6} \\ \hline
-\textcolor{blue}{Meinung Stuttgart 21} &  \textcolor{blue}{6} \\ \hline
-Personenanzahl im Haushalt & 5 \\ \hline
-\textcolor{red}{Monatliches Netto Haushaltseinkommen} & \textcolor{red}{6} \\ \hline
-Altersklasse Befragter & 6 \\ \hline
-Geschlecht & 2 \\ \hline
-Familiensatnd & 4 \\ \hline
-Nationalität & 2 \\ \hline
-Stadtbezirk & 23 \\ \hline 
-Stadtteil &  142 \\ \hline 
-Gauß-Krüger &   \\ \hline \hline
+\textbf{Variable} & \textbf{Anzahl Klassen} & \textbf{Modellierung} \\ \hline
+\textcolor{blue}{Bewertung Wohngegend} &  \textcolor{blue}{6} & \textcolor{blue}{Geordnet Kategorial} \\ \hline
+\textcolor{blue}{Meinung Stuttgart 21} &  \textcolor{blue}{6} & \textcolor{blue}{Geordnet Kategorial} \\ \hline
+Personenanzahl im Haushalt & 5 & Nicht Parametrisch \\ \hline
+\textcolor{red}{Monatliches Netto Haushaltseinkommen} & \textcolor{red}{6} & \textcolor{red}{Nicht Parametrisch} \\ \hline
+Altersklasse Befragter & 6 & Nicht Parametrisch \\ \hline
+Geschlecht & 2 & Parametrisch\\ \hline
+Familienstand & 4 & Parametrisch \\ \hline
+Nationalität & 2 & Parametrisch \\ \hline
+Stadtbezirk & 23 & Diskret Räumlich \\ \hline 
+Stadtteil &  142 & Diskret Räumlich \\ \hline 
+Gauß-Krüger & & Stetig Räumlich  \\ \hline \hline
 \end{tabular}
 }
 \end{table}
@@ -261,7 +262,7 @@ ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t
       axis.title.y=element_blank(),
       legend.position = 'bottom') +
   scale_fill_gradient(low=colo[2], high = 'darkblue')+
-  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
+  scale_alpha(range = c(0.5,0.9), guide=FALSE) +
   labs(fill = 'Dichte') +
   xlim(9.035, 9.32) + ylim(48.69, 48.87) +
   facet_wrap(~ Meinung, nrow = 1)
@@ -391,7 +392,21 @@ ggplot() +  geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), f
 \subsection{Model}
 
 \begin{frame}\frametitle{Modellierung}
-
+\textbf{Generalisierte additive Modelle}
+\begin{itemize}
+\item Einbindung von parametrischen Effekten durch linearen Schätzer
+\item Einbindung von nicht-parametrischen Effekten über P-Splines
+\item Stetige räumliche Gauss-Krüger Effekte mit Tensorprodukt-Spline
+\item Diskrete räumliche Effekte durch Gauss-Markov Zufallsfeld 
+\end{itemize}
+$$
+P(y_i = r) = \beta_0+ \textbf{x}'\pmb{\beta} + f(\textbf{z}) + räumlich = \begin{cases} 
+f(s_x,s_y) \\
+f(s_{Stadtteil}) \\
+f(s_{Stadtbezirk})
+\end{cases} + \varepsilon
+$$
+Insgesamt 6 Modelle zu schätzen
 \end{frame}
 
 \subsection{Modellwahl}
