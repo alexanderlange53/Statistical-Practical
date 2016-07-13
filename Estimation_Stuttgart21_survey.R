@@ -11,7 +11,7 @@ require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
@@ -58,7 +58,7 @@ seff <- "s(X, Y, bs=\"tp\")"
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen (Erstmal ohne Einkommen)
-nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5")
+nonpars <- c("Altersklasse.Befragter, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -286,7 +286,7 @@ seff <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)"
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k = 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
+nonpars <- c("Altersklasse.Befragter, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -439,7 +439,7 @@ unique(dat.teile$Personenzahl.im.Haushalt)
 unique(dat.teile$Monatliches.Netto.Haushaltseinkommen)
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter, k = 6","Personenzahl.im.Haushalt, k= 5","Monatliches.Netto.Haushaltseinkommen, k = 6")
+nonpars <- c("Altersklasse.Befragter, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -452,3 +452,4 @@ gam.check(model5)
 model5$family$getTheta(TRUE)
 
 saveRDS(model5, 'model5.rds')
+as.data.frame(table(pred.pop.u[,7]))

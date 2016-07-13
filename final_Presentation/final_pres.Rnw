@@ -50,6 +50,8 @@ if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   Stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto/", layer = "Stadtteile_netto")
+  count_u_cs <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical/count_u_cs.csv')
+  count_z_cs <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical/count_z_cs.csv')
 } else {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
@@ -411,9 +413,33 @@ Insgesamt 6 Modelle zu schätzen
 
 \subsection{Modellwahl}
 \subsection{Prediction}
-
 \section{Ergbenisse}
 \subsection{GAM Schätzung}
+
 \subsection{Prediction}
+\begin{frame}\frametitle{Prediction}
+<<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
+tt <- c(2, 0)
+count_u_cs <- rbind(count_u_cs, tt)
+count_u_cs$Var1 <- c('Zustimmung', 'Ablehnung', 'Neutral')
+count_u_cs$Var1 <- factor(count_u_cs$Var1, levels = c('Zustimmung', 'Neutral','Ablehnung'))
+count_u_cs$Freq <- count_u_cs$Freq/sum(count_u_cs$Freq)
+
+count_z_cs <- rbind(count_z_cs, tt)
+count_z_cs$Var1 <- c('Zustimmung','Ablehnung', 'Neutral')
+count_z_cs$Var1 <- factor(count_z_cs$Var1, levels = c('Zustimmung', 'Neutral','Ablehnung'))
+count_z_cs$Freq <- count_z_cs$Freq/sum(count_z_cs$Freq)
+
+count_u_cs$stat <- 'Extrapolation Bürgerumfrage'
+count_z_cs$stat <- 'Extrapolation Zensus'
+count2$Freq <- count2$Freq/sum(count2$Freq)
+count2$stat <- 'Stichprobe'
+
+cc2 <- rbind(count2, count_u_cs, count_z_cs)
+ggplot(cc2, aes(x = Var1, y = Freq)) + 
+               geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
+               labs(x = NULL, y = 'Häufigkeit')  + facet_wrap(~ stat) 
+@
+\end{frame}
 
 \end{document}
