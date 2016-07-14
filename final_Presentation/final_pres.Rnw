@@ -28,6 +28,7 @@ head/foot}%
 \makeatother
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 << include=F >>=
 
@@ -412,7 +413,29 @@ Insgesamt 6 Modelle zu schätzen
 \end{frame}
 
 \subsection{Modellwahl}
-\subsection{Prediction}
+
+\begin{frame}\frametitle{Modellwahl}
+\textbf{AIC-Basierte schrittweise Modellwahl}
+\begin{itemize}
+\item Vorab Einschätzen, ob Variablen parametrisch oder nichtparametrisch eingehen sollen
+\item Potenziell nichtparametrische Variablen werden auch parametrisch getestet
+\item Räumliche Variablen gehen als feste Modellbestandteile ein
+\item Sinnvoll erscheinende Wechselwirkungen werden händisch untersucht
+\end{itemize}
+
+Insgesamt 6 Modelle zu schätzen
+\end{frame}
+
+\subsection{Modellvalidierung}
+\begin{frame}\frametitle{Modellvalidierung}
+\textbf{Kreuzvalidierung}
+\begin{itemize}
+\item Es liegt keine Grundgesamtheit vor
+\item Das beste Modell wird mit einer Zufallsauswahl neu parameterisiert
+\item Alle Datensätze werden vorhergesagt
+\item Interpretation der Confusion Matrix
+\end{itemize}
+
 \section{Ergbenisse}
 \subsection{GAM Schätzung}
 

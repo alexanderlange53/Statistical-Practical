@@ -91,15 +91,14 @@ gewichte <- "Gewicht"
 
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der r?umliche Effekt)
-fixed <- "s(X, Y, bs=\"tp\") "
+fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 #+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Monatliches.Netto.Haushaltseinkommen")
-
+nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
 # Dieser Teil kann von uns nicht uebernommen werden, da keine Population existiert
 # # Vorhersagedatensatz (Informationen aus der Grundgesamtheit) und
 # # zu verwendende r?umliche Aggregationsebene in der Vorhersage
@@ -141,17 +140,17 @@ AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
 summary(step.model$model.spat)
+plot(step.model$model.spat, all = T)
 ## lauft bis hier
 
-<<<<<<< HEAD
+
 ## bis hier 
 saveRDS(step.model, file="step.model.Rdata")
-=======
+
 evaluate(step.model)
 
 #save(step.model, file="step.model.Rdata")
 
->>>>>>> 307f9ddb223e98d526f50ee7c7bcd30a7838644a
 
 #load("step.model.Rdata")
 if(parallel)
