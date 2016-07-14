@@ -28,7 +28,7 @@ head/foot}%
 \makeatother
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
 
 << include=F >>=
 
@@ -46,16 +46,23 @@ get_legend<-function(myggplot){
 }
 
 # Einladen der Daten
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   Stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto/", layer = "Stadtteile_netto")
   count_u_cs <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical/count_u_cs.csv')
   count_z_cs <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical/count_z_cs.csv')
-} else {
-  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+} 
+if(bearbeiter == 'Kai@Home') {
+  dataS <- read.table("/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  Stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+  count_u_cs <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/count_u_cs.csv')
+  count_z_cs <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/count_z_cs.csv')
 }
+
+
 @
 
 \title{Kleinräumige extrapolation von Umfragedaten}   
@@ -423,7 +430,6 @@ Insgesamt 6 Modelle zu schätzen
 \item Sinnvoll erscheinende Wechselwirkungen werden händisch untersucht
 \end{itemize}
 
-Insgesamt 6 Modelle zu schätzen
 \end{frame}
 
 \subsection{Modellvalidierung}
@@ -435,6 +441,7 @@ Insgesamt 6 Modelle zu schätzen
 \item Alle Datensätze werden vorhergesagt
 \item Interpretation der Confusion Matrix
 \end{itemize}
+\end{frame}
 
 \section{Ergbenisse}
 \subsection{GAM Schätzung}
