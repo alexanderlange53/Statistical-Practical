@@ -149,7 +149,7 @@ AIC(step.model$model.spatonly)
 
 
 summary(step.model$model.spat)
-stargazer(step.model$model.spat)
+#stargazer(step.model$model.spat)
 plot(step.model$model.spat, all = T)
 
 evaluation.in(step.model$model.spat)
