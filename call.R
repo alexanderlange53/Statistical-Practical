@@ -10,7 +10,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -139,13 +139,14 @@ step.model <- stepAIC()
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
+
 summary(step.model$model.spat)
 plot(step.model$model.spat, all = T)
 ## lauft bis hier
 
 
 ## bis hier 
-saveRDS(step.model, file="step.model.Rdata")
+saveRDS(step.model$model.spat, file="step.model.rds")
 
 evaluate(step.model)
 

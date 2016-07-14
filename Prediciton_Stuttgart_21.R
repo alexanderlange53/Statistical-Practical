@@ -13,14 +13,15 @@ require(maptools);require(rvest);require(dplyr)
 
 # Laden von Populationen
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 # loading data
 if(bearbeiter == 'Alex'){
   Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet.txt')
   Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet.txt')
 }
 if(bearbeiter == 'Kai@Home'){
-  
+  Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
+  Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
 }
 if(bearbeiter == 'Kai@Work') {
 
@@ -32,11 +33,11 @@ if(bearbeiter == 'Kai@Work') {
 #--------------------------------------------------#
 
 # Auswahl der passenden Variablen
-u.p <- select(Umfrage, Altersklasse, Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil )
-names(u.p) <- c("Altersklasse.Befragter","Geschlecht","Familienstand","Nationalität","X" ,"Y", 'Stadtteil')
+u.p <- select(Umfrage, Altersklasse,Haushaltsgroesse, Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil )
+names(u.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt", "Geschlecht","Familienstand","Nationalität","X" ,"Y", 'Stadtteil')
 
-z.p <- select(Zensus, alter, geschlecht, familienstand, staatsangehoerigkeit, xcoord, ycoord, stadtteil )
-names(z.p) <- c("Altersklasse.Befragter","Geschlecht","Familienstand","Nationalität","X" ,"Y", 'Stadtteil')
+z.p <- select(Zensus, alter,haushaltsgroesse, geschlecht, familienstand, staatsangehoerigkeit, xcoord, ycoord, stadtteil )
+names(z.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Geschlecht","Familienstand","Nationalität","X" ,"Y", 'Stadtteil')
 
 # Anpassen der Akltersklassen
 u.p2 <- u.p
@@ -91,10 +92,23 @@ z.p2$Familienstand[z.p$Familienstand == 'ledig'] <- 'ledig'
 z.p2$Familienstand[z.p$Familienstand == 'verheiratet/eingetragene Partnerschaft'] <- 'verheiratet'
 z.p2$Familienstand[z.p$Familienstand == 'verwitwet'] <- 'verwitwet'
 z.p2$Familienstand <- as.factor(z.p2$Familienstand)
+
+# Personzahl
+
+z.p2$Personenzahl.im.Haushalt <- ''
+z.p2$Personenzahl.im.Haushalt[z.p$Personenzahl.im.Haushalt == '1'] <- 1
+z.p2$Personenzahl.im.Haushalt[z.p$Personenzahl.im.Haushalt == '2'] <- 2
+z.p2$Personenzahl.im.Haushalt[z.p$Personenzahl.im.Haushalt == '3'] <- 3
+z.p2$Personenzahl.im.Haushalt[z.p$Personenzahl.im.Haushalt == '4'] <- 4
+z.p2$Personenzahl.im.Haushalt[z.p$Personenzahl.im.Haushalt == '5'] <- 5
+z.p2$Personenzahl.im.Haushalt[z.p$Personenzahl.im.Haushalt == '6'] <- 5
+
+z.p2$Personenzahl.im.Haushalt <- as.numeric(z.p2$Personenzahl.im.Haushalt)
+
 #-----------------------------------------# Model mit stetigen räumlichen Informationen #------------------------------------#
 
 # Laden der GAM Schätzungen
-model2 <- readRDS('model2.rds') # Gauss Krüger Informationen mit 3 Kategorien
+model2 <- readRDS('step.model.rds') # Gauss Krüger Informationen mit 3 Kategorien
 
 # Predicten der Umfrage population
 pred.pop.u.3 <- predict.gam(model2, newdata = u.p2, type = 'response')
