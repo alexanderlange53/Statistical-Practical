@@ -130,9 +130,16 @@ parallel <- FALSE
 ncore <- 20
 seed <- 123
 
-
+load_model <- TRUE
 ## Step AIC ##
-step.model <- stepAIC()
+if(!load_model){
+  step.model <- stepAIC()
+  saveRDS(step.model$model.spat, file="step.model.rds")
+  saveRDS(step.model, file="step.model_all.rds")
+} else {
+  step.model <- readRDS(file = "step.model_all.rds")
+}
+
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
 # Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
 
@@ -140,20 +147,34 @@ AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
 
+
 summary(step.model$model.spat)
+#stargazer(step.model$model.spat)
 plot(step.model$model.spat, all = T)
+
+evaluation.in(step.model$model.spat)
+evaluation.in(step.model$model.nospat)
+evaluation.in(step.model$model.spatonly)
+
+
+for(i in c(1 : 10)) {
+eval_subset <- sample_n(sample, size = 2450)
+eval.model <- list("model.spat" =
+  gam(Meinung.zu.Stuttgart.21 ~ s(X, Y, bs = "tp") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs = "tp") + 
+      Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps"), 
+    family=verteilung, method="REML", data = eval_subset)
+  )
+
+
+  print(evaluation.in(eval.model$model.spat, data = sample))
+}
+
+
+
 ## lauft bis hier
 
 
-## bis hier 
-saveRDS(step.model$model.spat, file="step.model.rds")
 
-evaluate(step.model)
-
-#save(step.model, file="step.model.Rdata")
-
-
-#load("step.model.Rdata")
 if(parallel)
 {
   set.seed(seed)

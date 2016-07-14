@@ -11,7 +11,7 @@ require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 # loading data
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
@@ -280,10 +280,10 @@ for(i in levels(factor(bb2$STADTBEZIR))) {
 zt <- list(polys = bb3)
 
 # raeumlicher Effekt
-seff <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)"
+seff <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs = \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
-pars <- c("Familienstand", "Nationalität", "Geschlecht")
+pars <- c("Geschlecht", "Nationalität", "Familienstand", "Personenzahl.im.Haushalt")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
 nonpars <- c("Altersklasse.Befragter, k = 6")
@@ -294,11 +294,44 @@ formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars =
 # GAM Schätzung
 model4 <- gam(formel, data = dataS, family= verteilung, method = 'REML')
 summary(model4)
+AIC(model4)
 plot(model4, pages = 1)
 gam.check(model4)
 model4$family$getTheta(TRUE)
 
 saveRDS(model4, 'model4.rds')
+
+# Step AIC
+source("stepAIC.R")
+
+
+
+# Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
+# werden sollen (typischerweise der r?umliche Effekt)
+fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+#+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+# Parametrisch zu modellierende Kovariablen
+pars <- c("Familienstand", "Nationalität", "Geschlecht")
+# Potenziell nichtparametrisch zu modellierende Kovariablen
+nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
+#Weitera Angaben
+modellwahl <- TRUE
+intervalle <- TRUE
+nboot <- 10
+coverage <- 0.95
+parallel <- FALSE
+ncore <- 20
+seed <- 123
+
+sample <- dataS
+sample$Gewicht <- 1
+gewichte <- "Gewicht"
+step.model <- stepAIC()
+summary(step.model$model.spat)
+AIC(step.model$model.spat)
+
+library(stargazer)
+stargazer(step.model$model.spat)
 
 #--------------------------------------------------------------------------#
 # Schätzung mit 3 Kategorien und den Stadtteilen als räumliche Information #

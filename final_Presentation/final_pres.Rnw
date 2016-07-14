@@ -446,6 +446,100 @@ Insgesamt 6 Modelle zu schätzen
 \section{Ergbenisse}
 \subsection{GAM Schätzung}
 
+\begin{frame}[shrink=20]\frametitle{GAM Zusammenfassung: Stetiger räumlicher Effekt}
+\begin{table}[!htbp] \centering 
+  %\caption{} 
+  %\label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Abhängige Variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Meinung zu Stuttgart 21 \\ 
+\hline \\[-1.8ex] 
+ Geschlecht - Weiblich & 0.524$^{***}$ \\ 
+  & (0.070) \\ 
+  & \\ 
+ Nationalität - Nicht Deutsch & $-$0.445$^{***}$ \\ 
+  & (0.110) \\ 
+  & \\ 
+ Familienstand - ledig & 0.090 \\ 
+  & (0.159) \\ 
+  & \\ 
+ Familienstand - verheiratet & $-$0.176 \\ 
+  & (0.151) \\ 
+  & \\ 
+ Familienstand - verwitwet & $-$0.356$^{*}$ \\ 
+  & (0.207) \\ 
+  & \\ 
+ Personenzahl im Haushalt & $-$0.340$^{***}$ \\ 
+  & (0.060) \\ 
+  & \\ 
+ \hline \\[-1.8ex] 
+ s(X, Y) & $^{*}$ \\
+  & \\
+  s(Personenzahl im Haushalt, Altersklasse) & $^{***}$ \\
+  & \\
+  s(Altersklasse) & $^{**}$ \\
+  & \\
+\hline \\[-1.8ex] 
+Beobachtungen & 3,062 \\ 
+Log Likelihood & $-$3,186.494 \\
+AIC & 6379 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Legende:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+\end{frame}
+
+\begin{frame}[shrink=20]\frametitle{GAM Zusammenfassung: Diskreter räumlicher Effekt}
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Abhängige Variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Meinung zu Stuttgart 21 \\ 
+\hline \\[-1.8ex] 
+ Geschlecht - Weiblich & 0.526$^{***}$ \\ 
+  & (0.070) \\ 
+  & \\ 
+ Nationalität - Nicht Deutsch & $-$0.448$^{***}$ \\ 
+  & (0.110) \\ 
+  & \\ 
+ Familienstand - ledig & 0.100 \\ 
+  & (0.159) \\ 
+  & \\ 
+ Familienstand - verheiratet & $-$0.165 \\ 
+  & (0.151) \\ 
+  & \\ 
+ Familienstand - verwitwet & $-$0.344$^{*}$ \\ 
+  & (0.208) \\ 
+  & \\ 
+ Personenzahl im Haushalt & $-$0.344$^{***}$ \\ 
+  & (0.060) \\ 
+  & \\
+  \hline \\[-1.8ex] 
+ s(Stadtbezirk) & $^{*}$ \\
+  & \\
+  s(Personenzahl im Haushalt, Altersklasse) & $^{***}$ \\
+  & \\
+  s(Altersklasse) & $^{**}$ \\
+  & \\
+\hline \\[-1.8ex] 
+Beobachtungen & 3,062 \\ 
+Log Likelihood & $-$3,185.948 \\ 
+AIC & 6378 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Legende:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+\end{frame}
+
 \subsection{Prediction}
 \begin{frame}\frametitle{Prediction}
 <<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
@@ -471,5 +565,7 @@ ggplot(cc2, aes(x = Var1, y = Freq)) +
                labs(x = NULL, y = 'Häufigkeit')  + facet_wrap(~ stat) 
 @
 \end{frame}
+
+
 
 \end{document}
