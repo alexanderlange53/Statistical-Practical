@@ -175,7 +175,7 @@ evaluation.in(step.model$model.spat)
 evaluation.in(step.model$model.nospat)
 evaluation.in(step.model$model.spatonly)
 
-
+erg <- list()
 for(i in c(1 : 10)) {
 eval_subset <- sample_n(sample, size = 2450)
 eval.model <- list("model.spat" =
@@ -185,15 +185,26 @@ eval.model <- list("model.spat" =
   )
 
 
-  print(evaluation.in(eval.model$model.spat, data = sample))
+  erg[[i]] <- evaluation.in(eval.model$model.spat, data = sample)
 }
 
-
-
+# Es spielt fast keine Rolle, ob man einen reduzierten oder den gesamten Datensatz nimmmt
+mean.erg <- erg[[1]]$tab
+for(i in c(2 : 10)){
+  mean.erg <- mean.erg + erg[[i]]$tab
+}
+mean.erg <- mean.erg / 10
+mean.erg <- as.data.frame(mean.erg)
+colnames(mean.erg) <- c("Dafür", "Neutral", "Dagegen")
+rownames(mean.erg) <- c("Dafür", "Neutral", "Dagegen")
+library(stargazer)
+stargazer(mean.erg)
 ## lauft bis hier
 
-
-
+# Descr. Stat: Neutral
+hist(sample[sample$Meinung.zu.Stuttgart.21 == 2, "Personenzahl.im.Haushalt"])
+hist(as.numeric(sample[sample$Meinung.zu.Stuttgart.21 == 2, "Geschlecht"]))
+hist(sample[sample$Meinung.zu.Stuttgart.21 == 2, "Altersklasse.Befragter"])
 if(parallel)
 {
   set.seed(seed)

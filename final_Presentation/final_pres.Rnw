@@ -393,6 +393,7 @@ Insgesamt 6 Modelle zu schätzen
 \item Das beste Modell wird mit einer Zufallsauswahl neu parameterisiert
 \item Alle Datensätze werden vorhergesagt
 \item Interpretation der Confusion Matrix
+\item 100 Wiederholungen
 \end{itemize}
 \end{frame}
 
@@ -570,7 +571,22 @@ plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") #
 \end{frame}
 
 \begin{frame}\frametitle{Modellvalidierung}
+Exemplarisch für das Modell mit stetigem räumlichen Effekt
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+& & & \textbf{Geschätzt}& \\
+  \hline
+ & & Dafür & Neutral & Dagegen \\ 
+  \hline
+  & Dafür & 983.50 & 0.00 & 327.50 \\ 
+  \textbf{Beobachtet} & Neutral & 456.80 & 0.00 & 228.20 \\ 
+  & Dagegen & 554.30 & 0.00 & 511.70 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
+Mittlerer Anteil korrekt geschätzter Faktorstufen: 48,7 \%
 \end{frame}
 
 \subsection{Prediction}
