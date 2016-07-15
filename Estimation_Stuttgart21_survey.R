@@ -301,6 +301,12 @@ model4$family$getTheta(TRUE)
 
 saveRDS(model4, 'model4.rds')
 
+pdf('stadtbezirke.pdf')
+plot(model4, all = TRUE, select = 1, ann = F)
+mtext(side = 2, line = 3, "s(Stadtbezirk)")
+dev.off()
+
+
 # Step AIC
 source("stepAIC.R")
 
@@ -326,27 +332,35 @@ seed <- 123
 sample <- dataS
 sample$Gewicht <- 1
 gewichte <- "Gewicht"
-step.model <- stepAIC()
-summary(step.model$model.spat)
-AIC(step.model$model.spat)
+#step.model <- stepAIC()
+#summary(step.model$model.spat)
+#AIC(step.model$model.spat)
 
 library(stargazer)
-stargazer(step.model$model.spat)
+#stargazer(step.model$model.spat)
 
 #--------------------------------------------------------------------------#
 # Schätzung mit 3 Kategorien und den Stadtteilen als räumliche Information #
 #--------------------------------------------------------------------------#
 
-bearbeiter = 'Alex'
+#bearbeiter = 'Alex'
 # laden der Stadtteilinformationen
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
-} else {
+} 
+
+if(bearbeiter == 'Kai@Home'){
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Neue_Daten/Stuttgart21_aufbereitet.csv',
+                     dec = '.')
+  stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+}
+
+if(bearbeiter == 'Kai@Work') {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
                      dec = '.')
-  stadtteile <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
+  bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "Stadtteile_netto")
 }
 
 # Da die Kategorie 'Keine Angabe' nicht in das Schema der geordneten Kategorien passt und keine Informationen
@@ -460,10 +474,19 @@ dat.teile$Stadtteil <- factor(dat.teile$Stadtteil, levels = names(zt$polys))
 response <- "Meinung.zu.Stuttgart.21"
 verteilung <- ocat(R=3)
 # raeumlicher Effekt
-seff <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
+#seff <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
 
 # Parametrisch zu modellierende Kovariablen
-pars <- c("Familienstand", "Nationalität", "Geschlecht")
+#pars <- c("Familienstand", "Nationalität", "Geschlecht")
+
+# raeumlicher Effekt
+seff <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs = \"tp\")"
+
+# Parametrisch zu modellierende Kovariablen
+pars <- c("Geschlecht", "Nationalität", "Familienstand", "Personenzahl.im.Haushalt")
+
+# Potenziell nichtparametrisch zu modellierende Kovariablen
+nonpars <- c("Altersklasse.Befragter, k = 6")
 
 # Zeigt die Anzahl der klassen der Variablen. Knots vom spline sind by default = 10, wenn die Anzahl der Klassen aber weniger 
 # als 10 sind, kann dies zu Problemen führen.
@@ -472,7 +495,7 @@ unique(dat.teile$Personenzahl.im.Haushalt)
 unique(dat.teile$Monatliches.Netto.Haushaltseinkommen)
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
-nonpars <- c("Altersklasse.Befragter, k = 6")
+#nonpars <- c("Altersklasse.Befragter, k = 6")
 
 # Erstellen der Schätzfunktion
 formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars = nonpars)
@@ -480,9 +503,17 @@ formel <- make.formula(response = response, fixed = seff, pars = pars, nonpars =
 # GAM Schätzung
 model5 <- gam(formel,  weights = dat.teile$Gewicht, data = dat.teile, family= verteilung, method = 'REML')
 summary(model5)
+library(stargazer)
+stargazer(model5)
 plot(model5, pages = 1)
 gam.check(model5)
 model5$family$getTheta(TRUE)
 
 saveRDS(model5, 'model5.rds')
+
+pdf('stadtteile.pdf')
+plot(model5, all = TRUE, select = 1, ann = F)
+mtext(side = 2, line = 3, "s(Stadtteil)")
+dev.off()
+
 as.data.frame(table(pred.pop.u[,7]))

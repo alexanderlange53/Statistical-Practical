@@ -5,6 +5,7 @@
 \usepackage{adjustbox}
 \usepackage{color}
 \usepackage{amsbsy}
+\usepackage{pdfpages}
 \setbeamertemplate{navigation symbols}{}
 \makeatletter
 \setbeamertemplate{footline}
@@ -45,7 +46,7 @@ get_legend<-function(myggplot){
 }
 
 # Einladen der Daten
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
@@ -63,6 +64,13 @@ if(bearbeiter == 'Kai@Home') {
   Stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
   count_u_cs <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/count_u_cs.csv')
   count_z_cs <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/count_z_cs.csv')
+  gk1 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/gk1.rds')
+  gk11 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/gk11.rds')
+  gk2 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/gk2.rds')
+  gk3 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/gk3.rds')
+  m1 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/step.model.rds')
+  m4 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/model4.rds')
+  m5 <- readRDS('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/model5.rds')
 }
 
 
@@ -391,7 +399,7 @@ Insgesamt 6 Modelle zu schätzen
 \section{Ergbenisse}
 \subsection{GAM Schätzung}
 
-\begin{frame}[shrink=20]\frametitle{GAM Zusammenfassung: Stetiger räumlicher Effekt}
+\begin{frame}[shrink=20]\frametitle{GAM: Stetiger räumlicher Effekt}
 \begin{table}[!htbp] \centering 
   %\caption{} 
   %\label{} 
@@ -438,10 +446,8 @@ AIC & 6379 \\
 \end{table} 
 \end{frame}
 
-\begin{frame}[shrink=20]\frametitle{GAM Zusammenfassung: Diskreter räumlicher Effekt}
+\begin{frame}[shrink=20]\frametitle{GAM: Diskreter räumlicher Effekt - Stadtbezirke}
 \begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
 \begin{tabular}{@{\extracolsep{5pt}}lc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
@@ -485,6 +491,88 @@ AIC & 6378 \\
 \end{table}
 \end{frame}
 
+\begin{frame}[shrink=20]\frametitle{GAM: Diskreter räumlicher Effekt - Stadtteile}
+\begin{table}[!htbp] \centering
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Abhängige Variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Meinung zu Stuttgart 21 \\ 
+\hline \\[-1.8ex] 
+ Geschlecht - Weiblich & 0.506$^{***}$ \\ 
+  & (0.069) \\ 
+  & \\ 
+ Nationalität - Nicht Deutsch & $-$0.480$^{***}$ \\ 
+  & (0.110) \\ 
+  & \\ 
+ Familienstand - ledig & 0.084 \\ 
+  & (0.160) \\ 
+  & \\ 
+ Familienstand - verheiratet & $-$0.160 \\ 
+  & (0.153) \\ 
+  & \\ 
+ Familienstand - verwitwet & $-$0.427$^{**}$ \\ 
+  & (0.210) \\ 
+  & \\ 
+ Personenzahl im Haushalt & $-$0.334$^{***}$ \\ 
+  & (0.061) \\ 
+  & \\
+  \hline \\[-1.8ex] 
+ s(Stadtteil) & $^{*}$ \\
+  & \\
+  s(Personenzahl im Haushalt, Altersklasse) & $^{***}$ \\
+  & \\
+  s(Altersklasse) & $^{**}$ \\
+  & \\
+\hline \\[-1.8ex] 
+Beobachtungen & 3,093 \\ 
+Log Likelihood & $-$3,224.848 \\ 
+AIC & 6456 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Legende:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+\end{frame}
+
+\begin{frame}\frametitle{Nichtparametrische Effekte}
+<<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
+plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+@
+\end{frame}
+
+\begin{frame}\frametitle{Nichtparametrische Effekte}
+\begin{figure}[h]
+\centering
+\includegraphics[scale = 0.32]{parametrische_effekte.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Räumlicher Effekt - Stetig}
+<<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
+plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+@
+\end{frame}
+
+\begin{frame}\frametitle{Räumlicher Effekt - Diskret (Stadtbezirke)}
+\begin{figure}[h]
+\centering
+\includegraphics[scale = 0.4]{stadtbezirke.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Räumlicher Effekt - Diskret (Stadtteile)}
+\begin{figure}[h]
+\centering
+\includegraphics[scale = 0.4]{stadtteile.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Modellvalidierung}
+
+\end{frame}
+
 \subsection{Prediction}
 \begin{frame}\frametitle{Prediction}
 <<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=
@@ -510,6 +598,8 @@ ggplot(cc2, aes(x = Var1, y = Freq)) +
                labs(x = NULL, y = 'Häufigkeit')  + facet_wrap(~ stat) 
 @
 \end{frame}
+
+
 
 \begin{frame}\frametitle{Prediction Bürgerumfrage}
 <<echo=F, fig.width='8cm', fig.height=5, fig.align='center', message=F, warning=F>>=

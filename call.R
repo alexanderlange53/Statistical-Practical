@@ -140,6 +140,25 @@ if(!load_model){
   step.model <- readRDS(file = "step.model_all.rds")
 }
 
+
+## GAM Plots: Interpretation der Effekte ##
+m1 <- step.model$model.spat
+
+plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+
+plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+
+pdf("./final_Presentation/parametrische_effekte.pdf", w = 9, h = 9)
+par(mfrow = c(2, 2))
+plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
+mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
+mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+plot(m1, select = 7, all = TRUE, ann = F) # Altersklasse
+mtext(side = 1, line = 3, "Altersklasse"); mtext(side = 2, line = 3, "Einfluss der Altersklasse")
+dev.off()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
 # Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
 

@@ -16,7 +16,7 @@ require(ggmap);require(dplyr);require(gstat)#;require(raster) # package loading
 colo <- diverge_hsv(3)
 # Laden von Populationen
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 # loading data
 if(bearbeiter == 'Alex'){
   Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet.txt')
@@ -28,6 +28,8 @@ if(bearbeiter == 'Alex'){
 if(bearbeiter == 'Kai@Home'){
   Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
   Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Neue_Daten/Stuttgart21_aufbereitet.csv', dec = '.')
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
 }
 if(bearbeiter == 'Kai@Work') {
 
