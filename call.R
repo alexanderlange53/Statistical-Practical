@@ -156,8 +156,8 @@ plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
 mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
 plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
 mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Altersklasse
-mtext(side = 1, line = 3, "Altersklasse"); mtext(side = 2, line = 3, "Einfluss der Altersklasse")
+plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 dev.off()
 # 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
 # Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
