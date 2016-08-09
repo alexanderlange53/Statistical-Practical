@@ -10,7 +10,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Kai@Work'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -22,7 +22,6 @@ if(bearbeiter == 'Kai@Work') {
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
 }
-
 
 source("stepAIC.R")
 source("evaluation.R")
@@ -99,19 +98,6 @@ pars <- c("Familienstand", "Nationalität", "Geschlecht")
 
 # Potenziell nichtparametrisch zu modellierende Kovariablen
 nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
-# Dieser Teil kann von uns nicht uebernommen werden, da keine Population existiert
-# # Vorhersagedatensatz (Informationen aus der Grundgesamtheit) und
-# # zu verwendende r?umliche Aggregationsebene in der Vorhersage
-# # Kodierung der Variablen analog zur Stichprobe
-# population <- read.table("population_aufbereitet.txt", header=TRUE, sep=";")
-# aggregation <- "Stadtteil"
-# 
-# # Validierungsdaten, falls vorhanden
-# validate <- TRUE
-# validation <- read.table("validation_aufbereitet.txt", header=TRUE, sep=";")
-# aggregation.val <- "Stadtteil"
-# response.val <- "Eigentuemer.Zensus"
-# validation <- validation[order(validation[,aggregation.val]),]
 
 # Modellwahl ja/nein?
 modellwahl <- TRUE
@@ -159,8 +145,7 @@ mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss 
 plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
 mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 dev.off()
-# 07.07: Lueppt. hat aber noch das Problem, dass die Knoten nicht angegeben werden koennen! Koennte man abfangen, indem die make.formula angepasst wird (liegt am ,)
-# Diese Warnung sollte aber auch nichts ausmachen bei pen. B-Splines
+
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
@@ -168,7 +153,6 @@ AIC(step.model$model.spatonly)
 
 
 summary(step.model$model.spat)
-#stargazer(step.model$model.spat)
 plot(step.model$model.spat, all = T)
 
 evaluation.in(step.model$model.spat)
