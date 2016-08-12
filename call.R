@@ -3,7 +3,7 @@
 #------------------------------------------------#
 
 # Erstellt: 07.07.16
-# Aktualisiert: 07.07.16
+# Aktualisiert: 10.08.16
 # Letzter Bearbeiter: Kai
 
 rm(list = ls())
@@ -116,6 +116,10 @@ parallel <- FALSE
 ncore <- 20
 seed <- 123
 
+#--------------------#
+## Modellerstellung ##
+#--------------------#
+
 load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
@@ -126,15 +130,15 @@ if(!load_model){
   step.model <- readRDS(file = "step.model_all.rds")
 }
 
-
-## GAM Plots: Interpretation der Effekte ##
+#--------------------------------#
+## Modelleffekte interpretieren ##
+#--------------------------------#
+## GAM Plots ##
 m1 <- step.model$model.spat
-
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-pdf("./final_Presentation/parametrische_effekte.pdf", w = 9, h = 9)
+
 par(mfrow = c(2, 2))
 plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
 mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
@@ -154,6 +158,10 @@ AIC(step.model$model.spatonly)
 
 summary(step.model$model.spat)
 plot(step.model$model.spat, all = T)
+
+#--------------------#
+## Model Evaluation ##
+#--------------------#
 
 evaluation.in(step.model$model.spat)
 evaluation.in(step.model$model.nospat)
@@ -204,20 +212,3 @@ if(parallel)
 
 
 pred <- prediction(step.model)
-
-
-
-
-
-
-# Ergebnisse:
-# pred = Matrix mit den Vorhersagen und Vorhersageintervallen (falls berechnet)
-#        wird auch in der Datei "response_vorhersage.txt" gespeichert
-# step.model = Liste mit den Elementen
-#     model.spat = Finales Modell der schrittweisen Modellselektiom
-#     model.nospat = Wie model.spat aber ohne r?umlichem Effekt
-#     model.spatonly = Modell mit ausschlie?lich r?umlichem Effekt
-#     pars = ausgew?hlte parametrische Effekte
-#     nonpars = ausgew?hlte nichtparametrische Effekte
-#     fm = Formel des finalen Modells
-# wird auch in step.model.Rdata gespeichert
