@@ -10,7 +10,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -18,9 +18,10 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-}
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")}
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
 }
 
 source("stepAIC.R")
@@ -34,8 +35,6 @@ library("splines")
 #--------------------------------#
 # Daten einlesen und vorbereiten #
 #--------------------------------#
-
-sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
 
 for(i in 1:nrow(sample)){
   if(sample$Meinung.zu.Stuttgart.21[i] == 6) {
@@ -138,7 +137,7 @@ m1 <- step.model$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-
+x11()
 par(mfrow = c(2, 2))
 plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
 mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
@@ -158,6 +157,7 @@ AIC(step.model$model.spatonly)
 
 summary(step.model$model.spat)
 plot(step.model$model.spat, all = T)
+
 
 #--------------------#
 ## Model Evaluation ##
