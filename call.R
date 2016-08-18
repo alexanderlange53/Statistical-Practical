@@ -4,13 +4,13 @@
 
 # Erstellt: 07.07.16
 # Aktualisiert: 10.08.16
-# Letzter Bearbeiter: Kai
+
 
 rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Work'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -119,7 +119,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -163,9 +163,8 @@ plot(step.model$model.spat, all = T)
 ## Model Evaluation ##
 #--------------------#
 
-evaluation.in(step.model$model.spat)
-evaluation.in(step.model$model.nospat)
-evaluation.in(step.model$model.spatonly)
+evaluate(step.model$model.spat, data = sample)
+cross.evaluation(step.model$model.spat, sample, n = 1)
 
 erg <- list()
 for(i in c(1 : 10)) {
