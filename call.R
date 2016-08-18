@@ -2,10 +2,6 @@
 #### Laden der Daten und Aufrufen der Skripte ####
 #------------------------------------------------#
 
-# Erstellt: 07.07.16
-# Aktualisiert: 10.08.16
-
-
 rm(list = ls())
 
 ## Working directory ##
@@ -26,6 +22,7 @@ if(bearbeiter == 'Kai@Home') {
 
 source("stepAIC.R")
 source("evaluation.R")
+source('DataPrep.R')
 #source("prediction.R")
 
 library("ROCR")
@@ -36,35 +33,12 @@ library("splines")
 # Daten einlesen und vorbereiten #
 #--------------------------------#
 
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 6) {
-      sample$Meinung.zu.Stuttgart.21[i] <- NA
-    }
-}
-
-sample <- na.omit(sample)
-
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 2){
-    sample$Meinung.zu.Stuttgart.21[i] <- 1
-  }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 3){
-    sample$Meinung.zu.Stuttgart.21[i] <- 2
-    }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 4){
-    sample$Meinung.zu.Stuttgart.21[i] <- 3
-  }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 5){
-    sample$Meinung.zu.Stuttgart.21[i] <- 3
-  }
-}
-
+# Wenn binom = F:
+# erstellt aus Gruppen 1 und 2 = 1
+# erstellt aus Gruppen 3 = 2
+# erstellt aus Grppen 4 und 5 = 3
+# löscht Gruppe 6
+sample <- DataPrep(sample, binom = F)
 
 #------------------#
 # Eingabeparameter #
@@ -77,11 +51,9 @@ for(i in 1:nrow(sample)){
 # - Kategoriale Variablen mit passenden Labeln versehen (als Text)
 # - "." als Dezimaltrennzeichen
 
-
 # Zielgröße & Verteilungsannahme
 response <- "Meinung.zu.Stuttgart.21"
 verteilung <- ocat(R=3)
-
 
 # Gewichte
 sample$Gewicht <- 1
@@ -90,7 +62,6 @@ gewichte <- "Gewicht"
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der r?umliche Effekt)
 fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
-#+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")

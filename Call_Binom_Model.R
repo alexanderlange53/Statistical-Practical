@@ -2,9 +2,6 @@
 #### Laden der Daten und Aufrufen der Skripte ####
 #------------------------------------------------#
 
-# Erstellt: 07.07.16
-# Aktualisiert: 10.08.16
-# Letzter Bearbeiter: Kai
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
@@ -31,6 +28,7 @@ if(bearbeiter == 'Kai@Home') {
 
 source("stepAIC.R")
 source("evaluation.R")
+source('DataPrep.R')
 #source("prediction.R")
 
 library("ROCR")
@@ -41,35 +39,11 @@ library("splines")
 # Daten einlesen und vorbereiten #
 #--------------------------------#
 
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 6) {
-    sample$Meinung.zu.Stuttgart.21[i] <- NA
-  }
-}
-
-sample <- na.omit(sample)
-
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 2){
-    sample$Meinung.zu.Stuttgart.21[i] <- 1
-  }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 3){
-    sample$Meinung.zu.Stuttgart.21[i] <- NA
-  }
-}
-sample <- na.omit(sample)
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 4){
-    sample$Meinung.zu.Stuttgart.21[i] <- 0
-  }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 5){
-    sample$Meinung.zu.Stuttgart.21[i] <- 0
-  }
-}
+# Wenn binom = T:
+# Fasst die Gruppen 1 und 2 zu == 1 zusammen und
+# 4 und 5 == 0
+# Gruppen 6 und 3 werden gelöscht
+sample <- DataPrep(sample, binom = T)
 
 #------------------#
 # Eingabeparameter #
@@ -82,7 +56,6 @@ for(i in 1:nrow(sample)){
 # - Kategoriale Variablen mit passenden Labeln versehen (als Text)
 # - "." als Dezimaltrennzeichen
 
-
 # Zielgröße & Verteilungsannahme
 response <- "Meinung.zu.Stuttgart.21"
 verteilung <- binomial()
@@ -94,7 +67,6 @@ gewichte <- "Gewicht"
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der raeumliche Effekt)
 fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
-#+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
@@ -159,12 +131,11 @@ AIC(step.model.binom$model.spat)
 AIC(step.model.binom$model.nospat)
 AIC(step.model.binom$model.spatonly)
 
-
 summary(step.model.binom$model.spat)
 plot(step.model.binom$model.spat, all = T)
 
 #--------------------------------------#
-# Bezirke als Räumliche Informationen  #
+# Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
 #--------------------------------------#
 
 # Erstellen des Markov-Random fields
@@ -175,7 +146,6 @@ bb2 <- select(bb, long, lat, STADTBEZIR)
 bb3 <- list()
 for(i in levels(factor(bb2$STADTBEZIR))) {
   bb3[[i]] <- bb2[bb2$STADTBEZIR == i, c('long', 'lat')]
-  
 }
 zt <- list(polys = bb3)
 
@@ -193,7 +163,7 @@ if(!load_model){
   saveRDS(step.model.binom.B$model.spat, file="step.model_binomB.rds")
   saveRDS(step.model.binom.B, file="step.model_all_binomB.rds")
 } else {
-  step.model.binomB <- readRDS(file = "step.model_all_binomB.rds")
+  step.model.binom.B <- readRDS(file = "step.model_all_binomB.rds")
 }
 
 #--------------------------------#
@@ -225,7 +195,7 @@ summary(step.model.binom.B$model.spat)
 plot(step.model.binom.B$model.spat, all = T)
 
 #-----------------------------------------#
-# Stadtteile als Räumliche Informationen  #
+# Stadtteile als Räumliche Informationen  #--------------------------------------------------------------
 #-----------------------------------------#
 
 # Extrahieren der räumlichen Informationen der Stadtbezirke
@@ -313,6 +283,7 @@ dat.teile$Stadtteil <- factor(dat.teile$Stadtteil, levels = names(zt$polys))
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+# Sample mit pseudo Beobachtungen einfügen
 sample <- dat.teile
 
 #--------------------#
@@ -326,7 +297,7 @@ if(!load_model){
   saveRDS(step.model.binom.S$model.spat, file="step.model_binomS.rds")
   saveRDS(step.model.binom.S, file="step.model_all_binomS.rds")
 } else {
-  step.model.binomS <- readRDS(file = "step.model_all_binomS.rds")
+  step.model.binom.S <- readRDS(file = "step.model_all_binomS.rds")
 }
 #--------------------------------#
 ## Modelleffekte interpretieren ##
@@ -355,3 +326,4 @@ AIC(step.model.binom.S$model.spatonly)
 
 summary(step.model.binom.S$model.spat)
 plot(step.model.binom.S$model.spat, all = T)
+
