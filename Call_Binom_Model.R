@@ -256,9 +256,9 @@ stadtteile.dat <- as.data.frame(table(dataS$Stadtteil)) # Alle Stadtteile mit Be
 names(stadtteile.dat) <- c('Var1', 'Freq2')
 unterschied <- merge(stadtteile.pol, stadtteile.dat, all.x = T)
 unterschied <- filter(unterschied, is.na(Freq2)) # Leere Polygone wie z.B. der Wald
-u <- c(rep(as.character(unterschied[,1]), 3)) # jeweils eine Beobachtung jeder Kategorie erstellen
+u <- c(rep(as.character(unterschied[,1]), 2)) # jeweils eine Beobachtung jeder Kategorie erstellen
 # erstellen der Pseudobeobachtungen für Stadtteile mit gar keinen Beobachtungen
-MM <- c(rep(1, nrow(unterschied)), rep(2, nrow(unterschied)), rep(3, nrow(unterschied)))
+MM <- c(rep(1, nrow(unterschied)), rep(0, nrow(unterschied)))
 P <- c(rep(1,length(u)))
 M <- c(rep(1,length(u)))
 A <- c(rep(1,length(u)))
@@ -271,9 +271,9 @@ X <- c(rep(3513518,length(u)))
 Y <- c(rep(404074, length(u)))
 D <- c(rep(0, length(u)))
 pseudo.a <- as.data.frame(cbind(B, MM, P, M, A, G, FF, N, Sb, as.character(u), X, Y))
-names(pseudo.a)<- names(dataS)
 # Gewichte einführen, um bias zu verhindern
 pseudo.a$Gewicht  <- 0
+names(pseudo.a)<- names(dataS)
 # erstellen der Pseudobeobachtungen für Stadtteile mit parziel fehlenden Beobachtungen
 pseudo <- as.data.frame(cbind(fehlende.b$Var2, as.character(fehlende.b$Var1)))
 P <- c(rep(1,nrow(pseudo)))
@@ -287,7 +287,7 @@ Sb <- c(rep('Mitte', nrow(pseudo)))
 X <- c( rep(3513518,nrow(pseudo)))
 Y <- c(rep(404074, nrow(pseudo)))
 D <- c(rep(0, nrow(pseudo)))
-pseudo.b <- as.data.frame(cbind(B, fehlende.b$Var2, P, M, A, G, FF, N, Sb, as.character(fehlende.b$Var1), X, Y))
+pseudo.b <- as.data.frame(cbind(B, B, P, M, A, G, FF, N, Sb, as.character(fehlende.b$Var1), X, Y))
 
 # Pseudo Beobachtungen mit 0 gewichten
 pseudo.b$Gewicht  <- 0
@@ -313,5 +313,45 @@ dat.teile$Stadtteil <- factor(dat.teile$Stadtteil, levels = names(zt$polys))
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+sample <- dat.teile
 
-# Stadtteile funktionieren noch nicht
+#--------------------#
+## Modellerstellung ##
+#--------------------#
+
+load_model <- TRUE
+## Step AIC ##
+if(!load_model){
+  step.model.binom.S <- stepAIC()
+  saveRDS(step.model.binom.S$model.spat, file="step.model_binomS.rds")
+  saveRDS(step.model.binom.S, file="step.model_all_binomS.rds")
+} else {
+  step.model.binomS <- readRDS(file = "step.model_all_binomS.rds")
+}
+#--------------------------------#
+## Modelleffekte interpretieren ##
+#--------------------------------#
+## GAM Plots ##
+m1 <- step.model.binom.S$model.spat
+plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+
+x11()
+par(mfrow = c(2, 2))
+plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
+mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
+mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+
+dev.off()
+
+AIC(step.model.binom.S$model.spat)
+AIC(step.model.binom.S$model.nospat)
+AIC(step.model.binom.S$model.spatonly)
+
+summary(step.model.binom.S$model.spat)
+plot(step.model.binom.S$model.spat, all = T)

@@ -10,7 +10,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
