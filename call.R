@@ -10,7 +10,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -119,7 +119,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- FALSE
+load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -156,7 +156,7 @@ AIC(step.model$model.spatonly)
 
 
 summary(step.model$model.spat)
-plot(step.model$model.spat, all = T)
+
 
 
 #--------------------#
@@ -164,22 +164,14 @@ plot(step.model$model.spat, all = T)
 #--------------------#
 
 evaluate(step.model$model.spat, data = sample)
-cross.evaluation(step.model$model.spat, sample, n = 1)
+cross.evaluation(model = step.model$model.spat, data = sample, n = 5)
+#
 
-erg <- list()
-for(i in c(1 : 10)) {
-eval_subset <- sample_n(sample, size = 2450)
-eval.model <- list("model.spat" =
-  gam(Meinung.zu.Stuttgart.21 ~ s(X, Y, bs = "tp") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs = "tp") + 
-      Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps"), 
-    family=verteilung, method="REML", data = eval_subset)
-  )
+#--------------#
+## Alter Code ##
+#--------------#
+# Vielleicht für das Papaer hilfreich, im Moment aber nicht wichtig
 
-
-  erg[[i]] <- evaluation.in(eval.model$model.spat, data = sample)
-}
-
-# Es spielt fast keine Rolle, ob man einen reduzierten oder den gesamten Datensatz nimmmt
 mean.erg <- erg[[1]]$tab
 for(i in c(2 : 10)){
   mean.erg <- mean.erg + erg[[i]]$tab

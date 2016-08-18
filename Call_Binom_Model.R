@@ -13,7 +13,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -123,7 +123,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model.binom <- stepAIC()
@@ -161,7 +161,9 @@ AIC(step.model.binom$model.spatonly)
 
 
 summary(step.model.binom$model.spat)
-plot(step.model.binom$model.spat, all = T)
+#plot(step.model.binom$model.spat, all = T)
+
+evaluate(step.model.binom$model.spat, data = sample)
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #
