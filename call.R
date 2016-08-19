@@ -6,6 +6,7 @@ rm(list = ls())
 
 ## Working directory ##
 
+bearbeiter <- 'Alex'
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -128,10 +129,7 @@ AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
 
-
 summary(step.model$model.spat)
-
-
 
 #--------------------#
 ## Model Evaluation ##
