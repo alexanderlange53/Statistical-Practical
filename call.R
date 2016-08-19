@@ -28,6 +28,10 @@ library("ROCR")
 library("mgcv")
 library("splines")
 
+#-----------------------#
+# Funktionen definieren #
+#-----------------------#
+
 #--------------------------------#
 # Daten einlesen und vorbereiten #
 #--------------------------------#
@@ -134,7 +138,7 @@ summary(step.model$model.spat)
 #--------------------#
 
 evaluate(step.model$model.spat, data = sample)
-cross.evaluation(model = step.model$model.spat, data = sample, n = 5)
+cross.evaluation(model = step.model$model.spat, data = sample, repeatitions = 5)
 #
 
 #--------------#
