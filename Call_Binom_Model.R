@@ -5,18 +5,24 @@
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
+library(ggplot2)
 
 rm(list = ls())
 
 ## Working directory ##
 
 bearbeiter = 'Alex'
+pred = F
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
+  if(pred == T){
+    Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet.txt')
+    Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet.txt')
+  }
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
@@ -31,7 +37,8 @@ source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
 source('PseudoB.R')
-#source("prediction.R")
+source("evaluation.R")
+source("Prediction.R")
 
 library("ROCR")
 library("mgcv")
@@ -134,9 +141,29 @@ AIC(step.model.binom$model.nospat)
 AIC(step.model.binom$model.spatonly)
 
 summary(step.model.binom$model.spat)
-#plot(step.model.binom$model.spat, all = T)
 
-evaluate(step.model.binom$model.spat, data = sample)
+#--------------------#
+## Model Evaluation ##
+#--------------------#
+evaluate.bivariate(step.model.binom$model.spat, data = sample)
+
+#---------------#
+## Prediction  ##
+#---------------#
+
+if(pred == T){
+  pred.binom.U <- Prediction(Umfrage, step.model.binom$model.spat, Umfrage = T, binom = T)
+  pred.binom.Z <- Prediction(Zensus, step.model.binom$model.spat, Umfrage = F, binom = T)
+  write.table(pred.binom.U, file = 'predbinom_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.table(pred.binom.Z, file = 'predbinom_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+}else{
+  pred.binom.U <- read.csv2('predbinom_U.csv')
+  pred.binom.Z <- read.csv2('predbinom_Z.csv')
+}
+
+# Anteil der geschätzten Gruppe 1 (Zustimmung)
+sum(pred.binom.U[,5])/nrow(pred.binom.U)
+sum(pred.binom.Z[,5])/nrow(pred.binom.Z)
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------

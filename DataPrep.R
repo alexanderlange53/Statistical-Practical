@@ -7,10 +7,14 @@ DataPrep <- function(sample, binom = T){
    }
    
    sample <- na.omit(sample)
-   
+   for(i in 1:nrow(sample)){
+     if(sample$Meinung.zu.Stuttgart.21[i] == 1){
+       sample$Meinung.zu.Stuttgart.21[i] <- 0
+     }
+   }
    for(i in 1:nrow(sample)){
      if(sample$Meinung.zu.Stuttgart.21[i] == 2){
-       sample$Meinung.zu.Stuttgart.21[i] <- 1
+       sample$Meinung.zu.Stuttgart.21[i] <- 0
      }
    }
    for(i in 1:nrow(sample)){
@@ -21,12 +25,12 @@ DataPrep <- function(sample, binom = T){
    sample <- na.omit(sample)
    for(i in 1:nrow(sample)){
      if(sample$Meinung.zu.Stuttgart.21[i] == 4){
-       sample$Meinung.zu.Stuttgart.21[i] <- 0
+       sample$Meinung.zu.Stuttgart.21[i] <- 1
      }
    }
    for(i in 1:nrow(sample)){
      if(sample$Meinung.zu.Stuttgart.21[i] == 5){
-       sample$Meinung.zu.Stuttgart.21[i] <- 0
+       sample$Meinung.zu.Stuttgart.21[i] <- 1
      }
    }
  }else{

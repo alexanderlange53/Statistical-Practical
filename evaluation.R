@@ -26,7 +26,7 @@ evaluate.bivariate <- function(model, data) {
 }
 
 
-cross.evaluation <- function (model, data, repeatitions  = 10) {
+cross.evaluation <- function(model, data, repeatitions  = 10){
   leave_out <- sample.int(n = dim(data)[1], size = repeatitions)
   ret <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
   data$id = c(1 : dim(data)[1])
