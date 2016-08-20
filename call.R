@@ -7,7 +7,7 @@ rm(list = ls())
 ## Working directory ##
 
 bearbeiter <- 'Alex'
-pred = F
+pred = T
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -33,6 +33,7 @@ source('DataPrep.R')
 source('MarkovRandomField.R')
 source('PseudoB.R')
 source("Prediction.R")
+source('PredBarPlot.R')
 
 library("ROCR")
 library("mgcv")
@@ -161,6 +162,8 @@ if(pred == T){
   pred.U <- read.csv2('pred_U.csv')
   pred.Z <- read.csv2('pred_Z.csv')
 }
+
+PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------

@@ -12,7 +12,7 @@ rm(list = ls())
 ## Working directory ##
 
 bearbeiter = 'Alex'
-pred = F
+pred = T
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -39,6 +39,7 @@ source('MarkovRandomField.R')
 source('PseudoB.R')
 source("evaluation.R")
 source("Prediction.R")
+source('PredBarPlot.R')
 
 library("ROCR")
 library("mgcv")
@@ -161,9 +162,8 @@ if(pred == T){
   pred.binom.Z <- read.csv2('predbinom_Z.csv')
 }
 
-# Anteil der geschätzten Gruppe 1 (Zustimmung)
-sum(pred.binom.U[,5])/nrow(pred.binom.U)
-sum(pred.binom.Z[,5])/nrow(pred.binom.Z)
+PredBarPlot(sample, pred.binom.U)
+PredBarPlot(sample, pred.binom.Z)
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
