@@ -12,7 +12,7 @@ rm(list = ls())
 ## Working directory ##
 
 bearbeiter = 'Alex'
-pred = T
+pred = F
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -40,6 +40,7 @@ source('PseudoB.R')
 source("evaluation.R")
 source("Prediction.R")
 source('PredBarPlot.R')
+source('tryf.R')
 
 library("ROCR")
 library("mgcv")
@@ -54,6 +55,7 @@ library('reshape2')
 # Fasst die Gruppen 1 und 2 zu == 1 zusammen und
 # 4 und 5 == 0
 # Gruppen 6 und 3 werden gelöscht
+sample2 <- DataPrep(sample, binom = F)
 sample <- DataPrep(sample, binom = T)
 
 #------------------#
@@ -162,7 +164,11 @@ if(pred == T){
   pred.binom.U <- read.csv2('predbinom_U.csv')
   pred.binom.Z <- read.csv2('predbinom_Z.csv')
 }
+pred.binom.U2 <- pred.binom.U
+pred.binom.U2$X1 <- as.numeric(as.character(pred.binom.U2$X1))
+pred.binom.U2 <- tryf(pred.binom.U2)
 
+PredBarPlot(sample2, pred.binom.U2, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.binom.U)
 PredBarPlot(sample, pred.binom.Z)
 
