@@ -42,7 +42,7 @@ require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 library(ggplot2)
-
+library(reshape2)
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -164,6 +164,7 @@ if(pred == T){
 }
 
 PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------

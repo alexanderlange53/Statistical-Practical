@@ -44,6 +44,7 @@ source('PredBarPlot.R')
 library("ROCR")
 library("mgcv")
 library("splines")
+library('reshape2')
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #

@@ -8,13 +8,14 @@ PredBarPlot <- function(sample, prediction, Variable = 'Meinung', x = c('Zustimm
   
   if(nrow(count1) == nrow(count2)){
     Bars <- as.data.frame(cbind(count1$Var1, count1$Freq, count2$Freq))
+    Bars$V1 <- x
   }else{
     colnames(count2) <- c('Var1', 'Freq2')
     Bars <- merge(count1, count2, all.x = T)
     Bars[is.na(Bars)] <- 0
+    Bars$Var1 <- x
   }
   
-  Bars$V1 <- paste(x)
   colnames(Bars) <- c('V1', 'sample', 'prediction')
   Bars <- melt(Bars, id = 'V1')
   
