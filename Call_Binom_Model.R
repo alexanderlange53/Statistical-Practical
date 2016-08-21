@@ -11,7 +11,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 pred = F
 
 if(bearbeiter == 'Alex') {
@@ -30,8 +30,13 @@ if(bearbeiter == 'Kai@Work') {
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
+  if(pred == T){
+    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
+    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
+  }
 }
-
 source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
@@ -108,7 +113,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- T
+load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
   step.model.binom <- stepAIC()
@@ -150,6 +155,25 @@ summary(step.model.binom$model.spat)
 ## Model Evaluation ##
 #--------------------#
 evaluate.bivariate(step.model.binom$model.spat, data = sample)
+
+## Cross Evaluation ##
+repeatitions = 5
+model <- step.model.binom$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], predict(model, newdata = sample[leave_out[i],], type = "response")) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
+crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 
 #---------------#
 ## Prediction  ##

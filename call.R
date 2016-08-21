@@ -6,7 +6,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 pred = T
 
 if(bearbeiter == 'Alex') {
@@ -25,6 +25,12 @@ if(bearbeiter == 'Kai@Work') {
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
+  if(pred == T){
+    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
+    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
+  }
 }
 
 source("stepAIC.R")
@@ -38,6 +44,7 @@ source('PredBarPlot.R')
 library("ROCR")
 library("mgcv")
 library("splines")
+library(MASS)
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
@@ -54,6 +61,8 @@ library(reshape2)
 # erstellt aus Grppen 4 und 5 = 3
 # löscht Gruppe 6
 sample <- DataPrep(sample, binom = F)
+
+
 
 #------------------#
 # Eingabeparameter #
@@ -105,7 +114,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -140,14 +149,41 @@ AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
 
+model <- gam(as.factor(Meinung.zu.Stuttgart.21) ~ s(X, Y, bs = "tp") + Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps"),
+             family = multinom(K=2),
+             data = sample)
+## Try generalised model
+model.polr <- polr(as.ordered(Meinung.zu.Stuttgart.21) ~  Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + Altersklasse.Befragter, data =sample)
+summary(model.polr, digits = 3)
+predict(model.polr, housing, type = "p")
 summary(step.model$model.spat)
+summary(model)
 
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
 
 evaluate(step.model$model.spat, data = sample)
-cross.evaluation(model = step.model$model.spat, data = sample, repeatitions = 5)
+evaluate(model, data =sample )
+
+
+## Cross Evaluation ##
+repeatitions = 10
+model <- step.model$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 
 #---------------#
 ## Prediction  ##
