@@ -11,7 +11,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 pred = F
 
 if(bearbeiter == 'Alex') {
