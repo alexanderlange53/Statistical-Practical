@@ -175,6 +175,13 @@ names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
 crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 
+## Comparison with GLM
+glm.model <- glm(Meinung.zu.Stuttgart.21 ~ X * Y + Personenzahl.im.Haushalt * Altersklasse.Befragter + Geschlecht + Nationalität + Familienstand, data = sample, family = binomial)
+summary(glm.model)
+evaluate.bivariate(glm.model, data = sample)
+
+pred <- predict(glm.model, newdata = sample, type = "response")
+
 #---------------#
 ## Prediction  ##
 #---------------#
