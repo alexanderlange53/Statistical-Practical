@@ -1,9 +1,7 @@
 evaluate <- function(model, data) {
-  # pred.temp <- data.frame(mu=as.matrix(predict(model, type="response")))
   pred.temp <- predict(model, newdata = data, type = "response") # model y is maybe faster
-  
   pred <- data.frame(y = unlist(apply(pred.temp, 1, which.max)))
-  # pred$y <- 1*(pred$mu>=0.5)
+  
   if(nrow(data) != nrow(pred)){
     data <- data[1:nrow(pred),]
   }
@@ -14,6 +12,21 @@ evaluate <- function(model, data) {
   #  plot(rocr)
   return(list(classification=classification, tab = tab))
 }
+
+evaluateAll <- function(step.model, data){
+  cat("\nVorhersagequalitaet des Modells:\n\n")
+  eval.spat <- evaluate(step.model$model.spat, data)
+  eval.nospat <- evaluate(step.model$model.nospat, data)
+  eval.spatonly <- evaluate(step.model$model.spatonly, data)
+  cat("Geoadditives Modell:\n")
+  cat("  Reklassifikation: ", eval.spat$classification, "\n", sep="")
+  cat("Modell ohne raeumlichem Effekt:\n")
+  cat("  Reklassifikation: ", eval.nospat$classification, "\n", sep="")
+  cat("Modell nur mit raeumlichem Effekt:\n")
+  cat("  Reklassifikation: ", eval.spatonly$classification, "\n", sep="")
+  return(invisible())
+}
+
 
 evaluate.bivariate <- function(model, data) {
   # pred.temp <- data.frame(mu=as.matrix(predict(model, type="response")))
@@ -27,7 +40,7 @@ evaluate.bivariate <- function(model, data) {
 }
 
 
-cross.evaluation <- function (model, sample, repeatitions  = 10) {
+CrossEvaluation <- function (model, sample, repeatitions  = 10) {
   leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
   ret <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
   
@@ -35,7 +48,7 @@ cross.evaluation <- function (model, sample, repeatitions  = 10) {
     all <- c(1 : dim(sample)[1])
     subset_i <- all[-leave_out]
     print(paste('Model', i, 'of', repeatitions))
-    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = unlist(sample[, "Gewicht"]), subset = unlist(subset_i)) # Fit a GAM
     ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
     ret <- rbind(ret, ret_i)
   }

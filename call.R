@@ -6,8 +6,8 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter <- 'Kai@Home'
-pred = T
+bearbeiter <- 'Alex'
+pred = F
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -63,7 +63,6 @@ library(reshape2)
 sample <- DataPrep(sample, binom = F)
 
 
-
 #------------------#
 # Eingabeparameter #
 #------------------#
@@ -114,11 +113,10 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- FALSE
+load_model <- T
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
-  saveRDS(step.model$model.spat, file="step.model.rds")
   saveRDS(step.model, file="step.model_all.rds")
 } else {
   step.model <- readRDS(file = "step.model_all.rds")
@@ -149,23 +147,13 @@ AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
 
-model <- gam(as.factor(Meinung.zu.Stuttgart.21) ~ s(X, Y, bs = "tp") + Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps"),
-             family = multinom(K=2),
-             data = sample)
-## Try generalised model
-model.polr <- polr(as.ordered(Meinung.zu.Stuttgart.21) ~  Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + Altersklasse.Befragter, data =sample)
-summary(model.polr, digits = 3)
-predict(model.polr, housing, type = "p")
-summary(step.model$model.spat)
-summary(model)
-
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
 
 evaluate(step.model$model.spat, data = sample)
-evaluate(model, data =sample )
-
+evaluateAll(step.model, data = sample)
+CrossEvaluation(step.model$model.spat, sample, 10)
 
 ## Cross Evaluation ##
 repeatitions = 10
@@ -184,7 +172,7 @@ for (i in c(1 : repeatitions)) {
 }
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
-
+crosseval
 #---------------#
 ## Prediction  ##
 #---------------#
@@ -220,7 +208,6 @@ load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
   step.model.B <- stepAIC()
-  saveRDS(step.model.B$model.spat, file="step.model_B.rds")
   saveRDS(step.model.B, file="step.model_all_B.rds")
 } else {
   step.model.B <- readRDS(file = "step.model_all_B.rds")
@@ -231,6 +218,7 @@ if(!load_model){
 #--------------------#
 
 evaluate(step.model.B$model.spat, data = sample)
+evaluateAll(step.model.B, data = sample)
 cross.evaluation(model = step.model.B$model.spat, data = sample, repeatitions = 5)
 
 #--------------------------------#
@@ -282,7 +270,6 @@ load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
   step.model.S <- stepAIC()
-  saveRDS(step.model.S$model.spat, file="step.model_S.rds")
   saveRDS(step.model.S, file="step.model_all_S.rds")
 } else {
   step.model.S <- readRDS(file = "step.model_all_S.rds")
@@ -293,6 +280,7 @@ if(!load_model){
 #--------------------#
 
 evaluate(step.model.S$model.spat, data = sample)
+evaluateAll(step.model.S, data = sample)
 cross.evaluation(model = step.model.S$model.spat, data = sample, repeatitions = 5)
 
 #--------------------------------#
