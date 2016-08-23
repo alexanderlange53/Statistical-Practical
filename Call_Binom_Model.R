@@ -11,7 +11,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 pred = F
 
 if(bearbeiter == 'Alex') {
@@ -45,7 +45,6 @@ source('PseudoB.R')
 source("evaluation.R")
 source("Prediction.R")
 source('PredBarPlot.R')
-source('tryf.R')
 
 library("ROCR")
 library("mgcv")
@@ -113,7 +112,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- F
+load_model <- T
 ## Step AIC ##
 if(!load_model){
   step.model.binom <- stepAIC()
@@ -123,7 +122,7 @@ if(!load_model){
   step.model.binom <- readRDS(file = "step.model_all_binom.rds")
 }
 
-evaluation(step.model.binom$model.spat)
+evaluate.bivariate(step.model.binom$model.spat, data = sample)
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
@@ -257,6 +256,7 @@ AIC(step.model.binom.B$model.spatonly)
 summary(step.model.binom.B$model.spat)
 plot(step.model.binom.B$model.spat, all = T)
 
+evaluate.bivariate(step.model.binom.B$model.spat, data = sample)
 #-----------------------------------------#
 # Stadtteile als Räumliche Informationen  #--------------------------------------------------------------
 #-----------------------------------------#
@@ -311,3 +311,4 @@ AIC(step.model.binom.S$model.spatonly)
 summary(step.model.binom.S$model.spat)
 plot(step.model.binom.S$model.spat, all = T)
 
+evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
