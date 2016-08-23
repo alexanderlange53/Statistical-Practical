@@ -11,7 +11,7 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 pred = F
 
 if(bearbeiter == 'Alex') {
@@ -113,7 +113,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+load_model <- F
 ## Step AIC ##
 if(!load_model){
   step.model.binom <- stepAIC()
