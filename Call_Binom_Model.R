@@ -123,6 +123,8 @@ if(!load_model){
   step.model.binom <- readRDS(file = "step.model_all_binom.rds")
 }
 
+evaluation(step.model.binom$model.spat)
+
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#
