@@ -76,16 +76,6 @@ DataPrep <- function(sample, binom = T, Stuttgart21 = T){
      sample <- na.omit(sample)
      
      for(i in 1:nrow(sample)){
-       if(sample$Bewertung.Wohngegend[i] == 2){
-         sample$Bewertung.Wohngegend[i] <- 1
-       }
-     }
-     for(i in 1:nrow(sample)){
-       if(sample$Bewertung.Wohngegend[i] == 3){
-         sample$Bewertung.Wohngegend[i] <- 2
-       }
-     }
-     for(i in 1:nrow(sample)){
        if(sample$Bewertung.Wohngegend[i] == 4){
          sample$Bewertung.Wohngegend[i] <- 3
        }

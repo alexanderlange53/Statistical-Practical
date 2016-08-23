@@ -1,4 +1,4 @@
-evaluate <- function(model, data) {
+evaluate <- function(model, data, Bewertung = F) {
   pred.temp <- predict(model, newdata = data, type = "response") # model y is maybe faster
   pred <- data.frame(y = unlist(apply(pred.temp, 1, which.max)))
   
@@ -6,18 +6,38 @@ evaluate <- function(model, data) {
     data <- data[1:nrow(pred),]
   }
   tab.temp <- table(data[,response], pred$y)
-  tab <- cbind(tab.temp[, 1], c(0, 0, 0), tab.temp[, 2])
+  if(Bewertung == T){
+    if(nrow(tab.temp) == 5){
+    if(ncol(tab.temp) == 3){
+    tab <- cbind(tab.temp[, 1], tab.temp[, 2], tab.temp[, 3],
+                 c(rep(0, times = nrow(tab.temp))),
+                 c(rep(0, times = nrow(tab.temp))))
+    }else{
+      tab <- cbind(tab.temp[, 1], tab.temp[, 2], c(rep(0, times = nrow(tab.temp))),
+                   c(rep(0, times = nrow(tab.temp))),
+                   c(rep(0, times = nrow(tab.temp))))
+    }
+    }else{
+        if(ncol(tab.temp) == 3){
+          tab <- cbind(tab.temp[, 1], tab.temp[, 2], tab.temp[, 3])
+        }else{
+          tab <- cbind(tab.temp[, 1], tab.temp[, 2], c(rep(0, times = nrow(tab.temp))))
+        }
+      }
+  }else{
+    tab <- cbind(tab.temp[, 1], c(rep(0, times = nrow(tab.temp))), tab.temp[, 2])
+  }
   classification <- round(sum(diag(tab))/sum(tab),4)
   
   #  plot(rocr)
   return(list(classification=classification, tab = tab))
 }
 
-evaluateAll <- function(step.model, data){
+evaluateAll <- function(step.model, data, Bewertung = F){
   cat("\nVorhersagequalitaet des Modells:\n\n")
-  eval.spat <- evaluate(step.model$model.spat, data)
-  eval.nospat <- evaluate(step.model$model.nospat, data)
-  eval.spatonly <- evaluate(step.model$model.spatonly, data)
+  eval.spat <- evaluate(step.model$model.spat, data, Bewertung)
+  eval.nospat <- evaluate(step.model$model.nospat, data, Bewertung)
+  eval.spatonly <- evaluate(step.model$model.spatonly, data, Bewertung)
   cat("Geoadditives Modell:\n")
   cat("  Reklassifikation: ", eval.spat$classification, "\n", sep="")
   cat("Modell ohne raeumlichem Effekt:\n")
