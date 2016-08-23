@@ -2,19 +2,22 @@
 #### Laden der Daten und Aufrufen der Skripte ####
 #------------------------------------------------#
 
-# Erstellt: 07.07.16
-# Aktualisiert: 10.08.16
-
-
 rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter <- 'Kai@Home'
+pred = T
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
+  if(pred == T){
+    Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet.txt')
+    Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet.txt')
+  }
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
@@ -22,48 +25,43 @@ if(bearbeiter == 'Kai@Work') {
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
+  if(pred == T){
+    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
+    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
+  }
 }
 
 source("stepAIC.R")
 source("evaluation.R")
-#source("prediction.R")
+source('DataPrep.R')
+source('MarkovRandomField.R')
+source('PseudoB.R')
+source("Prediction.R")
+source('PredBarPlot.R')
 
 library("ROCR")
 library("mgcv")
 library("splines")
+library(MASS)
+require(rgdal);require(rgeos)
+require(ggplot2)
+require(maptools);require(rvest);require(dplyr)
+library(ggplot2)
+library(reshape2)
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
 #--------------------------------#
 
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 6) {
-      sample$Meinung.zu.Stuttgart.21[i] <- NA
-    }
-}
+# Wenn binom = F:
+# erstellt aus Gruppen 1 und 2 = 1
+# erstellt aus Gruppen 3 = 2
+# erstellt aus Grppen 4 und 5 = 3
+# löscht Gruppe 6
+sample <- DataPrep(sample, binom = F)
 
-sample <- na.omit(sample)
-
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 2){
-    sample$Meinung.zu.Stuttgart.21[i] <- 1
-  }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 3){
-    sample$Meinung.zu.Stuttgart.21[i] <- 2
-    }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 4){
-    sample$Meinung.zu.Stuttgart.21[i] <- 3
-  }
-}
-for(i in 1:nrow(sample)){
-  if(sample$Meinung.zu.Stuttgart.21[i] == 5){
-    sample$Meinung.zu.Stuttgart.21[i] <- 3
-  }
-}
 
 
 #------------------#
@@ -77,11 +75,9 @@ for(i in 1:nrow(sample)){
 # - Kategoriale Variablen mit passenden Labeln versehen (als Text)
 # - "." als Dezimaltrennzeichen
 
-
 # Zielgröße & Verteilungsannahme
 response <- "Meinung.zu.Stuttgart.21"
 verteilung <- ocat(R=3)
-
 
 # Gewichte
 sample$Gewicht <- 1
@@ -90,7 +86,6 @@ gewichte <- "Gewicht"
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der r?umliche Effekt)
 fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
-#+ s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
@@ -154,32 +149,187 @@ AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
 
-
+model <- gam(as.factor(Meinung.zu.Stuttgart.21) ~ s(X, Y, bs = "tp") + Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps"),
+             family = multinom(K=2),
+             data = sample)
+## Try generalised model
+model.polr <- polr(as.ordered(Meinung.zu.Stuttgart.21) ~  Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + Altersklasse.Befragter, data =sample)
+summary(model.polr, digits = 3)
+predict(model.polr, housing, type = "p")
 summary(step.model$model.spat)
-plot(step.model$model.spat, all = T)
-
+summary(model)
 
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
 
 evaluate(step.model$model.spat, data = sample)
-cross.evaluation(step.model$model.spat, sample, n = 1)
-
-erg <- list()
-for(i in c(1 : 10)) {
-eval_subset <- sample_n(sample, size = 2450)
-eval.model <- list("model.spat" =
-  gam(Meinung.zu.Stuttgart.21 ~ s(X, Y, bs = "tp") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs = "tp") + 
-      Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps"), 
-    family=verteilung, method="REML", data = eval_subset)
-  )
+evaluate(model, data =sample )
 
 
-  erg[[i]] <- evaluation.in(eval.model$model.spat, data = sample)
+## Cross Evaluation ##
+repeatitions = 10
+model <- step.model$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+
+#---------------#
+## Prediction  ##
+#---------------#
+
+if(pred == T){
+  pred.U <- Prediction(Umfrage, step.model$model.spat, Umfrage = T, binom = F)
+  pred.Z <- Prediction(Zensus, step.model$model.spat, Umfrage = F, binom = F)
+  write.table(pred.U, file = 'pred_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.table(pred.Z, file = 'pred_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+}else{
+  pred.U <- read.csv2('pred_U.csv')
+  pred.Z <- read.csv2('pred_Z.csv')
 }
 
-# Es spielt fast keine Rolle, ob man einen reduzierten oder den gesamten Datensatz nimmmt
+PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+#--------------------------------------#
+# Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
+#--------------------------------------#
+
+# Erstellen des Markov-Random fields
+zt <- MarkovRandomField(bezirke, Bezirke = T)
+
+# Neue raeumliche Information, der rest bleibt gleich
+fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+
+#--------------------#
+## Modellerstellung ##
+#--------------------#
+
+load_model <- TRUE
+## Step AIC ##
+if(!load_model){
+  step.model.B <- stepAIC()
+  saveRDS(step.model.B$model.spat, file="step.model_B.rds")
+  saveRDS(step.model.B, file="step.model_all_B.rds")
+} else {
+  step.model.B <- readRDS(file = "step.model_all_B.rds")
+}
+
+#--------------------#
+## Model Evaluation ##
+#--------------------#
+
+evaluate(step.model.B$model.spat, data = sample)
+cross.evaluation(model = step.model.B$model.spat, data = sample, repeatitions = 5)
+
+#--------------------------------#
+## Modelleffekte interpretieren ##
+#--------------------------------#
+## GAM Plots ##
+m1 <- step.model.B$model.spat
+plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+
+x11()
+par(mfrow = c(2, 2))
+plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
+mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
+mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+
+dev.off()
+
+AIC(step.model.B$model.spat)
+AIC(step.model.B$model.nospat)
+AIC(step.model.B$model.spatonly)
+
+summary(step.model.B$model.spat)
+plot(step.model.B$model.spat, all = T)
+
+#-----------------------------------------#
+# Stadtteile als Räumliche Informationen  #--------------------------------------------------------------
+#-----------------------------------------#
+
+# Erstellen des Markov Random fields
+zt <- MarkovRandomField(stadtteile, Bezirke = F)
+
+# Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
+sample <- PseudoB(sample, stadtteile, binom = F)
+
+# Neue raeumliche Information, der rest bleibt gleich
+fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+
+#--------------------#
+## Modellerstellung ##
+#--------------------#
+
+load_model <- TRUE
+## Step AIC ##
+if(!load_model){
+  step.model.S <- stepAIC()
+  saveRDS(step.model.S$model.spat, file="step.model_S.rds")
+  saveRDS(step.model.S, file="step.model_all_S.rds")
+} else {
+  step.model.S <- readRDS(file = "step.model_all_S.rds")
+}
+
+#--------------------#
+## Model Evaluation ##
+#--------------------#
+
+evaluate(step.model.S$model.spat, data = sample)
+cross.evaluation(model = step.model.S$model.spat, data = sample, repeatitions = 5)
+
+#--------------------------------#
+## Modelleffekte interpretieren ##
+#--------------------------------#
+## GAM Plots ##
+m1 <- step.model.S$model.spat
+plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+
+x11()
+par(mfrow = c(2, 2))
+plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
+mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
+mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+
+dev.off()
+
+AIC(step.model.S$model.spat)
+AIC(step.model.S$model.nospat)
+AIC(step.model.S$model.spatonly)
+
+summary(step.model.binom.S$model.spat)
+plot(step.model.binom.S$model.spat, all = T)
+
+
+
+#--------------#
+## Alter Code ##
+#--------------#
+# Vielleicht für das Papaer hilfreich, im Moment aber nicht wichtig
+
 mean.erg <- erg[[1]]$tab
 for(i in c(2 : 10)){
   mean.erg <- mean.erg + erg[[i]]$tab
