@@ -2,8 +2,11 @@ evaluate <- function(model, data) {
   # pred.temp <- data.frame(mu=as.matrix(predict(model, type="response")))
   pred.temp <- predict(model, newdata = data, type = "response") # model y is maybe faster
   
-  pred <- data.frame(y = as.vector(apply(pred.temp, 1, which.max)))
+  pred <- data.frame(y = unlist(apply(pred.temp, 1, which.max)))
   # pred$y <- 1*(pred$mu>=0.5)
+  if(nrow(data) != nrow(pred)){
+    data <- data[1:nrow(pred),]
+  }
   tab.temp <- table(data[,response], pred$y)
   tab <- cbind(tab.temp[, 1], c(0, 0, 0), tab.temp[, 2])
   classification <- round(sum(diag(tab))/sum(tab),4)
@@ -24,7 +27,7 @@ evaluate.bivariate <- function(model, data) {
 }
 
 
-cross.evaluation <- function (repeatitions  = 10) {
+cross.evaluation <- function (model, sample, repeatitions  = 10) {
   leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
   ret <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
   
