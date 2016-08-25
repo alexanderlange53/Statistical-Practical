@@ -1,6 +1,12 @@
-Prediction <- function(Population, model, Umfrage = T, binom = T){
-  
-  if(Umfrage == T){
+#------------------#
+#### Prediction ####
+#------------------#
+
+# Funktion zur Vorhersage der Wahrscheinlichkeiten einer Ausprägung auf Individuenebene
+
+Prediction <- function(Population, model, IFUmfrage = T, binom = T){
+  # Die Variable sollte nicht gleich heißen wie die Daten -> verwirrend
+  if(IFUmfrage == T){
     # hier koennte eine dynamische Abfrage rein
     u.p <- select(Population, Altersklasse,Haushaltsgroesse, Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil, Stadtbezirk)
     names(u.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt", "Geschlecht","Familienstand","Nationalität","X" ,"Y", "Stadtteil", "Stadtbezirk")
@@ -27,13 +33,13 @@ Prediction <- function(Population, model, Umfrage = T, binom = T){
     u.p2$Geschlecht <- as.factor(u.p2$Geschlecht)
     u.p2$Nationalität <- as.factor(u.p2$Nationalität)
     
-    pred.pop.u.3 <- predict.gam(model, newdata = u.p2, type = 'response')
+    pred.pop.u.3 <- as.data.frame(predict.gam(model, newdata = u.p2, type = 'response'))
+    pred.pop <- cbind(pred.pop.u.3, u.p2$X, u.p2$Y, as.character(u.p2$Stadtteil), as.character(u.p2$Stadtbezirk))
     
-    pred.pop <- cbind(pred.pop.u.3, u.p2$X, u.p2$Y, u.p2$Stadtteil)
     
-  }else{ # Hier morgen weitermahcen
-    z.p <- select(Population, alter,haushaltsgroesse, geschlecht, familienstand, staatsangehoerigkeit, xcoord, ycoord, stadtteil )
-    names(z.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Geschlecht","Familienstand","Nationalität","X" ,"Y", 'Stadtteil')
+  }else{
+    z.p <- select(Population, alter,haushaltsgroesse, geschlecht, familienstand, staatsangehoerigkeit, xcoord, ycoord, Stadtteil, Stadtbezirk)
+    names(z.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Geschlecht","Familienstand","Nationalität","X" ,"Y", "Stadtteil", "Stadtbezirk")
     
     z.p2 <- z.p
     z.p2$Altersklasse.Befragter <- ""
@@ -72,13 +78,13 @@ Prediction <- function(Population, model, Umfrage = T, binom = T){
     
     z.p2$Personenzahl.im.Haushalt <- as.numeric(z.p2$Personenzahl.im.Haushalt)
     
-    pred.pop.z.3 <- predict.gam(model, newdata = z.p2, type = 'response')
+    pred.pop.z.3 <- as.data.frame(predict.gam(model, newdata = z.p2, type = 'response'))
     
-    pred.pop <- cbind(pred.pop.z.3, z.p2$X, z.p2$Y, z.p2$Stadtteil)
+    pred.pop <- cbind(pred.pop.z.3, z.p2$X, z.p2$Y, as.character(z.p2$Stadtteil), as.character(z.p2$Stadtbezirk))
   }
   
   if(binom == T){
-    colnames(pred.pop) <- c('1', 'X', 'Y', 'Stadtteil')
+    colnames(pred.pop) <- c('1', 'X', 'Y', 'Stadtteil', 'Stadtbezirk')
     Meinung <- rep(0, nrow(pred.pop))
     for(i in 1:nrow(pred.pop)){
       if(pred.pop[i,1] > 0.5){
@@ -88,21 +94,29 @@ Prediction <- function(Population, model, Umfrage = T, binom = T){
       }
     }
   }else{
-    colnames(pred.pop) <- c('1', '2', '3', 'X', 'Y', 'Stadtteil')
+    colnames(pred.pop) <- c('1', '2', '3', 'X', 'Y', 'Stadtteil', 'Stadtbezirk')
     
-    Meinung <- rep(0, nrow(pred.pop))
-    for(i in 1:nrow(pred.pop)){
-      if(pred.pop[i,1] > pred.pop[i,2] & pred.pop[i,1] > pred.pop[i,3]){
-        Meinung[i] <- 1
-      }
-      if(pred.pop[i,2] > pred.pop[i,1] & pred.pop[i,2] > pred.pop[i,3]){
-        Meinung[i] <- 2
-      } 
-      if(pred.pop[i,3] > pred.pop[i,1] & pred.pop[i,3] > pred.pop[i,2]){
-        Meinung[i] <- 3
-      }
-    }
+    Meinung <- data.frame(Meinung = unlist(apply(pred.pop[, c(1 : 3)], 1, which.max)))
+    #Meinung <- rep(0, nrow(pred.pop))
+    # for(i in 1:nrow(pred.pop)){
+    #   if(pred.pop[i,1] > pred.pop[i,2] & pred.pop[i,1] > pred.pop[i,3]){
+    #     Meinung[i] <- 1
+    #   }
+    #   if(pred.pop[i,2] > pred.pop[i,1] & pred.pop[i,2] > pred.pop[i,3]){
+    #     Meinung[i] <- 2
+    #   }
+    #   if(pred.pop[i,3] > pred.pop[i,1] & pred.pop[i,3] > pred.pop[i,2]){
+    #     Meinung[i] <- 3
+    #   }
+    # }
   }
   pred.pop <- cbind(pred.pop, Meinung)
+  return(as.data.frame(pred.pop))
+}
+
+
+# Funktion zu Aggregation der Vorhersage auf regionaler Ebene = kleinräumige Extrapolation
+Prediction.Aggregation <- function (pred.pop, agg.level = 'Stadtbezirk') {
+  pred.sum <- by(pred.pop[, c(1 : 3)], pred.pop[, agg.level], sum)
   
-} 
+}

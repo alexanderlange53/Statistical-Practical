@@ -4,16 +4,6 @@
 
 rm(list = ls())
 
-
-source("stepAIC.R")
-source("evaluation.R")
-source('DataPrep.R')
-source('MarkovRandomField.R')
-source('PseudoB.R')
-source("Prediction.R")
-source("prediction_function.R")
-source('PredBarPlot.R')
-
 library("ROCR")
 library("mgcv")
 library("splines")
@@ -60,6 +50,13 @@ if(bearbeiter == 'Kai@Home') {
   }
 }
 
+source("stepAIC.R")
+source("evaluation.R")
+source('DataPrep.R')
+source('MarkovRandomField.R')
+source('PseudoB.R')
+source("prediction_function.R")
+source('PredBarPlot.R')
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -187,15 +184,19 @@ crosseval
 ## Prediction  ##
 #---------------#
 
+## Vorhersage der individuellen Ausprägung ##
 if(pred == T){
-  pred.U <- Prediction(Umfrage, step.model$model.spat, Umfrage = T, binom = F)
-  pred.Z <- Prediction(Zensus, step.model$model.spat, Umfrage = F, binom = F)
+  pred.U <- Prediction(Umfrage, step.model$model.spat, IFUmfrage = T, binom = F)
+  pred.Z <- Prediction(Zensus, step.model$model.spat, IFUmfrage = F, binom = F)
   write.table(pred.U, file = 'pred_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
   write.table(pred.Z, file = 'pred_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
 }else{
   pred.U <- read.csv2('pred_U.csv')
   pred.Z <- read.csv2('pred_Z.csv')
 }
+
+## Aggregation auf Bezirksebene ##
+
 
 PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
