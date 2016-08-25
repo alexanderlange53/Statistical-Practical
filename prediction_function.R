@@ -79,7 +79,7 @@ Prediction <- function(Population, model, IFUmfrage = T, binom = T){
     z.p2$Personenzahl.im.Haushalt <- as.numeric(z.p2$Personenzahl.im.Haushalt)
     
     pred.pop.z.3 <- as.data.frame(predict.gam(model, newdata = z.p2, type = 'response'))
-    
+    # Muss ein dataframe sein, da bein cbind sonst eine Matrix entsteht und die Faktoren gelöscht werden
     pred.pop <- cbind(pred.pop.z.3, z.p2$X, z.p2$Y, as.character(z.p2$Stadtteil), as.character(z.p2$Stadtbezirk))
   }
   
