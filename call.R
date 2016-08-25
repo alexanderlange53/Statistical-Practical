@@ -4,10 +4,30 @@
 
 rm(list = ls())
 
+
+source("stepAIC.R")
+source("evaluation.R")
+source('DataPrep.R')
+source('MarkovRandomField.R')
+source('PseudoB.R')
+source("Prediction.R")
+source("prediction_function.R")
+source('PredBarPlot.R')
+
+library("ROCR")
+library("mgcv")
+library("splines")
+library(MASS)
+require(rgdal);require(rgeos)
+require(ggplot2)
+require(maptools);require(rvest);require(dplyr)
+library(ggplot2)
+library(reshape2)
+
 ## Working directory ##
 
-bearbeiter <- 'Alex'
-pred = F
+bearbeiter <- 'Kai@Work'
+pred = TRUE
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -21,7 +41,14 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")}
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+  if(pred){
+    Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
+    Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
+  }
+}
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
@@ -33,23 +60,6 @@ if(bearbeiter == 'Kai@Home') {
   }
 }
 
-source("stepAIC.R")
-source("evaluation.R")
-source('DataPrep.R')
-source('MarkovRandomField.R')
-source('PseudoB.R')
-source("Prediction.R")
-source('PredBarPlot.R')
-
-library("ROCR")
-library("mgcv")
-library("splines")
-library(MASS)
-require(rgdal);require(rgeos)
-require(ggplot2)
-require(maptools);require(rvest);require(dplyr)
-library(ggplot2)
-library(reshape2)
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -113,7 +123,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- T
+load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -153,10 +163,9 @@ AIC(step.model$model.spatonly)
 
 evaluate(step.model$model.spat, data = sample)
 evaluateAll(step.model, data = sample)
-CrossEvaluation(step.model$model.spat, sample, 10)
 
 ## Cross Evaluation ##
-repeatitions = 10
+repeatitions = 2
 model <- step.model$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
@@ -173,6 +182,7 @@ for (i in c(1 : repeatitions)) {
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 crosseval
+
 #---------------#
 ## Prediction  ##
 #---------------#
