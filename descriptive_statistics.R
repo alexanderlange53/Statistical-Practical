@@ -10,7 +10,7 @@ require(ggmap)
 # loading data
 bearbeiter <- 'Alex'
 if(bearbeiter == 'Alex') {
-  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv')
 } else {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
@@ -29,8 +29,13 @@ count7 <- as.data.frame(table(dataS$Familienstand))
 count8 <- as.data.frame(table(dataS$Nationalität))
 
 # plots
-theme_set(theme_bw(12)) # Grafik theme
 colo <- diverge_hsv(3) # different color palette
+FreqPlot <- function(count, labx){
+  ggplot(count, aes(x = Var1, y = Freq)) + 
+    geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
+    theme(legend.position = 'bottom', legend.title = element_blank()) + theme_light(12) +
+    labs(x = paste(labx), y = 'Häufigkeit', title = NULL)
+}
 
 # Bewertung Wohngegend
 # rearranging of groups
@@ -39,10 +44,7 @@ count1$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
 count1$Var1 <- factor(count1$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
                                                           'Sehr schlecht', 'Keine Angabe'))
 # Plotting              
-Wohngegend <- ggplot(count1, aes(x = Var1, y = Freq)) + 
-              geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-              theme(legend.position = 'bottom', legend.title = element_blank()) +
-              labs(x = 'Bewertung Wohngegend', y = 'Häufigkeit', title = NULL)
+Wohngegend <- FreqPlot(count1, 'Bewertung Wohngegend')
 Wohngegend
 
 # Meinung über Stuttgart 21
@@ -52,10 +54,7 @@ count2$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
 count2$Var1 <- factor(count2$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
                                               'Sehr schlecht', 'Keine Angabe'))
 # Plotting  
-Stuttgart21 <- ggplot(count2, aes(x = Var1, y = Freq)) + 
-               geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-               theme(legend.position = 'bottom', legend.title = element_blank()) +
-               labs(x = 'Meinung zu Stuttgart 21', y = 'Häufigkeit', title = NULL)      
+Stuttgart21 <- FreqPlot(count2, 'Meinung zu Stuttgart 21')
 Stuttgart21
 
 # Personen im Haushalt
@@ -65,10 +64,7 @@ count3$Var1 <- c('1', '2', '3', '4',
 count3$Var1 <- factor(count3$Var1, levels = c('1', '2', '3', '4', 
                                               '>5'))
 # Plotting              
-Personen <- ggplot(count3, aes(x = Var1, y = Freq)) + 
-            geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-            theme(legend.position = 'bottom', legend.title = element_blank()) +
-            labs(x = 'Personenanzahl im Haushalt', y = 'Häufigkeit', title = NULL)
+Personen <- FreqPlot(count3, 'Personenanzahl im Haushalt')
 Personen
 
 # Monatliches Netto haushaltseinkommen
@@ -78,10 +74,7 @@ count4$Var1 <- c('<900', '900-<2000', '2000-<2900', '2900-<4000',
 count4$Var1 <- factor(count4$Var1, levels = c('<900', '900-<2000', '2000-<2900', '2900-<4000', 
                                               '4000-<5000', '>5000'))
 # Plotting              
-Einkommen <- ggplot(count4, aes(x = Var1, y = Freq)) + 
-             geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-             theme(legend.position = 'bottom', legend.title = element_blank()) +
-             labs(x = 'Netto Einkommen der Haushalte', y = 'Häufigkeit', title = NULL)
+Einkommen <- FreqPlot(count4, 'Netto Einkommen der Haushalte')
 Einkommen
 
 # Altersklasse
@@ -91,37 +84,25 @@ count5$Var1 <- c('15-<25', '25-<35', '35-<45', '45-<55',
 count5$Var1 <- factor(count5$Var1, levels = c('15-<25', '25-<35', '35-<45', '45-<55', 
                                               '55-<65', '>65'))
 # Plotting              
-Altersklasse <- ggplot(count5, aes(x = Var1, y = Freq)) + 
-                geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-                theme(legend.position = 'bottom', legend.title = element_blank()) +
-                labs(x = 'Altersklassen', y = 'Häufigkeit', title = NULL)
-Altersklasse
+Altersklasse <- FreqPlot(count5, 'Altersklassen')
+Altersklasse 
 
 # Geschlecht
 # rearranging of groups
 count6$Var1 <- factor(count6$Var1, levels = c('Männlich', 'Weiblich'))
 
 # Plotting              
-Geschlecht <- ggplot(count6, aes(x = Var1, y = Freq)) + 
-              geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-              theme(legend.position = 'bottom', legend.title = element_blank()) +
-              labs(x = 'Geschlecht', y = 'Häufigkeit', title = NULL)
+Geschlecht <- FreqPlot(count6, 'Geschlecht')
 Geschlecht
 
 # Familienstand
 # Plotting              
-Familienstand <- ggplot(count7, aes(x = Var1, y = Freq)) + 
-                 geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-                 theme(legend.position = 'bottom', legend.title = element_blank()) +
-                 labs(x = 'Familienstand', y = 'Häufigkeit', title = NULL)
-Familienstand
+Familienstand <- FreqPlot(count7, 'Familienstand')
+Familienstand 
 
 # Nationalität
 # Plotting              
-Nationalität <- ggplot(count8, aes(x = Var1, y = Freq)) + 
-                geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-                theme(legend.position = 'bottom', legend.title = element_blank()) +
-                labs(x = 'Nationalität', y = 'Häufigkeit', title = NULL)
+Nationalität <- FreqPlot(count8, 'Nationalität')
 Nationalität
 
 # grid plot

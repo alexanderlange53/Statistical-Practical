@@ -13,7 +13,7 @@ require(dplyr);require(gstat);require(raster)
 bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex'){
-  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv',
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
 } 
@@ -28,6 +28,15 @@ if(bearbeiter == 'Kai@Work'){
   bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
 }
 
+source('SpatialPlots.R')
+# Plotten der Response Variablen mit Gauss-Krüger Informationen
+# Meinung Stuttgart 21
+GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
+GKPlot(dataS, bezirke = bezirke, Kategorien = 3)
+
+# Bewertung Wohngegend
+GKPlot(dataS, response = c('Bewertung.Wohngegend', 'X', 'Y'), bezirke = bezirke, Kategorien = 5)
+GKPlot(dataS, response = c('Bewertung.Wohngegend', 'X', 'Y'), bezirke = bezirke, Kategorien = 3)
 
 # selcting variables of interest
 myvar <- c('Meinung.zu.Stuttgart.21', 'X', 'Y')
@@ -70,81 +79,6 @@ ggplot() + geom_polygon(data=bezirke, aes(x=long, y=lat, group=group), fill="gre
   ) +
   guides(color = guide_legend(override.aes = list(size=5)))
 
-#-------------------------------------------# Relative frequency plots #------------------------------------------------#
-colo <- diverge_hsv(3)
-# transform to spatial class
-ST21$long <- as.numeric(as.character(ST21$long))
-ST21$lat <- as.numeric(as.character(ST21$lat))
-coordinates(ST21) <- ~ long + lat
-# assign CRS
-proj4string(ST21) <- CRS("+init=epsg:31467")
-# reproject data
-ST21 <- spTransform(ST21, CRS("+proj=longlat +datum=WGS84"))
-# loading map
-map <- get_map(location= rowMeans(bbox(ST21)), zoom=11, maptype = 'terrain', scale = 2)
-# transform back to data frame for ggplot
-ST21.g <- as.data.frame(ST21)
-
-bezirke.t <- spTransform(bezirke, CRS("+proj=longlat"))
-
-#-------------------------#
-# 5 Kategorien facet wrap #
-#-------------------------#
-
-# getting ratings
-SS <- ST21.g[which(ST21.g$Meinung=='Sehr gut'),]
-SS2 <- ST21.g[which(ST21.g$Meinung=='Gut'),]
-SS3 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
-SS4 <- ST21.g[which(ST21.g$Meinung=='Schlecht'),]
-SS5 <- ST21.g[which(ST21.g$Meinung=='Sehr schlecht'),]
-
-# erstellen des neuen data frames
-data.f <- rbind(SS, SS2, SS3, SS4, SS5)
-data.f$Meinung <- factor(data.f$Meinung, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht'))
-
-# plotting map
-ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 8, data = data.f,
-    geom = "polygon"
-  ) +
-  theme_bw(15) +
-  scale_fill_gradient(low=colo[2], high = 'darkblue')+
-  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
-  labs(fill = 'Dichte') +
-  xlim(9.035, 9.32) + ylim(48.69, 48.87) +
-  facet_wrap(~ Meinung)
-
-
-#-------------------------#
-# 3 Kategorien facet wrap #
-#-------------------------#
-
-# getting ratings
-S3 <- ST21.g[which(ST21.g$Meinung=='Sehr gut' | ST21.g$Meinung=='Gut'),]
-S32 <- ST21.g[which(ST21.g$Meinung=='Neutral'),]
-S4 <- ST21.g[which(ST21.g$Meinung=='Schlecht' | ST21.g$Meinung=='Sehr schlecht'),]
-
-# erstellen des neuen data frames
-S3$Meinung <- 'Zustimmung'
-S4$Meinung <- 'Ablehnung'
-data.facet <- rbind(S3, S32, S4)
-data.facet$Meinung <- factor(data.facet$Meinung, levels = c('Zustimmung', 'Neutral', 'Ablehnung'))
-
-# Plotting map
-ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
-  stat_density2d(
-    aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
-    size = 2, bins = 8, data = data.facet,
-    geom = "polygon"
-  ) +
-  theme_bw(15) +
-  scale_fill_gradient(low=colo[2], high = 'darkblue')+
-  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
-  labs(fill = 'Dichte') +
-  xlim(9.035, 9.32) + ylim(48.69, 48.87) +
-  facet_wrap(~ Meinung)
 
 #-----------------------------------# Variogram zu Gauss Krüger Informationen #---------------------------------------#
 
