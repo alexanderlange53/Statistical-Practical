@@ -11,8 +11,8 @@ rm(list = ls())
 
 ## Working directory ##
 
-bearbeiter = 'Alex'
-pred = F
+bearbeiter = 'Kai@Work'
+pred = TRUE
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -26,7 +26,14 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")}
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+  if(pred){
+    Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
+    Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
+  }
+}
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
@@ -43,7 +50,7 @@ source('DataPrep.R')
 source('MarkovRandomField.R')
 source('PseudoB.R')
 source("evaluation.R")
-source("Prediction.R")
+source("prediction_function.R")
 source('PredBarPlot.R')
 
 library("ROCR")
@@ -112,7 +119,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- T
+load_model <- TRUE
 ## Step AIC ##
 if(!load_model){
   step.model.binom <- stepAIC()
@@ -122,7 +129,7 @@ if(!load_model){
   step.model.binom <- readRDS(file = "step.model_all_binom.rds")
 }
 
-evaluate.bivariate(step.model.binom$model.spat, data = sample)
+
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
@@ -175,27 +182,28 @@ for (i in c(1 : repeatitions)) {
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
 crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
-
-## Comparison with GLM
-glm.model <- glm(Meinung.zu.Stuttgart.21 ~ X * Y + Personenzahl.im.Haushalt * Altersklasse.Befragter + Geschlecht + Nationalität + Familienstand, data = sample, family = binomial)
-summary(glm.model)
-evaluate.bivariate(glm.model, data = sample)
-
-pred <- predict(glm.model, newdata = sample, type = "response")
+crosseval
 
 #---------------#
 ## Prediction  ##
 #---------------#
 
-if(pred == T){
-  pred.binom.U <- Prediction(Umfrage, step.model.binom$model.spat, Umfrage = T, binom = T)
-  pred.binom.Z <- Prediction(Zensus, step.model.binom$model.spat, Umfrage = F, binom = T)
+# Zunächst Vorhersage der individuellen Meinung
+if(pred){
+  pred.binom.U <- Prediction(Umfrage, step.model.binom$model.spat, IFUmfrage = T, binom = T)
+  pred.binom.Z <- Prediction(Zensus, step.model.binom$model.spat, IFUmfrage = F, binom = T)
   write.table(pred.binom.U, file = 'predbinom_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
   write.table(pred.binom.Z, file = 'predbinom_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
 }else{
   pred.binom.U <- read.csv2('predbinom_U.csv')
   pred.binom.Z <- read.csv2('predbinom_Z.csv')
 }
+
+## Aggregation auf Bezirksebene ##
+Prediction.Aggregation(pred = pred.binom.U[, c(1, 5)], agg = "Stadtbezirk")
+Prediction.Aggregation(pred = pred.binom.U[, c(1, 4)], agg = "Stadtteil")
+
+
 pred.binom.U2 <- pred.binom.U
 pred.binom.U2$X1 <- as.numeric(as.character(pred.binom.U2$X1))
 pred.binom.U2 <- tryf(pred.binom.U2)
