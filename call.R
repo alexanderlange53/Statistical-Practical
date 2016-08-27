@@ -16,7 +16,7 @@ library(reshape2)
 
 ## Working directory ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Kai@Home'
 pred = TRUE
 
 if(bearbeiter == 'Alex') {
@@ -120,7 +120,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
