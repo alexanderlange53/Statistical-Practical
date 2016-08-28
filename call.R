@@ -4,10 +4,20 @@
 
 rm(list = ls())
 
+library("ROCR")
+library("mgcv")
+library("splines")
+library(MASS)
+require(rgdal);require(rgeos)
+require(ggplot2)
+require(maptools);require(rvest);require(dplyr)
+library(ggplot2)
+library(reshape2)
+
 ## Working directory ##
 
-bearbeiter <- 'Alex'
-pred = F
+bearbeiter <- 'Kai@Home'
+pred = TRUE
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -21,7 +31,14 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")}
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+  if(pred){
+    Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
+    Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
+  }
+}
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
@@ -38,18 +55,8 @@ source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
 source('PseudoB.R')
-source("Prediction.R")
+source("prediction_function.R")
 source('PredBarPlot.R')
-
-library("ROCR")
-library("mgcv")
-library("splines")
-library(MASS)
-require(rgdal);require(rgeos)
-require(ggplot2)
-require(maptools);require(rvest);require(dplyr)
-library(ggplot2)
-library(reshape2)
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -113,7 +120,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- T
+load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -153,10 +160,9 @@ AIC(step.model$model.spatonly)
 
 evaluate(step.model$model.spat, data = sample)
 evaluateAll(step.model, data = sample)
-CrossEvaluation(step.model$model.spat, sample, 10)
 
 ## Cross Evaluation ##
-repeatitions = 10
+repeatitions = 2
 model <- step.model$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
@@ -173,19 +179,25 @@ for (i in c(1 : repeatitions)) {
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 crosseval
+
 #---------------#
 ## Prediction  ##
 #---------------#
 
+## Vorhersage der individuellen Ausprägung ##
 if(pred == T){
-  pred.U <- Prediction(Umfrage, step.model$model.spat, Umfrage = T, binom = F)
-  pred.Z <- Prediction(Zensus, step.model$model.spat, Umfrage = F, binom = F)
+  pred.U <- Prediction(Umfrage, step.model$model.spat, IFUmfrage = T, binom = F)
+  pred.Z <- Prediction(Zensus, step.model$model.spat, IFUmfrage = F, binom = F)
   write.table(pred.U, file = 'pred_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
   write.table(pred.Z, file = 'pred_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
 }else{
   pred.U <- read.csv2('pred_U.csv')
   pred.Z <- read.csv2('pred_Z.csv')
 }
+
+## Aggregation auf Bezirksebene ##
+
+Prediction.Aggregation(pred = pred.U[, c(1 : 3, 7)], agg = "Stadtbezirk")
 
 PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
