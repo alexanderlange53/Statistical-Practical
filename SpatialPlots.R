@@ -48,9 +48,15 @@ GKPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Katego
     data.f <- rbind(SS, SS2, SS3, SS4, SS5)
     data.f$Response <- factor(data.f$Response, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht'))
     if(Kategorien == 3){
-      S3 <- ST21.g[which(ST21.g$Response=='Sehr gut' | ST21.g$Response=='Gut'),]
-      S32 <- ST21.g[which(ST21.g$Response=='Neutral'),]
-      S4 <- ST21.g[which(ST21.g$Response=='Schlecht' | ST21.g$Response=='Sehr schlecht'),]
+      if(response == 'Meinung.zu.Stuttgart.21'){
+        S3 <- ST21.g[which(ST21.g$Response=='Sehr gut' | ST21.g$Response=='Gut'),]
+        S32 <- ST21.g[which(ST21.g$Response=='Neutral'),]
+        S4 <- ST21.g[which(ST21.g$Response=='Schlecht' | ST21.g$Response=='Sehr schlecht'),]
+      }else{
+        S3 <- ST21.g[which(ST21.g$Response=='Sehr gut'),]
+        S32 <- ST21.g[which(ST21.g$Response=='Gut'),]
+        S4 <- ST21.g[which(ST21.g$Response=='Neutral' | ST21.g$Response=='Schlecht' | ST21.g$Response=='Sehr schlecht'),] 
+      }
       
       # erstellen des neuen data frames
       S3$Response <- 'Zustimmung'
@@ -73,32 +79,37 @@ GKPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Katego
       facet_wrap(~ Response)
 }
 
-SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21'){
+SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Kategorien = 5, Bezirke = T){
   require(colorspace)
+  if(Bezirke == T){
+  if(response ==  'Meinung.zu.Stuttgart.21'){
+    if(Kategorien == 5){
+    for(i in 1:nrow(dataS)){
+      if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
+        dataS$Meinung.zu.Stuttgart.21[i] <- NA
+      }}
+      dataS <- na.omit(dataS)
+    }else{
+     dataS <- DataPrep(dataS, binom = F)
+    }
+  }else{
+    if(Kategorien == 5){
+    for(i in 1:nrow(dataS)){
+      if(dataS$Bewertung.Wohngegend[i] == 6){
+        dataS$Bewertung.Wohngegend[i] <- NA
+      }}
+    dataS <- na.omit(dataS)
+    }else{
+      dataS <- DataPrep(dataS, binom = F, Stuttgart21 = F)
+    }
+  }
   colo <- diverge_hsv(3)
   myvar <- c(response, 'Stadtbezirk', 'X', 'Y')
   ST <- dataS[myvar]
   
   # Ermittlung der Zustimmung in den Stadtteilen ('Sehr gut')
-  beob.bez <- as.data.frame(table(ST$[,1]))
-  meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST$[,1]))
-  
-  # Relative Anteile 
-  SG <- (meinung.bez$Freq[1:23]/beob.bez$Freq)*100
-  SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
-  SGA$Meinung <- as.factor('Sehr gut')
-  G <- (meinung.bez$Freq[24:46]/beob.bez$Freq)*100
-  GA <- as.data.frame(cbind(as.character(beob.bez$Var1), G))
-  GA$Meinung <- as.factor('Gut')
-  N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
-  N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
-  N.A$Meinung <- as.factor('Neutral')
-  S <- (meinung.bez$Freq[70:92]/beob.bez$Freq)*100
-  SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
-  SA$Meinung <- as.factor('Schlecht')
-  S.S <- (meinung.bez$Freq[93:115]/beob.bez$Freq)*100
-  S.SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S.S))
-  S.SA$Meinung <- as.factor('Sehr schlecht')
+  beob.bez <- as.data.frame(table(ST[,2]))
+  meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST[, 1]))
   
   # ID variable erzeugen um Data Frame und Spatial object zu verbinden
   bezirke@data$id <- rownames(bezirke@data)
@@ -106,26 +117,28 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21'){
   
   # Errechneten Anteile und räumliche Informationen verbinden
   bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
-  colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-  colnames(GA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-  colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
-  colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-  colnames(S.SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-  bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
-  bbGA <- merge(bb, GA, by = 'STADTBEZIR')
-  bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
-  bbSA <- merge(bb, SA, by = 'STADTBEZIR')
-  bbSSA <- merge(bb, S.SA, by = 'STADTBEZIR')
   
-  # erstellen des neuen data Frames
-  b.facet <- rbind(bbSGA, bbGA, bbNA, bbSA, bbSSA)
-  b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
+  # Relative Anteile 
+  Anteile <- by(meinung.bez$Freq, meinung.bez$Var2, 
+                function(x){(x/beob.bez$Freq)*100})
+  Anteile <- as.data.frame(lapply(Anteile, unlist))
+  Anteile$STADTBEZIR <- levels(meinung.bez$Var1)
+  if(Kategorien == 5){
+    colnames(Anteile) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                         'Sehr schlecht', 'STADTBEZIR')
+  }else{
+    colnames(Anteile) <- c('Zustimmung', 'Neutral', 
+                           'Ablehnung', 'STADTBEZIR')
+  }
+  AnteileM <- melt(Anteile, id = 'STADTBEZIR')
+  bbA <- merge(bb, AnteileM, by = 'STADTBEZIR')
   
   # Sortieren damit Poylogene richtig geplottet werden
-  b.facet <- b.facet[order(b.facet$order),]
+  bbA <- bbA[order(bbA$order),]
+  b.facet <- bbA
   
   # Plotten 
-  ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
+  ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value))+  
     geom_polygon(color = "black") +
     labs(x=NULL, y=NULL, title= NULL) +
     scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
@@ -139,7 +152,87 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21'){
       ,axis.text.y=element_blank()
       ,axis.ticks.y=element_blank()
       ,axis.ticks.x=element_blank()
-    ) + facet_wrap(~ Meinung)
+    ) + facet_wrap(~ variable)
+  }else{
+    if(Bezirke == T){
+      if(response ==  'Meinung.zu.Stuttgart.21'){
+        if(Kategorien == 5){
+          for(i in 1:nrow(dataS)){
+            if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
+              dataS$Meinung.zu.Stuttgart.21[i] <- NA
+            }}
+          dataS <- na.omit(dataS)
+        }else{
+          dataS <- DataPrep(dataS, binom = F)
+        }
+      }else{
+        if(Kategorien == 5){
+          for(i in 1:nrow(dataS)){
+            if(dataS$Bewertung.Wohngegend[i] == 6){
+              dataS$Bewertung.Wohngegend[i] <- NA
+            }}
+          dataS <- na.omit(dataS)
+        }else{
+          dataS <- DataPrep(dataS, binom = F, Stuttgart21 = F)
+        }
+      }
+    }
+      colo <- diverge_hsv(3)
+      myvar <- c(response, 'Stadtteil', 'X', 'Y')
+      ST <- dataS[myvar]
+    
+    # Ermittlung der Zustimmung in den Stadtteilen
+    beob.teile <- as.data.frame(table(ST[,2]))
+    meinung.teile <-as.data.frame(table(ST[,2], ST[,1]))
+    
+    # ID variable erzeugen um objecte zu verbinden
+    Stadtteile@data$id <- rownames(Stadtteile@data)
+    watershedPoints <- fortify(Stadtteile, region = "id")
+    
+    # Errechneten Anteile und räumliche Informationen verbinden
+    bb <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+    
+    # Relative Anteile 
+    Anteile <- by(meinung.teile$Freq, meinung.teile$Var2, 
+                  function(x){(x/beob.teile$Freq)*100})
+    Anteile <- as.data.frame(lapply(Anteile, unlist))
+    Anteile$STADTTEIL <- levels(meinung.teile$Var1)
+    if(Kategorien == 5){
+      colnames(Anteile) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                             'Sehr schlecht', 'STADTTEIL')
+    }else{
+      colnames(Anteile) <- c('Zustimmung', 'Neutral', 
+                             'Ablehnung', 'STADTTEIL')
+    }
+    
+    AnteileM <- melt(Anteile, id = 'STADTTEIL')
+    bbA <- merge(bb, AnteileM, by = 'STADTTEIL', all.x = T)
+    
+    # Sortieren damit Poylogene richtig geplottet werden
+    bbA <- bbA[order(bbA$order),]
+    s.facet <- bbA
+    pol.na <- filter(s.facet, is.na(variable))
+    plo.na <- as.data.frame(cbind(pol.na$STADTTEIL, pol.na$id, 
+                                  pol.na$long, pol.na$lat, pol.na$order, pol.na$group))
+    colnames(plo.na) <- c('STATDTTEIL', 'id', 'long', 'lat', 'order', 'group')
+    s.facet <- na.omit(s.facet)
+    
+    ggplot() + geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
+      geom_polygon(data=s.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value), color = "black") +
+      labs(x=NULL, y=NULL, title=NULL) +
+      scale_fill_gradient(name = "Anteil\n in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
+                          breaks = pretty_breaks(n = 5)) +
+      scale_alpha(range = c(0.3,1), guide=FALSE) +
+      coord_equal(1)+
+      theme_bw(15) +
+      theme(
+        legend.position = 'right'
+        ,axis.text.x=element_blank()
+        ,axis.text.y=element_blank()
+        ,axis.ticks.y=element_blank()
+        ,axis.ticks.x=element_blank()
+      ) + facet_wrap(~ variable)
+  }
 }
   
   

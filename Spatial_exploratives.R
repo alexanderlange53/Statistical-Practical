@@ -16,6 +16,7 @@ if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
                      dec = '.')
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
+  Stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto/", layer = "Stadtteile_netto")
 } 
 if(bearbeiter == 'Kai@Home'){
   dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Neue_Daten/Stuttgart21_aufbereitet.csv',
@@ -29,6 +30,8 @@ if(bearbeiter == 'Kai@Work'){
 }
 
 source('SpatialPlots.R')
+source('DataPrep.R')
+
 # Plotten der Response Variablen mit Gauss-Krüger Informationen
 # Meinung Stuttgart 21
 GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
@@ -39,6 +42,24 @@ GKPlot(dataS, response = 'Bewertung.Wohngegend',
        bezirke = bezirke, Kategorien = 5)
 GKPlot(dataS, response = 'Bewertung.Wohngegend', 
        bezirke = bezirke, Kategorien = 3)
+
+# Plotten der Response Variablen mit diskreten Information (Bezirke)
+# Meinung zu Stuttgart 21
+SpatAntPlot(dataS, bezirke)
+SpatAntPlot(dataS, bezirke, Kategorien = 3)
+
+# Bewertung Wohngegend
+SpatAntPlot(dataS, bezirke, response = 'Bewertung.Wohngegend')
+SpatAntPlot(dataS, bezirke, response = 'Bewertung.Wohngegend', Kategorien = 3)
+
+# Plotten der Response Variablen mit diskreten Information (Stadtteile)
+# Meinung zu Stuttgart 21
+SpatAntPlot(dataS, Stadtteile, Bezirke = F)
+SpatAntPlot(dataS, Stadtteile, Kategorien = 3, Bezirke = F)
+
+# Bewertung Wohngegend
+SpatAntPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Bezirke = F)
+SpatAntPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Kategorien = 3, Bezirke = F)
 
 #-----------------------------------# Variogram zu Gauss Krüger Informationen #---------------------------------------#
 
@@ -78,132 +99,6 @@ ggplot(vario,aes(x=dist,y=gamma,size=np)) + geom_point()
 
 plot(vario)
 plot(variom)
-
-
-#-----------------------------------# Diskrete Informationen mit Stadtbezirken #--------------------------------------#
-
-#--------------------------#
-# 5 Kategorien facet wraps #
-#--------------------------#
-
-# selcting variables of interest
-myvar <- c('Meinung.zu.Stuttgart.21', 'Stadtbezirk', 'X', 'Y')
-ST <- dataS[myvar]
-
-# Ermittlung der Zustimmung in den Stadtteilen ('Sehr gut')
-beob.bez <- as.data.frame(table(ST$Stadtbezirk))
-meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST$Meinung.zu.Stuttgart.21))
-
-# Relative Anteile 
-SG <- (meinung.bez$Freq[1:23]/beob.bez$Freq)*100
-SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
-SGA$Meinung <- as.factor('Sehr gut')
-G <- (meinung.bez$Freq[24:46]/beob.bez$Freq)*100
-GA <- as.data.frame(cbind(as.character(beob.bez$Var1), G))
-GA$Meinung <- as.factor('Gut')
-N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
-N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
-N.A$Meinung <- as.factor('Neutral')
-S <- (meinung.bez$Freq[70:92]/beob.bez$Freq)*100
-SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
-SA$Meinung <- as.factor('Schlecht')
-S.S <- (meinung.bez$Freq[93:115]/beob.bez$Freq)*100
-S.SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S.S))
-S.SA$Meinung <- as.factor('Sehr schlecht')
-
-# ID variable erzeugen um Data Frame und Spatial object zu verbinden
-bezirke@data$id <- rownames(bezirke@data)
-watershedPoints <- fortify(bezirke, region = "id")
-
-# Errechneten Anteile und räumliche Informationen verbinden
-bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
-colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-colnames(GA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
-colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-colnames(S.SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
-bbGA <- merge(bb, GA, by = 'STADTBEZIR')
-bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
-bbSA <- merge(bb, SA, by = 'STADTBEZIR')
-bbSSA <- merge(bb, S.SA, by = 'STADTBEZIR')
-
-# erstellen des neuen data Frames
-b.facet <- rbind(bbSGA, bbGA, bbNA, bbSA, bbSSA)
-b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
-
-# Sortieren damit Poylogene richtig geplottet werden
-b.facet <- b.facet[order(b.facet$order),]
-
-# Plotten 
-ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
-  geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title= NULL) +
-  scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
-                      breaks = pretty_breaks(n = 5)) +
-  scale_alpha(range = c(0.3,1), guide=FALSE) +
-  coord_equal(1)+
-  theme_bw(15) +
-  theme(
-    legend.position = 'right'
-    ,axis.text.x=element_blank()
-    ,axis.text.y=element_blank()
-    ,axis.ticks.y=element_blank()
-    ,axis.ticks.x=element_blank()
-  ) + facet_wrap(~ Meinung)
-
-#-------------------------#
-# 3 Kategorien facet wrap #
-#-------------------------#
-
-# Relative Anteile 
-SG <- ((meinung.bez$Freq[1:23] + meinung.bez$Freq[24:46]) /beob.bez$Freq)*100
-SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
-SGA$Meinung <- as.factor('Zustimmung')
-N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
-N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
-N.A$Meinung <- as.factor('Neutral')
-S <- ((meinung.bez$Freq[70:92] + meinung.bez$Freq[93:115])/beob.bez$Freq)*100
-SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
-SA$Meinung <- as.factor('Ablehnung')
-
-
-# ID variable erzeugen um Data Frame und Spatial object zu verbinden
-bezirke@data$id <- rownames(bezirke@data)
-watershedPoints <- fortify(bezirke, region = "id")
-
-# Errechneten Anteile und räumliche Informationen verbinden
-bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
-colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
-colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
-bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
-bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
-bbSA <- merge(bb, SA, by = 'STADTBEZIR')
-
-# erstellen des neuen data Frames
-b.facet <- rbind(bbSGA, bbNA, bbSA)
-b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
-
-# Sortieren damit Poylogene richtig geplottet werden
-b.facet <- b.facet[order(b.facet$order),]
-
-# Plotten 
-ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
-  geom_polygon(color = "black") +
-  labs(x=NULL, y=NULL, title= NULL) +
-  scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
-                      breaks = pretty_breaks(n = 5)) +
-  scale_alpha(range = c(0.3,1), guide=FALSE) +
-  coord_equal(1)+
-  theme_bw(15) +
-  theme(
-    legend.position = 'right'
-    ,axis.text.x=element_blank()
-    ,axis.text.y=element_blank()
-    ,axis.ticks.y=element_blank()
-    ,axis.ticks.x=element_blank()
-  ) + facet_wrap(~ Meinung)
 
 #-----------------------------------------# Diskrete Informationen mit Stadtteilen #---------------------------------------#
 
