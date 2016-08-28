@@ -1,8 +1,9 @@
-GKPlot <- function(dataS,  bezirke, response = c('Meinung.zu.Stuttgart.21', 'X', 'Y'), Kategorien = 5){
+GKPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Kategorien = 5){
   # selcting variables of interest
   require(colorspace)
   colo <- diverge_hsv(3)
-  ST22 <- dataS[paste(response)]
+  myvar <- c(response, 'X', 'Y')
+  ST22 <- dataS[myvar]
   ST21 <- ST22
   # numerical classes into factor classes
   ST21[,1] <- ''
@@ -71,4 +72,74 @@ GKPlot <- function(dataS,  bezirke, response = c('Meinung.zu.Stuttgart.21', 'X',
       xlim(9.035, 9.32) + ylim(48.69, 48.87) +
       facet_wrap(~ Response)
 }
+
+SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21'){
+  require(colorspace)
+  colo <- diverge_hsv(3)
+  myvar <- c(response, 'Stadtbezirk', 'X', 'Y')
+  ST <- dataS[myvar]
+  
+  # Ermittlung der Zustimmung in den Stadtteilen ('Sehr gut')
+  beob.bez <- as.data.frame(table(ST$[,1]))
+  meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST$[,1]))
+  
+  # Relative Anteile 
+  SG <- (meinung.bez$Freq[1:23]/beob.bez$Freq)*100
+  SGA <- as.data.frame(cbind(as.character(beob.bez$Var1), SG))
+  SGA$Meinung <- as.factor('Sehr gut')
+  G <- (meinung.bez$Freq[24:46]/beob.bez$Freq)*100
+  GA <- as.data.frame(cbind(as.character(beob.bez$Var1), G))
+  GA$Meinung <- as.factor('Gut')
+  N <- (meinung.bez$Freq[47:69]/beob.bez$Freq)*100
+  N.A <- as.data.frame(cbind(as.character(beob.bez$Var1), N))
+  N.A$Meinung <- as.factor('Neutral')
+  S <- (meinung.bez$Freq[70:92]/beob.bez$Freq)*100
+  SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S))
+  SA$Meinung <- as.factor('Schlecht')
+  S.S <- (meinung.bez$Freq[93:115]/beob.bez$Freq)*100
+  S.SA <- as.data.frame(cbind(as.character(beob.bez$Var1), S.S))
+  S.SA$Meinung <- as.factor('Sehr schlecht')
+  
+  # ID variable erzeugen um Data Frame und Spatial object zu verbinden
+  bezirke@data$id <- rownames(bezirke@data)
+  watershedPoints <- fortify(bezirke, region = "id")
+  
+  # Errechneten Anteile und räumliche Informationen verbinden
+  bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
+  colnames(SGA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+  colnames(GA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+  colnames(N.A) <- c('STADTBEZIR', 'anteil', 'Meinung')
+  colnames(SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+  colnames(S.SA) <- c('STADTBEZIR', 'anteil', 'Meinung')
+  bbSGA <- merge(bb, SGA, by = 'STADTBEZIR')
+  bbGA <- merge(bb, GA, by = 'STADTBEZIR')
+  bbNA <- merge(bb, N.A, by = 'STADTBEZIR')
+  bbSA <- merge(bb, SA, by = 'STADTBEZIR')
+  bbSSA <- merge(bb, S.SA, by = 'STADTBEZIR')
+  
+  # erstellen des neuen data Frames
+  b.facet <- rbind(bbSGA, bbGA, bbNA, bbSA, bbSSA)
+  b.facet$anteil <- as.numeric(as.character(b.facet$anteil))
+  
+  # Sortieren damit Poylogene richtig geplottet werden
+  b.facet <- b.facet[order(b.facet$order),]
+  
+  # Plotten 
+  ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = anteil, alpha = anteil))+  
+    geom_polygon(color = "black") +
+    labs(x=NULL, y=NULL, title= NULL) +
+    scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
+                        breaks = pretty_breaks(n = 5)) +
+    scale_alpha(range = c(0.3,1), guide=FALSE) +
+    coord_equal(1)+
+    theme_bw(15) +
+    theme(
+      legend.position = 'right'
+      ,axis.text.x=element_blank()
+      ,axis.text.y=element_blank()
+      ,axis.ticks.y=element_blank()
+      ,axis.ticks.x=element_blank()
+    ) + facet_wrap(~ Meinung)
+}
+  
   

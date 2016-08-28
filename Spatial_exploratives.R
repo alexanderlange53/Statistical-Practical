@@ -35,50 +35,10 @@ GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
 GKPlot(dataS, bezirke = bezirke, Kategorien = 3)
 
 # Bewertung Wohngegend
-GKPlot(dataS, response = c('Bewertung.Wohngegend', 'X', 'Y'), bezirke = bezirke, Kategorien = 5)
-GKPlot(dataS, response = c('Bewertung.Wohngegend', 'X', 'Y'), bezirke = bezirke, Kategorien = 3)
-
-# selcting variables of interest
-myvar <- c('Meinung.zu.Stuttgart.21', 'X', 'Y')
-ST22 <- dataS[myvar]
-ST21 <- ST22
-# numerical classes into factor classes
-ST21$Meinung.zu.Stuttgart.21 <- ''
-ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 1] <- 'Sehr gut'
-ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 2] <- 'Gut'
-ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 3] <- 'Neutral'
-ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 4] <- 'Schlecht'
-ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 5] <- 'Sehr schlecht'
-ST21$Meinung.zu.Stuttgart.21[ST22$Meinung.zu.Stuttgart.21 == 6] <- 'Keine Angabe'
-# assigning names
-names(ST21) <- c('Meinung', 'long', 'lat') 
-# reshaping data frame for plotting
-ST21.p <- melt(ST21, id = c('long', 'lat'))
-# levels of factor
-ST21.p$value <- factor(ST21.p$value, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                                                                                'Sehr schlecht', 'Keine Angabe'))
-
-# Plotting points on Stuttgart polygon
-ggplot() + geom_polygon(data=bezirke, aes(x=long, y=lat, group=group), fill="grey40",colour="white", alpha=0.5)+  
-  labs(x=NULL, y=NULL, title=NULL)+
-  geom_point(data=ST21.p, aes(x=long, y=lat, color = value, group = value)) +
-  scale_color_manual(values = c(heat_hcl(5), 'black'))+
-  coord_equal(1)+
-  theme_bw(15) +
-  theme(
-    plot.background = element_blank()
-    ,panel.grid.major = element_blank()
-    ,panel.grid.minor = element_blank()
-    ,panel.border = element_blank()
-    ,legend.position = 'bottom'
-    ,axis.text.x=element_blank()
-    ,axis.text.y=element_blank()
-    ,axis.ticks.y=element_blank()
-    ,axis.ticks.x=element_blank()
-    ,legend.title = element_blank()
-  ) +
-  guides(color = guide_legend(override.aes = list(size=5)))
-
+GKPlot(dataS, response = 'Bewertung.Wohngegend', 
+       bezirke = bezirke, Kategorien = 5)
+GKPlot(dataS, response = 'Bewertung.Wohngegend', 
+       bezirke = bezirke, Kategorien = 3)
 
 #-----------------------------------# Variogram zu Gauss Krüger Informationen #---------------------------------------#
 
