@@ -154,7 +154,6 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
       ,axis.ticks.x=element_blank()
     ) + facet_wrap(~ variable)
   }else{
-    if(Bezirke == T){
       if(response ==  'Meinung.zu.Stuttgart.21'){
         if(Kategorien == 5){
           for(i in 1:nrow(dataS)){
@@ -176,7 +175,8 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
           dataS <- DataPrep(dataS, binom = F, Stuttgart21 = F)
         }
       }
-    }
+    
+      Stadtteile <- bezirke
       colo <- diverge_hsv(3)
       myvar <- c(response, 'Stadtteil', 'X', 'Y')
       ST <- dataS[myvar]
@@ -212,9 +212,7 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
     bbA <- bbA[order(bbA$order),]
     s.facet <- bbA
     pol.na <- filter(s.facet, is.na(variable))
-    plo.na <- as.data.frame(cbind(pol.na$STADTTEIL, pol.na$id, 
-                                  pol.na$long, pol.na$lat, pol.na$order, pol.na$group))
-    colnames(plo.na) <- c('STATDTTEIL', 'id', 'long', 'lat', 'order', 'group')
+    plo.na <- subset(pol.na, select = c(STADTTEIL, id, long, lat, order, group))
     s.facet <- na.omit(s.facet)
     
     ggplot() + geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
