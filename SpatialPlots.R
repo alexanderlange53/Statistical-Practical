@@ -233,4 +233,52 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
   }
 }
   
+PredSpatPlot <- function(predz, spatdata){
+  require(colorspace)
+  colo <- diverge_hsv(3)
+  Agg <- Prediction.Aggregation(pred = predz[, c(1 : 3, 6)], agg = 'Stadtteil')
+  count <- as.data.frame(table(predz$Stadtteil))
+  Anteile <- as.data.frame(apply(Agg[,-1], 2, function(x){x/count$Freq}))
   
+  # ID variable erzeugen um objecte zu verbinden
+  spatdata@data$id <- rownames(spatdata@data)
+  watershedPoints <- fortify(spatdata, region = "id")
+  
+  # Errechneten Anteile und räumliche Informationen verbinden
+  bb <- merge(watershedPoints, spatdata@data, by = 'id', all.x = T)
+  
+  Anteile$Stadteile <- Agg$Stadtteil
+  if(ncol(Anteile) == 6){
+    colnames(Anteile) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                           'Sehr schlecht', 'STADTTEILN')
+  }else{
+    colnames(Anteile) <- c('Zustimmung', 'Neutral', 
+                           'Ablehnung', 'STADTTEILN')
+  }
+  
+  AnteileM <- melt(Anteile, id = 'STADTTEILN')
+  bbA <- merge(bb, AnteileM, by = 'STADTTEILN', all.x = T)
+  
+  # Sortieren damit Poylogene richtig geplottet werden
+  bbA <- bbA[order(bbA$order),]
+  s.facet <- bbA
+  pol.na <- filter(s.facet, is.na(variable))
+  plo.na <- subset(pol.na, select = c(STADTTEILN, id, long, lat, order, group))
+  s.facet <- na.omit(s.facet)
+  
+  ggplot() + geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
+    geom_polygon(data=s.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value), color = "black") +
+    labs(x=NULL, y=NULL, title=NULL) +
+    scale_fill_gradient(name = "Anteil\n in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
+                        breaks = pretty_breaks(n = 5)) +
+    scale_alpha(range = c(0.3,1), guide=FALSE) +
+    coord_equal(1)+
+    theme_bw(15) +
+    theme(
+      legend.position = 'right'
+      ,axis.text.x=element_blank()
+      ,axis.text.y=element_blank()
+      ,axis.ticks.y=element_blank()
+      ,axis.ticks.x=element_blank()
+    ) + facet_wrap(~ variable)
+}  

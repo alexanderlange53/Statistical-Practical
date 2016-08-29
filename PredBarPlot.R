@@ -22,9 +22,11 @@ PredBarPlot <- function(sample, predz, Variable = 'Meinung', x = c('Zustimmung',
   colnames(Bars) <- c('V1', 'sample', 'prediction')
   Bars <- melt(Bars, id = 'V1')
   
+  number_ticks <- function(n) {function(limits) pretty(limits, n)}
+  
     ggplot(Bars, aes(x = V1, y = value, fill = variable)) + xlab(paste(Variable)) +
     geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5) +
     scale_fill_manual(values=c(colo[1], colo[5])) + ylab('Relative Häufigkeit') +
-    theme_bw(15) +
+    theme_bw(15) + scale_y_continuous(breaks=number_ticks(6)) +
     theme(legend.position = 'bottom', legend.title = element_blank())
 } 

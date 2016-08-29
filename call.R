@@ -17,7 +17,7 @@ library(reshape2)
 ## Working directory ##
 
 bearbeiter <- 'Alex'
-pred = TRUE
+pred = F
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -120,7 +120,7 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- FALSE
+load_model <- T
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -200,8 +200,14 @@ if(pred == T){
 AggPredU <- Prediction.Aggregation(pred = pred.U[, c(1 : 3, 6)], agg = 'Stadtteil')
 AggPredZ <- Prediction.Aggregation(pred = pred.Z[, c(1 : 3, 6)], agg = 'Stadtteil')
 
-PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
-PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.U, Variable = 'Meinung zu Stuttgart 21', 
+            x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z, Variable = 'Meinung zu Stuttgart 21',
+            x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+predz$Kategorie_1 <- as.numeric(as.character(predz$Kategorie_1))
+predz$Kategorie_2 <- as.numeric(as.character(predz$Kategorie_2))
+predz$Kategorie_3 <- as.numeric(as.character(predz$Kategorie_3))
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
