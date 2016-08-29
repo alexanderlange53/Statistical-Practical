@@ -16,7 +16,7 @@ library(reshape2)
 
 ## Working directory ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 pred = TRUE
 
 if(bearbeiter == 'Alex') {
@@ -197,7 +197,8 @@ if(pred == T){
 
 ## Aggregation auf Bezirksebene ##
 
-Prediction.Aggregation(pred = pred.U[, c(1 : 3, 7)], agg = "Stadtbezirk")
+AggPredU <- Prediction.Aggregation(pred = pred.U[, c(1 : 3, 6)], agg = 'Stadtteil')
+AggPredZ <- Prediction.Aggregation(pred = pred.Z[, c(1 : 3, 6)], agg = 'Stadtteil')
 
 PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
