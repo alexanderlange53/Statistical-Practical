@@ -1,10 +1,13 @@
-PredBarPlot <- function(sample, prediction, Variable = 'Meinung', x = c('Zustimmung', 'Ablehnung')){
+PredBarPlot <- function(sample, predz, Variable = 'Meinung', x = c('Zustimmung', 'Ablehnung')){
   require(colorspace)
   colo <- diverge_hsv(5)
   count1 <- as.data.frame(table(sample$Meinung.zu.Stuttgart.21))
-  count2 <- as.data.frame(table(prediction$Meinung))
+  count2 <- as.data.frame(table(predz[,6]))
+  Agg <- colSums(predz[,c(1,2,3)])
   count1$Freq <- count1$Freq/sum(count1$Freq)
-  count2$Freq <- count2$Freq/sum(count2$Freq)
+  Freq <- Agg/sum(count2$Freq)
+  count2 <- as.data.frame(cbind(seq(1, length(Freq)), Freq))
+  colnames(count2) <- colnames(count1)
   
   if(nrow(count1) == nrow(count2)){
     Bars <- as.data.frame(cbind(count1$Var1, count1$Freq, count2$Freq))
