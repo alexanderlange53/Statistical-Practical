@@ -4,8 +4,8 @@
 
 # Funktion zur Vorhersage der Wahrscheinlichkeiten einer Ausprägung auf Individuenebene
 
-Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, by.agg = NA){
-  # Die Variable sollte nicht gleich heißen wie die Daten -> verwirrend
+Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTyp = 'kontinuierlich'){
+  
   if(IFUmfrage == T){
     # hier koennte eine dynamische Abfrage oder zumindest ein Übergabe der erklärenden Variablen hilfreich sein.
     u.p <- select(Population, Altersklasse,Haushaltsgroesse, Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil, Stadtbezirk)
