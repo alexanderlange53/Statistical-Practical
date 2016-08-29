@@ -41,12 +41,12 @@ if(bearbeiter == 'Kai@Work') {
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
   if(pred == T){
-    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
-    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
+    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
+    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
 }
 
@@ -100,7 +100,7 @@ pars <- c("Familienstand", "Nationalität", "Geschlecht")
 nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
 
 # Modellwahl ja/nein?
-modellwahl <- TRUE
+modellwahl <- FALSE
 
 # Vorhersageintervalle ja/nein und Eigenschaften
 # nboot = Anzahl Bootstrap Stichproben
@@ -188,11 +188,11 @@ crosseval
 if(pred == T){
   pred.U <- Prediction(Umfrage, step.model$model.spat, IFUmfrage = T, binom = F)
   pred.Z <- Prediction(Zensus, step.model$model.spat, IFUmfrage = F, binom = F)
-  write.table(pred.U, file = 'pred_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
-  write.table(pred.Z, file = 'pred_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.table(pred.U, file = 'pred_S21_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.table(pred.Z, file = 'pred_S21_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
 }else{
-  pred.U <- read.csv2('pred_U.csv')
-  pred.Z <- read.csv2('pred_Z.csv')
+  pred.U <- read.csv2('pred_S21_U.csv')
+  pred.Z <- read.csv2('pred_S21_Z.csv')
 }
 
 ## Aggregation auf Bezirksebene ##
@@ -216,7 +216,7 @@ fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alte
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model.B <- stepAIC()
@@ -231,7 +231,26 @@ if(!load_model){
 
 evaluate(step.model.B$model.spat, data = sample)
 evaluateAll(step.model.B, data = sample)
-cross.evaluation(model = step.model.B$model.spat, data = sample, repeatitions = 5)
+
+## Cross Evaluation ##
+repeatitions = 2
+model <- step.model.B$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+crosseval
+
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
@@ -259,7 +278,30 @@ AIC(step.model.B$model.nospat)
 AIC(step.model.B$model.spatonly)
 
 summary(step.model.B$model.spat)
-plot(step.model.B$model.spat, all = T)
+#plot(step.model.B$model.spat, all = T)
+
+
+#---------------#
+## Prediction  ##
+#---------------#
+
+## Vorhersage der individuellen Ausprägung ##
+if(pred == T){
+  pred.U.B <- Prediction(Umfrage, step.model.B$model.spat, IFUmfrage = T, binom = F)
+  pred.Z.B <- Prediction(Zensus, step.model.B$model.spat, IFUmfrage = F, binom = F)
+  write.table(pred.U, file = 'pred_S21_U_bezirk.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.table(pred.Z, file = 'pred_S21_Z_bezirk.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+}else{
+  pred.U <- read.csv2('pred_U.csv')
+  pred.Z <- read.csv2('pred_Z.csv')
+}
+
+## Aggregation auf Bezirksebene ##
+
+Prediction.Aggregation(pred = pred.U[, c(1 : 3, 7)], agg = "Stadtbezirk")
+
+PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 #-----------------------------------------#
 # Stadtteile als Räumliche Informationen  #--------------------------------------------------------------
