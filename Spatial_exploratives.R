@@ -63,33 +63,19 @@ SpatAntPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Kategorien = 3
 
 #-----------------------------------# Variogram zu Gauss Krüger Informationen #---------------------------------------#
 
+# Variogramme zur Meinung zu STuttgart 21 ----------------------------------------------
 dataC <- dataS
 for(i in 1:nrow(dataS)){
   if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
     dataS$Meinung.zu.Stuttgart.21[i] <- NA
   }}
 dataS <- na.omit(dataS)
-# Zusammenführen von 'Sehr gut' und 'Gut' zu Zustimmung und 'Sehr Schlecht' und 'Schlecht' zu Ablehnend 
-for(i in 1:nrow(dataC)){
-  if(dataC$Meinung.zu.Stuttgart.21[i] == 2){
-    dataC$Meinung.zu.Stuttgart.21[i] <- 1
-  }}
-for(i in 1:nrow(dataS)){
-  if(dataC$Meinung.zu.Stuttgart.21[i] == 3){
-    dataC$Meinung.zu.Stuttgart.21[i] <- 2
-  }}
-for(i in 1:nrow(dataS)){
-  if(dataC$Meinung.zu.Stuttgart.21[i] == 4){
-    dataC$Meinung.zu.Stuttgart.21[i] <- 3
-  }}
-for(i in 1:nrow(dataS)){
-  if(dataC$Meinung.zu.Stuttgart.21[i] == 5){
-    dataC$Meinung.zu.Stuttgart.21[i] <- 3
-  }}
 
+dataC <- DataPrep(dataC, binom = F) 
+
+# Mit 5 Klassen 
 coordinates(dataC) <- ~X+Y
 proj4string(dataC) <- CRS("+init=epsg:31467")
-
 
 vario <- variogram(Meinung.zu.Stuttgart.21~1, dataC)
 variom <- variogram(Meinung.zu.Stuttgart.21~1, width=3,cutoff=100, dataC, map = T)
@@ -100,8 +86,55 @@ ggplot(vario,aes(x=dist,y=gamma,size=np)) + geom_point()
 plot(vario)
 plot(variom)
 
+# Mit 3 Klassen 
+coordinates(dataS) <- ~X+Y
+proj4string(dataS) <- CRS("+init=epsg:31467")
 
-#------------------------------------------# Variogramme #------------------------------------------------------#
+vario <- variogram(Meinung.zu.Stuttgart.21~1, dataS)
+variom <- variogram(Meinung.zu.Stuttgart.21~1, width=3,cutoff=100, dataS, map = T)
 
-# Sind das equilvalent zur Korrelationsmatrix für räumliche Daten.
+theme_set(theme_bw(15))
+ggplot(vario,aes(x=dist,y=gamma,size=np)) + geom_point()
 
+plot(vario)
+plot(variom)
+
+# Variogramme zur Bewertung der Wohngegend --------------------------------------------------------
+dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
+                   dec = '.')
+
+
+dataC <- dataS
+for(i in 1:nrow(dataS)){
+  if(dataS$Bewertung.Wohngegend[i] == 6){
+    dataS$Bewertung.Wohngegend[i] <- NA
+  }}
+dataS <- na.omit(dataS)
+
+dataC <- DataPrep(dataC, binom = F, Stuttgart21 = F) 
+
+# Mit 5 Klassen 
+coordinates(dataC) <- ~X+Y
+proj4string(dataC) <- CRS("+init=epsg:31467")
+
+vario <- variogram(Bewertung.Wohngegend ~1, dataC)
+variom <- variogram(Bewertung.Wohngegend ~1, width=3,cutoff=100, dataC, map = T)
+
+theme_set(theme_bw(15))
+ggplot(vario,aes(x=dist,y=gamma,size=np)) + geom_point()
+
+plot(vario)
+plot(variom)
+
+# Mit 3 Klassen 
+coordinates(dataS) <- ~X+Y
+proj4string(dataS) <- CRS("+init=epsg:31467")
+
+vario <- variogram(Bewertung.Wohngegend~1, dataS)
+variom <- variogram(Bewertung.Wohngegend~1, width=3,cutoff=100, dataS, map = T)
+
+theme_set(theme_bw(15))
+ggplot(vario,aes(x=dist,y=gamma,size=np)) + geom_point()
+
+plot(vario)
+plot(variom)
