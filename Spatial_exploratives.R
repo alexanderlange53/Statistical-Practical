@@ -10,7 +10,7 @@ require(dplyr);require(gstat);require(raster)
 
 # loading data
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
@@ -19,9 +19,10 @@ if(bearbeiter == 'Alex'){
   Stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto/", layer = "Stadtteile_netto")
 } 
 if(bearbeiter == 'Kai@Home'){
-  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Neue_Daten/Stuttgart21_aufbereitet.csv',
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv',
             dec = '.')
   bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  Stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
 }
 if(bearbeiter == 'Kai@Work'){
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten//Stuttgart21_aufbereitet.csv',
@@ -100,8 +101,21 @@ plot(vario)
 plot(variom)
 
 # Variogramme zur Bewertung der Wohngegend --------------------------------------------------------
-dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
-                   dec = '.')
+if(bearbeiter == 'Alex'){
+  dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
+                     dec = '.')
+} 
+if(bearbeiter == 'Kai@Home'){
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv',
+                     dec = '.')
+}
+if(bearbeiter == 'Kai@Work'){
+  dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten//Stuttgart21_aufbereitet.csv',
+                     dec = '.')
+}
+
+
+
 
 
 dataC <- dataS
