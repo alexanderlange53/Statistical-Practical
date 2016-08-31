@@ -71,6 +71,9 @@ source('PredBarPlot.R')
 # löscht Gruppe 6
 sample <- DataPrep(sample, binom = F)
 
+#---------------------------------------------#
+#### Kontinuierliche räumliche Information ####
+#---------------------------------------------#
 
 #------------------#
 # Eingabeparameter #
@@ -207,9 +210,9 @@ PredBarPlot(sample, pred.Z.k, Variable = 'Meinung zu Stuttgart 21',
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 
-#--------------------------------------#
-# Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
-#--------------------------------------#
+#--------------------------------------------#
+#### Bezirke als Räumliche Informationen #####                        -----------------------------------------------------------------
+#--------------------------------------------#
 
 # Erstellen des Markov-Random fields
 zt <- MarkovRandomField(bezirke, Bezirke = T)
@@ -311,15 +314,9 @@ PredBarPlot(sample, pred.Z.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 
 
-### Läuft nur bis hier
-
-#####################################
-
-#############
-
-# Gewichte
-sample$Gewicht <- 1
-gewichte <- "Gewicht"
+#-----------------------------------------------#
+#### Stadtteile als Räumliche Informationen #####                        -----------------------------------------------------------------
+#-----------------------------------------------#
 
 # Erstellen des Markov Random fields
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
@@ -349,7 +346,27 @@ if(!load_model){
 
 evaluate(step.model.S$model.spat, data = sample)
 evaluateAll(step.model.S, data = sample)
-cross.evaluation(model = step.model.S$model.spat, data = sample, repeatitions = 5)
+
+
+## Cross Evaluation ##
+repeatitions = 1
+model <- step.model.S$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+crosseval
+
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
@@ -376,44 +393,29 @@ AIC(step.model.S$model.spat)
 AIC(step.model.S$model.nospat)
 AIC(step.model.S$model.spatonly)
 
-summary(step.model.binom.S$model.spat)
-plot(step.model.binom.S$model.spat, all = T)
+summary(step.model.S$model.spat)
+# plot(step.model.S$model.spat, all = T)
 
+#---------------#
+## Prediction  ##
+#---------------#
 
-
-#--------------#
-## Alter Code ##
-#--------------#
-# Vielleicht für das Papaer hilfreich, im Moment aber nicht wichtig
-
-mean.erg <- erg[[1]]$tab
-for(i in c(2 : 10)){
-  mean.erg <- mean.erg + erg[[i]]$tab
-}
-mean.erg <- mean.erg / 10
-mean.erg <- as.data.frame(mean.erg)
-colnames(mean.erg) <- c("Dafür", "Neutral", "Dagegen")
-rownames(mean.erg) <- c("Dafür", "Neutral", "Dagegen")
-library(stargazer)
-stargazer(mean.erg)
-## lauft bis hier
-
-# Descr. Stat: Neutral
-hist(sample[sample$Meinung.zu.Stuttgart.21 == 2, "Personenzahl.im.Haushalt"])
-hist(as.numeric(sample[sample$Meinung.zu.Stuttgart.21 == 2, "Geschlecht"]))
-hist(sample[sample$Meinung.zu.Stuttgart.21 == 2, "Altersklasse.Befragter"])
-if(parallel)
-{
-  set.seed(seed)
-  n <- nrow(sample)
-  indmat <- matrix(0, nrow=n, ncol=nboot)
-  wmat <- matrix(0, nrow=n, ncol=nboot)
-  for(b in 1:nboot)
-  {
-    indmat[,b] <- sample(1:n, size=n, replace=TRUE)
-    wmat[,b] <- sample[indmat[,b],gewichte]
-  }
+## Vorhersage der individuellen Ausprägung ##
+if(pred == T){
+  pred.U.S <- Prediction(Umfrage, step.model.S$model.spat, IFUmfrage = T, binom = F)
+  pred.Z.S <- Prediction(Zensus, step.model.S$model.spat, IFUmfrage = F, binom = F)
+  write.csv2(pred.U.S, file = 'pred_S21_U_stadtteil.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.Z.S, file = 'pred_S21_Z_stadtteil.csv', row.names=FALSE, quote=FALSE)
+}else{
+  pred.U.S <- read.csv2('pred_S21_U_bezirk.csv')
+  pred.Z.S <- read.csv2('pred_S21_Z_bezirk.csv')
 }
 
+## Aggregation auf Bezirksebene ##
 
-pred <- prediction(step.model)
+Prediction.Aggregation(pred = pred.U.S[, c(1 : 3, 6)], agg = "Stadtteil")
+
+PredBarPlot(sample, pred.U.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+
