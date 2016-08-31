@@ -106,5 +106,7 @@ Nationalität <- FreqPlot(count8, 'Nationalität')
 Nationalität
 
 # grid plot
-grid.arrange(Altersklasse, Einkommen, Familienstand, Geschlecht, Nationalität, 
+pdf('./Essay/Pictures/BarData.pdf', height = 8, width = 8)
+bb <- grid.arrange(Altersklasse, Einkommen, Familienstand, Geschlecht, Nationalität, 
              Personen, Stuttgart21, Wohngegend)
+dev.off()

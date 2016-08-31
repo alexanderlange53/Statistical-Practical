@@ -16,9 +16,9 @@ library(reshape2)
 
 ## Working directory ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Getrennt, damit die Geodaten geladen werden koennen ohne Prediction aufzurufen
-pred = FALSE
+pred = T
 load_model <- TRUE
 
 if(bearbeiter == 'Alex') {
