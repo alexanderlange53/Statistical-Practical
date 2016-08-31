@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: HAs.aux
+The style file: apalike.bst
+Database file #1: Refe.bib
+Warning--empty journal in RePEc:zbw:cegedp:208
+Warning--there's a number but no volume in RePEc:zbw:cegedp:208
+Warning--empty journal in HH2014
+Warning--there's a number but no volume in HH2014
+Warning--empty journal in LL2008
+Warning--there's a number but no volume in LL2008
+You've used 19 entries,
+            1935 wiz_defined-function locations,
+            593 strings with 6826 characters,
+and the built_in function-call counts, 5765 in all, are:
+= -- 554
+> -- 181
+< -- 20
++ -- 58
+- -- 54
+* -- 426
+:= -- 1064
+add.period$ -- 59
+call.type$ -- 19
+change.case$ -- 111
+chr.to.int$ -- 17
+cite$ -- 25
+duplicate$ -- 255
+empty$ -- 425
+format.name$ -- 89
+if$ -- 1113
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 23
+newline$ -- 99
+num.names$ -- 57
+pop$ -- 119
+preamble$ -- 1
+purify$ -- 122
+quote$ -- 0
+skip$ -- 188
+stack$ -- 0
+substring$ -- 278
+swap$ -- 18
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 96
+warning$ -- 6
+while$ -- 40
+width$ -- 0
+write$ -- 244
+(There were 6 warnings)

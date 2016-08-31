@@ -1,0 +1,13 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
+\contentsline {section}{\numberline {2}Daten}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Deskriptive Statistik}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}R\IeC {\"a}umliche Effekte}{2}{subsection.2.2}
+\contentsline {section}{\numberline {3}Methodik}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Modell}{2}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Modellwahl}{2}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Evaluierung}{2}{subsection.3.3}
+\contentsline {section}{\numberline {4}Ergebnisse}{2}{section.4}
+\contentsline {section}{\numberline {5}Ergebnisse}{2}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }References}{3}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Appendix}{5}{section.5}
