@@ -16,7 +16,8 @@
 #------------------#
 rm(list = ls())
 library(foreign)
-setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/Rohdaten/')
+#setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/Rohdaten/')
+setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/')
 
 #----------------------#
 ## Einlesen der Daten ##
@@ -60,11 +61,13 @@ check1 <- list()
 for(i in unique(bu_ret$Stadtteil.neu)) {
   check1[[i]] <- table(bu_ret$Stadtteil[bu_ret$Stadtteil.neu == i])
 }
+# check1
 
 check2 <- list()
 for(i in unique(ze_ret$Stadtteil.neu)) {
   check2[[i]] <- table(ze_ret$stadtteil[ze_ret$Stadtteil.neu == i])
 }
+# check2
 
 # Da die S21 Daten genau in den Grenzen der Bezirke und Teile des Shapefiles liegen, muss der Bezirk aus den Rohdaten genau dem Bezirk aus dem Merge entsprechen
 tt <- merge(s21, key[, c('Stadtteil.chr', 'Stadtteil.int', 'Stadtbezirk.int', 'Stadtbezirk.chr')], by.x = 'Stadtteil', by.y = 'Stadtteil.chr', all.x = TRUE)
