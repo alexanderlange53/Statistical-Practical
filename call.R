@@ -16,15 +16,17 @@ library(reshape2)
 
 ## Working directory ##
 
-bearbeiter <- 'Alex'
-pred = F
+bearbeiter <- 'Kai@Home'
+loadGeo <- TRUE # Getrennt, damit die Geodaten geladen werden koennen ohne Prediction aufzurufen
+pred = FALSE
+load_model <- TRUE
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
-  if(pred == T){
+  if(loadGeo){
     Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet_stadtteile.txt')
     Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet_stadtteile.txt')
   }
@@ -34,7 +36,7 @@ if(bearbeiter == 'Kai@Work') {
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
-  if(pred){
+  if(loadGeo){
     Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
     Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
@@ -44,7 +46,7 @@ if(bearbeiter == 'Kai@Home') {
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
-  if(pred == T){
+  if(loadGeo){
     Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
     Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
@@ -120,7 +122,6 @@ seed <- 123
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- T
 ## Step AIC ##
 if(!load_model){
   step.model <- stepAIC()
@@ -186,28 +187,25 @@ crosseval
 
 ## Vorhersage der individuellen Ausprägung ##
 if(pred == T){
-  pred.U <- Prediction(Umfrage, step.model$model.spat, IFUmfrage = T, binom = F)
-  pred.Z <- Prediction(Zensus, step.model$model.spat, IFUmfrage = F, binom = F)
-  write.table(pred.U, file = 'pred_S21_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
-  write.table(pred.Z, file = 'pred_S21_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  pred.U.k <- Prediction(Umfrage, step.model$model.spat, IFUmfrage = T, binom = F)
+  pred.Z.k <- Prediction(Zensus, step.model$model.spat, IFUmfrage = F, binom = F)
+  write.csv2(pred.U.k, file = 'pred_S21_U_kont.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.Z.k, file = 'pred_S21_Z_kont.csv', row.names=FALSE, quote=FALSE)
 }else{
-  pred.U <- read.csv2('pred_S21_U.csv')
-  pred.Z <- read.csv2('pred_S21_Z.csv')
+  pred.U.k <- read.csv2('pred_S21_U_kont.csv')
+  pred.Z.k <- read.csv2('pred_S21_Z_kont.csv')
 }
 
 ## Aggregation auf Bezirksebene ##
 
-AggPredU <- Prediction.Aggregation(pred = pred.U[, c(1 : 3, 6)], agg = 'Stadtteil')
-AggPredZ <- Prediction.Aggregation(pred = pred.Z[, c(1 : 3, 6)], agg = 'Stadtteil')
+AggPredU <- Prediction.Aggregation(pred = pred.U.k[, c(1 : 3, 6)], agg = 'Stadtteil')
+AggPredZ <- Prediction.Aggregation(pred = pred.Z.k[, c(1 : 3, 6)], agg = 'Stadtteil')
 
-PredBarPlot(sample, pred.U, Variable = 'Meinung zu Stuttgart 21', 
+PredBarPlot(sample, pred.U.k, Variable = 'Meinung zu Stuttgart 21', 
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
-PredBarPlot(sample, pred.Z, Variable = 'Meinung zu Stuttgart 21',
+PredBarPlot(sample, pred.Z.k, Variable = 'Meinung zu Stuttgart 21',
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
-predz$Kategorie_1 <- as.numeric(as.character(predz$Kategorie_1))
-predz$Kategorie_2 <- as.numeric(as.character(predz$Kategorie_2))
-predz$Kategorie_3 <- as.numeric(as.character(predz$Kategorie_3))
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
@@ -224,7 +222,6 @@ fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alte
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- FALSE
 ## Step AIC ##
 if(!load_model){
   step.model.B <- stepAIC()
@@ -275,8 +272,8 @@ plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
 mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
 plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
 mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+#plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+#mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
 plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
 mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 
@@ -298,19 +295,19 @@ summary(step.model.B$model.spat)
 if(pred == T){
   pred.U.B <- Prediction(Umfrage, step.model.B$model.spat, IFUmfrage = T, binom = F)
   pred.Z.B <- Prediction(Zensus, step.model.B$model.spat, IFUmfrage = F, binom = F)
-  write.table(pred.U, file = 'pred_S21_U_bezirk.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
-  write.table(pred.Z, file = 'pred_S21_Z_bezirk.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.csv2(pred.U.B, file = 'pred_S21_U_bezirk.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.Z.B, file = 'pred_S21_Z_bezirk.csv', row.names=FALSE, quote=FALSE)
 }else{
-  pred.U <- read.csv2('pred_U.csv')
-  pred.Z <- read.csv2('pred_Z.csv')
+  pred.U.B <- read.csv2('pred_S21_U_bezirk.csv')
+  pred.Z.B <- read.csv2('pred_S21_Z_bezirk.csv')
 }
 
 ## Aggregation auf Bezirksebene ##
 
-Prediction.Aggregation(pred = pred.U[, c(1 : 3, 7)], agg = "Stadtbezirk")
+Prediction.Aggregation(pred = pred.U.B[, c(1 : 3, 7)], agg = "Stadtbezirk")
 
-PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
-PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.U.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 
 
