@@ -86,7 +86,7 @@ bu_ret$Stadtbezirk.int <- as.integer(bu_ret$Stadtbezirk.int); bu_ret$Stadtteil.i
 ze_ret$Stadtbezirk.int <- as.integer(ze_ret$Stadtbezirk.int); ze_ret$Stadtteil.int <- as.integer(ze_ret$Stadtteil.int)
 key$Stadtbezirk.int <- as.integer(key$Stadtbezirk.int); key$Stadtteil.int <- as.integer(key$Stadtteil.int)
 
-write.csv2(bu_ret, './buergerumfrage/population_aufbereitet_stadtteile.txt')
-write.csv2(ze_ret, './zensus/population_aufbereitet_stadtteile.txt')
+write.csv2(bu_ret, './buergerumfrage/population_aufbereitet_stadtteile.txt', row.names = FALSE)
+write.csv2(ze_ret, './zensus/population_aufbereitet_stadtteile.txt', row.names = FALSE)
 write.csv2(key, 'key_Stadtteile_Bezirke.csv', row.names = FALSE, fileEncoding = 'UTF-8')
-write.csv2(s21_ret, './buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv')
+write.csv2(s21_ret, './buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv', row.names = FALSE)

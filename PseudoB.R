@@ -35,13 +35,15 @@ N <- c(rep('Deutsch',length(u)))
 G <- c(rep('Männlich' ,length(u)))  
 FF <- c(rep('ledig',length(u)))
 Sb <- c(rep('Mitte', length(u)))
+Sbi <- c(rep(1, length(u)))
+Sti <- c(rep(1, length(u)))
 X <- c(rep(3513518,length(u)))
 Y <- c(rep(404074, length(u)))
 D <- c(rep(0, length(u)))
-pseudo.a <- as.data.frame(cbind(B, MM, P, M, A, G, FF, N, Sb, as.character(u), X, Y))
+pseudo.a <- as.data.frame(cbind(as.character(u), B, MM, P, M, A, G, FF, N, Sb, X, Y, Sti, Sbi))
 # Gewichte einführen, um bias zu verhindern
 pseudo.a$Gewicht  <- 0
-names(pseudo.a)<- names(dataS)
+names(pseudo.a) <- names(dataS)
 # erstellen der Pseudobeobachtungen für Stadtteile mit parziel fehlenden Beobachtungen
 pseudo <- as.data.frame(cbind(fehlende.b$Var2, as.character(fehlende.b$Var1)))
 P <- c(rep(1,nrow(pseudo)))
@@ -52,10 +54,13 @@ N <- c( rep('Deutsch',nrow(pseudo)))
 G <- c( rep('Männlich' ,nrow(pseudo)))  
 FF <- c( rep('ledig',nrow(pseudo)))
 Sb <- c(rep('Mitte', nrow(pseudo)))
+Sbi <- c(rep(1, nrow(pseudo)))
+Sti <- c(rep(1, nrow(pseudo)))
 X <- c( rep(3513518,nrow(pseudo)))
 Y <- c(rep(404074, nrow(pseudo)))
 D <- c(rep(0, nrow(pseudo)))
-pseudo.b <- as.data.frame(cbind(B, B, P, M, A, G, FF, N, Sb, as.character(fehlende.b$Var1), X, Y))
+
+pseudo.b <- as.data.frame(cbind(as.character(fehlende.b$Var1), B, B, P, M, A, G, FF, N, Sb, X, Y, Sti, Sbi))
 
 # Pseudo Beobachtungen mit 0 gewichten
 pseudo.b$Gewicht  <- 0
