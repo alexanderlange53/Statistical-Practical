@@ -100,7 +100,7 @@ pars <- c("Familienstand", "Nationalität", "Geschlecht")
 nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
 
 # Modellwahl ja/nein?
-modellwahl <- FALSE
+modellwahl <- TRUE
 
 # Vorhersageintervalle ja/nein und Eigenschaften
 # nboot = Anzahl Bootstrap Stichproben
@@ -212,8 +212,9 @@ PredBarPlot(sample, pred.Z, Variable = 'Meinung zu Stuttgart 21',
 # Erstellen des Markov-Random fields
 zt <- MarkovRandomField(bezirke, Bezirke = T)
 
-# Neue raeumliche Information, der rest bleibt gleich
+# Neue raeumliche Information, der Rest bleibt gleich
 fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+
 
 #--------------------#
 ## Modellerstellung ##
@@ -227,6 +228,7 @@ if(!load_model){
 } else {
   step.model.B <- readRDS(file = "step.model_all_B.rds")
 }
+
 
 #--------------------#
 ## Model Evaluation ##
@@ -306,9 +308,17 @@ Prediction.Aggregation(pred = pred.U[, c(1 : 3, 7)], agg = "Stadtbezirk")
 PredBarPlot(sample, pred.U, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
-#-----------------------------------------#
-# Stadtteile als Räumliche Informationen  #--------------------------------------------------------------
-#-----------------------------------------#
+
+
+### Läuft nur bis hier
+
+#####################################
+
+#############
+
+# Gewichte
+sample$Gewicht <- 1
+gewichte <- "Gewicht"
 
 # Erstellen des Markov Random fields
 zt <- MarkovRandomField(stadtteile, Bezirke = F)

@@ -16,7 +16,8 @@
 #------------------#
 rm(list = ls())
 library(foreign)
-setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/Rohdaten/')
+#setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/Rohdaten/')
+setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/')
 
 #----------------------#
 ## Einlesen der Daten ##
@@ -42,14 +43,18 @@ names(key) <- c('Stadtbezirk.chr', 'Stadtbezirk.int', 'Stadtteil.chr', 'Stadttei
 #-------------------------------#
 key$Stadtteil.chr[key$Stadtteil.chr == 'Lemberg/Föhrich'] <- 'Lemberg-Föhrich' # Umbenennen, da es in den S21 Daten anders geschrieben wird
 s21$Stadtteil[s21$Stadtteil == 'Klettplatz'] <- 'Hauptbahnhof' # In der Shapefile Datei wird nicht zwischenKlattplatz und Hauptbahnhof unterchieden.
-names(bu_geo)[c(17, 19)] <- c('Stadtbezirk.neu', 'Stadtteil.neu')
-names(ze_geo)[c(19, 21)] <- c('Stadtbezirk.neu', 'Stadtteil.neu')
+
+names(bu_geo)[c(16, 17, 18, 19)] <- c('Stadtbezirk.neu', 'Stadtbezirk.neu.int', 'Stadtteil.neu','Stadtteil.neu.int')
+names(ze_geo)[c(18, 19, 20, 21)] <- c('Stadtbezirk.neu', 'Stadtbezirk.neu.int', 'Stadtteil.neu', 'Stadtteil.neu.int')
 
 
-bu_ret <- merge(bu, bu_geo[, c(1, 17, 19)], by = "ID", all.x = TRUE)
-ze_ret <- merge(ze, ze_geo[, c(1, 19, 21)], by = "ID", all.x = TRUE)
+bu_ret <- merge(bu, bu_geo[, c(1, 16 : 19)], by = "ID", all.x = TRUE)
+ze_ret <- merge(ze, ze_geo[, c(1, 18 : 21)], by = "ID", all.x = TRUE)
 
 s21_ret <- merge(s21, key[, c('Stadtteil.chr', 'Stadtteil.int', 'Stadtbezirk.int')], by.x = 'Stadtteil', by.y = 'Stadtteil.chr', all.x = TRUE)
+
+names(bu_ret)[c(12 : 16)] <- c("Stadtteil.alt", "Stadtbezirk", "Stadtbezirk.int", "Stadtteil", "Stadtteil.int")
+names(ze_ret)[c(13, 15 : 18)] <- c("Stadtteil.alt", "Stadtbezirk", "Stadtbezirk.int", "Stadtteil", "Stadtteil.int")
 #-------------------------#
 ## Plausibilitaetsckecks ##
 #-------------------------#
@@ -57,14 +62,16 @@ s21_ret <- merge(s21, key[, c('Stadtteil.chr', 'Stadtteil.int', 'Stadtbezirk.int
 # Dies meisten Bezeichnungen müssten noch gleich sein, da es nur Beobachtungen am Rand betrifft.
 
 check1 <- list()
-for(i in unique(bu_ret$Stadtteil.neu)) {
-  check1[[i]] <- table(bu_ret$Stadtteil[bu_ret$Stadtteil.neu == i])
+for(i in unique(bu_ret$Stadtteil.int)) {
+  check1[[i]] <- table(bu_ret$Stadtteil.alt[bu_ret$Stadtteil.int == i])
 }
+# check1
 
 check2 <- list()
-for(i in unique(ze_ret$Stadtteil.neu)) {
-  check2[[i]] <- table(ze_ret$stadtteil[ze_ret$Stadtteil.neu == i])
+for(i in unique(ze_ret$Stadtteil.int)) {
+  check2[[i]] <- table(ze_ret$Stadtteil.alt[ze_ret$Stadtteil.int == i])
 }
+# check2
 
 # Da die S21 Daten genau in den Grenzen der Bezirke und Teile des Shapefiles liegen, muss der Bezirk aus den Rohdaten genau dem Bezirk aus dem Merge entsprechen
 tt <- merge(s21, key[, c('Stadtteil.chr', 'Stadtteil.int', 'Stadtbezirk.int', 'Stadtbezirk.chr')], by.x = 'Stadtteil', by.y = 'Stadtteil.chr', all.x = TRUE)
@@ -75,10 +82,10 @@ any(as.character(tt$Stadtbezirk) != as.character(tt$Stadtbezirk.chr))
 #----------------#
 ## Datanausgabe ##
 #----------------#
-bu_ret$Stadtbezirk.neu <- as.integer(bu_ret$Stadtbezirk.neu); bu_ret$Stadtteil.neu <- as.integer(bu_ret$Stadtteil.neu)
-ze_ret$Stadtbezirk.neu <- as.integer(ze_ret$Stadtbezirk.neu); ze_ret$Stadtteil.neu <- as.integer(ze_ret$Stadtteil.neu)
+bu_ret$Stadtbezirk.int <- as.integer(bu_ret$Stadtbezirk.int); bu_ret$Stadtteil.int <- as.integer(bu_ret$Stadtteil.int)
+ze_ret$Stadtbezirk.int <- as.integer(ze_ret$Stadtbezirk.int); ze_ret$Stadtteil.int <- as.integer(ze_ret$Stadtteil.int)
 key$Stadtbezirk.int <- as.integer(key$Stadtbezirk.int); key$Stadtteil.int <- as.integer(key$Stadtteil.int)
-  
+
 write.csv2(bu_ret, './buergerumfrage/population_aufbereitet_stadtteile.txt')
 write.csv2(ze_ret, './zensus/population_aufbereitet_stadtteile.txt')
 write.csv2(key, 'key_Stadtteile_Bezirke.csv', row.names = FALSE, fileEncoding = 'UTF-8')
