@@ -16,10 +16,10 @@ library(reshape2)
 
 ## Working directory ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Getrennt, damit die Geodaten geladen werden koennen ohne Prediction aufzurufen
-pred = T
-load_model <- TRUE
+pred = TRUE
+load_model <- FALSE
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -295,7 +295,7 @@ summary(step.model.B$model.spat)
 #---------------#
 
 ## Vorhersage der individuellen Ausprägung ##
-if(pred == T){
+if(pred){
   pred.U.B <- Prediction(Umfrage, step.model.B$model.spat, IFUmfrage = T, binom = F)
   pred.Z.B <- Prediction(Zensus, step.model.B$model.spat, IFUmfrage = F, binom = F)
   write.csv2(pred.U.B, file = 'pred_S21_U_bezirk.csv', row.names=FALSE, quote=FALSE)
@@ -331,7 +331,7 @@ fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alters
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
+
 ## Step AIC ##
 if(!load_model){
   step.model.S <- stepAIC()
