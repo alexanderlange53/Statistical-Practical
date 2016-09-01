@@ -33,14 +33,14 @@ colo <- diverge_hsv(3) # different color palette
 FreqPlot <- function(count, labx){
   ggplot(count, aes(x = Var1, y = Freq)) + 
     geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-    theme(legend.position = 'bottom', legend.title = element_blank()) + theme_bw(12) +
+    theme_bw(12) + theme(axis.text = element_text(size = '6')) +
     labs(x = paste(labx), y = 'Häufigkeit', title = NULL)
 }
 
 FreqPlot2 <- function(count, labx){
   ggplot(count, aes(x = Var1, y = Freq)) + 
     geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-    theme_bw() + theme(axis.text = element_text(size = '24')) +
+    theme_bw(12) + theme(axis.text = element_text(size = '6')) +
     labs(x =  NULL, y = 'Häufigkeit') + facet_wrap( ~response)
 }
 
@@ -122,4 +122,4 @@ cc <- rbind(count1, count2)
 cc <- cbind(c(rep('Bewertung Wohngegend', 6), rep('Meinung zu Stuttgart 21', 6)), cc)
 colnames(cc) <- c('response', 'Var1', 'Freq')
 FreqPlot2(cc)
-ggsave('./Essay/Pictures/BarResp.pdf', height = 4.5, width = 12)
+ggsave('./Essay/Pictures/BarResp.pdf', height = 3, width = 8)
