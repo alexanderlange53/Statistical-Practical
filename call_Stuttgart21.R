@@ -401,7 +401,7 @@ summary(step.model.S$model.spat)
 #---------------#
 
 ## Vorhersage der individuellen Ausprägung ##
-if(pred == T){
+if(pred){
   pred.U.S <- Prediction(Umfrage, step.model.S$model.spat, IFUmfrage = T, binom = F)
   pred.Z.S <- Prediction(Zensus, step.model.S$model.spat, IFUmfrage = F, binom = F)
   write.csv2(pred.U.S, file = 'pred_S21_U_stadtteil.csv', row.names=FALSE, quote=FALSE)
