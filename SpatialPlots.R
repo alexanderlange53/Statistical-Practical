@@ -65,14 +65,16 @@ GKPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Katego
       data.f$Response <- factor(data.f$Response, levels = c('Zustimmung', 'Neutral', 'Ablehnung'))
     }
     # plotting map
-    ggmap(map, extent = 'device', legend = 'topright') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
+    ggmap(map, extent = 'device', legend = 'bottom') + geom_polygon(data=bezirke.t, aes(x=long, y=lat, group=group),colour="black", alpha=0) +
       stat_density2d(
         aes(x = long, y = lat, fill = ..level..,  alpha = ..level..),
         size = 2, bins = 8, data = data.f,
         geom = "polygon"
-      ) +
-      theme_bw(15) +
+      ) + geom_density2d(data = data.f, 
+                        aes(x = long, y = lat, color = ..level..), size = 0.3, show.legend = F) +
+      theme_bw(12) + theme(axis.text = element_text(size = '6'), legend.position = 'bottom') +
       scale_fill_gradient(low=colo[2], high = 'darkblue')+
+      scale_color_gradient(low=colo[2], high = 'darkblue', guide = F)+
       scale_alpha(range = c(0.1,0.7), guide=FALSE) +
       labs(fill = 'Dichte') +
       xlim(9.035, 9.32) + ylim(48.69, 48.87) +
@@ -145,7 +147,7 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
                         breaks = pretty_breaks(n = 5)) +
     scale_alpha(range = c(0.3,1), guide=FALSE) +
     coord_equal(1)+
-    theme_bw(15) +
+    theme_bw(12) 
     theme(
       legend.position = 'right'
       ,axis.text.x=element_blank()

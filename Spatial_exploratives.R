@@ -10,7 +10,7 @@ require(dplyr);require(gstat);require(raster)
 
 # loading data
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
@@ -36,7 +36,9 @@ source('DataPrep.R')
 # Plotten der Response Variablen mit Gauss-Krüger Informationen
 # Meinung Stuttgart 21
 GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
+ggsave('./Essay/Pictures/XYStuttgart5.pdf', height = 8, width = 8)
 GKPlot(dataS, bezirke = bezirke, Kategorien = 3)
+ggsave('./Essay/Pictures/XYStuttgart3.pdf', height = 4, width = 8)
 
 # Bewertung Wohngegend
 GKPlot(dataS, response = 'Bewertung.Wohngegend', 

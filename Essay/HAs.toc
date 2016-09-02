@@ -9,5 +9,5 @@
 \contentsline {subsection}{\numberline {3.3}Evaluierung}{3}{subsection.3.3}
 \contentsline {section}{\numberline {4}Ergebnisse}{3}{section.4}
 \contentsline {section}{\numberline {5}Ergebnisse}{3}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{4}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{6}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{5}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{7}{section.5}

@@ -105,8 +105,8 @@ Gauß-Krüger & & Stetig Räumlich  \\ \hline \hline
 }
 \end{table}
 
-Die rechte Spalte zeigt an, wie die einzelnen Variablen in das zu schätzende Modell einfließen sollen. Dabei ist zu erkennen, dass nominal skalierte Variablen, wie z.B. Nationalität als parametrisch und ordinal skalierte Variablen wie z.B. die Altersklasse der Befragten als nicht parametrisch modelliert werden sollen. Es ist plausibel den Effekt von ordinalen Variablen als nicht linear anzunehmen, weil [...]. Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten  dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [..].\\
-Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten sind im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
+Die rechte Spalte zeigt an, wie die einzelnen Variablen in das zu schätzende Modell einfließen sollen. Dabei ist zu erkennen, dass nominal skalierte Variablen, wie z.B. Nationalität als parametrisch und ordinal skalierte Variablen wie z.B. die Altersklasse der Befragten als nicht parametrisch modelliert werden sollen. Genauere Erläuterungen zur Modellierung der Variablen finden sich im Kapitel Methodik. Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten  dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [..].\\
+Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
 Dazu wurde Abbildung \ref{endogene} erstellt. Sie zeigt die Häufigkeiten der einzelnen Ausprägungen der beiden endogenen Variablen. Wie schon zuvor aus Tabelle \ref{Datensatz} ersichtlich, besitzen beide Variablen sechs mögliche Realisationen, wobei die Klasse \textit{Keine Angabe} keine Informationen über die Meinung der Befragten liefert und diese Beobachtungen daher aus dem Datensatz entfernt werden müssen. Damit bleiben fünf mögliche Klassen zur Modellierung übrig.
 
 \begin{figure}[h]
@@ -123,6 +123,15 @@ Für die exogen zu modellierenden Variablen sind detailliertere Informationen zu
 
 \subsection{Räumliche Effekte}
 
+Da in dieser Arbeit ein besonderer Schwerpunkt auf die unterschiedlichen räumlichen Effekte gelegt werden soll, vergleicht dieses Kapitel alle drei räumlichen Effekte für beide endogene Variablen.
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/XYStuttgart3}
+ \caption{Gauss Krüger Informationen Stuttgart 21}
+ \label{endogene}
+ \end{center}
+\end{figure}
 
 
 \section{Methodik}
@@ -227,6 +236,14 @@ Für die exogen zu modellierenden Variablen sind detailliertere Informationen zu
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BarData}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/XYStuttgart5}
+ \caption{Gauss Krüger Informationen Stuttgart 21 (2)}
+ \label{endogene}
  \end{center}
 \end{figure}
 
