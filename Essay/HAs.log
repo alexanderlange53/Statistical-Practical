@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  31 AUG 2016 23:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  1 SEP 2016 23:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1091,47 +1091,58 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 79.
+ <Pictures/BarResp.pdf, id=90, 578.16pt x 216.81pt>
+File: Pictures/BarResp.pdf Graphic file (type pdf)
+
+<use Pictures/BarResp.pdf>
+Package pdftex.def Info: Pictures/BarResp.pdf used on input line 106.
+(pdftex.def)             Requested size: 462.52863pt x 173.44823pt.
+
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 106--107
+ [] 
+ []
+
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 105.
+(babel)             in language  on input line 112.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 105.
+(babel)             in language  on input line 112.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 109.
+(babel)             in language  on input line 116.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 109.
+(babel)             in language  on input line 116.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 111.
+(babel)             in language  on input line 118.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 111.
+(babel)             in language  on input line 118.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 120.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 120.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 115.
+(babel)             in language  on input line 122.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 115.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 117.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 117.
+(babel)             in language  on input line 122.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 124.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 124.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 126.
+(babel)             in language  on input line 131.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 126.
+(babel)             in language  on input line 131.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 126.
+(babel)             in language  on input line 133.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 126.
- [2]
+(babel)             in language  on input line 133.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 130.
+(babel)             in language  on input line 133.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 130.
+(babel)             in language  on input line 133.
+[2 <./Pictures/BarResp.pdf>]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 137.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 137.
  (./HAs.bbl
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 100.
@@ -1145,95 +1156,95 @@ Package babel Info: Redefining ngerman shorthand "~
 
 ])
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 144.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 144.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 144.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 144.
+(babel)             in language  on input line 151.
  [4]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 158.
+(babel)             in language  on input line 165.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 158.
+(babel)             in language  on input line 165.
 
-<Pictures/BarData.pdf, id=120, 578.16pt x 578.16pt>
+<Pictures/BarData.pdf, id=132, 578.16pt x 578.16pt>
 File: Pictures/BarData.pdf Graphic file (type pdf)
  <use Pictures/BarData.pdf>
-Package pdftex.def Info: Pictures/BarData.pdf used on input line 161.
+Package pdftex.def Info: Pictures/BarData.pdf used on input line 168.
 (pdftex.def)             Requested size: 462.52863pt x 462.52863pt.
 
-Overfull \hbox (7.28452pt too wide) in paragraph at lines 161--162
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 168--169
  [] 
  []
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 173.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 173.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 173.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 173.
 [5
 
  <./Pictures/BarData.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 173--194
+Underfull \hbox (badness 10000) in paragraph at lines 180--201
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--194
+Underfull \hbox (badness 10000) in paragraph at lines 180--201
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--194
+Underfull \hbox (badness 10000) in paragraph at lines 180--201
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--194
+Underfull \hbox (badness 10000) in paragraph at lines 180--201
 
  []
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 194.
+(babel)             in language  on input line 201.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 194.
+(babel)             in language  on input line 201.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 194.
+(babel)             in language  on input line 201.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 194.
+(babel)             in language  on input line 201.
 [6
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 197.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 197.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
  (./HAs.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 197.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 197.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 204.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
 Package rerunfilecheck Info: File `HAs.out' has not changed.
-(rerunfilecheck)             Checksum: 409BD6AB6EE97A054A0853109D525596;622.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 197.
+(rerunfilecheck)             Checksum: 258E20CCDFE7B7185764582EB2B611E3;619.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 204.
  ) 
 Here is how much of TeX's memory you used:
- 17462 strings out of 493304
- 300196 string characters out of 6139871
+ 17477 strings out of 493304
+ 300434 string characters out of 6139871
  393379 words of memory out of 5000000
- 20507 multiletter control sequences out of 15000+600000
+ 20520 multiletter control sequences out of 15000+600000
  13504 words of font info for 49 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 63i,11n,57p,483b,456s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,11n,75p,483b,456s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on HAs.pdf (9 pages, 358567 bytes).
+Output written on HAs.pdf (9 pages, 361799 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 500000)
- 119 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 178 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 124 words of extra memory for PDF output out of 10000 (max. 10000000)
 
