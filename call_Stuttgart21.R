@@ -16,10 +16,10 @@ library(reshape2)
 
 ## Working directory ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Getrennt, damit die Geodaten geladen werden koennen ohne Prediction aufzurufen
-pred = TRUE
-load_model <- FALSE
+pred = FALSE
+load_model <- TRUE
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')

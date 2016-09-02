@@ -119,8 +119,81 @@ Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTy
 
 # Funktion zu Aggregation der Vorhersage auf regionaler Ebene = kleinräumige Extrapolation
 Prediction.Aggregation <- function (pred, agg, model) {
+  # pred: dataframe returned by Prediction()
+  # agg: Aggregation level (Stadtteil/Stadtbezirk)
   pred.sum <- aggregate(x = pred[, c(1 : dim(pred)[2] - 1)], by = list(as.character(pred[, agg])), FUN = sum)
   pred.sum <- pred.sum[order(pred.sum[,1]),]
   names(pred.sum) <- c(names(pred)[dim(pred)[2]], paste('Vorhersage', names(pred)[1 : dim(pred)[2] -1], sep = '_'))
   return(pred.sum)
+}
+
+Prediction.Intervall <- function (pred, agg, model, seed) {
+  # pred: dataframe returned by Prediction()
+  # agg: Aggregation level (Stadtteil/Stadtbezirk)
+  set.seed(seed)
+  
+  pred.boot <- data.frame(V1=pred.sum[,aggregation])
+  names(pred.boot) <- aggregation
+  
+  n <- nrow(sample)
+  
+  cat("\nBerechnung der Bootstrap Konfidenzintervalle\n")
+  cat("Achtung: Computerintensive Berechnungen\n\n")
+  # if(parallel) Lieber immer parallel: Nur Linux
+  {
+    library("foreach")
+    library("doMC")
+    registerDoMC(cores=10)
+    
+    #      indmat <- matrix(0, nrow=n, ncol=nboot)
+    #      wmat <- matrix(0, nrow=n, ncol=nboot)
+    #      for(b in 1:nboot)
+    #        {
+    #        indmat[,b] <- sample(1:n, size=n, replace=TRUE)
+    #        wmat[,b] <- sample[indmat[,b],gewichte]
+    #        }
+    
+    bootfun <- function(b)
+    {
+      frac <- nboot%/%10
+      if(frac<1)
+        frac<-1
+      if((b%%frac)==0)
+        cat("Bootstrap sample ",b," (von ",nboot,")\n",sep="")
+      helpmodel <- gam(step$fm, weights=wmat[,b], family=verteilung, method="REML", data=sample[indmat[,b],])
+      helppred <- predict(helpmodel, newdata=population, type="response")
+      helpsum <- by(helppred, population[,aggregation], sum)
+      return(as.numeric(helpsum))
+    }
+    
+    boot <- foreach(r=1:nboot, .combine="rbind") %dopar%
+      bootfun(r)
+    
+    for(b in 1:nboot)
+    {
+      pred.boot$b <- round(boot[b,],2)
+      names(pred.boot)[b+1] <- paste("b",b,sep="")
+    }
+  }
+  else
+  {
+    for(b in 1:nboot)
+    {
+      frac <- nboot%/%10
+      if(frac<1)
+        frac<-1
+      if((b%%frac)==0)
+        cat("Bootstrap sample ",b," (von",nboot,")\n",sep="")
+      ind <- sample(1:n, size=n, replace=TRUE)
+      helpdata <- sample[ind,]
+      helpmodel <- gam(step$fm, weights=helpdata[,gewichte], family=verteilung, method="REML", data=helpdata)
+      helppred <- predict(helpmodel, newdata=population, type="response")
+      helpsum <- by(helppred, population[,aggregation], sum)
+      pred.boot$b <- round(as.numeric(helpsum),2)
+      names(pred.boot)[b+1] <- paste("b",b,sep="")
+    }
+  }
+  
+  pred.sum$lower <- apply(pred.boot[,-1], 1, quantile, probs=(1-coverage)/2)
+  pred.sum$upper <- apply(pred.boot[,-1], 1, quantile, probs=1-(1-coverage)/2)
 }
