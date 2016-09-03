@@ -57,6 +57,11 @@ ggsave('./Essay/Pictures/BStuttgart3.pdf', height = 4, width = 8)
 SpatAntPlot(dataS, bezirke, response = 'Bewertung.Wohngegend')
 SpatAntPlot(dataS, bezirke, response = 'Bewertung.Wohngegend', Kategorien = 3)
 
+sep <- SepPlot(dataS, bezirke, response = 'Bewertung.Wohngegend')
+pdf('./Essay/Pictures/BWohn.pdf', height = 7, width = 8)
+marrangeGrob(sep, nrow = 2, ncol = 3, top = NULL)
+dev.off()
+
 # Plotten der Response Variablen mit diskreten Information (Stadtteile)
 # Meinung zu Stuttgart 21
 SpatAntPlot(dataS, Stadtteile, Bezirke = F)
@@ -66,6 +71,11 @@ ggsave('./Essay/Pictures/SStuttgart3.pdf', height = 4, width = 8)
 # Bewertung Wohngegend
 SpatAntPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Bezirke = F)
 SpatAntPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Kategorien = 3, Bezirke = F)
+
+sep <- SepPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Bezirke = F)
+pdf('./Essay/Pictures/SWohn.pdf', height = 7, width = 8)
+marrangeGrob(sep, nrow = 2, ncol = 3, top = NULL)
+dev.off()
 
 #-----------------------------------# Variogram zu Gauss Krüger Informationen #---------------------------------------#
 

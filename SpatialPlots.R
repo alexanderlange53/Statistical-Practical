@@ -284,3 +284,172 @@ PredSpatPlot <- function(predz, spatdata){
       ,axis.ticks.x=element_blank()
     ) + facet_wrap(~ variable)
 }  
+
+SepPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Kategorien = 5, Bezirke = T){
+  require(colorspace)
+  if(Bezirke == T){
+    if(response ==  'Meinung.zu.Stuttgart.21'){
+      if(Kategorien == 5){
+        for(i in 1:nrow(dataS)){
+          if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
+            dataS$Meinung.zu.Stuttgart.21[i] <- NA
+          }}
+        dataS <- na.omit(dataS)
+      }else{
+        dataS <- DataPrep(dataS, binom = F)
+      }
+    }else{
+      if(Kategorien == 5){
+        for(i in 1:nrow(dataS)){
+          if(dataS$Bewertung.Wohngegend[i] == 6){
+            dataS$Bewertung.Wohngegend[i] <- NA
+          }}
+        dataS <- na.omit(dataS)
+      }else{
+        dataS <- DataPrep(dataS, binom = F, Stuttgart21 = F)
+      }
+    }
+    colo <- diverge_hsv(3)
+    myvar <- c(response, 'Stadtbezirk', 'X', 'Y')
+    ST <- dataS[myvar]
+    
+    # Ermittlung der Zustimmung in den Stadtteilen ('Sehr gut')
+    beob.bez <- as.data.frame(table(ST[,2]))
+    meinung.bez <-as.data.frame(table(ST$Stadtbezirk, ST[, 1]))
+    
+    # ID variable erzeugen um Data Frame und Spatial object zu verbinden
+    bezirke@data$id <- rownames(bezirke@data)
+    watershedPoints <- fortify(bezirke, region = "id")
+    
+    # Errechneten Anteile und räumliche Informationen verbinden
+    bb <- merge(watershedPoints, bezirke@data, by = 'id', all.x = T)
+    
+    # Relative Anteile 
+    Anteile <- by(meinung.bez$Freq, meinung.bez$Var2, 
+                  function(x){(x/beob.bez$Freq)*100})
+    Anteile <- as.data.frame(lapply(Anteile, unlist))
+    Anteile$STADTBEZIR <- levels(meinung.bez$Var1)
+    if(Kategorien == 5){
+      colnames(Anteile) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                             'Sehr schlecht', 'STADTBEZIR')
+    }else{
+      colnames(Anteile) <- c('Zustimmung', 'Neutral', 
+                             'Ablehnung', 'STADTBEZIR')
+    }
+    AnteileM <- melt(Anteile, id = 'STADTBEZIR')
+    bbA <- merge(bb, AnteileM, by = 'STADTBEZIR')
+    
+    # Sortieren damit Poylogene richtig geplottet werden
+    bbA <- bbA[order(bbA$order),]
+    b.facet <- bbA
+    
+    bb.facet <- by(b.facet, b.facet$variable, list)
+    name <- names(bb.facet)
+    # Plotten 
+    pplot <- function(b.facet, name){
+      ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value))+  
+        geom_polygon(color = "black") +
+        labs(x=NULL, y=NULL, title= paste(name)) +
+        scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
+                            breaks = pretty_breaks(n = 5)) +
+        scale_alpha(range = c(0.8,1), guide=FALSE) +
+        coord_equal(1)+
+        theme_bw(12) +
+        theme(
+          legend.position = 'bottom'
+          ,axis.text.x=element_blank()
+          ,axis.text.y=element_blank()
+          ,axis.ticks.y=element_blank()
+          ,axis.ticks.x=element_blank()
+        ) 
+    }
+    
+    p <- mapply(pplot, bb.facet, name, SIMPLIFY = F)
+    return(p)
+    
+  }else{
+    if(response ==  'Meinung.zu.Stuttgart.21'){
+      if(Kategorien == 5){
+        for(i in 1:nrow(dataS)){
+          if(dataS$Meinung.zu.Stuttgart.21[i] == 6){
+            dataS$Meinung.zu.Stuttgart.21[i] <- NA
+          }}
+        dataS <- na.omit(dataS)
+      }else{
+        dataS <- DataPrep(dataS, binom = F)
+      }
+    }else{
+      if(Kategorien == 5){
+        for(i in 1:nrow(dataS)){
+          if(dataS$Bewertung.Wohngegend[i] == 6){
+            dataS$Bewertung.Wohngegend[i] <- NA
+          }}
+        dataS <- na.omit(dataS)
+      }else{
+        dataS <- DataPrep(dataS, binom = F, Stuttgart21 = F)
+      }
+    }
+    
+    Stadtteile <- bezirke
+    colo <- diverge_hsv(3)
+    myvar <- c(response, 'Stadtteil', 'X', 'Y')
+    ST <- dataS[myvar]
+    
+    # Ermittlung der Zustimmung in den Stadtteilen
+    beob.teile <- as.data.frame(table(ST[,2]))
+    meinung.teile <-as.data.frame(table(ST[,2], ST[,1]))
+    
+    # ID variable erzeugen um objecte zu verbinden
+    Stadtteile@data$id <- rownames(Stadtteile@data)
+    watershedPoints <- fortify(Stadtteile, region = "id")
+    
+    # Errechneten Anteile und räumliche Informationen verbinden
+    bb <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+    
+    # Relative Anteile 
+    Anteile <- by(meinung.teile$Freq, meinung.teile$Var2, 
+                  function(x){(x/beob.teile$Freq)*100})
+    Anteile <- as.data.frame(lapply(Anteile, unlist))
+    Anteile$STADTTEIL <- levels(meinung.teile$Var1)
+    if(Kategorien == 5){
+      colnames(Anteile) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                             'Sehr schlecht', 'STADTTEIL')
+    }else{
+      colnames(Anteile) <- c('Zustimmung', 'Neutral', 
+                             'Ablehnung', 'STADTTEIL')
+    }
+    
+    AnteileM <- melt(Anteile, id = 'STADTTEIL')
+    bbA <- merge(bb, AnteileM, by = 'STADTTEIL', all.x = T)
+    
+    # Sortieren damit Poylogene richtig geplottet werden
+    bbA <- bbA[order(bbA$order),]
+    s.facet <- bbA
+    pol.na <- filter(s.facet, is.na(variable))
+    plo.na <- subset(pol.na, select = c(STADTTEIL, id, long, lat, order, group))
+    s.facet <- na.omit(s.facet)
+    
+    ss.facet <- by(s.facet, s.facet$variable, list)
+    name <- names(ss.facet)
+    pplot <- function(s.facet, name){
+      ggplot() + geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
+        geom_polygon(data=s.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value), color = "black") +
+        labs(x=NULL, y=NULL, title= paste(name)) +
+        scale_fill_gradient(name = "Anteil\n in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
+                            breaks = pretty_breaks(n = 5)) +
+        scale_alpha(range = c(0.3,1), guide=FALSE) +
+        coord_equal(1)+
+        theme_bw(12) +
+        theme(
+          legend.position = 'bottom'
+          ,axis.text.x=element_blank()
+          ,axis.text.y=element_blank()
+          ,axis.ticks.y=element_blank()
+          ,axis.ticks.x=element_blank()
+        ) 
+    }
+    p <- mapply(pplot, ss.facet, name, SIMPLIFY = F)
+    return(p)
+    
+  }
+}
