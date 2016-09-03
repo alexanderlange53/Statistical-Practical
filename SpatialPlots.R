@@ -145,11 +145,11 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
     labs(x=NULL, y=NULL, title= NULL) +
     scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
                         breaks = pretty_breaks(n = 5)) +
-    scale_alpha(range = c(0.3,1), guide=FALSE) +
+    scale_alpha(range = c(0.8,1), guide=FALSE) +
     coord_equal(1)+
-    theme_bw(12) 
+    theme_bw(12) +
     theme(
-      legend.position = 'right'
+      legend.position = 'bottom'
       ,axis.text.x=element_blank()
       ,axis.text.y=element_blank()
       ,axis.ticks.y=element_blank()
@@ -224,9 +224,9 @@ SpatAntPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', K
                           breaks = pretty_breaks(n = 5)) +
       scale_alpha(range = c(0.3,1), guide=FALSE) +
       coord_equal(1)+
-      theme_bw(15) +
+      theme_bw(12) +
       theme(
-        legend.position = 'right'
+        legend.position = 'bottom'
         ,axis.text.x=element_blank()
         ,axis.text.y=element_blank()
         ,axis.ticks.y=element_blank()

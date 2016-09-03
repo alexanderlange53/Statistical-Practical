@@ -1,111 +1,12 @@
 \begin{thebibliography}{}
 
-\bibitem[Bacchiocchi and Fanelli,
-  2015]{RePEc:bla:obuest:v:77:y:2015:i:6:p:761-779}
-Bacchiocchi, E. and Fanelli, L. (2015).
-\newblock Identification in structural vector autoregressive models with
-  structural changes, with an application to us monetary policy.
-\newblock {\em Oxford Bulletin of Economics and Statistics}, 77(6):761--779.
+\bibitem[Fahrmeir et~al., 2009]{fahrmeir2009regression}
+Fahrmeir, L., Kneib, T., and Lang, S. (2009).
+\newblock {\em Regression}.
+\newblock Statistik und ihre Anwendungen. Springer Berlin Heidelberg.
 
-\bibitem[Berg, 2010]{B2010}
-Berg, T.~O. (2010).
-\newblock {\em VAR models on the relation between stock prices and the
-  macroeconomy}.
-\newblock PhD thesis, Johann Wolfgang Goethe-University Frankfurt am Main.
-
-\bibitem[Box and Draper, 1987]{box:drap:1987}
-Box, G. E.~P. and Draper, N.~R. (1987).
-\newblock {\em Empirical Model-building and Response Surfaces}.
-\newblock Wiley.
-
-\bibitem[Hall and Lieberman, 2009]{hall2009economics}
-Hall, R. and Lieberman, M. (2009).
-\newblock {\em Economics: Principles and Applications}.
-\newblock Cengage Learning.
-
-\bibitem[Herwartz, 2014]{RePEc:zbw:cegedp:208}
-Herwartz, H. (2014).
-\newblock Structural analysis with independent innovations.
-\newblock (208).
-
-\bibitem[Herwartz and Plödt, 2014]{HH2014}
-Herwartz, H. and Plödt, M. (2014).
-\newblock Sign restrictions and statistical identification under volatility
-  breaks -- simulation based evidence and an empirical application to monetary
-  policy analysis.
-\newblock (C13-V1).
-
-\bibitem[Klaeffling, 2003]{RePEc:ecb:ecbwps:20030228}
-Klaeffling, M. (2003).
-\newblock Monetary policy shocks - a nonfundamental look at the data.
-\newblock Working Paper Series 0228, European Central Bank.
-
-\bibitem[Lanne and Lütkepohl,
-  2008a]{RePEc:mcb:jmoncb:v:40:y:2008:i:6:p:1131-1149}
-Lanne, M. and Lütkepohl, H. (2008a).
-\newblock Identifying monetary policy shocks via changes in volatility.
-\newblock {\em Journal of Money, Credit and Banking}, 40(6):1131--1149.
-
-\bibitem[Lanne and Lütkepohl, 2008b]{LL2008}
-Lanne, M. and Lütkepohl, H. (2008b).
-\newblock A statistical comparison of alternative identification schemes for
-  monetary policy shocks.
-\newblock (ECO2008/23).
-
-\bibitem[Lütkepohl, 2005]{L2005}
-Lütkepohl, H. (2005).
-\newblock {\em New introduction to multiple time series analysis}.
-\newblock Springer, Berlin [u.a.].
-
-\bibitem[Lütkepohl and Krätzig, 2004]{LM2004}
-Lütkepohl, H. and Krätzig, M. (2004).
-\newblock {\em Applied Time Series Econometrics}.
-\newblock Cambridge University Press.
-
-\bibitem[Pfaff, 2008a]{PF2008b}
-Pfaff, B. (2008a).
-\newblock {\em Analysis of Integrated and Cointegrated Time Series with R}.
-\newblock Springer, New York, second edition.
-\newblock ISBN 0-387-27960-1.
-
-\bibitem[Pfaff, 2008b]{PF2008}
-Pfaff, B. (2008b).
-\newblock {\em VAR, SVAR and SVEC Models: Implementation Within R Package
-  vars}.
-\newblock Journal of Statistical Software 27(4).
-
-\bibitem[{R Core Team}, 2015]{R2015}
-{R Core Team} (2015).
-\newblock {\em R: A Language and Environment for Statistical Computing}.
-\newblock R Foundation for Statistical Computing, Vienna, Austria.
-
-\bibitem[Ravn, 2013]{R2013}
-Ravn, S.~H. (2013).
-\newblock {\em Essays on the Interactions between Financial Markets, the
-  Macroeconomy, and Economic Policy}.
-\newblock PhD thesis, University of Copenhagen.
-
-\bibitem[S{\o}rensen and Whitta-Jacobsen, 2010]{soerensen2010introducing}
-S{\o}rensen, P. and Whitta-Jacobsen, H. (2010).
-\newblock {\em Introducing Advanced Macroeconomics: Growth and Business
-  Cycles}.
-\newblock Economia e discipline aziendali. McGraw-Hill Higher Education.
-
-\bibitem[Spahn, 2012]{Spahn2012}
-Spahn, H.-P. (2012).
-\newblock {\em Geldpolitik: Finanzmärkte, neue Makroökonomie und
-  zinspolitische Strategien}.
-\newblock Vahlen, München.
-
-\bibitem[Wickham, 2009]{Wickham2009}
-Wickham, H. (2009).
-\newblock {\em ggplot2: Elegant Graphics for Data Analysis}.
-\newblock Springer-Verlag New York.
-
-\bibitem[Wooldridge, 2008]{Wooldridge2008}
-Wooldridge, J. (2008).
-\newblock {\em Introductory Econometrics: A Modern Approach (with Economic
-  Applications, Data Sets, Student Solutions Manual Printed Access Card)}.
-\newblock South-Western College Pub, 4 edition.
+\bibitem[Stuttgart, 2011]{Amt}
+Stuttgart, S. (2011).
+\newblock http://www.stuttgart.de/volksabstimmung.
 
 \end{thebibliography}

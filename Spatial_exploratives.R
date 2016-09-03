@@ -36,13 +36,14 @@ source('DataPrep.R')
 # Plotten der Response Variablen mit Gauss-Krüger Informationen
 # Meinung Stuttgart 21
 GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
-ggsave('./Essay/Pictures/XYStuttgart5.pdf', height = 8, width = 8)
+ggsave('./Essay/Pictures/XYStuttgart5.pdf', height = 6.5, width = 8)
 GKPlot(dataS, bezirke = bezirke, Kategorien = 3)
 ggsave('./Essay/Pictures/XYStuttgart3.pdf', height = 4, width = 8)
 
 # Bewertung Wohngegend
 GKPlot(dataS, response = 'Bewertung.Wohngegend', 
        bezirke = bezirke, Kategorien = 5)
+ggsave('./Essay/Pictures/XYWohnG5.pdf', height = 6.5, width = 8)
 GKPlot(dataS, response = 'Bewertung.Wohngegend', 
        bezirke = bezirke, Kategorien = 3)
 
@@ -50,6 +51,7 @@ GKPlot(dataS, response = 'Bewertung.Wohngegend',
 # Meinung zu Stuttgart 21
 SpatAntPlot(dataS, bezirke)
 SpatAntPlot(dataS, bezirke, Kategorien = 3)
+ggsave('./Essay/Pictures/BStuttgart3.pdf', height = 4, width = 8)
 
 # Bewertung Wohngegend
 SpatAntPlot(dataS, bezirke, response = 'Bewertung.Wohngegend')
@@ -59,6 +61,7 @@ SpatAntPlot(dataS, bezirke, response = 'Bewertung.Wohngegend', Kategorien = 3)
 # Meinung zu Stuttgart 21
 SpatAntPlot(dataS, Stadtteile, Bezirke = F)
 SpatAntPlot(dataS, Stadtteile, Kategorien = 3, Bezirke = F)
+ggsave('./Essay/Pictures/SStuttgart3.pdf', height = 4, width = 8)
 
 # Bewertung Wohngegend
 SpatAntPlot(dataS, Stadtteile, response = 'Bewertung.Wohngegend', Bezirke = F)
