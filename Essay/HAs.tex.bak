@@ -148,7 +148,7 @@ Abbildung \ref{XYWohnG5} zeigt die Absolute Verteilung der Beobachtungen für di
 \end{figure}
 
 Allerdings ist auch zu beachten, dass der Anteil der Personen, die ihre Wohngegend mit \textit{schlecht} oder \textit{sehr schlecht} bewertet haben sehr gering ist im Vergleich zu allen Befragten wie aus Abbildung \ref{endogene} ersichtlich.\\
-Als nächstes können die diskreten räumlichen Informationen auf Stadtbezirksebene untersucht werden. Dazu wurde Abbildung \ref{BStuttgart21} erstellt. Hier sind die Anteile der drei Klassen für die jeweiligen Bezirke zu erkennen. Zu sehen ist, dass der Anteil der Personen die das Projekt Stuttgart 21 positiv bewerten in allen Stadtbezirken relativ hoch ist, wobei der Anteil in den nordöstlichen Bezirken etwas höher ist. Die neutrale Klasse hat in alles Bezirken einen eher geringeren Anteil und es ist kein deutliches Muster von höheren oder niedrigeren Anteilen erkennbar. Die Klasse \textit{Ablehnung} hat etwas höhere Anteile in den mittleren und südlichen Bezirken. Insgesamt deckt sich das Bild der Anteile auf Bezirksebene mit den absoluten Häufigkeiten aus Abbildung \ref{XYStuttgart3}. Die Anteile auf Bezirksebene mit fünf Klassen für die Bewertung der Wohngegend sind im Anhang verfügbar. Zu beachten ist hier, dass die Anteile auf fünf verschiedenen Skalen dargestellt werden, da der Anteil der beiden negativen Klassen zu gering ist im verhältnis zu den positiven Klassen, um sie anders darzustellen.
+Als nächstes können die diskreten räumlichen Informationen auf Stadtbezirksebene untersucht werden. Dazu wurde Abbildung \ref{BStuttgart21} erstellt. Hier sind die Anteile der drei Klassen für die jeweiligen Bezirke zu erkennen. Zu sehen ist, dass der Anteil der Personen die das Projekt Stuttgart 21 positiv bewerten in allen Stadtbezirken relativ hoch ist, wobei der Anteil in den nordöstlichen Bezirken etwas höher ist. Die neutrale Klasse hat in alles Bezirken einen eher geringeren Anteil und es ist kein deutliches Muster von höheren oder niedrigeren Anteilen erkennbar. Die Klasse \textit{Ablehnung} hat etwas höhere Anteile in den mittleren und südlichen Bezirken. Insgesamt deckt sich das Bild der Anteile auf Bezirksebene mit den absoluten Häufigkeiten aus Abbildung \ref{XYStuttgart3}. Die Anteile auf Bezirksebene mit fünf Klassen für die Bewertung der Wohngegend sind im Anhang verfügbar. Zu beachten ist hier, dass die Anteile auf fünf verschiedenen Skalen dargestellt werden, da der Anteil der beiden negativen Klassen zu gering ist im Verhältnis zu den positiven Klassen, um sie anders darzustellen. Aber auch hier deckt sich die Verteilung der hohen und niedrigen Anteile mit den Absoluten Anzahlen an Beobachtungen aus Abbildung \ref{XYWohnG5}.
 
 \begin{figure}[h]
  \begin{center}
@@ -158,6 +158,18 @@ Als nächstes können die diskreten räumlichen Informationen auf Stadtbezirkseb
  \end{center}
 \end{figure}
 
+Die letzte räumliche Information ist der Anteil der jeweiligen Klasse pro Stadtteil. Wie schon aus Tabelle \ref{Datensatz} bekannt, besitzt die Stadtteilebene eine wesentlich feinere Aufteilung, als die Bezirksebene. Dadurch ist es möglich, dass in einzelnen Stadtteilen keine Beobachtungen einer Klasse auftauchen. Damit kann die Ansicht auf Stadtteilebene zu einer Überschätzung der Bedeutung einer bestimmten Klasse in einem Stadtteil führen. Die Anteile der drei Klassen zu der Meinung zu Stuttgart 21 sind aus Abbildung \ref{SStuttgart21} zu entnehmen.
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/SStuttgart3}
+ \caption{Anteile in Stadtteilen Stuttgart 21}
+ \label{SStuttgart21}
+ \end{center}
+\end{figure}
+
+Die schwarz eingefärbten Flächen signalisieren Stadtteile in denen von keiner der drei Klasse eine Beobachtung vorhanden sind. Wie bereits erwähnt handelt es dich dabei vor allem um Regionen die auf Grund ihrer geographischen Beschaffenheit kaum Einwohner haben (z.B. Wald). Hier fügt sich das Bild der Anteile nicht ganz in den bisherigen Verlauf der räumlichen Statistiken ein. In keiner der drei Klassen lässt sich klar eine Struktur oder räumliche Korrelation der Stadtteile beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar, wobei die Plots wieder mit eigenen Skalen illustriert wurden. Hier zeigt sich ein ähnlich unklares Muster wie bei der Meinung zu Stuttgart 21.\\
+Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilu
 
 \section{Methodik}
 
@@ -264,6 +276,22 @@ Als nächstes können die diskreten räumlichen Informationen auf Stadtbezirkseb
  \end{center}
 \end{figure}
 
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/BWohn}
+ \caption{Anteile in Bezirken Bewertung Wohngegend}
+ \label{BWohn}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/SWohn}
+ \caption{Anteile in Stadtteilen Bewertung Wohngegend}
+ \label{SWohn}
+ \end{center}
+\end{figure}
 
 %\begin{figure}[h]
 % \begin{center}
