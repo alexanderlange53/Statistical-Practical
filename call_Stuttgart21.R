@@ -210,7 +210,16 @@ PredBarPlot(sample, pred.Z.k, Variable = 'Meinung zu Stuttgart 21',
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 ## Konfidenzintervalle der Schätzung ##
+model <- step.model$model.spat
+sample <- sample
+population <- Umfrage
+aggregation <- "Stadtteil"
+ncores <- 8
+nboot <- 10
+pred.sum <- AggPredU
+IFUmfrage <- TRUE
 
+source('./prediction_interval.R')
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####                        -----------------------------------------------------------------
