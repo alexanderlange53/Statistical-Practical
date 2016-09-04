@@ -47,8 +47,8 @@ if(bearbeiter == 'Kai@Home') {
   bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
   if(loadGeo){
-    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
-    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
+    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
+    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
 }
 
@@ -117,8 +117,8 @@ modellwahl <- TRUE
 intervalle <- TRUE
 nboot <- 10
 coverage <- 0.95
-parallel <- FALSE
-ncore <- 20
+parallel <- TRUE
+ncore <- 8
 seed <- 123
 
 #--------------------#
@@ -208,6 +208,8 @@ PredBarPlot(sample, pred.U.k, Variable = 'Meinung zu Stuttgart 21',
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z.k, Variable = 'Meinung zu Stuttgart 21',
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+## Konfidenzintervalle der Schätzung ##
 
 
 #--------------------------------------------#
