@@ -29,11 +29,7 @@
     wmat[,b] <- sample[indmat[,b],gewichte]
   }
   bootfun <- function(b) {
-    frac <- nboot%/%10
-    if(frac<1)
-      frac<-1
-    if((b%%frac)==0)
-      cat("Bootstrap sample ",b," (von ",nboot,")\n",sep="")
+    cat("Bootstrap sample ",b," (von ",nboot,")\n",sep="")
     helpmodel <- gam(model$formula, weights=wmat[,b], family=verteilung, method="REML", data=sample[indmat[,b],])
     helppred <- Prediction(population, helpmodel, IFUmfrage = IFUmfrage, binom = F)
     predData <- cbind(helppred[, c(1 : 3)], population[, aggregation])
