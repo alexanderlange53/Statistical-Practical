@@ -3,11 +3,11 @@
 \contentsline {section}{\numberline {2}Daten}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Deskriptive Statistik}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}R\IeC {\"a}umliche Effekte}{4}{subsection.2.2}
-\contentsline {section}{\numberline {3}Methodik}{6}{section.3}
-\contentsline {subsection}{\numberline {3.1}Modell}{6}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Modellwahl}{6}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Evaluierung}{6}{subsection.3.3}
-\contentsline {section}{\numberline {4}Ergebnisse}{6}{section.4}
-\contentsline {section}{\numberline {5}Ergebnisse}{6}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{7}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{8}{section.5}
+\contentsline {section}{\numberline {3}Methodik}{7}{section.3}
+\contentsline {subsection}{\numberline {3.1}Modell}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Modellwahl}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Evaluierung}{7}{subsection.3.3}
+\contentsline {section}{\numberline {4}Ergebnisse}{7}{section.4}
+\contentsline {section}{\numberline {5}Ergebnisse}{7}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{8}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{9}{section.5}
