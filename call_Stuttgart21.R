@@ -20,6 +20,7 @@ bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Getrennt, damit die Geodaten geladen werden koennen ohne Prediction aufzurufen
 pred = FALSE
 load_model <- TRUE
+calc_CI <- TRUE # Sollen Konfidenzintervalle berechnet werden? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
@@ -107,19 +108,6 @@ nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
 # Modellwahl ja/nein?
 modellwahl <- TRUE
 
-# Vorhersageintervalle ja/nein und Eigenschaften
-# nboot = Anzahl Bootstrap Stichproben
-# coverage = ?berdeckungswahrscheinlichkeit der Vorhersageintervalle
-# parallel = Soll parallel mit mehreren Kernen gerechnet werden?
-#            dazu wird das Paket multicore ben?tigt (nur unter Linux)
-# ncore = Anzahl der zu verwendenden Kerne
-# seed = Startwert f?r den Zufallszahlengenerator
-intervalle <- TRUE
-nboot <- 10
-coverage <- 0.95
-parallel <- TRUE
-ncore <- 8
-seed <- 123
 
 #--------------------#
 ## Modellerstellung ##
@@ -201,15 +189,62 @@ if(pred == T){
 
 ## Aggregation auf Bezirksebene ##
 
-AggPredU <- Prediction.Aggregation(pred = pred.U.k[, c(1 : 3, 6)], agg = 'Stadtteil')
-AggPredZ <- Prediction.Aggregation(pred = pred.Z.k[, c(1 : 3, 6)], agg = 'Stadtteil')
+AggPred.U.ST <- Prediction.Aggregation(pred = pred.U.k[, c(1 : 3, 6)], agg = 'Stadtteil')
+AggPred.Z.ST <- Prediction.Aggregation(pred = pred.Z.k[, c(1 : 3, 6)], agg = 'Stadtteil')
+
+AggPred.U.SB <- Prediction.Aggregation(pred = pred.U.k[, c(1 : 3, 7)], agg = 'Stadtbezirk')
+AggPred.Z.SB <- Prediction.Aggregation(pred = pred.Z.k[, c(1 : 3, 7)], agg = 'Stadtbezirk')
+
 
 PredBarPlot(sample, pred.U.k, Variable = 'Meinung zu Stuttgart 21', 
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z.k, Variable = 'Meinung zu Stuttgart 21',
             x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
-## Konfidenzintervalle der Schätzung ##
+if(calc_CI){
+  ## Allg. Einstellungen
+  model <- step.model$model.spat
+  sample <- sample
+  ncores <- 8
+  nboot <- 10
+  coverage <- 0.95
+  seed <- 123
+  
+  ## Konfidenzintervalle: Umfrage, Stadtteile ##
+  population <- Umfrage
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.U.ST
+  IFUmfrage <- TRUE
+  source('./prediction_interval.R')
+  UInt.U.ST <- pred.interval$u_intervall
+  OInt.U.ST <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
+  pred.sum <- AggPred.U.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.U.SB <- pred.interval$u_intervall
+  OInt.U.SB <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Zensus, Stadtteile
+  population <- Zensus
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.Z.ST
+  IFUmfrage <- FALSE
+  
+  source('./prediction_interval.R')
+  UInt.Z.ST <- pred.interval$u_intervall
+  OInt.Z.ST <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Zensus, Stadtbezirke
+  pred.sum <- AggPred.Z.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.Z.SB <- pred.interval$u_intervall
+  OInt.Z.SB <- pred.interval$o_intervall
+}
 
 
 #--------------------------------------------#
@@ -309,12 +344,58 @@ if(pred){
 
 ## Aggregation auf Bezirksebene ##
 
-Prediction.Aggregation(pred = pred.U.B[, c(1 : 3, 7)], agg = "Stadtbezirk")
+AggPred.U.SB.B <- Prediction.Aggregation(pred = pred.U.B[, c(1 : 3, 7)], agg = "Stadtbezirk")
+# Weitere Agg hier einfügen
 
 PredBarPlot(sample, pred.U.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
-
+if(calc_CI){
+  # Bisher geht nur UInt.U.SB.B und OInt.U.SB.B
+  
+  ## Allg. Einstellungen
+  model <- step.model.B$model.spat
+  sample <- sample
+  ncores <- 8
+  nboot <- 10
+  coverage <- 0.95
+  seed <- 123
+  
+  ## Konfidenzintervalle: Umfrage, Stadtteile ##
+  population <- Umfrage
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.U.ST
+  IFUmfrage <- TRUE
+  source('./prediction_interval.R')
+  UInt.U.ST <- pred.interval$u_intervall
+  OInt.U.ST <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
+  pred.sum <- AggPred.U.SB.B
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.U.SB.B <- pred.interval$u_intervall
+  OInt.U.SB.B <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Zensus, Stadtteile
+  population <- Zensus
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.Z.ST
+  IFUmfrage <- FALSE
+  
+  source('./prediction_interval.R')
+  UInt.Z.ST <- pred.interval$u_intervall
+  OInt.Z.ST <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Zensus, Stadtbezirke
+  pred.sum <- AggPred.Z.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.Z.SB <- pred.interval$u_intervall
+  OInt.Z.SB <- pred.interval$o_intervall
+}
 
 #-----------------------------------------------#
 #### Stadtteile als Räumliche Informationen #####                        -----------------------------------------------------------------
