@@ -169,7 +169,7 @@ Die letzte räumliche Information ist der Anteil der jeweiligen Klasse pro Stadt
 \end{figure}
 
 Die schwarz eingefärbten Flächen signalisieren Stadtteile in denen von keiner der drei Klasse eine Beobachtung vorhanden sind. Wie bereits erwähnt handelt es dich dabei vor allem um Regionen die auf Grund ihrer geographischen Beschaffenheit kaum Einwohner haben (z.B. Wald). Hier fügt sich das Bild der Anteile nicht ganz in den bisherigen Verlauf der räumlichen Statistiken ein. In keiner der drei Klassen lässt sich klar eine Struktur oder räumliche Korrelation der Stadtteile beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar, wobei die Plots wieder mit eigenen Skalen illustriert wurden. Hier zeigt sich ein ähnlich unklares Muster wie bei der Meinung zu Stuttgart 21.\\
-Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilu
+Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 
 \section{Methodik}
 
@@ -211,7 +211,7 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 %============================================== Appendix ============================================================%
 %\appendix
 %\pagestyle{Myheadings}
-%\chead{APPENDIX}
+\chead{ANHANG}
 %\pagestyle{}
 %\section{$A^{-1}$ Appendix}
 %\setcounter{secnumdepth}{0}
@@ -230,16 +230,16 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 \begin{tabular}{l|c|c}
 \multicolumn{3}{l}{Anzahl Beobachtungen: 470.190}     \\ 
 \hline \hline
-\textbf{Variable} & \textbf{Skalenniveau} & \textbf{Anzahl Klassen}  \\ 
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 14 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Nominal  & 2 \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Nominal  & 2 \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Nominal & 4 \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & -- \\ \hline
-\multicolumn{1}{l|}{Wohndauer} & Ordinal  & -- \\ \hline
-\multicolumn{1}{l|}{ALG II Quote} & Ordinal  & 9 \\ \hline
-\multicolumn{1}{l|}{Ein/Zweifamilienhäuser}& Ordinal & -- \\ \hline 
-\multicolumn{1}{l|}{Gauß-Krüger} & Stetig Räumlich & \\ \hline \hline
+\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Nicht Parametrisch & 14 \\ \hline
+\multicolumn{1}{l|}{Geschlecht} &  Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Nicht Parametrisch  & 5 \\ \hline
+\multicolumn{1}{l|}{Wohndauer} & Nicht Parametrisch  & 3 \\ \hline
+\multicolumn{1}{l|}{ALG II Quote} & Nicht Parametrisch  & 9 \\ \hline
+\multicolumn{1}{l|}{Ein/Zweifamilienhäuser}& Nicht Parametrisch & 8 \\ \hline 
+\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
 \end{tabular}
 
 }
@@ -253,18 +253,18 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 \begin{tabular}{l|c|c}
 \multicolumn{3}{l}{Anzahl Beobachtungen: 380.238}     \\ 
 \hline \hline
-\textbf{Variable} & \textbf{Skalenniveau} & \textbf{Anzahl Klassen}  \\ 
-\multicolumn{1}{l|}{Altersklasse} &  Ordinal & 9 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Nominal  & 2 \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Nominal  & 2 \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Nominal & 4 \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Ordinal  & -- \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Ordinal  & 24 \\ \hline
-\multicolumn{1}{l|}{Stellung Beruf} & Nominal  & 9 \\ \hline
-\multicolumn{1}{l|}{Beamter}& Nominal & 2 \\ \hline 
-\multicolumn{1}{l|}{Gebäudetyp}& Nominal & 10 \\ \hline
-\multicolumn{1}{l|}{Gebäudenutzung}& Nominal & -- \\ \hline
-\multicolumn{1}{l|}{Gauß-Krüger} & Stetig Räumlich & \\ \hline \hline
+\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
+\multicolumn{1}{l|}{Altersklasse} &  Nicht Parametrisch & 9 \\ \hline
+\multicolumn{1}{l|}{Geschlecht} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
+\multicolumn{1}{l|}{Haushaltsgröße} &  Nicht Parametrisch  & 6 \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Nicht Parametrisch & 24 \\ \hline
+\multicolumn{1}{l|}{Stellung Beruf} & Parametrisch  & 9 \\ \hline
+\multicolumn{1}{l|}{Beamter}& Parametrisch & 2 \\ \hline 
+\multicolumn{1}{l|}{Gebäudetyp}& Parametrisch & 10 \\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung}& Parametrisch & 2 \\ \hline
+\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
 \end{tabular}
 
 }
