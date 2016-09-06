@@ -121,7 +121,11 @@ Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTy
 Prediction.Aggregation <- function (pred, agg, model) {
   # pred: dataframe returned by Prediction()
   # agg: Aggregation level (Stadtteil/Stadtbezirk)
-  pred.sum <- aggregate(x = pred[, c(1 : dim(pred)[2] - 1)], by = list(as.character(pred[, agg])), FUN = sum)
+  anteile <- function(x){
+    sum(x)/length(x)
+  }
+  
+  pred.sum <- aggregate(x = pred[, c(1 : dim(pred)[2] - 1)], by = list(as.character(pred[, agg])), FUN = anteile)
   pred.sum <- pred.sum[order(pred.sum[,1]),]
   names(pred.sum) <- c(names(pred)[dim(pred)[2]], paste('Vorhersage', names(pred)[1 : dim(pred)[2] -1], sep = '_'))
   return(pred.sum)
