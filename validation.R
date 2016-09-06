@@ -22,6 +22,8 @@ validation <- function(pred, valid){
   
   
   ggplot(D, aes(x = V2, y = V3)) + geom_point() + labs(x = 'Wahrheit', y = 'Geschätzt' ) +
-    theme_bw(12) +
+    theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
+    xlim(0.2, 0.65) + 
+    ylim(0.2, 0.65) +
     facet_wrap(~ x)
 }
