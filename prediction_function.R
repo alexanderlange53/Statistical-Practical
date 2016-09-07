@@ -96,7 +96,12 @@ Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTy
     # }
     Meinung <- data.frame(Meinung = ifelse(pred.pop[, 1] < 0.5, 0, 1))
   } else{
-    colnames(pred.pop) <- c('Kategorie_1', 'Kategorie_2', 'Kategorie_3', 'X', 'Y', 'Stadtteil', 'Stadtbezirk')
+    if(dim(pred.pop)[2] == 9) {
+      colnames(pred.pop) <- c('Kategorie_1', 'Kategorie_2', 'Kategorie_3', 'Kategorie_4', 'Kategorie_5', 'X', 'Y', 'Stadtteil', 'Stadtbezirk')
+    } else {
+      colnames(pred.pop) <- c('Kategorie_1', 'Kategorie_2', 'Kategorie_3', 'X', 'Y', 'Stadtteil', 'Stadtbezirk')
+    }
+    
     
     Meinung <- data.frame(Meinung = unlist(apply(pred.pop[, c(1 : 3)], 1, which.max)))
     #Meinung <- rep(0, nrow(pred.pop))
