@@ -17,11 +17,11 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = TRUE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
-calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
+calc_CI <- F # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
 if(bearbeiter == 'Alex') {
