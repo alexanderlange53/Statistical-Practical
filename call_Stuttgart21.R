@@ -386,7 +386,7 @@ summary(step.model.B$model.spat)
 ## Prediction  ##
 #---------------#
 
-if(pred){
+if(pred) {
   ## Vorhersage der individuellen Ausprägung ##
   pred.U.B <- Prediction(Umfrage, step.model.B$model.spat, IFUmfrage = T, binom = F)
   pred.Z.B <- Prediction(Zensus, step.model.B$model.spat, IFUmfrage = F, binom = F)
