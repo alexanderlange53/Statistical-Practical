@@ -30,6 +30,7 @@ if(bearbeiter == 'Alex') {
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
   Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
   if(loadGeo){
     Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
     Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
@@ -45,6 +46,7 @@ if(bearbeiter == 'Kai@Work') {
     Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
   Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
@@ -56,6 +58,7 @@ if(bearbeiter == 'Kai@Home') {
     Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
   Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
 }
 if(bearbeiter == 'Cluster') {
   cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden.')
@@ -286,8 +289,13 @@ if(calc_CI) {
 # Validierung #
 #-------------#
 
+# Validierung auf Bezirksebene
 validation(pred = AggPred.U.SB[,-3], valid = Bezirke.Val)
 validation(pred = AggPred.Z.SB[,-3], valid = Bezirke.Val)
+
+# Validierung auf Stadtteilebene (Ohne Briefwahl)
+validation(pred = AggPred.U.ST[,-3], valid = Stadtteile.Val[,-1])
+validation(pred = AggPred.Z.ST[,-3], valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####-----------------------------------------------------------------

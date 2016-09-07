@@ -1,0 +1,152 @@
+Bezirk;Stadteil;Anteil Ablehnung;Anteil Zustimmung
+Bad Cannstatt;Altenburg;44,2;55,8
+Nord;Am Bismarckturm;50,2;49,8
+Nord;Am Pragfriedhof;45,7;51,9
+Nord;Am Rosensteinpark;45,7;51,9
+Feuerbach;An der Burg;44,8;55,2
+Plieningen;Asemwald;46,6;53,4
+Nord;Auf der Prag;45,7;51,9
+Feuerbach;Bahnhof Feuerbach;47;53
+Untertürkheim;Benzviertel;47,2;52,8
+Ost;Berg;53,3;46,7
+Weilimdorf;Bergheim;45,1;54,9
+Birkach;Birkach-Nord;46,9;53,1
+Birkach;Birkach-Süd;46,9;53,1
+Bad Cannstatt;Birkenäcker;44,2;55,8
+Süd;Bopser;50,8;49,2
+Botnang;Botnang-Nord;45,1;54,9
+Botnang;Botnang-Ost;50,2;49,8
+Botnang;Botnang-Süd;44,6;55,4
+Botnang;Botnang-West;48,3;51,7
+Untertürkheim;Bruckwiesen;47,2;52,8
+Bad Cannstatt;Burgholzhof;39,9;60,1
+Vaihingen;Büsnau;41,7;58,3
+Bad Cannstatt;Cannstatt-Mitte;52,4;47,6
+Plieningen;Chausseefeld;47,2;52,8
+Vaihingen;Dachswald;43,1;56,9
+Degerloch;Degerloch;49,3;50,7
+Mitte;Diemershalde;55,6;44,4
+Mitte;Dobel;55,8;44,2
+Vaihingen;Dürrlewang;50;50
+Bad Cannstatt;Espan;46,7;53,3
+Möhringen;Fasanenhof;42,1;57,9
+Möhringen;Fasanenhof-Ost;41,7;58,3
+Feuerbach;Feuerbacher Tal;45,9;54,1
+Feuerbach;Feuerbach-Mitte;47,9;52,1
+Feuerbach;Feuerbach-Ost;54,1;45,9
+West;Feuersee;53,6;46,4
+Untertürkheim;Flohberg;45,6;54,4
+Ost;Frauenkopf;36,2;63,8
+Mühlhausen;Freiberg;40,6;59,4
+Ost;Gablenberg;54;46
+Ost;Gaisburg;54;46
+Ost;Gänsheide;57;43
+Untertürkheim;Gehrenwald;43,4;56,6
+Weilimdorf;Giebel;43,7;56,3
+Hedelfingen;Hafen;41,8;58,2
+Degerloch;Haigst;45;55
+Bad Cannstatt;Hallschlag;44,2;55,8
+West;Hasenberg;52,3;47,7
+Mitte;Hauptbahnhof;48,2;51,8
+Weilimdorf;Hausen;34,6;65,4
+Hedelfingen;Hedelfingen;41,8;58,2
+Vaihingen;Heerstraße;49;51
+Nord;Heilbronner Straße;50,2;49,8
+Süd;Heslach;53,7;46,3
+Sillenbuch;Heumaden;43,6;56,4
+Mitte;Heusteigviertel;53,7;46,3
+Mühlhausen;Hofen;37;63
+Degerloch;Hoffeld;52,1;47,9
+Plieningen;Hohenheim;49,4;50,6
+Vaihingen;Höhenrand;48,8;51,2
+Feuerbach;Hohe Warte;44,8;55,2
+West;Hölderlinplatz;56;44
+Bad Cannstatt;Im Geiger;45,7;54,3
+Süd;Kaltental;48,1;51,9
+Süd;Karlshöhe;53,7;46,3
+Mitte;Kernerviertel;61,2;38,8
+Nord;Killesberg;48,2;51,8
+West;Kräherwald;52,3;47,7
+Bad Cannstatt;Kurpark;54,3;45,7
+Vaihingen;Lauchäcker;45,1;54,9
+Hedelfingen;Lederberg;39;61
+Süd;Lehen;59,6;40,4
+Feuerbach;Lemberg/Föhrich;50,2;49,8
+Nord;Lenzhalde;50,2;49,8
+Untertürkheim;Lindenschulviertel;47,2;52,8
+Untertürkheim;Luginsland;44,8;55,2
+Möhringen;Möhringen-Mitte;42,3;57,7
+Möhringen;Möhringen-Nord;49,9;50,1
+Möhringen;Möhringen-Ost;45,4;54,6
+Möhringen;Möhringen-Süd;41,7;58,3
+Mühlhausen;Mönchfeld;37,2;62,8
+Nord;Mönchhalde;50,2;49,8
+Bad Cannstatt;Muckensturm;44,5;55,5
+Mühlhausen;Mühlhausen;38,9;61,1
+Münster;Münster;42,5;57,5
+Bad Cannstatt;Neckarvorstadt;45,4;54,6
+Mitte;Neue Vorstadt;47,1;52,9
+Mühlhausen;Neugereut;39,3;60,7
+Zuffenhausen;Neuwirtshaus;44,8;59,2
+Nord;Nordbahnhof;45,7;51,9
+Mitte;Oberer Schlossgarten;61,2;38,8
+Obertürkheim;Obertürkheim;43,2;56,8
+Vaihingen;Österfeld;52,8;47,2
+Ost;Ostheim;52,7;47,3
+Vaihingen;Pfaffenwald;35,5;64,5
+Plieningen;Plieningen;47,2;52,8
+Bad Cannstatt;Pragstraße;44,2;55,8
+Mitte;Rathaus;47,1;52,9
+Nord;Relenberg;50,2;49,8
+Sillenbuch;Riedenberg;45,4;54,6
+Vaihingen;Rohr;45;55
+Hedelfingen;Rohracker;43,3;56,7
+West;Rosenberg;53,6;46,4
+Vaihingen;Rosental;49;51
+Zuffenhausen;Rot;41,6;58,4
+West;Rotebühl;53,6;46,4
+Untertürkheim;Rotenberg;31,8;68,2
+Bad Cannstatt;Schmidener Vorstadt;50;50
+Birkach;Schönberg;40,4;59,6
+Bad Cannstatt;Seelberg;53,8;46,2
+Feuerbach;Siegelberg;54,1;45,9
+Sillenbuch;Sillenbuch;49,3;50,7
+West;Solitude;52,3;47,7
+Bad Cannstatt;Sommerrain;44,6;55,4
+Möhringen;Sonnenberg;43;57
+Stammheim;Stammheim-Mitte;37,6;62,4
+Stammheim;Stammheim-Süd;36,2;63,8
+Plieningen;Steckfeld;49,4;50,6
+Bad Cannstatt;Steinhaldenfeld;43,7;56,3
+Möhringen;Sternhäule;45,4;54,6
+Ost;Stöckach;52,7;47,3
+Süd;Südheim;54,8;45,2
+Degerloch;Tränke;49,3;50,7
+Ost;Uhlandshöhe;57;43
+Obertürkheim;Uhlbach;39,7;60,3
+Mitte;Universität;48,2;51,8
+Untertürkheim;Untertürkheim;47,2;52,8
+Vaihingen;Vaihingen-Mitte;48,7;51,3
+Bad Cannstatt;Veielbrunnen;47,3;52,7
+West;Vogelsang;53,6;46,4
+Degerloch;Waldau;51,1;48,9
+Möhringen;Wallgraben-Ost;41,7;58,3
+Vaihingen;Wallgraben-West;48,8;51,2
+Wangen;Wangen;43,8;56,2
+Bad Cannstatt;Wasen;47,3;52,7
+Weilimdorf;Weilimdorf;41,8;58,2
+Weilimdorf;Weilimdorf-Nord;41,8;58,2
+Süd;Weinsteige;49,5;50,5
+Nord;Weißenhof;50,2;49,8
+West;Wildpark;52,3;47,7
+Bad Cannstatt;Winterhalde;52,5;47,5
+Weilimdorf;Wolfbusch;45,2;54,8
+Zuffenhausen;Zazenhausen;39,6;60,4
+Zuffenhausen;Zuffenhausen-Am Stadtpark;44,2;55,8
+Zuffenhausen;Zuffenhausen-Elbelen;45;55
+Zuffenhausen;Zuffenhausen-Frauensteg;45,1;54,9
+Zuffenhausen;Zuffenhausen-Hohenstein;42,1;57,9
+Zuffenhausen;Zuffenhausen-Im Raiser;41,6;58,4
+Zuffenhausen;Zuffenhausen-Mitte;39;61
+Zuffenhausen;Zuffenhausen-Mönchsberg;40,8;59,2
+Zuffenhausen;Zuffenhausen-Schützenbühl;44,2;55,8
