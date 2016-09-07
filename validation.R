@@ -1,5 +1,7 @@
 validation <- function(pred, valid){
+  if(!all(pred[,1] == valid[, 1])){cat('Achtung: Die Namen der Bezirke stimmen nicht überein!')}
   pred <- pred[,-1]
+  pred <- pred / apply(pred, 1, sum) # Anteil bilden
   valid <- valid[,-1]*0.01
   mse <- rep(0, ncol(pred))
   MSE <- function(x, y){
@@ -7,7 +9,7 @@ validation <- function(pred, valid){
   }
   
   for(i in 1:ncol(pred)){
-    mse[i] <- MSE(pred[i], valid[i])
+    mse[i] <- MSE(pred[i], valid[i]) # Müsste hier bei pred nicht ein relativer Anteil statt der absoluten Einwohnerzahl übergeben werden? Sieh Z. 4 Oder halt den Anteil in eine abs. Zashl umrechnen.
   }
   
   x <- rep('Zustimmung', nrow(pred))
@@ -23,7 +25,7 @@ validation <- function(pred, valid){
   
   ggplot(D, aes(x = V2, y = V3)) + geom_point() + labs(x = 'Wahrheit', y = 'Geschätzt' ) +
     theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
-    xlim(0.2, 0.65) + 
-    ylim(0.2, 0.65) +
+    xlim(0.2, 0.75) + 
+    ylim(0.2, 0.75) +
     facet_wrap(~ x)
 }

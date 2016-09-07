@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -29,7 +29,7 @@ if(bearbeiter == 'Alex') {
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
-  Bezirke.Val <- read.csv2('Bezirke_True.csv')
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
   if(loadGeo){
     Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
     Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
@@ -44,7 +44,7 @@ if(bearbeiter == 'Kai@Work') {
     Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
     Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
-  Bezirke.Val <- read.csv2('Bezirke_True.csv')
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
@@ -55,10 +55,10 @@ if(bearbeiter == 'Kai@Home') {
     Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
     Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
-  Bezirke.Val <- read.csv2('Bezirke_True.csv')
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
 }
 if(bearbeiter == 'Cluster') {
-  cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden.\nNur die Intervall Berechnung funktioniert, da nicht alle Pakete installiert sind.')
+  cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden.')
   setwd('/home/khusmann/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
@@ -286,8 +286,8 @@ if(calc_CI) {
 # Validierung #
 #-------------#
 
-validation(AggPred.U.SB[,-3], Bezirke.Val)
-validation(AggPred.Z.SB[,-3], Bezirke.Val)
+validation(pred = AggPred.U.SB[,-3], valid = Bezirke.Val)
+validation(pred = AggPred.Z.SB[,-3], valid = Bezirke.Val)
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####-----------------------------------------------------------------
