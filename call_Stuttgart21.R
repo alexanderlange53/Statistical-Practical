@@ -17,11 +17,11 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
-calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
-pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
-calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
+calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
+pred = TRUE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
+calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
 if(bearbeiter == 'Alex') {
@@ -228,8 +228,8 @@ if(calc_CI) {
   ## Allg. Einstellungen
   model <- step.model$model.spat
   sample <- sample
-  ncores <- 8
-  nboot <- 10
+  ncores <- 4
+  nboot <- 4
   coverage <- 0.95
   seed <- 123
   
@@ -242,7 +242,7 @@ if(calc_CI) {
   UInt.U.ST <- pred.interval$u_intervall
   OInt.U.ST <- pred.interval$o_intervall
   write.csv2(cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntST.csv', row.names = FALSE)
-  Int.U.ST <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)])
+  S21.3.U.Ko.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)])
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.SB
   aggregation <- "Stadtbezirk"
@@ -251,7 +251,7 @@ if(calc_CI) {
   UInt.U.SB <- pred.interval$u_intervall
   OInt.U.SB <- pred.interval$o_intervall
   write.csv2(cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntSB.csv', row.names = FALSE)
-  Int.U.SB <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)])
+  S21.3.U.Ko.IntSB <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)])
   
   ## Konfidenzintervalle: Zensus, Stadtteile
   population <- Zensus
@@ -263,7 +263,7 @@ if(calc_CI) {
   UInt.Z.ST <- pred.interval$u_intervall
   OInt.Z.ST <- pred.interval$o_intervall
   write.csv2(cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntST.csv', row.names = FALSE)
-  Int.Z.ST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)])
+  S21.3.Z.Ko.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)])
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.SB
@@ -273,13 +273,13 @@ if(calc_CI) {
   UInt.Z.SB <- pred.interval$u_intervall
   OInt.Z.SB <- pred.interval$o_intervall
   write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntSB.csv', row.names = FALSE)
-  Int.Z.SB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)])
+  S21.3.Z.Ko.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)])
   
 } else {
-  Int.U.ST <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
-  Int.U.SB <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntSB.csv', as.is = TRUE)
-  Int.Z.ST <- read.csv2('./Prediction_Results/S21_3_Z_Ko_IntST.csv', as.is = TRUE)
-  Int.Z.SB <- read.csv2('./Prediction_Results/S21_3_Z_Ko_IntSB.csv', as.is = TRUE)
+  S21.3.U.Ko.IntST <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
+  S21.3.U.Ko.IntSB <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntSB.csv', as.is = TRUE)
+  S21.3.Z.Ko.IntST <- read.csv2('./Prediction_Results/S21_3_Z_Ko_IntST.csv', as.is = TRUE)
+  S21.3.Z.Ko.IntSB <- read.csv2('./Prediction_Results/S21_3_Z_Ko_IntSB.csv', as.is = TRUE)
 }
 
 #-------------#
@@ -373,70 +373,91 @@ summary(step.model.B$model.spat)
 ## Prediction  ##
 #---------------#
 
-## Vorhersage der individuellen Ausprägung ##
 if(pred){
+  ## Vorhersage der individuellen Ausprägung ##
   pred.U.B <- Prediction(Umfrage, step.model.B$model.spat, IFUmfrage = T, binom = F)
   pred.Z.B <- Prediction(Zensus, step.model.B$model.spat, IFUmfrage = F, binom = F)
-  write.csv2(pred.U.B, file = './Prediction_Results/pred_S21_U_bezirk.csv', row.names=FALSE, quote=FALSE)
-  write.csv2(pred.Z.B, file = './Prediction_Results/pred_S21_Z_bezirk.csv', row.names=FALSE, quote=FALSE)
-}else{
-  pred.U.B <- read.csv2('./Prediction_Results/pred_S21_U_bezirk.csv')
-  pred.Z.B <- read.csv2('./Prediction_Results/pred_S21_Z_bezirk.csv')
+  write.csv2(pred.U.B, file = './Prediction_Results/S21_3_U_SB_einzel.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.Z.B, file = './Prediction_Results/S21_3_Z_SB_einzel.csv', row.names=FALSE, quote=FALSE)
+  
+  ## Aggregation = Räumliche Extrapolation ##
+  AggPred.U.B.ST <- Prediction.Aggregation(pred = pred.U.B[, c(1 : 3, 6)], agg = 'Stadtteil')
+  AggPred.Z.B.ST <- Prediction.Aggregation(pred = pred.Z.B[, c(1 : 3, 6)], agg = 'Stadtteil')
+  AggPred.U.B.SB <- Prediction.Aggregation(pred = pred.U.B[, c(1 : 3, 7)], agg = 'Stadtbezirk')
+  AggPred.Z.B.SB <- Prediction.Aggregation(pred = pred.Z.B[, c(1 : 3, 7)], agg = 'Stadtbezirk')
+  write.csv2(AggPred.U.B.ST, file = './Prediction_Results/S21_3_U_SB_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.B.ST, file = './Prediction_Results/S21_3_Z_SB_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.U.B.SB, file = './Prediction_Results/S21_3_U_SB_AggSB.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.B.SB, file = './Prediction_Results/S21_3_Z_SB_AggSB.csv', row.names = FALSE, quote = FALSE)
+} else{
+  pred.U.B <- read.csv2('./Prediction_Results/S21_3_U_SB_einzel.csv')
+  pred.Z.B <- read.csv2('./Prediction_Results/S21_3_Z_SB_einzel.csv')
+  
+  AggPred.U.B.ST <- read.csv2(file = './Prediction_Results/S21_3_U_SB_AggST.csv', as.is = TRUE)
+  AggPred.Z.B.ST <- read.csv2(file = './Prediction_Results/S21_3_Z_SB_AggST.csv', as.is = TRUE)
+  AggPred.U.B.SB <- read.csv2(file = './Prediction_Results/S21_3_U_SB_AggSB.csv', as.is = TRUE)
+  AggPred.Z.B.SB <- read.csv2(file = './Prediction_Results/S21_3_Z_SB_AggSB.csv', as.is = TRUE)
 }
-
-## Aggregation auf Bezirksebene ##
-
-AggPred.U.SB.B <- Prediction.Aggregation(pred = pred.U.B[, c(1 : 3, 7)], agg = "Stadtbezirk")
-
 
 PredBarPlot(sample, pred.U.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
-if(calc_CI){
-  # Bisher geht nur UInt.U.SB.B und OInt.U.SB.B
-  
+## Konfidenzintervalle ##
+if (calc_CI){
   ## Allg. Einstellungen
   model <- step.model.B$model.spat
   sample <- sample
-  ncores <- 8
-  nboot <- 10
+  ncores <- 4
+  nboot <- 4
   coverage <- 0.95
   seed <- 123
   
   ## Konfidenzintervalle: Umfrage, Stadtteile ##
   population <- Umfrage
   aggregation <- "Stadtteil"
-  pred.sum <- AggPred.U.ST
+  pred.sum <- AggPred.U.B.ST
   IFUmfrage <- TRUE
   source('./prediction_interval.R')
-  UInt.U.ST <- pred.interval$u_intervall
-  OInt.U.ST <- pred.interval$o_intervall
+  UInt.U.B.ST <- pred.interval$u_intervall
+  OInt.U.B.ST <- pred.interval$o_intervall
+  write.csv2(cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_SB_IntST.csv', row.names = FALSE)
+  S21.3.U.SB.IntST <- cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)])
   
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
-  pred.sum <- AggPred.U.SB.B
+  pred.sum <- AggPred.U.B.SB
   aggregation <- "Stadtbezirk"
-  
   source('./prediction_interval.R')
-  UInt.U.SB.B <- pred.interval$u_intervall
-  OInt.U.SB.B <- pred.interval$o_intervall
+  UInt.U.B.SB <- pred.interval$u_intervall
+  OInt.U.B.SB <- pred.interval$o_intervall
+  write.csv2(cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_SB_IntSB.csv', row.names = FALSE)
+  S21.3.U.SB.IntSB <- cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)])
   
   ## Konfidenzintervalle: Zensus, Stadtteile
   population <- Zensus
   aggregation <- "Stadtteil"
-  pred.sum <- AggPred.Z.ST
+  pred.sum <- AggPred.Z.B.ST
   IFUmfrage <- FALSE
   
   source('./prediction_interval.R')
-  UInt.Z.ST <- pred.interval$u_intervall
-  OInt.Z.ST <- pred.interval$o_intervall
+  UInt.Z.B.ST <- pred.interval$u_intervall
+  OInt.Z.B.ST <- pred.interval$o_intervall
+  write.csv2(cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_SB_IntST.csv', row.names = FALSE)
+  S21.3.Z.SB.IntST <- cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)])
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
-  pred.sum <- AggPred.Z.SB
+  pred.sum <- AggPred.Z.B.SB
   aggregation <- "Stadtbezirk"
   
   source('./prediction_interval.R')
-  UInt.Z.SB <- pred.interval$u_intervall
-  OInt.Z.SB <- pred.interval$o_intervall
+  UInt.Z.B.SB <- pred.interval$u_intervall
+  OInt.Z.B.SB <- pred.interval$o_intervall
+  write.csv2(cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_SB_IntSB.csv', row.names = FALSE)
+  S21.3.Z.SB.IntSB <- cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 4)])
+} else {
+  S21.3.U.SB.IntST <- read.csv2('./Prediction_Results/S21_3_U_SB_IntST.csv', as.is = TRUE)
+  S21.3.U.SB.IntSB <- read.csv2('./Prediction_Results/S21_3_U_SB_IntSB.csv', as.is = TRUE)
+  S21.3.Z.SB.IntST <- read.csv2('./Prediction_Results/S21_3_Z_SB_IntST.csv', as.is = TRUE)
+  S21.3.Z.SB.IntSB <- read.csv2('./Prediction_Results/S21_3_Z_SB_IntSB.csv', as.is = TRUE)
 }
 
 #-----------------------------------------------#
