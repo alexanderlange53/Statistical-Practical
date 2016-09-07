@@ -2,7 +2,7 @@ validation <- function(pred, valid){
   if(!all(pred[,1] == valid[, 1])){cat('Achtung: Die Namen der Bezirke stimmen nicht überein!')}
   pred <- pred[,-1]
   pred <- pred / apply(pred, 1, sum) # Anteil bilden
-  valid <- valid[,-1]*0.01
+  valid <- valid[,-1] * 0.01
   mse <- rep(0, ncol(pred))
   MSE <- function(x, y){
     sum((x - y)^2)
