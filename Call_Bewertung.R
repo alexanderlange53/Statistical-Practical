@@ -523,8 +523,8 @@ if(!load_model){
 ## Model Evaluation ##
 #--------------------#
 
-evaluate(step.model.S$model.spat, data = sample)
-evaluateAll(step.model.S, data = sample)
+evaluate(step.model.Bewertung.5.S$model.spat, data = sample)
+evaluateAll(step.model.Bewertung.5.S, data = sample)
 
 
 ## Cross Evaluation ##
@@ -545,6 +545,71 @@ for (i in c(1 : repeatitions)) {
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 crosseval
+
+
+#--------------------------------#
+## Modelleffekte interpretieren ##
+#--------------------------------#
+## GAM Plots ##
+m1 <- step.model.Bewertung.5.S$model.spat
+plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+plot(m1, select = 2, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+
+#x11()
+#par(mfrow = c(2, 2))
+plot(m1, select = 3, all = TRUE, ann = F) # Geschlecht
+#mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 4, all = TRUE, ann = F) # Nationalität
+#mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+plot(m1, select = 5, all = TRUE, ann = F) # Familienstand
+#mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+#plot(m1, select = 6, all = TRUE, ann = F) # Personenzahl
+#mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+
+dev.off()
+
+AIC(step.model.Bewertung.5.S$model.spat)
+AIC(step.model.Bewertung.5.S$model.nospat)
+AIC(step.model.Bewertung.5.S$model.spatonly)
+
+summary(step.model.S$model.spat)
+# plot(step.model.S$model.spat, all = T)
+
+#---------------#
+## Prediction  ##
+#---------------#
+
+if(pred){
+  ## Vorhersage der individuellen Ausprägung ##
+  pred.U.S <- Prediction(Umfrage, step.model.Bewertung.5.S$model.spat, IFUmfrage = T, binom = F) ##
+  pred.Z.S <- Prediction(Zensus, step.model.Bewertung.5.S$model.spat, IFUmfrage = F, binom = F)
+  write.csv2(pred.U.S, file = './Prediction_Results/W_5_U_ST_einzel.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.Z.S, file = './Prediction_Results/W_5_Z_ST_einzel.csv', row.names=FALSE, quote=FALSE)
+  
+  ## Aggregation = Räumliche Extrapolation ##
+  AggPred.U.S.ST <- Prediction.Aggregation(pred = pred.U.S[, c(1 : 5, 8)], agg = 'Stadtteil')
+  AggPred.Z.S.ST <- Prediction.Aggregation(pred = pred.Z.S[, c(1 : 5, 8)], agg = 'Stadtteil')
+  AggPred.U.S.SB <- Prediction.Aggregation(pred = pred.U.S[, c(1 : 5, 9)], agg = 'Stadtbezirk')
+  AggPred.Z.S.SB <- Prediction.Aggregation(pred = pred.Z.S[, c(1 : 5, 9)], agg = 'Stadtbezirk')
+  write.csv2(AggPred.U.S.ST, file = './Prediction_Results/W_5_U_ST_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.S.ST, file = './Prediction_Results/W_5_Z_ST_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.U.S.SB, file = './Prediction_Results/W_5_U_ST_AggSB.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.S.SB, file = './Prediction_Results/W_5_Z_ST_AggSB.csv', row.names = FALSE, quote = FALSE)
+  
+}else{
+  pred.U.S <- read.csv2('./Prediction_Results/W_5_U_ST_einzel.csv')
+  pred.Z.S <- read.csv2('./Prediction_Results/W_5_Z_ST_einzel.csv')
+  
+  AggPred.U.S.ST <- read.csv2(file = './Prediction_Results/W_5_U_ST_AggST.csv', as.is = TRUE)
+  AggPred.Z.S.ST <- read.csv2(file = './Prediction_Results/W_5_Z_ST_AggST.csv', as.is = TRUE)
+  AggPred.U.S.SB <- read.csv2(file = './Prediction_Results/W_5_U_ST_AggSB.csv', as.is = TRUE)
+  AggPred.Z.S.SB <- read.csv2(file = './Prediction_Results/W_5_Z_ST_AggSB.csv', as.is = TRUE)
+}
+
+PredBarPlot(sample, pred.U.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+PredBarPlot(sample, pred.Z.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
+
+## Konfidenzintervalle laufen nicht ##
 
 # Modell mit 3 Klassen ----------------------------------------------------------------------------
 
