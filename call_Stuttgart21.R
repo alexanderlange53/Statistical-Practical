@@ -66,6 +66,8 @@ if(bearbeiter == 'Cluster') {
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
 }
 
 source("stepAIC.R")
@@ -134,9 +136,9 @@ modellwahl <- TRUE
 ## Step AIC ##
 if(calculate_model){
   step.model <- stepAIC()
-  saveRDS(step.model, file="step.model_all.rds")
+  saveRDS(step.model, file="./Model_Results/step.model_all.rds")
 } else {
-  step.model <- readRDS(file = "step.model_all.rds")
+  step.model <- readRDS(file = "./Model_Results/step.model_all.rds")
 }
 
 #--------------------------------#
@@ -326,11 +328,11 @@ fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alte
 #--------------------#
 
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.B <- stepAIC()
-  saveRDS(step.model.B, file="step.model_all_B.rds")
+  saveRDS(step.model.B, file="./Model_Results/step.model_all_B.rds")
 } else {
-  step.model.B <- readRDS(file = "step.model_all_B.rds")
+  step.model.B <- readRDS(file = "./Model_Results/step.model_all_B.rds")
 }
 
 
@@ -512,11 +514,11 @@ fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alters
 
 
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.S <- stepAIC()
-  saveRDS(step.model.S, file="step.model_all_S.rds")
+  saveRDS(step.model.S, file="./Model_Results/step.model_all_S.rds")
 } else {
-  step.model.S <- readRDS(file = "step.model_all_S.rds")
+  step.model.S <- readRDS(file = "./Model_Results/step.model_all_S.rds")
 }
 
 #--------------------#

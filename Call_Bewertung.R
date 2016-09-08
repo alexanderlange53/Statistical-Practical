@@ -17,14 +17,14 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
-if(bearbeiter == 'Alex') {
+if(bearbeiter == 'Kai@Work') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
@@ -66,6 +66,10 @@ if(bearbeiter == 'Cluster') {
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
 }
 
 source("stepAIC.R")
@@ -134,9 +138,9 @@ modellwahl <- TRUE
 ## Step AIC ##
 if(calculate_model) {
   step.model.Bewertung.5 <- stepAIC()
-  saveRDS(step.model.Bewertung.5, file="step.mode.Bewertungl.5_all.rds")
+  saveRDS(step.model.Bewertung.5, file="./Model_Results/step.mode.Bewertungl.5_all.rds")
 } else {
-  step.model.Bewertung.5 <- readRDS(file = "step.mode.Bewertungl.5_all.rds")
+  step.model.Bewertung.5 <- readRDS(file = "./Model_Results/step.mode.Bewertungl.5_all.rds")
 }
 
 #--------------------------------#
@@ -210,13 +214,13 @@ if(pred) {
   write.csv2(AggPred.Z.SB, file = './Prediction_Results/W_5_Z_Ko_AggSB.csv', row.names = FALSE, quote = FALSE)
   
 } else {
-  pred.U.k <- read.csv2('./Prediction_Results/S21_3_U_Ko_Einzel.csv', as.is = TRUE)
-  pred.Z.k <- read.csv2('./Prediction_Results/S21_3_Z_Ko_Einzel.csv', as.is = TRUE)
+  pred.U.k <- read.csv2('./Prediction_Results/W_5_U_Ko_Einzel.csv', as.is = TRUE)
+  pred.Z.k <- read.csv2('./Prediction_Results/W_5_Z_Ko_Einzel.csv', as.is = TRUE)
   
-  AggPred.U.ST <- read.csv2('./Prediction_Results/S21_3_U_Ko_AggST.csv', as.is = TRUE)
-  AggPred.Z.ST <- read.csv2('./Prediction_Results/S21_3_Z_Ko_AggST.csv', as.is = TRUE)
-  AggPred.U.SB <- read.csv2('./Prediction_Results/S21_3_U_Ko_AggSB.csv', as.is = TRUE)
-  AggPred.Z.SB <- read.csv2('./Prediction_Results/S21_3_Z_Ko_AggSB.csv', as.is = TRUE)
+  AggPred.U.ST <- read.csv2('./Prediction_Results/W_5_U_Ko_AggST.csv', as.is = TRUE)
+  AggPred.Z.ST <- read.csv2('./Prediction_Results/W_5_Z_Ko_AggST.csv', as.is = TRUE)
+  AggPred.U.SB <- read.csv2('./Prediction_Results/W_5_U_Ko_AggSB.csv', as.is = TRUE)
+  AggPred.Z.SB <- read.csv2('./Prediction_Results/W_5_Z_Ko_AggSB.csv', as.is = TRUE)
 }
 
 
@@ -231,7 +235,7 @@ if(calc_CI) {
   ## Allg. Einstellungen
   model <- step.model.Bewertung.5$model.spat
   sample <- sample
-  ncores <- 8
+  ncores <- 4
   nboot <- 4
   coverage <- 0.95
   seed <- 123
@@ -328,9 +332,9 @@ fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)"
 ## Step AIC ##
 if(calculate_model){
   step.model.Bewertung.5.B <- stepAIC()
-  saveRDS(step.model.Bewertung.5.B, file="step.mode.Bewertungl.5_all_B.rds")
+  saveRDS(step.model.Bewertung.5.B, file="./Model_Results/step.mode.Bewertungl.5_all_B.rds")
 } else {
-  step.model.Bewertung.5.B <- readRDS(file = "step.mode.Bewertungl.5_all_B.rds")
+  step.model.Bewertung.5.B <- readRDS(file = "./Model_Results/step.mode.Bewertungl.5_all_B.rds")
 }
 
 
@@ -512,11 +516,11 @@ fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
 
 
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.Bewertung.5.S <- stepAIC()
-  saveRDS(step.model.Bewertung.5.S, file="step.model.Bewertung.5.S.rds")
+  saveRDS(step.model.Bewertung.5.S, file="./Model_Results/step.model.Bewertung.5.S.rds")
 } else {
-  step.model.Bewertung.5.S <- readRDS(file = "step.model.Bewertung.5.S.rds")
+  step.model.Bewertung.5.S <- readRDS(file = "./Model_Results/step.model.Bewertung.5.S.rds")
 }
 
 #--------------------#
@@ -634,13 +638,12 @@ verteilung <- ocat(R=3)
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- T
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.Bewertung.3 <- stepAIC()
-  saveRDS(step.model.Bewertung.3, file="step.model.Bewertungl.3_all.rds")
+  saveRDS(step.model.Bewertung.3, file="./Model_Results/step.model.Bewertungl.3_all.rds")
 } else {
-  step.model.Bewertung.3 <- readRDS(file = "step.model.Bewertungl.3_all.rds")
+  step.model.Bewertung.3 <- readRDS(file = "./Model_Results/step.model.Bewertungl.3_all.rds")
 }
 
 #--------------------------------#
