@@ -125,6 +125,8 @@ nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
 modellwahl <- TRUE
 
 
+
+
 #--------------------#
 ## Modellerstellung ##
 #--------------------#
@@ -157,7 +159,6 @@ plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
 mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 dev.off()
 
-
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
 AIC(step.model$model.spatonly)
@@ -165,7 +166,6 @@ AIC(step.model$model.spatonly)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
-
 evaluate(step.model$model.spat, data = sample)
 evaluateAll(step.model, data = sample)
 
@@ -248,7 +248,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntST.csv', row.names = FALSE)
   S21.3.U.Ko.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.SB
@@ -261,7 +261,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntSB.csv', row.names = FALSE)
   S21.3.U.Ko.IntSB <- cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtteile
   population <- Zensus
@@ -276,7 +276,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntST.csv', row.names = FALSE)
   S21.3.Z.Ko.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.SB
@@ -289,7 +289,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntSB.csv', row.names = FALSE)
   S21.3.Z.Ko.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
 } else {
   S21.3.U.Ko.IntST <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
@@ -445,7 +445,7 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_SB_IntST.csv', row.names = FALSE)
   S21.3.U.SB.IntST <- cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.B.ST', 'OInt.U.B.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.B.ST', 'OInt.U.B.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.B.SB
@@ -457,7 +457,7 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_SB_IntSB.csv', row.names = FALSE)
   S21.3.U.SB.IntSB <- cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.B.SB', 'OInt.U.B.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.B.SB', 'OInt.U.B.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtteile
   population <- Zensus
@@ -472,7 +472,7 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_SB_IntST.csv', row.names = FALSE)
   S21.3.Z.SB.IntST <- cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.B.ST', 'OInt.Z.B.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.B.ST', 'OInt.Z.B.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.B.SB
@@ -485,7 +485,7 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_SB_IntSB.csv', row.names = FALSE)
   S21.3.Z.SB.IntSB <- cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.B.SB', 'OInt.Z.B.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.B.SB', 'OInt.Z.B.SB', 'temp_mean', 'temp_median', 'pred.interval'))
 } else {
   S21.3.U.SB.IntST <- read.csv2('./Prediction_Results/S21_3_U_SB_IntST.csv', as.is = TRUE)
   S21.3.U.SB.IntSB <- read.csv2('./Prediction_Results/S21_3_U_SB_IntSB.csv', as.is = TRUE)

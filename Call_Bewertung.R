@@ -19,9 +19,9 @@ library(reshape2)
 
 bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
-calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
-pred = TRUE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
-calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
+calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
+pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
+calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
 if(bearbeiter == 'Alex') {
@@ -29,7 +29,8 @@ if(bearbeiter == 'Alex') {
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
-  
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
   if(loadGeo){
     Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet_stadtteile.txt')
     Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet_stadtteile.txt')
@@ -44,7 +45,8 @@ if(bearbeiter == 'Kai@Work') {
     Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
     Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
-  
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
@@ -55,7 +57,8 @@ if(bearbeiter == 'Kai@Home') {
     Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
     Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   }
-  
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
 }
 if(bearbeiter == 'Cluster') {
   cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden.')
@@ -142,18 +145,18 @@ if(calculate_model) {
 ## GAM Plots ##
 m1 <- step.model.Bewertung.5$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+plot(m1, select = 2, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-x11()
-par(mfrow = c(2, 2))
-plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+#x11()
+#par(mfrow = c(2, 2))
+plot(m1, select = 3, all = TRUE, ann = F) # Geschlecht
+#mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 4, all = TRUE, ann = F) # Nationalität
+#mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+#plot(m1, select = 5, all = TRUE, ann = F) # Familienstand
+#mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+#plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+#mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 dev.off()
 
 AIC(step.model.Bewertung.5$model.spat)
@@ -245,7 +248,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_U_Ko_IntST.csv', row.names = FALSE)
   W.5.U.Ko.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.SB
@@ -258,7 +261,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_U_Ko_IntSB.csv', row.names = FALSE)
   W.5.U.Ko.IntSB <- cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtteile
   population <- Zensus
@@ -273,7 +276,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_Z_Ko_IntST.csv', row.names = FALSE)
   W.5.Z.Ko.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.SB
@@ -286,7 +289,7 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_Z_Ko_IntSB.csv', row.names = FALSE)
   W.5.Z.Ko.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
 } else {
   S21.3.U.Ko.IntST <- read.csv2('./Prediction_Results/W_5_U_Ko_IntST.csv', as.is = TRUE)
@@ -299,8 +302,13 @@ if(calc_CI) {
 # Validierung #
 #-------------#
 
+# Validierung auf Bezirksebene
 validation(pred = AggPred.U.SB[,-3], valid = Bezirke.Val)
 validation(pred = AggPred.Z.SB[,-3], valid = Bezirke.Val)
+
+# Validierung auf Stadtteilebene (Ohne Briefwahl)
+validation(pred = AggPred.U.ST[,-3], valid = Stadtteile.Val[,-1])
+validation(pred = AggPred.Z.ST[,-3], valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####-----------------------------------------------------------------
@@ -318,7 +326,7 @@ fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)"
 #--------------------#
 
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.Bewertung.5.B <- stepAIC()
   saveRDS(step.model.Bewertung.5.B, file="step.mode.Bewertungl.5_all_B.rds")
 } else {
@@ -361,16 +369,14 @@ m1 <- step.model.Bewertung.5.B$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-x11()
-par(mfrow = c(2, 2))
+#x11()
+#par(mfrow = c(2, 2))
 plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+#mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+plot(m1, select = 2, all = TRUE, ann = F) # Nationalität
+#mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
 #plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
 #mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 
 dev.off()
 
@@ -418,7 +424,7 @@ PredBarPlot(sample, pred.Z.B, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 ## Konfidenzintervalle ##
 if (calc_CI){
   ## Allg. Einstellungen
-  model <- step.model.B$model.spat
+  model <- step.model.Bewertung.5.B$model.spat
   sample <- sample
   ncores <- 4
   nboot <- 4
@@ -436,8 +442,8 @@ if (calc_CI){
   temp_mean <- pred.interval$mean
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_U_SB_IntST.csv', row.names = FALSE)
-  S21.3.U.SB.IntST <- cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.B.ST', 'OInt.U.B.ST', 'temp_mean', 'temp_median'))
+  W.5.U.SB.IntST <- cbind(UInt.U.B.ST, OInt.U.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  rm(list = c('UInt.U.B.ST', 'OInt.U.B.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.B.SB
@@ -449,7 +455,7 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_U_SB_IntSB.csv', row.names = FALSE)
   S21.3.U.SB.IntSB <- cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.U.B.SB', 'OInt.U.B.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.U.B.SB', 'OInt.U.B.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtteile
   population <- Zensus
@@ -464,7 +470,7 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_Z_SB_IntST.csv', row.names = FALSE)
   S21.3.Z.SB.IntST <- cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.B.ST', 'OInt.Z.B.ST', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.B.ST', 'OInt.Z.B.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.B.SB
@@ -477,13 +483,69 @@ if (calc_CI){
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/W_5_Z_SB_IntSB.csv', row.names = FALSE)
   S21.3.Z.SB.IntSB <- cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
-  rm(list = c('UInt.Z.B.SB', 'OInt.Z.B.SB', 'temp_mean', 'temp_median'))
+  rm(list = c('UInt.Z.B.SB', 'OInt.Z.B.SB', 'temp_mean', 'temp_median', 'pred.interval'))
 } else {
-  S21.3.U.SB.IntST <- read.csv2('./Prediction_Results/S21_3_U_SB_IntST.csv', as.is = TRUE)
-  S21.3.U.SB.IntSB <- read.csv2('./Prediction_Results/S21_3_U_SB_IntSB.csv', as.is = TRUE)
-  S21.3.Z.SB.IntST <- read.csv2('./Prediction_Results/S21_3_Z_SB_IntST.csv', as.is = TRUE)
-  S21.3.Z.SB.IntSB <- read.csv2('./Prediction_Results/S21_3_Z_SB_IntSB.csv', as.is = TRUE)
+  S21.3.U.SB.IntST <- read.csv2('./Prediction_Results/W_5_U_SB_IntST.csv', as.is = TRUE)
+  S21.3.U.SB.IntSB <- read.csv2('./Prediction_Results/W_5_U_SB_IntSB.csv', as.is = TRUE)
+  S21.3.Z.SB.IntST <- read.csv2('./Prediction_Results/W_5_Z_SB_IntST.csv', as.is = TRUE)
+  S21.3.Z.SB.IntSB <- read.csv2('./Prediction_Results/W_5_Z_SB_IntSB.csv', as.is = TRUE)
 }
+
+
+
+#-----------------------------------------------#
+#### Stadtteile als Räumliche Informationen #####-----------------------------------------------------------------------------
+#-----------------------------------------------#
+
+# Erstellen des Markov Random fields
+zt <- MarkovRandomField(stadtteile, Bezirke = F)
+
+# Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
+sample <- PseudoB(sample, stadtteile, binom = F)
+
+# Neue raeumliche Information, der rest bleibt gleich
+fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
+
+#--------------------#
+## Modellerstellung ##
+#--------------------#
+
+
+## Step AIC ##
+if(!load_model){
+  step.model.Bewertung.5.S <- stepAIC()
+  saveRDS(step.model.Bewertung.5.S, file="step.model.Bewertung.5.S.rds")
+} else {
+  step.model.Bewertung.5.S <- readRDS(file = "step.model.Bewertung.5.S.rds")
+}
+
+#--------------------#
+## Model Evaluation ##
+#--------------------#
+
+evaluate(step.model.S$model.spat, data = sample)
+evaluateAll(step.model.S, data = sample)
+
+
+## Cross Evaluation ##
+repeatitions = 1
+model <- step.model.S$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+crosseval
+
 # Modell mit 3 Klassen ----------------------------------------------------------------------------
 
 sample <- DataPrep(sample, binom = F, Stuttgart21 = F)
