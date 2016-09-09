@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -295,10 +295,10 @@ if(calc_CI) {
   rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
 } else {
-  S21.3.U.Ko.IntST <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
-  S21.3.U.Ko.IntSB <- read.csv2('./Prediction_Results/S21_3_U_Ko_IntSB.csv', as.is = TRUE)
-  S21.3.Z.Ko.IntST <- read.csv2('./Prediction_Results/S21_3_Z_Ko_IntST.csv', as.is = TRUE)
-  S21.3.Z.Ko.IntSB <- read.csv2('./Prediction_Results/S21_3_Z_Ko_IntSB.csv', as.is = TRUE)
+  S21.3.U.Ko.IntST <- read.csv2('./Boot_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
+  S21.3.U.Ko.IntSB <- read.csv2('./Boot_Results/S21_3_U_Ko_IntSB.csv', as.is = TRUE)
+  S21.3.Z.Ko.IntST <- read.csv2('./Boot_Results/S21_3_Z_Ko_IntST.csv', as.is = TRUE)
+  S21.3.Z.Ko.IntSB <- read.csv2('./Boot_Results/S21_3_Z_Ko_IntSB.csv', as.is = TRUE)
 }
 
 #-------------#

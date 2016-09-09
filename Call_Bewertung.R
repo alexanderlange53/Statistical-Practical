@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
