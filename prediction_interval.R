@@ -28,8 +28,8 @@ bootfun <- function(b) {
   # if(all(unique(sample[, aggregation] %in% unique(sample[indmat[,b], aggregation])))) {
   helpmodel <- gam(model$formula, weights=wmat[,b], family=verteilung, method="REML", data=sample[indmat[,b],])
   helppred <- Prediction(population, helpmodel, IFUmfrage = IFUmfrage, binom = F)
-  predData <- cbind(helppred[, c(1 : 3)], population[, aggregation])
-  names(predData)[4] <- aggregation
+  predData <- cbind(helppred[, c(1 : max(sample[,response]))], population[, aggregation])
+  names(predData)[dim(predData)[2]] <- aggregation
   helpsum <- Prediction.Aggregation(pred = predData, agg = aggregation)
   # } else {
   # helpsum <- data.frame(V1 = as.character(unique(sample[,aggregation])), Vorhersage_Kategorie_1 = NA, Vorhersage_Kategorie_2 = NA, Vorhersage_Kategorie_3 = NA)
@@ -43,50 +43,109 @@ bootfun <- function(b) {
 boot <- foreach(r=1:nboot, .combine = "cbind") %dopar%
   bootfun(r)
 
-# lower
-pred.boot.lower <- data.frame(
-  V1 = pred.sum[,aggregation],
-  V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, quantile, probs = (1 - coverage) / 2),
-  V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, quantile, probs = (1 - coverage) / 2),
-  V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, quantile, probs = (1 - coverage) / 2),
-  stringsAsFactors = FALSE
-)
-# upper
-pred.boot.upper <- data.frame(
-  V1 = pred.sum[,aggregation],
-  V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
-  V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
-  V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
-  stringsAsFactors = FALSE
-)
-# mean
-pred.boot.mean <- data.frame(
-  V1 = pred.sum[,aggregation],
-  V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, mean),
-  V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, mean),
-  V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, mean),
-  stringsAsFactors = FALSE
-)
-# median
-pred.boot.median <- data.frame(
-  V1 = pred.sum[,aggregation],
-  V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, median),
-  V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, median),
-  V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, median),
-  stringsAsFactors = FALSE
-)
-
-names(pred.boot.upper)[1] <- aggregation
-names(pred.boot.lower)[1] <- aggregation
-names(pred.boot.mean)[1] <- aggregation
-names(pred.boot.median)[1] <- aggregation
-
-for(i in c(2 : 4)){
-  names(pred.boot.upper)[i] <- paste("o_intervall", i - 1, sep = "_")
-  names(pred.boot.lower)[i] <- paste("u_intervall", i - 1, sep = "_")
-  names(pred.boot.mean)[i] <- paste("mean", i - 1, sep = "_")
-  names(pred.boot.median)[i] <- paste("median", i - 1, sep = "_")
+if(max(sample[,response]) == 3) {
+  # lower
+  pred.boot.lower <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, quantile, probs = (1 - coverage) / 2),
+    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, quantile, probs = (1 - coverage) / 2),
+    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, quantile, probs = (1 - coverage) / 2),
+    stringsAsFactors = FALSE
+  )
+  # upper
+  pred.boot.upper <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    stringsAsFactors = FALSE
+  )
+  # mean
+  pred.boot.mean <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, mean),
+    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, mean),
+    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, mean),
+    stringsAsFactors = FALSE
+  )
+  # median
+  pred.boot.median <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, median),
+    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, median),
+    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, median),
+    stringsAsFactors = FALSE
+  )
+  
+  names(pred.boot.upper)[1] <- aggregation
+  names(pred.boot.lower)[1] <- aggregation
+  names(pred.boot.mean)[1] <- aggregation
+  names(pred.boot.median)[1] <- aggregation
+  
+  for(i in c(2 : 4)){
+    names(pred.boot.upper)[i] <- paste("o_intervall", i - 1, sep = "_")
+    names(pred.boot.lower)[i] <- paste("u_intervall", i - 1, sep = "_")
+    names(pred.boot.mean)[i] <- paste("mean", i - 1, sep = "_")
+    names(pred.boot.median)[i] <- paste("median", i - 1, sep = "_")
+  }
+  
+  pred.interval <- list(o_intervall = pred.boot.upper, u_intervall = pred.boot.lower, mean = pred.boot.mean, median = pred.boot.median)
 }
 
-pred.interval <- list(o_intervall = pred.boot.upper, u_intervall = pred.boot.lower, mean = pred.boot.mean, median = pred.boot.median)
-
+if(max(sample[,response]) == 5) {
+  # lower
+  pred.boot.lower <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 6 -4, 6)], 1, quantile, probs = (1 - coverage) / 2),
+    V3 = apply(boot[, seq(3,nboot * 6 -3, 6)], 1, quantile, probs = (1 - coverage) / 2),
+    V4 = apply(boot[, seq(4,nboot * 6 -2, 6)], 1, quantile, probs = (1 - coverage) / 2),
+    V5 = apply(boot[, seq(5,nboot * 6 -1, 6)], 1, quantile, probs = (1 - coverage) / 2),
+    V6 = apply(boot[, seq(6,nboot * 6 -0, 6)], 1, quantile, probs = (1 - coverage) / 2),
+    stringsAsFactors = FALSE
+  )
+  # upper
+  pred.boot.upper <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 6 -4, 6)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V3 = apply(boot[, seq(3,nboot * 6 -3, 6)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V4 = apply(boot[, seq(4,nboot * 6 -2, 6)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V5 = apply(boot[, seq(5,nboot * 6 -1, 6)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V6 = apply(boot[, seq(6,nboot * 6 -0, 6)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    stringsAsFactors = FALSE
+  )
+  # mean
+  pred.boot.mean <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 6 -4, 6)], 1, mean),
+    V3 = apply(boot[, seq(3,nboot * 6 -3, 6)], 1, mean),
+    V4 = apply(boot[, seq(4,nboot * 6 -2, 6)], 1, mean),
+    V5 = apply(boot[, seq(5,nboot * 6 -1, 6)], 1, mean),
+    V6 = apply(boot[, seq(6,nboot * 6 -0, 6)], 1, mean),
+    stringsAsFactors = FALSE
+  )
+  # median
+  pred.boot.median <- data.frame(
+    V1 = pred.sum[,aggregation],
+    V2 = apply(boot[, seq(2,nboot * 6 -4, 6)], 1, median),
+    V3 = apply(boot[, seq(3,nboot * 6 -3, 6)], 1, median),
+    V4 = apply(boot[, seq(4,nboot * 6 -2, 6)], 1, median),
+    V5 = apply(boot[, seq(5,nboot * 6 -1, 6)], 1, median),
+    V6 = apply(boot[, seq(6,nboot * 6 -0, 6)], 1, median),
+    stringsAsFactors = FALSE
+  )
+  
+  names(pred.boot.upper)[1] <- aggregation
+  names(pred.boot.lower)[1] <- aggregation
+  names(pred.boot.mean)[1] <- aggregation
+  names(pred.boot.median)[1] <- aggregation
+  
+  for(i in c(2 : 6)){
+    names(pred.boot.upper)[i] <- paste("o_intervall", i - 1, sep = "_")
+    names(pred.boot.lower)[i] <- paste("u_intervall", i - 1, sep = "_")
+    names(pred.boot.mean)[i] <- paste("mean", i - 1, sep = "_")
+    names(pred.boot.median)[i] <- paste("median", i - 1, sep = "_")
+  }
+  
+  pred.interval <- list(o_intervall = pred.boot.upper, u_intervall = pred.boot.lower, mean = pred.boot.mean, median = pred.boot.median)
+  
+}

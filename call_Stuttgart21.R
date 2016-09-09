@@ -61,7 +61,8 @@ if(bearbeiter == 'Kai@Home') {
   Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = T)
 }
 if(bearbeiter == 'Cluster') {
-  cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden.')
+  cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden. 
+      Es ist eine alte, nicht kompatible Version von RCpp installiert. Die aktuelle RCpp Version muss händisch geladen werden, sonst funktioniert die subset Funktion nicht.')
   setwd('/home/khusmann/Statistical-Practical/')
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
