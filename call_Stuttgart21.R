@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -70,7 +70,7 @@ if(bearbeiter == 'Cluster') {
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
 }
-
+# Funktionen
 source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
@@ -80,9 +80,9 @@ source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
 
-#--------------------------------#
-# Daten einlesen und vorbereiten #
-#--------------------------------#
+#-------------------#
+# Daten vorbereiten #
+#-------------------#
 
 # Wenn binom = F:
 # erstellt aus Gruppen 1 und 2 = 1

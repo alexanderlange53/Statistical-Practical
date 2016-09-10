@@ -2,24 +2,36 @@
 #### Laden der Daten und Aufrufen der Skripte ####
 #------------------------------------------------#
 
+rm(list = ls())
+
+## Pakete laden
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 library(ggplot2)
+library("ROCR")
+library("mgcv")
+library("splines")
+library('reshape2')
 
-rm(list = ls())
 
-## Working directory ##
+## Einstellungen ##
 
-bearbeiter = 'Kai@Work'
-pred = TRUE
+bearbeiter = 'Kai@Home'
+loadGeo <- TRUE # Geodaten laden?
+calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
+pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
+calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
+## Laden der Daten ##
 if(bearbeiter == 'Alex') {
   setwd('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Presi/Statistical-Practical')
   sample <- read.table("/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Geodaten/bezirke", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/Daten_Kneib/Stadtteile_netto", layer = "Stadtteile_netto")
-  if(pred == T){
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = TRUE)
+  if(loadGeo){
     Umfrage <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/buergerumfrage/population_aufbereitet_stadtteile.txt')
     Zensus <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Daten_Kneib/Stick/zensus/population_aufbereitet_stadtteile.txt')
   }
@@ -29,7 +41,9 @@ if(bearbeiter == 'Kai@Work') {
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
-  if(pred){
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = TRUE)
+  if(loadGeo){
     Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
     Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
@@ -39,11 +53,14 @@ if(bearbeiter == 'Kai@Home') {
   sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
-  if(pred == T){
-    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet.txt')
-    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet.txt')
+  Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
+  Stadtteile.Val <- read.csv2('Stadtteile_True.csv', as.is = TRUE)
+  if(loadGeo){
+    Umfrage <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt')
+    Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
 }
+# Funktionen
 source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
@@ -53,14 +70,9 @@ source("evaluation.R")
 source("prediction_function.R")
 source('PredBarPlot.R')
 
-library("ROCR")
-library("mgcv")
-library("splines")
-library('reshape2')
-
-#--------------------------------#
-# Daten einlesen und vorbereiten #
-#--------------------------------#
+#-------------------#
+# Daten vorbereiten #
+#-------------------#
 
 # Wenn binom = T:
 # Fasst die Gruppen 1 und 2 zu == 1 zusammen und
@@ -90,7 +102,7 @@ gewichte <- "Gewicht"
 
 # Feste Modellbestandteile, die nicht in die Variablenselektion mit aufgenommen
 # werden sollen (typischerweise der raeumliche Effekt)
-fixed <- "s(X, Y, bs=\"tp\") + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+fixed <- "s(X, Y, bs=\"tp\")" # die WW zwischen s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs = "tp") ist nicht signifikant
 
 # Parametrisch zu modellierende Kovariablen
 pars <- c("Familienstand", "Nationalität", "Geschlecht")
@@ -101,19 +113,7 @@ nonpars <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt")
 # Modellwahl ja/nein?
 modellwahl <- TRUE
 
-# Vorhersageintervalle ja/nein und Eigenschaften
-# nboot = Anzahl Bootstrap Stichproben
-# coverage = Ueberdeckungswahrscheinlichkeit der Vorhersageintervalle
-# parallel = Soll parallel mit mehreren Kernen gerechnet werden?
-#            dazu wird das Paket multicore benoetigt (nur unter Linux)
-# ncore = Anzahl der zu verwendenden Kerne
-# seed = Startwert fuer den Zufallszahlengenerator
-intervalle <- TRUE
-nboot <- 10
-coverage <- 0.95
-parallel <- FALSE
-ncore <- 20
-seed <- 123
+
 
 #--------------------#
 ## Modellerstellung ##
@@ -121,7 +121,7 @@ seed <- 123
 
 load_model <- TRUE
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.binom <- stepAIC()
   saveRDS(step.model.binom$model.spat, file="step.model_binom.rds")
   saveRDS(step.model.binom, file="step.model_all_binom.rds")
@@ -188,28 +188,35 @@ crosseval
 ## Prediction  ##
 #---------------#
 
-# Zunächst Vorhersage der individuellen Meinung
+
 if(pred){
+  ## Vorhersage der individuellen Ausprägung ##
   pred.binom.U <- Prediction(Umfrage, step.model.binom$model.spat, IFUmfrage = T, binom = T)
   pred.binom.Z <- Prediction(Zensus, step.model.binom$model.spat, IFUmfrage = F, binom = T)
-  write.table(pred.binom.U, file = 'predbinom_U.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
-  write.table(pred.binom.Z, file = 'predbinom_Z.csv', sep=";", col.names=TRUE, row.names=FALSE, quote=FALSE)
+  write.csv2(pred.binom.U, file = './Prediction_Results/S21_2_U_Ko_Einzel.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.binom.Z, file = './Prediction_Results/S21_2_Z_Ko_Einzel.csv', row.names=FALSE, quote=FALSE)
+  
+  ## Aggregation = Räumliche Extrapolation
+  AggPred.U.ST <- Prediction.Aggregation(pred = pred.binom.U[, c(1, 4)], agg = "Stadtteil")
+  AggPred.Z.ST <- Prediction.Aggregation(pred = pred.binom.Z[, c(1, 4)], agg = "Stadtteil")
+  AggPred.U.SB <- Prediction.Aggregation(pred = pred.binom.U[, c(1, 5)], agg = "Stadtbezirk")
+  AggPred.Z.SB <- Prediction.Aggregation(pred = pred.binom.Z[, c(1, 5)], agg = "Stadtbezirk")
+  write.csv2(AggPred.U.ST, file = './Prediction_Results/S21_2_U_Ko_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.ST, file = './Prediction_Results/S21_2_Z_Ko_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.U.SB, file = './Prediction_Results/S21_2_U_Ko_AggSB.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.SB, file = './Prediction_Results/S21_2_Z_Ko_AggSB.csv', row.names = FALSE, quote = FALSE)
 }else{
-  pred.binom.U <- read.csv2('predbinom_U.csv')
-  pred.binom.Z <- read.csv2('predbinom_Z.csv')
+  pred.binom.U <- read.csv2('./Prediction_Results/S21_2_U_Ko_Einzel.csv')
+  pred.binom.Z <- read.csv2('./Prediction_Results/S21_2_Z_Ko_Einzel.csv')
+  
+  AggPred.U.ST <- read.csv2('./Prediction_Results/S21_2_U_Ko_AggST.csv', as.is = TRUE)
+  AggPred.Z.ST <- read.csv2('./Prediction_Results/S21_2_Z_Ko_AggST.csv', as.is = TRUE)
+  AggPred.U.SB <- read.csv2('./Prediction_Results/S21_2_U_Ko_AggSB.csv', as.is = TRUE)
+  AggPred.Z.SB <- read.csv2('./Prediction_Results/S21_2_Z_Ko_AggSB.csv', as.is = TRUE)
 }
 
-## Aggregation auf Bezirksebene ##
-Prediction.Aggregation(pred = pred.binom.U[, c(1, 5)], agg = "Stadtbezirk")
-Prediction.Aggregation(pred = pred.binom.U[, c(1, 4)], agg = "Stadtteil")
 
-
-pred.binom.U2 <- pred.binom.U
-pred.binom.U2$X1 <- as.numeric(as.character(pred.binom.U2$X1))
-pred.binom.U2 <- tryf(pred.binom.U2)
-
-PredBarPlot(sample2, pred.binom.U2, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
-PredBarPlot(sample, pred.binom.U)
+PredBarPlot(sample, pred.binom.U) # Die Zustimmungsw. ist 1 - Ablehnung
 PredBarPlot(sample, pred.binom.Z)
 
 #--------------------------------------#
@@ -226,9 +233,8 @@ fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alte
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.binom.B <- stepAIC()
   saveRDS(step.model.binom.B$model.spat, file="step.model_binomB.rds")
   saveRDS(step.model.binom.B, file="step.model_all_binomB.rds")
@@ -320,3 +326,18 @@ summary(step.model.binom.S$model.spat)
 plot(step.model.binom.S$model.spat, all = T)
 
 evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
+
+## Bootstrap CI 
+# Vorhersageintervalle ja/nein und Eigenschaften
+# nboot = Anzahl Bootstrap Stichproben
+# coverage = Ueberdeckungswahrscheinlichkeit der Vorhersageintervalle
+# parallel = Soll parallel mit mehreren Kernen gerechnet werden?
+#            dazu wird das Paket multicore benoetigt (nur unter Linux)
+# ncore = Anzahl der zu verwendenden Kerne
+# seed = Startwert fuer den Zufallszahlengenerator
+intervalle <- TRUE
+nboot <- 10
+coverage <- 0.95
+parallel <- FALSE
+ncore <- 20
+seed <- 123
