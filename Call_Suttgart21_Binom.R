@@ -219,6 +219,16 @@ if(pred){
 PredBarPlot(sample, pred.binom.U) # Die Zustimmungsw. ist 1 - Ablehnung
 PredBarPlot(sample, pred.binom.Z)
 
+## Konfidenzintervall ##
+# Erstmal nicht. Vielleicht später
+
+#---------------#
+## Validierung ##
+#---------------#
+
+# Funktioniert nicht ohne Konfidenzintervalle
+
+
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
 #--------------------------------------#
@@ -227,7 +237,7 @@ PredBarPlot(sample, pred.binom.Z)
 zt <- MarkovRandomField(bezirke, Bezirke = T)
 
 # Neue raeumliche Information, der rest bleibt gleich
-fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
+fixed <- "s(Stadtbezirk, bs=\"mrf\", xt = zt)" # also auch wieder ohne s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")
 
 #--------------------#
 ## Modellerstellung ##
@@ -242,13 +252,39 @@ if(calculate_model){
   step.model.binom.B <- readRDS(file = "step.model_all_binomB.rds")
 }
 
+#--------------------#
+## Model Evaluation ##
+#--------------------#
+evaluate.bivariate(step.model.binom.B$model.spat, data = sample)
+
+## Cross Evaluation ##
+repeatitions = 5
+model <- step.model.binom.B$model.spat
+
+leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+
+for (i in c(1 : repeatitions)) {
+  all <- c(1 : dim(sample)[1])
+  subset_i <- all[-leave_out]
+  print(paste('Model', i, 'of', repeatitions))
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], predict(model, newdata = sample[leave_out[i],], type = "response")) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+}
+names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
+crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
+rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+crosseval
+
+
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.binom.B$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+plot(m1, select = 2, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
 x11()
 par(mfrow = c(2, 2))
@@ -268,9 +304,51 @@ AIC(step.model.binom.B$model.nospat)
 AIC(step.model.binom.B$model.spatonly)
 
 summary(step.model.binom.B$model.spat)
-plot(step.model.binom.B$model.spat, all = T)
+#plot(step.model.binom.B$model.spat, all = T)
 
-evaluate.bivariate(step.model.binom.B$model.spat, data = sample)
+#---------------#
+## Prediction  ##
+#---------------#
+
+if(pred) {
+  ## Vorhersage der individuellen Ausprägung ##
+  pred.binom.U.B <- Prediction(Umfrage, step.model.binom.B$model.spat, IFUmfrage = T, binom = T)
+  pred.binom.Z.B <- Prediction(Zensus, step.model.binom.B$model.spat, IFUmfrage = F, binom = T)
+  write.csv2(pred.binom.U.B, file = './Prediction_Results/S21_2_U_SB_einzel.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.binom.Z.B, file = './Prediction_Results/S21_2_Z_SB_einzel.csv', row.names=FALSE, quote=FALSE)
+  
+  ## Aggregation = Räumliche Extrapolation ##
+  AggPred.U.B.ST <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 4)], agg = 'Stadtteil')
+  AggPred.Z.B.ST <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 4)], agg = 'Stadtteil')
+  AggPred.U.B.SB <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 5)], agg = 'Stadtbezirk')
+  AggPred.Z.B.SB <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 5)], agg = 'Stadtbezirk')
+  write.csv2(AggPred.U.B.ST, file = './Prediction_Results/S21_2_U_SB_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.B.ST, file = './Prediction_Results/S21_2_Z_SB_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.U.B.SB, file = './Prediction_Results/S21_2_U_SB_AggSB.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.B.SB, file = './Prediction_Results/S21_2_Z_SB_AggSB.csv', row.names = FALSE, quote = FALSE)
+} else{
+  pred.binom.U.B <- read.csv2('./Prediction_Results/S21_2_U_SB_einzel.csv')
+  pred.binom.Z.B <- read.csv2('./Prediction_Results/S21_2_Z_SB_einzel.csv')
+  
+  AggPred.U.B.ST <- read.csv2(file = './Prediction_Results/S21_2_U_SB_AggST.csv', as.is = TRUE)
+  AggPred.Z.B.ST <- read.csv2(file = './Prediction_Results/S21_2_Z_SB_AggST.csv', as.is = TRUE)
+  AggPred.U.B.SB <- read.csv2(file = './Prediction_Results/S21_2_U_SB_AggSB.csv', as.is = TRUE)
+  AggPred.Z.B.SB <- read.csv2(file = './Prediction_Results/S21_2_Z_SB_AggSB.csv', as.is = TRUE)
+}
+
+PredBarPlot(sample, pred.binom.U.B, x = c('Zustimmung', 'Ablehnung'))
+PredBarPlot(sample, pred.binom.Z.B, x = c('Zustimmung', 'Ablehnung'))
+
+## Konfidenzintervalle ##
+# werden erstmal nicht berechnet. Vielleicht später
+
+#---------------#
+## Validierung ##
+#---------------#
+# Funktioniert nicht ohne K.I.
+
+
+
 #-----------------------------------------#
 # Stadtteile als Räumliche Informationen  #--------------------------------------------------------------
 #-----------------------------------------#
@@ -288,15 +366,15 @@ fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alters
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
 ## Step AIC ##
-if(!load_model){
+if(calculate_model){
   step.model.binom.S <- stepAIC()
   saveRDS(step.model.binom.S$model.spat, file="step.model_binomS.rds")
   saveRDS(step.model.binom.S, file="step.model_all_binomS.rds")
 } else {
   step.model.binom.S <- readRDS(file = "step.model_all_binomS.rds")
 }
+
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#

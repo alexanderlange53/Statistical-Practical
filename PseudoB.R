@@ -68,11 +68,18 @@ names(pseudo.b) <- names(dataS)
 # Echte Beobachtungen mit 1 gewichten
 dat.teile <- dataS
 dat.teile$Gewicht <- 1
-names(pseudo.a)<- names(dat.teile)
-names(pseudo.b)<- names(dat.teile)
+
 # Zusammmenfügen von echten und pseudo Beobachtungen
-dat.teile <- rbind(dat.teile, pseudo.b, pseudo.a)
-dat.teile <- dat.teile[order(dat.teile$Stadtteil),]
+if(binom){
+  # ich verstehe nicht, wo das  Problem liegt. Es gibt NAS in den letzten beiden Columns
+} else {
+  names(pseudo.a)<- names(dat.teile)
+  names(pseudo.b)<- names(dat.teile)
+  
+  dat.teile <- rbind(dat.teile, pseudo.b, pseudo.a)
+  dat.teile <- dat.teile[order(dat.teile$Stadtteil),]
+}
+
 
 # Einige Variablen sind fälschlicherweise als Character gespeichert
 dat.teile$Bewertung.Wohngegend <- as.integer(dat.teile$Bewertung.Wohngegend)

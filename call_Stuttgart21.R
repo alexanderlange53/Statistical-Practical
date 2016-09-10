@@ -211,7 +211,6 @@ if(pred) {
   write.csv2(AggPred.Z.ST, file = './Prediction_Results/S21_3_Z_Ko_AggST.csv', row.names = FALSE, quote = FALSE)
   write.csv2(AggPred.U.SB, file = './Prediction_Results/S21_3_U_Ko_AggSB.csv', row.names = FALSE, quote = FALSE)
   write.csv2(AggPred.Z.SB, file = './Prediction_Results/S21_3_Z_Ko_AggSB.csv', row.names = FALSE, quote = FALSE)
-  
 } else {
   pred.U.k <- read.csv2('./Prediction_Results/S21_3_U_Ko_Einzel.csv', as.is = TRUE)
   pred.Z.k <- read.csv2('./Prediction_Results/S21_3_Z_Ko_Einzel.csv', as.is = TRUE)
