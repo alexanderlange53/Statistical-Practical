@@ -76,7 +76,7 @@ GKPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Katego
       scale_fill_gradient(low=colo[2], high = 'darkblue')+
       scale_color_gradient(low=colo[2], high = 'darkblue', guide = F)+
       scale_alpha(range = c(0.1,0.7), guide=FALSE) +
-      labs(fill = 'Dichte') +
+      labs(fill = 'Anzahl \n Beobachtungen') +
       xlim(9.035, 9.32) + ylim(48.69, 48.87) +
       facet_wrap(~ Response)
 }

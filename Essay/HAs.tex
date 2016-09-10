@@ -78,6 +78,8 @@
 \section{Material und Methoden}
 \section{Daten}
 Insgesamt liegen für die Analysen drei Umfragen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden unabhängigen Variablen dienen. Diese Datei wird im Folgenden als Stichprobe bezeichnet. Des weitern liegen zwei Umfragen, der Zensus und eine Bürgerumfrage von 20??, vor, deren Stichprobenumfang jeweils sehr nah an der Gesamtbevölkerungsanzahl Stuttgarts liegt. Es wird angenommen, dass diese beiden Dateien die Grundgesamtheit repräsentieren.
+
+
 \subsection{Deskriptive Statistik}
 
 In diesem Kapitel soll der Stichprobendatensatz vorgestellt werden, sowie ein kurzer Einblick in die beiden Datensätze zur Grundgesamtheit der Bevölkerung von Stuttgart gegeben werden. Anhand des Stichprobendatensatzes soll im Verlauf der Arbeit das Modell zur Extrapolation geschätzt werden und mit Hilfe der Datensätze zur Grundgesamtheit die Häufigkeiten der abhängigen Variablen prognostiziert werden. \\
@@ -132,7 +134,7 @@ Aus Abbildung \ref{XYStuttgart3} ist die absolute Häufigkeit der Beobachtungen 
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.38]{Pictures/XYStuttgart3.png}
+ \includegraphics[scale=0.8]{Pictures/XYStuttgart3.png}
  \caption{Gauss Krüger Informationen Stuttgart 21}
  \label{XYStuttgart3}
  \end{center}
@@ -143,7 +145,7 @@ Abbildung \ref{XYWohnG5} zeigt die Absolute Verteilung der Beobachtungen für di
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.38]{Pictures/XYWohnG5.png}
+ \includegraphics[scale=0.8]{Pictures/XYWohnG5.png}
  \caption{Gauss Krüger Informationen Bewertung Wohngegend}
  \label{XYWohnG5}
  \end{center}
@@ -177,21 +179,51 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 
 \subsection{Modell}
 Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines
+
 \subsection{Modellwahl}
-Basierend auf den vorhergegangenen Analyse des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC (CITE AKAIKE) Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} CITE WOOD 2011 Paketes generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration 1 werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM ertellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariablen in Iteration 1 zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zum Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration 1 bereits beendet. Andernfalls setzt sich das Ausgangsmodell für Iteration 2 aus den festen Kovariablen und einer weiteren Kovariablen zusammen. In Iteration 2 werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration 1 nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration 2 nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
-
-
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC (CITE AKAIKE) Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} CITE WOOD 2011 Paketes generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration 1 werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariablen in Iteration 1 zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zum Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration 1 bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration 2 aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration 2 werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration 1 nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration 2 nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
 
 \subsection{Evaluierung}
 
 \section{Ergebnisse}
 
-
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[h]
+\centering
+\caption{Validierung}
+\label{vali}
+\begin{tabular}{llll|cc|cc}
+\hline \hline
+                        &                               &                          &   & \multicolumn{2}{c|}{MSE} & \multicolumn{2}{c}{Überdeckungswk.} \\
+                        &                               &                          &   & Zustimmung  & Ablehnung  & Zustimmung        & Ablehnung       \\ \hline
+\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0.014       & 1.739      & 1                 & 0.043           \\
+                        &                               &                          & Z & 0.063       & 1.438      & 0.391             & 0               \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Sadtt.}  & U & 0.453       & 7.159      & 0.954             & 0.139           \\
+                        &                               &                          & Z & 1.101       & 5.672      & 0.553             & 0.02            \\ \cline{2-8} 
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0.014       & 1.746      & 1                 & 0.043           \\
+                        &                               &                          & Z & 0.063       & 1.444      & 0.522             & 0               \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 0.444       & 7.09       & 0.934             & 0.139           \\
+                        &                               &                          & Z & 1.1         & 5.604      & 0.567             & 0.027           \\ \cline{2-8} 
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0.023       & 1.966      &                   &                 \\
+                        &                               &                          & Z & 0.032       & 1.487      &                   &                 \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 0.144       & 8.258      &                   &                 \\
+                        &                               &                          & Z & 0.753       & 5.91       &                   &                 \\ \hline
+\multirow{8}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0.025       & 0.005      &                   &                 \\
+                        &                               &                          & Z & 0.017       & 0.001      &                   &                 \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 0.014       & 0.035      &                   &                 \\
+                        &                               &                          & Z & 0.005       & 0.011      &                   &                 \\ \cline{2-8} 
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0.025       & 0.005      &                   &                 \\
+                        &                               &                          & Z & 0.017       & 0.001      &                   &                 \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 0.014       & 0.035      &                   &                 \\
+                        &                               &                          & Z & 0.005       & 0.011      &                   &                 \\ \hline \hline
+\end{tabular}
+\end{table}
 
 %\clearpage
 %============================================== Conlcusion =========================================================%
 
-\section{Ergebnisse}
+\section{Fazit}
 
 \clearpage
 

@@ -234,7 +234,7 @@ validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
 validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1]) 
+validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1]) 
 
 
 #--------------------------------------#
@@ -360,7 +360,7 @@ validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
 validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1]) 
+validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1]) 
 
 
 #-----------------------------------------#

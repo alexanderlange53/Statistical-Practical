@@ -33,7 +33,7 @@ validation <- function(pred, valid){
   cat("Ueberdeckungsw'keit der Vorhersagen:    ", coverage[2], "\n\n", sep="")
   }else{
     pred <- pred[,-1]
-    if(!is.matrix(pred)){
+    if(is.vector(pred)){
       pred <- cbind((1 - pred), pred)
     }else{
       pred <- pred/rowSums(pred)
