@@ -33,10 +33,15 @@ validation <- function(pred, valid){
   cat("Ueberdeckungsw'keit der Vorhersagen:    ", coverage[2], "\n\n", sep="")
   }else{
     pred <- pred[,-1]
-    pred <- pred/rowSums(pred)
+    if(!is.matrix(pred)){
+      pred <- cbind((1 - pred), pred)
+    }else{
+      pred <- pred/rowSums(pred)
+      pred <- pred[,-2]
+    }
     valid <- valid[,-1] * 0.01
     valid <- cbind(valid[,2], valid[,1])
-    pred <- pred[,-2]
+
     mse <- rep(0, ncol(pred))
     MSE <- function(x, y){
       sum((x - y)^2)
@@ -56,6 +61,7 @@ validation <- function(pred, valid){
   x <- rep('Ablehnung', nrow(medianr))
   Kategorie2 <- cbind(x, medianr[,2], valid[,2])
   D <- as.data.frame(rbind(Kategorie1, Kategorie2))
+  #names(D) <- c('x', 'V3', 'V2')
   D$V2 <- as.numeric(as.character(D$V2)); D$V3 <- as.numeric(as.character(D$V3));
   
   ggplot(D, aes(x = V3, y = V2)) + geom_point() + labs(x = 'Wahrheit', y = 'Geschätzt' ) +

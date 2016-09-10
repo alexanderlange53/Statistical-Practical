@@ -123,14 +123,17 @@ Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTy
 
 
   # Funktion zu Aggregation der Vorhersage auf regionaler Ebene = kleinräumige Extrapolation
-  Prediction.Aggregation <- function (pred, agg, model) {
+  Prediction.Aggregation <- function (pred, agg, model, Anteile = F) {
   # pred: dataframe returned by Prediction()
   # agg: Aggregation level (Stadtteil/Stadtbezirk)
   anteile <- function(x) {
     sum(x) / length(x)
   }
-  
+  if(Anteile == F){
   pred.sum <- aggregate(x = pred[, c(1 : dim(pred)[2] - 1)], by = list(as.character(pred[, agg])), FUN = sum)
+  }else{
+    pred.sum <- aggregate(x = pred[, c(1 : dim(pred)[2] - 1)], by = list(as.character(pred[, agg])), FUN = anteile)
+  }
   pred.sum <- pred.sum[order(pred.sum[,1]),]
   names(pred.sum) <- c(names(pred)[dim(pred)[2]], paste('Vorhersage', names(pred)[1 : dim(pred)[2] -1], sep = '_'))
   return(pred.sum)

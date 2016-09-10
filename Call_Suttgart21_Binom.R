@@ -17,10 +17,10 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
-pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
+pred = T # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
@@ -60,15 +60,17 @@ if(bearbeiter == 'Kai@Home') {
     Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
 }
+
 # Funktionen
 source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB.R')
+source('PseudoB2.R')
 source("evaluation.R")
 source("prediction_function.R")
 source('PredBarPlot.R')
+source('validation.R')
 
 #-------------------#
 # Daten vorbereiten #
@@ -197,10 +199,10 @@ if(pred){
   write.csv2(pred.binom.Z, file = './Prediction_Results/S21_2_Z_Ko_Einzel.csv', row.names=FALSE, quote=FALSE)
   
   ## Aggregation = Räumliche Extrapolation
-  AggPred.U.ST <- Prediction.Aggregation(pred = pred.binom.U[, c(1, 4)], agg = "Stadtteil")
-  AggPred.Z.ST <- Prediction.Aggregation(pred = pred.binom.Z[, c(1, 4)], agg = "Stadtteil")
-  AggPred.U.SB <- Prediction.Aggregation(pred = pred.binom.U[, c(1, 5)], agg = "Stadtbezirk")
-  AggPred.Z.SB <- Prediction.Aggregation(pred = pred.binom.Z[, c(1, 5)], agg = "Stadtbezirk")
+  AggPred.U.ST <- Prediction.Aggregation(pred = pred.binom.U[, c(1, 4)], agg = "Stadtteil", Anteile = T)
+  AggPred.Z.ST <- Prediction.Aggregation(pred = pred.binom.Z[, c(1, 4)], agg = "Stadtteil", Anteile = T)
+  AggPred.U.SB <- Prediction.Aggregation(pred = pred.binom.U[, c(1, 5)], agg = "Stadtbezirk", Anteile = T)
+  AggPred.Z.SB <- Prediction.Aggregation(pred = pred.binom.Z[, c(1, 5)], agg = "Stadtbezirk", Anteile = T)
   write.csv2(AggPred.U.ST, file = './Prediction_Results/S21_2_U_Ko_AggST.csv', row.names = FALSE, quote = FALSE)
   write.csv2(AggPred.Z.ST, file = './Prediction_Results/S21_2_Z_Ko_AggST.csv', row.names = FALSE, quote = FALSE)
   write.csv2(AggPred.U.SB, file = './Prediction_Results/S21_2_U_Ko_AggSB.csv', row.names = FALSE, quote = FALSE)
@@ -226,7 +228,13 @@ PredBarPlot(sample, pred.binom.Z)
 ## Validierung ##
 #---------------#
 
-# Funktioniert nicht ohne Konfidenzintervalle
+# Validierung auf Bezirksebene
+validation(pred = AggPred.U.SB, valid = Bezirke.Val)
+validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
+
+# Validierung auf Stadtteilebene (Ohne Briefwahl)
+validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
+validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1]) 
 
 
 #--------------------------------------#
@@ -318,10 +326,10 @@ if(pred) {
   write.csv2(pred.binom.Z.B, file = './Prediction_Results/S21_2_Z_SB_einzel.csv', row.names=FALSE, quote=FALSE)
   
   ## Aggregation = Räumliche Extrapolation ##
-  AggPred.U.B.ST <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 4)], agg = 'Stadtteil')
-  AggPred.Z.B.ST <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 4)], agg = 'Stadtteil')
-  AggPred.U.B.SB <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 5)], agg = 'Stadtbezirk')
-  AggPred.Z.B.SB <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 5)], agg = 'Stadtbezirk')
+  AggPred.U.B.ST <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 4)], agg = 'Stadtteil', Anteile = T)
+  AggPred.Z.B.ST <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 4)], agg = 'Stadtteil', Anteile = T)
+  AggPred.U.B.SB <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 5)], agg = 'Stadtbezirk', Anteile = T)
+  AggPred.Z.B.SB <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 5)], agg = 'Stadtbezirk', Anteile = T)
   write.csv2(AggPred.U.B.ST, file = './Prediction_Results/S21_2_U_SB_AggST.csv', row.names = FALSE, quote = FALSE)
   write.csv2(AggPred.Z.B.ST, file = './Prediction_Results/S21_2_Z_SB_AggST.csv', row.names = FALSE, quote = FALSE)
   write.csv2(AggPred.U.B.SB, file = './Prediction_Results/S21_2_U_SB_AggSB.csv', row.names = FALSE, quote = FALSE)
@@ -345,8 +353,14 @@ PredBarPlot(sample, pred.binom.Z.B, x = c('Zustimmung', 'Ablehnung'))
 #---------------#
 ## Validierung ##
 #---------------#
-# Funktioniert nicht ohne K.I.
 
+# Validierung auf Bezirksebene
+validation(pred = AggPred.U.SB, valid = Bezirke.Val)
+validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
+
+# Validierung auf Stadtteilebene (Ohne Briefwahl)
+validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
+validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1]) 
 
 
 #-----------------------------------------#
@@ -357,7 +371,7 @@ PredBarPlot(sample, pred.binom.Z.B, x = c('Zustimmung', 'Ablehnung'))
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB(sample, stadtteile, binom = T)
+sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = T)
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
