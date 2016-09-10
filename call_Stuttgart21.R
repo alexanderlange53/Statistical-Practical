@@ -495,9 +495,9 @@ if (calc_CI){
   S21.3.Z.SB.IntSB <- read.csv2('./Boot_Results/S21_3_Z_SB_IntSB.csv', as.is = TRUE)
 }
 
-#-------------#
-# Validierung #
-#-------------#
+#---------------#
+## Validierung ##
+#---------------#
 
 # Validierung auf Bezirksebene
 validation(pred = S21.3.U.SB.IntSB, valid = Bezirke.Val)
