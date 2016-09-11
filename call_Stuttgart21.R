@@ -507,8 +507,9 @@ validation(pred = S21.3.Z.SB.IntSB, valid = Bezirke.Val)
 validation(pred = S21.3.U.SB.IntST, valid = Stadtteile.Val[,-1])
 validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
-predlist <- list(S21.3.U.Ko.IntSB, S21.3.Z.Ko.IntSB, S21.3.U.Ko.IntST, S21.3.Z.Ko.IntST,
-                 S21.3.U.SB.IntSB, S21.3.Z.SB.IntSB, S21.3.U.SB.IntST, S21.3.Z.SB.IntST)
+predlist <- list(S21.3.U.Ko.IntSB[,c(2,5,11)], S21.3.Z.Ko.IntSB[,c(2,5,11)], S21.3.U.Ko.IntST[,c(2,5,11)],
+                 S21.3.Z.Ko.IntST[,c(2,5,11)], S21.3.U.SB.IntSB[,c(2,5,11)], S21.3.Z.SB.IntSB[,c(2,5,11)],
+                 S21.3.U.SB.IntST[,c(2,5,11)], S21.3.Z.SB.IntST[,c(2,5,11)])
 
 #-----------------------------------------------#
 #### Stadtteile als Räumliche Informationen #####-----------------------------------------------------------------------------

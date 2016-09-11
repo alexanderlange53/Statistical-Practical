@@ -104,5 +104,6 @@ validation <- function(pred, valid, errorbar = F){
 }
 
 ResultPlot <- function(predlist, sample){
-  p <- lapply(predlist, function(x){})
+  p <- lapply(predlist, colSums)
+  p <- t(sapply(p,unlist))
 }
