@@ -17,9 +17,9 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
-calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
+calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = T # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
@@ -66,7 +66,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB2.R')
+source('PseudoB.R')
 source("evaluation.R")
 source("prediction_function.R")
 source('PredBarPlot.R')
@@ -121,7 +121,6 @@ modellwahl <- TRUE
 ## Modellerstellung ##
 #--------------------#
 
-load_model <- TRUE
 ## Step AIC ##
 if(calculate_model){
   step.model.binom <- stepAIC()
@@ -221,8 +220,78 @@ if(pred){
 PredBarPlot(sample, pred.binom.U) # Die Zustimmungsw. ist 1 - Ablehnung
 PredBarPlot(sample, pred.binom.Z)
 
-## Konfidenzintervall ##
-# Erstmal nicht. Vielleicht später
+## Konfidenzintervalle ##
+
+if(calc_CI) {
+  ## Allg. Einstellungen
+  model <- step.model.binom$model.spat
+  sample <- sample
+  ncores <- 4
+  nboot <- 4
+  coverage <- 0.95
+  seed <- 123
+  
+  ## Konfidenzintervalle: Umfrage, Stadtteile ##
+  population <- Umfrage
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.U.ST
+  IFUmfrage <- TRUE
+  source('./prediction_interval.R')
+  UInt.U.ST <- pred.interval$u_intervall
+  OInt.U.ST <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  write.csv2(cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntST.csv', row.names = FALSE)
+  S21.3.U.Ko.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+  ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
+  pred.sum <- AggPred.U.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.U.SB <- pred.interval$u_intervall
+  OInt.U.SB <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  write.csv2(cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntSB.csv', row.names = FALSE)
+  S21.3.U.Ko.IntSB <- cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+  ## Konfidenzintervalle: Zensus, Stadtteile
+  population <- Zensus
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.Z.ST
+  IFUmfrage <- FALSE
+  
+  source('./prediction_interval.R')
+  UInt.Z.ST <- pred.interval$u_intervall
+  OInt.Z.ST <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  write.csv2(cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntST.csv', row.names = FALSE)
+  S21.3.Z.Ko.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+  ## Konfidenzintervalle: Zensus, Stadtbezirke
+  pred.sum <- AggPred.Z.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.Z.SB <- pred.interval$u_intervall
+  OInt.Z.SB <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntSB.csv', row.names = FALSE)
+  S21.3.Z.Ko.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+} else {
+  S21.3.U.Ko.IntST <- read.csv2('./Boot_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
+  S21.3.U.Ko.IntSB <- read.csv2('./Boot_Results/S21_3_U_Ko_IntSB.csv', as.is = TRUE)
+  S21.3.Z.Ko.IntST <- read.csv2('./Boot_Results/S21_3_Z_Ko_IntST.csv', as.is = TRUE)
+  S21.3.Z.Ko.IntSB <- read.csv2('./Boot_Results/S21_3_Z_Ko_IntSB.csv', as.is = TRUE)
+}
 
 #---------------#
 ## Validierung ##
@@ -235,6 +304,22 @@ validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
 validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
 validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1]) 
+
+
+## Bootstrap CI 
+# Vorhersageintervalle ja/nein und Eigenschaften
+# nboot = Anzahl Bootstrap Stichproben
+# coverage = Ueberdeckungswahrscheinlichkeit der Vorhersageintervalle
+# parallel = Soll parallel mit mehreren Kernen gerechnet werden?
+#            dazu wird das Paket multicore benoetigt (nur unter Linux)
+# ncore = Anzahl der zu verwendenden Kerne
+# seed = Startwert fuer den Zufallszahlengenerator
+intervalle <- TRUE
+nboot <- 10
+coverage <- 0.95
+parallel <- FALSE
+ncore <- 20
+seed <- 123
 
 
 #--------------------------------------#
@@ -418,18 +503,3 @@ summary(step.model.binom.S$model.spat)
 plot(step.model.binom.S$model.spat, all = T)
 
 evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
-
-## Bootstrap CI 
-# Vorhersageintervalle ja/nein und Eigenschaften
-# nboot = Anzahl Bootstrap Stichproben
-# coverage = Ueberdeckungswahrscheinlichkeit der Vorhersageintervalle
-# parallel = Soll parallel mit mehreren Kernen gerechnet werden?
-#            dazu wird das Paket multicore benoetigt (nur unter Linux)
-# ncore = Anzahl der zu verwendenden Kerne
-# seed = Startwert fuer den Zufallszahlengenerator
-intervalle <- TRUE
-nboot <- 10
-coverage <- 0.95
-parallel <- FALSE
-ncore <- 20
-seed <- 123
