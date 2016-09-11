@@ -1,14 +1,14 @@
 \select@language {ngerman}
 \contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
 \contentsline {section}{\numberline {2}Material und Methoden}{2}{section.2}
-\contentsline {section}{\numberline {3}Daten}{2}{section.3}
-\contentsline {subsection}{\numberline {3.1}Deskriptive Statistik}{2}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}R\IeC {\"a}umliche Effekte}{5}{subsection.3.2}
-\contentsline {section}{\numberline {4}Statistische Methoden}{8}{section.4}
-\contentsline {subsection}{\numberline {4.1}Modell}{8}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Modellwahl}{8}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Evaluierung}{9}{subsection.4.3}
-\contentsline {section}{\numberline {5}Ergebnisse}{9}{section.5}
-\contentsline {section}{\numberline {6}Fazit}{9}{section.6}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{12}{section.6}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{13}{section.6}
+\contentsline {subsection}{\numberline {2.1}Daten}{2}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Deskriptive Statistik}{2}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}R\IeC {\"a}umliche Effekte}{5}{subsubsection.2.1.2}
+\contentsline {subsection}{\numberline {2.2}Statistische Methoden}{6}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Modell}{6}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{6}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Evaluierung}{7}{subsection.2.3}
+\contentsline {section}{\numberline {3}Ergebnisse}{7}{section.3}
+\contentsline {section}{\numberline {4}Fazit}{7}{section.4}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{13}{section.4}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{14}{section.4}
