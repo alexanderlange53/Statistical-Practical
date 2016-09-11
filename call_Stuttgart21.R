@@ -14,6 +14,7 @@ require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 library(ggplot2)
 library(reshape2)
+library(gridExtra)
 
 ## Einstellungen ##
 
@@ -305,12 +306,16 @@ if(calc_CI) {
 #-------------#
 
 # Validierung auf Bezirksebene
-validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
+vv <- validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
 validation(pred = S21.3.Z.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1], errorbar = T)
+vv2 <- validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1], errorbar = F)
 validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], errorbar = T) # Beim Zensus fehlt ein Stadtteil
+
+pdf('./Essay/Pictures/PaT.pdf', height = 4, width = 8)
+grid.arrange(vv, vv2, nrow = 1)
+dev.off()
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####-----------------------------------------------------------------
@@ -507,9 +512,7 @@ validation(pred = S21.3.Z.SB.IntSB, valid = Bezirke.Val)
 validation(pred = S21.3.U.SB.IntST, valid = Stadtteile.Val[,-1])
 validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
-predlist <- list(S21.3.U.Ko.IntSB[,c(2,5,11)], S21.3.Z.Ko.IntSB[,c(2,5,11)], S21.3.U.Ko.IntST[,c(2,5,11)],
-                 S21.3.Z.Ko.IntST[,c(2,5,11)], S21.3.U.SB.IntSB[,c(2,5,11)], S21.3.Z.SB.IntSB[,c(2,5,11)],
-                 S21.3.U.SB.IntST[,c(2,5,11)], S21.3.Z.SB.IntST[,c(2,5,11)])
+
 
 #-----------------------------------------------#
 #### Stadtteile als Räumliche Informationen #####-----------------------------------------------------------------------------
@@ -689,5 +692,24 @@ validation(pred = AggPred.Z.S.SB, valid = Bezirke.Val)
 validation(pred = AggPred.U.S.ST, valid = Stadtteile.Val[,-1])
 validation(pred = AggPred.Z.S.ST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
-# Insgesamter Vergleich
-
+# Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
+predlist <- list(S21.3.U.Ko.IntSB[,-c(1,8,9,10)], S21.3.Z.Ko.IntSB[,-c(1,8,9,10)], S21.3.U.Ko.IntST[,-c(1,8,9,10)],
+                 S21.3.Z.Ko.IntST[,-c(1,8,9,10)], S21.3.U.SB.IntSB[,-c(1,8,9,10)], S21.3.Z.SB.IntSB[,-c(1,8,9,10)],
+                 S21.3.U.SB.IntST[,-c(1,8,9,10)], S21.3.Z.SB.IntST[,-c(1,8,9,10)])
+predst <- list(AggPred.U.S.SB[,-1], AggPred.Z.S.SB[,-1], 
+               AggPred.U.S.ST[,-1], AggPred.Z.S.ST[,-1])
+models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Teile Umfr.',
+            '1 G-K auf S.Teile Zen.', '1 Bezirke auf Bezirke Umfr.', '1 Bezirke auf Bezirke Zen.',
+            '1 Bezirke auf S.Teile Umfr.', '1 Bezirke auf S.Teile Zen.', '1 S.Teile auf Bezirke Umfr.',
+            '1 S.Teile auf Bezirke Zen.', '1 S.Teile auf S.Teile Umfr.', '1 S.Teile auf S.Teile Zen.',
+            '2 G-K auf Bezirke Umfr.', '2 G-K auf Bezirke Zen.', '2 G-K auf S.Teile Umfr.',
+            '2 G-K auf S.Teile Zen.', '2 Bezirke auf Bezirke Umfr.', '2 Bezirke auf Bezirke Zen.',
+            '2 Bezirke auf S.Teile Umfr.', '2 Bezirke auf S.Teile Zen.', '2 S.Teile auf Bezirke Umfr.',
+            '2 S.Teile auf Bezirke Zen.', '2 S.Teile auf S.Teile Umfr.', '2 S.Teile auf S.Teile Zen.',
+            '3 G-K auf Bezirke Umfr.', '3 G-K auf Bezirke Zen.', '3 G-K auf S.Teile Umfr.',
+            '3 G-K auf S.Teile Zen.', '3 Bezirke auf Bezirke Umfr.', '3 Bezirke auf Bezirke Zen.',
+            '3 Bezirke auf S.Teile Umfr.', '3 Bezirke auf S.Teile Zen.', '3 S.Teile auf Bezirke Umfr.',
+            '3 S.Teile auf Bezirke Zen.', '3 S.Teile auf S.Teile Umfr.', '3 S.Teile auf S.Teile Zen.')
+ResultPlot(predlist = predlist, predst = predst,  sample = sample, 
+           models = models)
+ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 8, width = 8)

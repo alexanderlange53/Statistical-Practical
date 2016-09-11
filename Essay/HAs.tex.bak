@@ -222,6 +222,14 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
 \end{tabular}
 \end{table}
 
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/S21AlleModelle}
+ \caption{Extrapolation aller Modelle}
+ \label{S21Alle}
+ \end{center}
+\end{figure}
+
 %\clearpage
 %============================================== Conlcusion =========================================================%
 
