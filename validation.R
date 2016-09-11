@@ -1,4 +1,6 @@
-validation <- function(pred, valid){
+validation <- function(pred, valid, errorbar = F){
+  require(colorspace)
+  colo <- diverge_hsv(3)
   if(!all(pred[,1] == valid[, 1])){
     cat('Achtung: Die Namen der Bezirke stimmen nicht überein!')
     }
@@ -31,6 +33,35 @@ validation <- function(pred, valid){
   cat("\nMittlerer quadratischer Prognosefehler Ablehnung: ", mse[2], "\n", sep="")
   cat("\nUeberdeckungsw'keit der Vorhersagen:    ", coverage[1], "\n\n", sep="")
   cat("Ueberdeckungsw'keit der Vorhersagen:    ", coverage[2], "\n\n", sep="")
+  
+  x <- rep('Zustimmung', nrow(medianr))
+  Kategorie1 <- cbind(x, medianr[,1], valid[,1], lowerb[,1], upperb[,1])
+  x <- rep('Ablehnung', nrow(medianr))
+  Kategorie2 <- cbind(x, medianr[,2], valid[,2], lowerb[,2], upperb[,2])
+  D <- as.data.frame(rbind(Kategorie1, Kategorie2))
+  D$V2 <- as.numeric(as.character(D$V2)); D$V3 <- as.numeric(as.character(D$V3))
+  D$V4 <- as.numeric(as.character(D$V4)); D$V5 <- as.numeric(as.character(D$V5))
+  
+  if(errorbar == T){
+  ggplot(D, aes(x = V3, y = V2)) + 
+    geom_errorbar(aes(x = V3, ymin=V4, ymax=V5), width=.05,
+                                                 position=position_dodge(.05)) +
+    geom_point(shape = 21, fill = colo[1], size = 3) + 
+    labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
+    theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
+    xlim(0.15, 0.75) + 
+    ylim(0.15, 0.75) +
+    facet_wrap(~ x)
+  }else{
+    ggplot(D, aes(x = V3, y = V2)) + 
+      geom_point(shape = 21, fill = colo[1], size = 3) + 
+      labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
+      theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
+      xlim(0.15, 0.75) + 
+      ylim(0.15, 0.75) +
+      facet_wrap(~ x)
+  }
+  
   }else{
     pred <- pred[,-1]
     if(is.vector(pred)){
@@ -55,20 +86,23 @@ validation <- function(pred, valid){
     medianr <- pred
     cat("\nMittlerer quadratischer Prognosefehler Zustimmung: ", mse[1], "\n", sep="")
     cat("\nMittlerer quadratischer Prognosefehler Ablehnung: ", mse[2], "\n", sep="")
-  }
-  
   
   x <- rep('Zustimmung', nrow(medianr))
   Kategorie1 <- cbind(x, medianr[,1], valid[,1])
   x <- rep('Ablehnung', nrow(medianr))
   Kategorie2 <- cbind(x, medianr[,2], valid[,2])
   D <- as.data.frame(rbind(Kategorie1, Kategorie2))
-  #names(D) <- c('x', 'V3', 'V2')
   D$V2 <- as.numeric(as.character(D$V2)); D$V3 <- as.numeric(as.character(D$V3));
   
-  ggplot(D, aes(x = V3, y = V2)) + geom_point() + labs(x = 'Wahrheit', y = 'Geschätzt' ) +
+  ggplot(D, aes(x = V3, y = V2)) + geom_point(shape = 21, fill = colo[1]) + 
+    geom_errorbar(aes(x = V3, ymin=, ymax=len+sd)) +
+    labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
     theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
     xlim(0.2, 0.75) + 
     ylim(0.2, 0.75) +
-    facet_wrap(~ x)
+    facet_wrap(~ x)}
+}
+
+ResultPlot <- function(predlist, sample){
+  p <- lapply(predlist, function(x){})
 }
