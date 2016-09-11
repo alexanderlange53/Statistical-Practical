@@ -66,7 +66,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB.R')
+source('PseudoB2.R')
 source("evaluation.R")
 source("prediction_function.R")
 source('PredBarPlot.R')
@@ -84,7 +84,7 @@ source('validation.R')
 # Fasst die Gruppen 1 und 2 zu == 1 zusammen und
 # 4 und 5 == 0
 # Gruppen 6 und 3 werden gelöscht
-sample2 <- DataPrep(sample, binom = F)
+#sample2 <- DataPrep(sample, binom = F)
 sample <- DataPrep(sample, binom = T)
 
 
@@ -532,6 +532,7 @@ zt <- MarkovRandomField(stadtteile, Bezirke = F)
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
 sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = T)
 
+sample$Stadtteil <- as.character(sample$Stadtteil)
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
 
@@ -542,10 +543,9 @@ fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alters
 ## Step AIC ##
 if(calculate_model){
   step.model.binom.S <- stepAIC()
-  saveRDS(step.model.binom.S$model.spat, file="step.model_binomS.rds")
-  saveRDS(step.model.binom.S, file="step.model_all_binomS.rds")
+  saveRDS(step.model.binom.S, file="./Model_Results/step.model_all_binomS.rds")
 } else {
-  step.model.binom.S <- readRDS(file = "step.model_all_binomS.rds")
+  step.model.binom.S <- readRDS(file = "./Model_Results/step.model_all_binomS.rds")
 }
 
 #--------------------------------#
@@ -577,3 +577,45 @@ summary(step.model.binom.S$model.spat)
 plot(step.model.binom.S$model.spat, all = T)
 
 evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
+
+#---------------#
+## Prediction  ##
+#---------------#
+
+if(pred) {
+  ## Vorhersage der individuellen Ausprägung ##
+  pred.binom.U.B <- Prediction(Umfrage, step.model.binom.S$model.spat, IFUmfrage = T, binom = T)
+  pred.binom.Z.B <- Prediction(Zensus, step.model.binom.S$model.spat, IFUmfrage = F, binom = T)
+  write.csv2(pred.binom.U.B, file = './Prediction_Results/S21_2_U_ST_einzel.csv', row.names=FALSE, quote=FALSE)
+  write.csv2(pred.binom.Z.B, file = './Prediction_Results/S21_2_Z_ST_einzel.csv', row.names=FALSE, quote=FALSE)
+  
+  ## Aggregation = Räumliche Extrapolation ##
+  AggPred.U.ST.ST <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 4)], agg = 'Stadtteil', Anteile = T)
+  AggPred.Z.ST.ST <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 4)], agg = 'Stadtteil', Anteile = T)
+  AggPred.U.ST.SB <- Prediction.Aggregation(pred = pred.binom.U.B[, c(1, 5)], agg = 'Stadtbezirk', Anteile = T)
+  AggPred.Z.ST.SB <- Prediction.Aggregation(pred = pred.binom.Z.B[, c(1, 5)], agg = 'Stadtbezirk', Anteile = T)
+  write.csv2(AggPred.U.ST.ST, file = './Prediction_Results/S21_2_U_ST_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.ST.ST, file = './Prediction_Results/S21_2_Z_ST_AggST.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.U.ST.SB, file = './Prediction_Results/S21_2_U_ST_AggSB.csv', row.names = FALSE, quote = FALSE)
+  write.csv2(AggPred.Z.ST.SB, file = './Prediction_Results/S21_2_Z_ST_AggSB.csv', row.names = FALSE, quote = FALSE)
+} else{
+  pred.binom.U.B <- read.csv2('./Prediction_Results/S21_2_U_ST_einzel.csv')
+  pred.binom.Z.B <- read.csv2('./Prediction_Results/S21_2_Z_ST_einzel.csv')
+  
+  AggPred.U.ST.ST <- read.csv2(file = './Prediction_Results/S21_2_U_ST_AggST.csv', as.is = TRUE)
+  AggPred.Z.ST.ST <- read.csv2(file = './Prediction_Results/S21_2_Z_ST_AggST.csv', as.is = TRUE)
+  AggPred.U.ST.SB <- read.csv2(file = './Prediction_Results/S21_2_U_ST_AggSB.csv', as.is = TRUE)
+  AggPred.Z.ST.SB <- read.csv2(file = './Prediction_Results/S21_2_Z_ST_AggSB.csv', as.is = TRUE)
+}
+
+#---------------#
+## Validierung ##
+#---------------#
+
+# Validierung auf Bezirksebene
+validation(pred = AggPred.U.ST.SB, valid = Bezirke.Val)
+validation(pred = AggPred.Z.ST.SB, valid = Bezirke.Val)
+
+# Validierung auf Stadtteilebene (Ohne Briefwahl)
+validation(pred = AggPred.U.ST.ST, valid = Stadtteile.Val[,-1])
+validation(pred = AggPred.Z.ST.ST, valid = Stadtteile.Val[-20,-1]) 

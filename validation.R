@@ -43,7 +43,7 @@ validation <- function(pred, valid, errorbar = F){
   D$V4 <- as.numeric(as.character(D$V4)); D$V5 <- as.numeric(as.character(D$V5))
   
   if(errorbar == T){
-   plot <- ggplot(D, aes(x = V3, y = V2)) + 
+   plotv <- ggplot(D, aes(x = V3, y = V2)) + 
            geom_errorbar(aes(x = V3, ymin=V4, ymax=V5), width=.05,
                                                  position=position_dodge(.05)) +
            geom_point(shape = 21, fill = colo[1], size = 3) + 
@@ -52,18 +52,18 @@ validation <- function(pred, valid, errorbar = F){
            xlim(0.15, 0.75) + 
            ylim(0.15, 0.75) +
            facet_wrap(~ x)
-   plot
-   return(plot)
+   plotv
+   return(plotv)
   }else{
-    plot <- ggplot(D, aes(x = V3, y = V2)) + 
+    plotv <- ggplot(D, aes(x = V3, y = V2)) + 
             geom_point(shape = 21, fill = colo[1], size = 3) + 
             labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
             theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
             xlim(0.15, 0.75) + 
             ylim(0.15, 0.75) +
             facet_wrap(~ x)
-    plot
-    return(plot)
+    plotv
+    return(plotv)
   }
   
   }else{
@@ -98,15 +98,17 @@ validation <- function(pred, valid, errorbar = F){
   D <- as.data.frame(rbind(Kategorie1, Kategorie2))
   D$V2 <- as.numeric(as.character(D$V2)); D$V3 <- as.numeric(as.character(D$V3));
   
- plot <- ggplot(D, aes(x = V3, y = V2)) + geom_point(shape = 21, fill = colo[1]) + 
-         geom_errorbar(aes(x = V3, ymin=, ymax=len+sd)) +
+ plotv <- ggplot(D, aes(x = V3, y = V2)) + geom_point(shape = 21, fill = colo[1]) + 
+         #geom_errorbar(aes(x = V3, ymin=, ymax=len+sd)) +
          labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
          theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
          xlim(0.2, 0.75) + 
          ylim(0.2, 0.75) +
-         facet_wrap(~ x)}
-  plot
-  return(plot)
+         facet_wrap(~ x)
+  plotv
+  return(plotv)
+  }
+
 }
 
 ResultPlot <- function(predlist, predst, sample, models){

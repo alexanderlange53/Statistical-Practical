@@ -71,20 +71,21 @@
 \pagestyle{fancy}
 
 \section{Einleitung}
+Die Grundgesamtheit dieser Unteruchung ist die Bevölkerung Stuttgarts.
+Fragestellungen: Wie ist die Wohzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? Kleinräumige Extrapolation
+test
 
 \newpage
 
 %=================================================== Main Part  ====================================================%
 \section{Material und Methoden}
-\section{Daten}
-Insgesamt liegen für die Analysen drei Umfragen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden unabhängigen Variablen dienen. Diese Datei wird im Folgenden als Stichprobe bezeichnet. Die Bevölkerung Stuttgarts bildet die Grundgesamtheit dieser Unteruchung. Da die Zensus Umfrage von 20?? und die Bürgerumfrage von 20?? dieseer Grundgesamtheit sehr nah kommen, wird angenommen, dass diese beiden Umfragen jeweils die Grundgesamtheit repräsentieren.
+\subsection{Daten}
+Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Die beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit damit kleinräumig extrapoliert. Die Bürgerumfrage von 20?? liegt mit einem Stichprobenumfang von 470.190 Befragten relativ nah an der Grundgesamtheit von 573.104 Bürgern mit Hauptwohnsitz in 2011 (Stat. Bundessamt). Beim Zensus (Stuchjahr 2011) wurden 380.238 Bürger befragt.
 
-
-
-
-\subsection{Deskriptive Statistik}
-
-In diesem Kapitel soll der Stichprobendatensatz vorgestellt werden, sowie ein kurzer Einblick in die beiden Datensätze zur Grundgesamtheit der Bevölkerung von Stuttgart gegeben werden. Anhand des Stichprobendatensatzes soll im Verlauf der Arbeit das Modell zur Extrapolation geschätzt werden und mit Hilfe der Datensätze zur Grundgesamtheit die Häufigkeiten der abhängigen Variablen prognostiziert werden. \\
+\subsubsection{Parametrisierungsstichprobe}
+In diesem Unterkapitel wird die Parametrisierungsstichprobe vorgestellt. Anhand der Parametrisierungsstichprobe soll im Verlauf der Arbeit das Modell zur Extrapolation geschätzt werden und mit Hilfe der Datensätze zur Grundgesamtheit die Häufigkeiten der abhängigen Variablen prognostiziert werden.
+%% Wärst Du einverstanden,wenn wir diese Überschriften rausnehmen? Ich finde, Du hast im Text / in de rTabelle schon sehr deutlich gemacht, dass die Datei hier deskr. beschrieben wird. Gilt dann auch für die rüuml. Effekte. Ich fänds übersichtlicher, wenn wir die 3 Umfrgen als Überschroft nehmen.
+%% \subsubsection{Deskriptive Statistik}
 Tabelle \ref{Datensatz} gibt einen Überblick über den Inhalt der Stichprobe. Wie zu erkennen ist, handelt es sich dabei um strukturell sozioökonomische Variablen. Zudem enthält der Datensatz drei verschiedene räumliche Informationen zu den Beobachtungen, auf die im nächsten Kapitel ausführlicher eingegangen wird.\\
 
 \begin{table}[h]
@@ -129,14 +130,14 @@ Für die exogen in die Analyse einfließenden Variablen sind detailliertere Info
 
 \newpage
 
-\subsection{Räumliche Effekte}
+%% \subsubsection{Räumliche Effekte}
 
 Da in dieser Arbeit ein besonderer Schwerpunkt auf die unterschiedlichen räumlichen Effekte gelegt werden soll, vergleicht dieses Kapitel alle drei räumlichen Effekte für beide endogene Variablen. Zunächst wird der stetige räumliche Effekt mit den Gauss-Krüger Informationen behandelt. Anschließend folgen die diskreten räumlichen Informationen auf Bezirks und Stadtteilebene.\\
 Aus Abbildung \ref{XYStuttgart3} ist die absolute Häufigkeit der Beobachtungen für jede der drei Kategorien zur Meinung zu Stuttgart 21 ersichtlich. Zuerst ist erkenntlich wo die meisten Personen befragt wurden, nämlich in der nähe des Innenstadt Bereichs. Hier findet sich eine Häufung der Beobachtung zu allen drei Kategorien, wohingegen die Randbezirke im allgemeinen weniger Beobachtungen aufweisen. Außerdem ist zu sehen, dass auf Grund der geographischen Beschaffenheit der Region in einigen Bereichen mit weniger Beobachtungen zu rechnen ist z.B. beim Wald im Westen und der hügeligen Landschaft im Osten.    
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.8]{Pictures/XYStuttgart3.png}
+ \includegraphics[scale=0.38]{Pictures/XYStuttgart3.png}
  \caption{Gauss Krüger Informationen Stuttgart 21}
  \label{XYStuttgart3}
  \end{center}
@@ -147,7 +148,7 @@ Abbildung \ref{XYWohnG5} zeigt die Absolute Verteilung der Beobachtungen für di
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.8]{Pictures/XYWohnG5.png}
+ \includegraphics[scale=0.38]{Pictures/XYWohnG5.png}
  \caption{Gauss Krüger Informationen Bewertung Wohngegend}
  \label{XYWohnG5}
  \end{center}
@@ -177,12 +178,12 @@ Die letzte räumliche Information ist der Anteil der jeweiligen Klasse pro Stadt
 Die schwarz eingefärbten Flächen signalisieren Stadtteile in denen von keiner der drei Klasse eine Beobachtung vorhanden sind. Wie bereits erwähnt handelt es dich dabei vor allem um Regionen die auf Grund ihrer geographischen Beschaffenheit kaum Einwohner haben (z.B. Wald). Hier fügt sich das Bild der Anteile nicht ganz in den bisherigen Verlauf der räumlichen Statistiken ein. In keiner der drei Klassen lässt sich klar eine Struktur oder räumliche Korrelation der Stadtteile beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar, wobei die Plots wieder mit eigenen Skalen illustriert wurden. Hier zeigt sich ein ähnlich unklares Muster wie bei der Meinung zu Stuttgart 21.\\
 Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 
-\section{Statistische Methoden}
+\subsection{Statistische Methoden}
 
-\subsection{Modell}
+\subsubsection{Modell}
 Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines
 
-\subsection{Modellwahl}
+\subsubsection{Modellwahl}
 Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC (CITE AKAIKE) Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} CITE WOOD 2011 Paketes generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration 1 werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariablen in Iteration 1 zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zum Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration 1 bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration 2 aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration 2 werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration 1 nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration 2 nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
 
 \subsection{Evaluierung}
@@ -218,9 +219,23 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
                         & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0.337       & 0.337      &                   &                 \\
                         &                               &                          & Z & 0.164       & 0.164      &                   &                 \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 2.87        & 2.85      &                   &                 \\
-                        &                               &                          & Z & 1.65        & 1.64     &                   &                 \\ \hline \hline
+                        &                               &                          & Z & 1.65        & 1.64     &                   &                
+\\ \cline{2-8} 
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0.468       & 0.468      &                   &                 \\
+                        &                               &                          & Z & 0.201       & 0.201      &                   &                 \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 3.741        & 3.723      &                   &                 \\
+                        &                               &                          & Z & 1.906        & 1.893     &                   &                                        
+                         \\ \hline \hline
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/PaT}
+ \caption{Validierung STuttgart 21}
+ \label{vali}
+ \end{center}
+\end{figure}
 
 \begin{figure}[h]
  \begin{center}
