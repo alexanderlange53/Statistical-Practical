@@ -15,7 +15,7 @@ validation <- function(pred, valid){
   }
   
   for(i in 1:ncol(medianr)){
-    mse[i] <- MSE(medianr[i], valid[i]) 
+    mse[i] <- MSE(medianr[,i], valid[,i]) 
   }
   
   lowerb <- pred[,c(1,3)]/rowSums(pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))])
@@ -47,8 +47,10 @@ validation <- function(pred, valid){
       sum((x - y)^2)
     }
     
+    pred <- as.data.frame(pred)
+    valid <- as.data.frame(valid)
     for(i in 1:ncol(pred)){
-      mse[i] <- MSE(pred[i], valid[i]) 
+      mse[i] <- MSE(pred[,i], valid[,i]) 
     }
     medianr <- pred
     cat("\nMittlerer quadratischer Prognosefehler Zustimmung: ", mse[1], "\n", sep="")
