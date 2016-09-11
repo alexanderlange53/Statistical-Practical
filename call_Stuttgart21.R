@@ -17,11 +17,11 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
-calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
-pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
-calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
+calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
+pred = TRUE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
+calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
 if(bearbeiter == 'Alex') {
@@ -690,3 +690,4 @@ validation(pred = AggPred.U.S.ST, valid = Stadtteile.Val[,-1])
 validation(pred = AggPred.Z.S.ST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
 # Insgesamter Vergleich
+
