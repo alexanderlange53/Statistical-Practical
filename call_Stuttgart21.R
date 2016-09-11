@@ -305,12 +305,12 @@ if(calc_CI) {
 #-------------#
 
 # Validierung auf Bezirksebene
-validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val)
-validation(pred = S21.3.Z.Ko.IntSB, valid = Bezirke.Val)
+validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
+validation(pred = S21.3.Z.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1])
-validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
+validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1], errorbar = T)
+validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], errorbar = T) # Beim Zensus fehlt ein Stadtteil
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####-----------------------------------------------------------------
@@ -507,7 +507,8 @@ validation(pred = S21.3.Z.SB.IntSB, valid = Bezirke.Val)
 validation(pred = S21.3.U.SB.IntST, valid = Stadtteile.Val[,-1])
 validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
-
+predlist <- list(S21.3.U.Ko.IntSB, S21.3.Z.Ko.IntSB, S21.3.U.Ko.IntST, S21.3.Z.Ko.IntST,
+                 S21.3.U.SB.IntSB, S21.3.Z.SB.IntSB, S21.3.U.SB.IntST, S21.3.Z.SB.IntST)
 
 #-----------------------------------------------#
 #### Stadtteile als Räumliche Informationen #####-----------------------------------------------------------------------------
@@ -686,3 +687,6 @@ validation(pred = AggPred.Z.S.SB, valid = Bezirke.Val)
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
 validation(pred = AggPred.U.S.ST, valid = Stadtteile.Val[,-1])
 validation(pred = AggPred.Z.S.ST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
+
+# Insgesamter Vergleich
+

@@ -209,8 +209,8 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
                         &                               &                          & Z & 0.835       & 4.38       & 0.567             & 0.027           \\ \cline{2-8} 
                         & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0.023       & 0.903      &                   &                 \\
                         &                               &                          & Z & 0.081       & 0.593      &                   &                 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0.453       & 8.258      &                   &                 \\
-                        &                               &                          & Z & 0.753       & 5.91       &                   &                 \\ \hline
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 0.453       & 6.69       &                   &                 \\
+                        &                               &                          & Z & 0.61        & 4.641       &                   &                 \\ \hline
 \multirow{8}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0.337       & 0.337      &                   &                 \\
                         &                               &                          & Z & 0.164      & 0.164      &                   &                 \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 2.87       & 2.87      &                   &                 \\
