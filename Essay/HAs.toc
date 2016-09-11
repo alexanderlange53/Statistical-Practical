@@ -2,8 +2,7 @@
 \contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
 \contentsline {section}{\numberline {2}Material und Methoden}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Daten}{2}{subsection.2.1}
-\contentsline {subsubsection}{\numberline {2.1.1}Deskriptive Statistik}{2}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}R\IeC {\"a}umliche Effekte}{5}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.1}Parametrisierungsstichprobe}{2}{subsubsection.2.1.1}
 \contentsline {subsection}{\numberline {2.2}Statistische Methoden}{6}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Modell}{6}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{6}{subsubsection.2.2.2}

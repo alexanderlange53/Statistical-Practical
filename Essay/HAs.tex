@@ -71,20 +71,21 @@
 \pagestyle{fancy}
 
 \section{Einleitung}
+Die Grundgesamtheit dieser Unteruchung ist die Bevölkerung Stuttgarts.
+Fragestellungen: Wie ist die Wohzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? -> Kleinräumige Extrapolation
+
 
 \newpage
 
 %=================================================== Main Part  ====================================================%
 \section{Material und Methoden}
 \subsection{Daten}
-Insgesamt liegen für die Analysen drei Umfragen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden unabhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Stichprobe bezeichnet. Die Grundgesamtheit dieser Unteruchung ist die Bevölkerung Stuttgarts bildet. Da die Anzahl der Befragten in der Zenus Umfrage von 2011 sowie der Bürgerumfrage von 20?? sehr nah an der Gesamtbevölerung liegen, wird angenommen, dass diese beiden Umfragen jeweils die Grundgesamtheit repräsentieren.
+Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Die beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit damit kleinräumig extrapoliert. Die Bürgerumfrage von 20?? liegt mit einem Stichprobenumfang von 470.190 Befragten relativ nah an der Grundgesamtheit von 573.104 Bürgern mit Hauptwohnsitz in 2011 (Stat. Bundessamt). Beim Zensus (Stuchjahr 2011) wurden 380.238 Bürger befragt.
 
-
-
-
-\subsubsection{Deskriptive Statistik}
-
-In diesem Kapitel soll der Stichprobendatensatz vorgestellt werden, sowie ein kurzer Einblick in die beiden Datensätze zur Grundgesamtheit der Bevölkerung von Stuttgart gegeben werden. Anhand des Stichprobendatensatzes soll im Verlauf der Arbeit das Modell zur Extrapolation geschätzt werden und mit Hilfe der Datensätze zur Grundgesamtheit die Häufigkeiten der abhängigen Variablen prognostiziert werden. \\
+\subsubsection{Parametrisierungsstichprobe}
+In diesem Unterkapitel wird die Parametrisierungsstichprobe vorgestellt. Anhand der Parametrisierungsstichprobe soll im Verlauf der Arbeit das Modell zur Extrapolation geschätzt werden und mit Hilfe der Datensätze zur Grundgesamtheit die Häufigkeiten der abhängigen Variablen prognostiziert werden.
+%% Wärst Du einverstanden,wenn wir diese Überschriften rausnehmen? Ich finde, Du hast im Text / in de rTabelle schon sehr deutlich gemacht, dass die Datei hier deskr. beschrieben wird. Gilt dann auch für die rüuml. Effekte. Ich fänds übersichtlicher, wenn wir die 3 Umfrgen als Überschroft nehmen.
+%% \subsubsection{Deskriptive Statistik}
 Tabelle \ref{Datensatz} gibt einen Überblick über den Inhalt der Stichprobe. Wie zu erkennen ist, handelt es sich dabei um strukturell sozioökonomische Variablen. Zudem enthält der Datensatz drei verschiedene räumliche Informationen zu den Beobachtungen, auf die im nächsten Kapitel ausführlicher eingegangen wird.\\
 
 \begin{table}[h]
@@ -129,7 +130,7 @@ Für die exogen in die Analyse einfließenden Variablen sind detailliertere Info
 
 \newpage
 
-\subsubsection{Räumliche Effekte}
+%% \subsubsection{Räumliche Effekte}
 
 Da in dieser Arbeit ein besonderer Schwerpunkt auf die unterschiedlichen räumlichen Effekte gelegt werden soll, vergleicht dieses Kapitel alle drei räumlichen Effekte für beide endogene Variablen. Zunächst wird der stetige räumliche Effekt mit den Gauss-Krüger Informationen behandelt. Anschließend folgen die diskreten räumlichen Informationen auf Bezirks und Stadtteilebene.\\
 Aus Abbildung \ref{XYStuttgart3} ist die absolute Häufigkeit der Beobachtungen für jede der drei Kategorien zur Meinung zu Stuttgart 21 ersichtlich. Zuerst ist erkenntlich wo die meisten Personen befragt wurden, nämlich in der nähe des Innenstadt Bereichs. Hier findet sich eine Häufung der Beobachtung zu allen drei Kategorien, wohingegen die Randbezirke im allgemeinen weniger Beobachtungen aufweisen. Außerdem ist zu sehen, dass auf Grund der geographischen Beschaffenheit der Region in einigen Bereichen mit weniger Beobachtungen zu rechnen ist z.B. beim Wald im Westen und der hügeligen Landschaft im Osten.    
