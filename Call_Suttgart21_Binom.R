@@ -19,9 +19,9 @@ library('reshape2')
 
 bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
-calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
+calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = T # Vorhersage berechnen und als CSV speichern? Oder CSV laden
-calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
+calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
 if(bearbeiter == 'Alex') {
@@ -72,6 +72,10 @@ source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
 
+#---------------------------------------------#
+#### Kontinuierliche räumliche Information ####
+#---------------------------------------------#
+
 #-------------------#
 # Daten vorbereiten #
 #-------------------#
@@ -82,6 +86,7 @@ source('validation.R')
 # Gruppen 6 und 3 werden gelöscht
 sample2 <- DataPrep(sample, binom = F)
 sample <- DataPrep(sample, binom = T)
+
 
 #------------------#
 # Eingabeparameter #
@@ -236,26 +241,30 @@ if(calc_CI) {
   aggregation <- "Stadtteil"
   pred.sum <- AggPred.U.ST
   IFUmfrage <- TRUE
-  source('./prediction_interval.R')
+  source('./prediction_interval_binom.R')
   UInt.U.ST <- pred.interval$u_intervall
   OInt.U.ST <- pred.interval$o_intervall
   temp_mean <- pred.interval$mean
   temp_median <- pred.interval$median
-  write.csv2(cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntST.csv', row.names = FALSE)
-  S21.3.U.Ko.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  S21.2.U.Ko.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.U.Ko.IntST)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.U.Ko.IntST, file = './Prediction_Results/S21_2_U_Ko_IntST.csv', row.names = FALSE)
+  
   rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.SB
   aggregation <- "Stadtbezirk"
   
-  source('./prediction_interval.R')
+  source('./prediction_interval_binom.R')
   UInt.U.SB <- pred.interval$u_intervall
   OInt.U.SB <- pred.interval$o_intervall
   temp_mean <- pred.interval$mean
   temp_median <- pred.interval$median
-  write.csv2(cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_Ko_IntSB.csv', row.names = FALSE)
-  S21.3.U.Ko.IntSB <- cbind(UInt.U.SB, OInt.U.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  S21.2.U.Ko.IntSB <- cbind(UInt.U.SB, OInt.U.SB[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.U.Ko.IntSB)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.U.Ko.IntSB, file = './Prediction_Results/S21_2_U_Ko_IntSB.csv', row.names = FALSE)
+  
   rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtteile
@@ -264,33 +273,37 @@ if(calc_CI) {
   pred.sum <- AggPred.Z.ST
   IFUmfrage <- FALSE
   
-  source('./prediction_interval.R')
+  source('./prediction_interval_binom.R')
   UInt.Z.ST <- pred.interval$u_intervall
   OInt.Z.ST <- pred.interval$o_intervall
   temp_mean <- pred.interval$mean
   temp_median <- pred.interval$median
-  write.csv2(cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntST.csv', row.names = FALSE)
-  S21.3.Z.Ko.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  S21.2.Z.Ko.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.Z.Ko.IntST)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.Z.Ko.IntST, file = './Prediction_Results/S21_2_Z_Ko_IntST.csv', row.names = FALSE)
+  
   rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median', 'pred.interval'))
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.SB
   aggregation <- "Stadtbezirk"
   
-  source('./prediction_interval.R')
+  source('./prediction_interval_binom.R')
   UInt.Z.SB <- pred.interval$u_intervall
   OInt.Z.SB <- pred.interval$o_intervall
   temp_mean <- pred.interval$mean
   temp_median <- pred.interval$median
-  write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_Ko_IntSB.csv', row.names = FALSE)
-  S21.3.Z.Ko.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+  S21.2.Z.Ko.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.Z.Ko.IntSB)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.Z.Ko.IntSB, file = './Prediction_Results/S21_2_Z_Ko_IntSB.csv', row.names = FALSE)
+  
   rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
 } else {
-  S21.3.U.Ko.IntST <- read.csv2('./Boot_Results/S21_3_U_Ko_IntST.csv', as.is = TRUE)
-  S21.3.U.Ko.IntSB <- read.csv2('./Boot_Results/S21_3_U_Ko_IntSB.csv', as.is = TRUE)
-  S21.3.Z.Ko.IntST <- read.csv2('./Boot_Results/S21_3_Z_Ko_IntST.csv', as.is = TRUE)
-  S21.3.Z.Ko.IntSB <- read.csv2('./Boot_Results/S21_3_Z_Ko_IntSB.csv', as.is = TRUE)
+  S21.2.U.Ko.IntST <- read.csv2('./Boot_Results/S21_2_U_Ko_IntST.csv', as.is = TRUE)
+  S21.2.U.Ko.IntSB <- read.csv2('./Boot_Results/S21_2_U_Ko_IntSB.csv', as.is = TRUE)
+  S21.2.Z.Ko.IntST <- read.csv2('./Boot_Results/S21_2_Z_Ko_IntST.csv', as.is = TRUE)
+  S21.2.Z.Ko.IntSB <- read.csv2('./Boot_Results/S21_2_Z_Ko_IntSB.csv', as.is = TRUE)
 }
 
 #---------------#
@@ -304,23 +317,6 @@ validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
 validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
 validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1]) 
-
-
-## Bootstrap CI 
-# Vorhersageintervalle ja/nein und Eigenschaften
-# nboot = Anzahl Bootstrap Stichproben
-# coverage = Ueberdeckungswahrscheinlichkeit der Vorhersageintervalle
-# parallel = Soll parallel mit mehreren Kernen gerechnet werden?
-#            dazu wird das Paket multicore benoetigt (nur unter Linux)
-# ncore = Anzahl der zu verwendenden Kerne
-# seed = Startwert fuer den Zufallszahlengenerator
-intervalle <- TRUE
-nboot <- 10
-coverage <- 0.95
-parallel <- FALSE
-ncore <- 20
-seed <- 123
-
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
@@ -433,7 +429,85 @@ PredBarPlot(sample, pred.binom.U.B, x = c('Zustimmung', 'Ablehnung'))
 PredBarPlot(sample, pred.binom.Z.B, x = c('Zustimmung', 'Ablehnung'))
 
 ## Konfidenzintervalle ##
-# werden erstmal nicht berechnet. Vielleicht später
+
+if(calc_CI) {
+  ## Allg. Einstellungen
+  model <- step.model.binom.B$model.spat
+  sample <- sample
+  ncores <- 4
+  nboot <- 4
+  coverage <- 0.95
+  seed <- 123
+  
+  ## Konfidenzintervalle: Umfrage, Stadtteile ##
+  population <- Umfrage
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.U.B.ST
+  IFUmfrage <- TRUE
+  source('./prediction_interval_binom.R')
+  UInt.U.ST <- pred.interval$u_intervall
+  OInt.U.ST <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  S21.2.U.SB.IntST <- cbind(UInt.U.ST, OInt.U.ST[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.U.SB.IntST)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.U.SB.IntST, file = './Prediction_Results/S21_2_U_SB_IntST.csv', row.names = FALSE)
+  
+  rm(list = c('UInt.U.ST', 'OInt.U.ST', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+  ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
+  pred.sum <- AggPred.U.B.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval_binom.R')
+  UInt.U.SB <- pred.interval$u_intervall
+  OInt.U.SB <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  S21.2.U.SB.IntSB <- cbind(UInt.U.SB, OInt.U.SB[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.U.SB.IntSB)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.U.SB.IntSB, file = './Prediction_Results/S21_2_U_SB_IntSB.csv', row.names = FALSE)
+  
+  rm(list = c('UInt.U.SB', 'OInt.U.SB', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+  ## Konfidenzintervalle: Zensus, Stadtteile
+  population <- Zensus
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.Z.B.ST
+  IFUmfrage <- FALSE
+  
+  source('./prediction_interval_binom.R')
+  UInt.Z.ST <- pred.interval$u_intervall
+  OInt.Z.ST <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  S21.2.Z.SB.IntST <- cbind(UInt.Z.ST, OInt.Z.ST[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.Z.SB.IntST)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.Z.SB.IntST, file = './Prediction_Results/S21_2_Z_SB_IntST.csv', row.names = FALSE)
+  
+  rm(list = c('UInt.Z.ST', 'OInt.Z.ST', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+  ## Konfidenzintervalle: Zensus, Stadtbezirke
+  pred.sum <- AggPred.Z.B.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval_binom.R')
+  UInt.Z.SB <- pred.interval$u_intervall
+  OInt.Z.SB <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  S21.2.Z.SB.IntSB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2)], temp_mean[, c(2)], temp_median[, c(2)])
+  names(S21.2.Z.SB.IntSB)[c(3 : 5)] <- c("o_intervall_1", "mean_1", "median_1")
+  write.csv2(S21.2.Z.SB.IntSB, file = './Prediction_Results/S21_2_Z_SB_IntSB.csv', row.names = FALSE)
+  
+  rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
+  
+} else {
+  S21.2.U.SB.IntST <- read.csv2('./Boot_Results/S21_2_U_SB_IntST.csv', as.is = TRUE)
+  S21.2.U.SB.IntSB <- read.csv2('./Boot_Results/S21_2_U_SB_IntSB.csv', as.is = TRUE)
+  S21.2.Z.SB.IntST <- read.csv2('./Boot_Results/S21_2_Z_SB_IntST.csv', as.is = TRUE)
+  S21.2.Z.SB.IntSB <- read.csv2('./Boot_Results/S21_2_Z_SB_IntSB.csv', as.is = TRUE)
+}
 
 #---------------#
 ## Validierung ##
