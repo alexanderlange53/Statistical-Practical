@@ -4,7 +4,7 @@ MarkovRandomField <- function(SpatOb, Bezirke = T){
   bb <- merge(helpdf, SpatOb@data, by = 'id', all.x = T)
   bb3 <- list()
   if(Bezirke == T){
-  bb2 <- select(bb, long, lat, STADTBEZIR)
+  bb2 <- dplyr::select(bb, long, lat, STADTBEZIR)
   for(i in levels(factor(bb2$STADTBEZIR))) {
     bb3[[i]] <- bb2[bb2$STADTBEZIR == i, c('long', 'lat')]
   }}else{

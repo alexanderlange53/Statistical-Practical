@@ -53,25 +53,19 @@ if(max(sample[,response]) == 1) {
   # upper
   pred.boot.upper <- data.frame(
     V1 = pred.sum[,aggregation],
-    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
-    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
-    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, quantile, probs = 1 - (1 - coverage) / 2),
+    V2 = apply(boot[, seq(2,nboot * 2, 2)], 1, quantile, probs = 1 - (1 - coverage) / 2),
     stringsAsFactors = FALSE
   )
   # mean
   pred.boot.mean <- data.frame(
     V1 = pred.sum[,aggregation],
-    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, mean),
-    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, mean),
-    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, mean),
+    V2 = apply(boot[, seq(2,nboot * 2, 2)], 1, mean),
     stringsAsFactors = FALSE
   )
   # median
   pred.boot.median <- data.frame(
     V1 = pred.sum[,aggregation],
-    V2 = apply(boot[, seq(2,nboot * 4 -2, 4)], 1, median),
-    V3 = apply(boot[, seq(3,nboot * 4 -1, 4)], 1, median),
-    V4 = apply(boot[, seq(4,nboot * 4 -0, 4)], 1, median),
+    V2 = apply(boot[, seq(2,nboot * 2, 2)], 1, median),
     stringsAsFactors = FALSE
   )
   
@@ -80,12 +74,12 @@ if(max(sample[,response]) == 1) {
   names(pred.boot.mean)[1] <- aggregation
   names(pred.boot.median)[1] <- aggregation
   
-  for(i in c(2 : 4)){
-    names(pred.boot.upper)[i] <- paste("o_intervall", i - 1, sep = "_")
-    names(pred.boot.lower)[i] <- paste("u_intervall", i - 1, sep = "_")
-    names(pred.boot.mean)[i] <- paste("mean", i - 1, sep = "_")
-    names(pred.boot.median)[i] <- paste("median", i - 1, sep = "_")
-  }
+  #for(i in c(2 : 4)){
+    names(pred.boot.upper)[2] <- paste("o_intervall", "1", sep = "_")
+    names(pred.boot.lower)[2] <- paste("u_intervall", "1", sep = "_")
+    names(pred.boot.mean)[2] <- paste("mean", "1", sep = "_")
+    names(pred.boot.median)[2] <- paste("median", "1", sep = "_")
+  #}
   
   pred.interval <- list(o_intervall = pred.boot.upper, u_intervall = pred.boot.lower, mean = pred.boot.mean, median = pred.boot.median)
 } else {

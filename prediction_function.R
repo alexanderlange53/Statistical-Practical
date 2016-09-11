@@ -8,7 +8,7 @@ Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTy
   
   if(IFUmfrage == T){
     # hier koennte eine dynamische Abfrage oder zumindest ein Übergabe der erklärenden Variablen hilfreich sein.
-    u.p <- select(Population, Altersklasse,Haushaltsgroesse, Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil, Stadtbezirk)
+    u.p <- dplyr::select(Population, Altersklasse,Haushaltsgroesse, Geschlecht,Familienstand, Nationalitaet,GaussX, GaussY, Stadtteil, Stadtbezirk)
     names(u.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt", "Geschlecht","Familienstand","Nationalität","X" ,"Y", "Stadtteil", "Stadtbezirk")
     
     u.p2 <- u.p
@@ -38,7 +38,7 @@ Prediction <- function(Population, model, IFUmfrage = TRUE, binom = TRUE, SpatTy
     
     
   }else{
-    z.p <- select(Population, alter,haushaltsgroesse, geschlecht, familienstand, staatsangehoerigkeit, xcoord, ycoord, Stadtteil, Stadtbezirk)
+    z.p <- dplyr::select(Population, alter,haushaltsgroesse, geschlecht, familienstand, staatsangehoerigkeit, xcoord, ycoord, Stadtteil, Stadtbezirk)
     names(z.p) <- c("Altersklasse.Befragter","Personenzahl.im.Haushalt","Geschlecht","Familienstand","Nationalität","X" ,"Y", "Stadtteil", "Stadtbezirk")
     
     z.p2 <- z.p
