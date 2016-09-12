@@ -1,16 +1,38 @@
-validation <- function(pred, valid, errorbar = F){
+validation <- function(pred, valid, pop = pop, errorbar = F){
   require(colorspace)
   colo <- diverge_hsv(3)
   if(!all(pred[,1] == valid[, 1])){
     cat('Achtung: Die Namen der Bezirke stimmen nicht überein!')
-    }
+  }
+  if(nrow(pred) > 30){
+    popagg <- as.data.frame(table(pop$Stadtteil))
+  }else{
+    popagg <- as.data.frame(table(pop$Stadtbezirk))
+  }
   if(ncol(pred) > 4){
   pred <- pred[,-1]
-  medianr <- pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))]
-  medianr <- medianr /rowSums(medianr) # Anteil bilden
+    if(ncol(pred) > 4){
+      medianr <- pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))]
+      medianr <- medianr / rowSums(medianr) # Anteil bilden
+      medianr <- medianr[,-2]
+      lowerb  <- pred[,c(1,3)]/popagg[,2]
+      upperb <- pred[,c(4,6)]/popagg[,2]
+      #lowerb <- pred[,c(1,3)]/rowSums(pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))])
+      #upperb <- pred[,c(4,6)]/rowSums(pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))])
+    }else{
+      medianr <- pred[,4]
+      medianr <- as.data.frame(medianr / popagg[,2])
+      medianr$Zustimmung <- 1 - medianr
+      medianr <- cbind(medianr[,2], medianr[,1])
+      lowerb <- as.data.frame(pred[,1]/popagg[,2])
+      upperb <- as.data.frame(pred[,2]/popagg[,2])
+      upperb$k <- 1 - lowerb
+      lowerb$k <- 1 - upperb[,1]
+      lowerb <- cbind(lowerb[,2], lowerb[,1])
+      upperb <- cbind(upperb[,2], upperb[,1])
+    }
   valid <- valid[,-1] * 0.01
   valid <- cbind(valid[,2], valid[,1])
-  medianr <- medianr[,-2]
   mse <- rep(0, ncol(medianr))
   MSE <- function(x, y){
     sum((x - y)^2)
@@ -19,9 +41,6 @@ validation <- function(pred, valid, errorbar = F){
   for(i in 1:ncol(medianr)){
     mse[i] <- MSE(medianr[,i], valid[,i]) 
   }
-  
-  lowerb <- pred[,c(1,3)]/rowSums(pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))])
-  upperb <- pred[,c(4,6)]/rowSums(pred[,c((ncol(pred)-2), (ncol(pred)-1), (ncol(pred)))])
   
   coverage <- rep(0, 2)
   for(i in 1:2){
@@ -43,15 +62,18 @@ validation <- function(pred, valid, errorbar = F){
   D$V4 <- as.numeric(as.character(D$V4)); D$V5 <- as.numeric(as.character(D$V5))
   
   if(errorbar == T){
+    D <- subset(D, x == 'Zustimmung')
    plotv <- ggplot(D, aes(x = V3, y = V2)) + 
-           geom_errorbar(aes(x = V3, ymin=V4, ymax=V5), width=.05,
+           geom_errorbar(aes(x = V3, ymin=V4, ymax=V5), width=.05, 
                                                  position=position_dodge(.05)) +
            geom_point(shape = 21, fill = colo[1], size = 3) + 
            labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
            theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
-           xlim(0.15, 0.75) + 
-           ylim(0.15, 0.75) +
-           facet_wrap(~ x)
+           xlim(0.15, 0.85) + 
+           ylim(0.15, 0.85) +
+           annotate("text", x = 0.25, y = 0.8, label = paste("mse: ", round(mse[1], 3))) +
+           annotate("text", x = 0.25, y = 0.75, label = paste("cov.: ", round(coverage[1], 3)))
+           #facet_wrap(~ x)
    plotv
    return(plotv)
   }else{
@@ -151,6 +173,5 @@ ResultPlot <- function(predlist, predst, sample, models){
     geom_hline(yintercept = count1$Freq[1], color = colo[1], linetype = "dashed") +
     geom_hline(yintercept = count1$Freq[3], color = colo[3], linetype = "dashed") +
     theme_bw(12) + labs(y = 'Anteil', x = NULL) + 
-    theme(legend.position = 'bottom',
-          axis.text.y = element_text(angle = 45) )
+    theme(legend.position = 'bottom')
 }

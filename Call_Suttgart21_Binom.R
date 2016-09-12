@@ -17,7 +17,7 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -311,12 +311,12 @@ if(calc_CI) {
 #---------------#
 
 # Validierung auf Bezirksebene
-validation(pred = AggPred.U.SB, valid = Bezirke.Val)
-validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
+validation(pred = S21.2.U.Ko.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+validation(pred = S21.2.Z.Ko.IntSB, valid = Bezirke.Val, pop = Zensus, errorbar = T)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1]) 
+validation(pred = S21.2.U.Ko.IntST, valid = Stadtteile.Val[,-1], pop = Umfrage, errorbar = T)
+validation(pred = S21.2.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) 
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------
@@ -514,13 +514,14 @@ if(calc_CI) {
 #---------------#
 
 # Validierung auf Bezirksebene
-validation(pred = AggPred.U.SB, valid = Bezirke.Val)
-validation(pred = AggPred.Z.SB, valid = Bezirke.Val)
+validation(pred = S21.2.U.SB.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+v22 <- validation(pred = S21.2.Z.SB.IntSB, valid = Bezirke.Val, pop = Zensus, errorbar = T)
+v22 <- v22 + ggtitle('Zwei Klassen Bezirke') 
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = AggPred.U.ST, valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1]) 
-
+validation(pred = S21.2.U.SB.IntST, valid = Stadtteile.Val[,-1], pop = Umfrage, errorbar = T)
+vv22 <- validation(pred = S21.2.Z.SB.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) 
+vv22 <- vv22 + ggtitle('Zwei Klassen Stadtteile')
 
 #-----------------------------------------#
 # Stadtteile als Räumliche Informationen  #--------------------------------------------------------------

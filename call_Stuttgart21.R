@@ -18,7 +18,7 @@ library(gridExtra)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- TRUE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = TRUE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -306,15 +306,17 @@ if(calc_CI) {
 #-------------#
 
 # Validierung auf Bezirksebene
-vv <- validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
-validation(pred = S21.3.Z.Ko.IntSB, valid = Bezirke.Val, errorbar = T)
+validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+vv <- validation(pred = S21.3.Z.Ko.IntSB, valid = Bezirke.Val, pop = Zensus, errorbar = T)
+vv <- vv + ggtitle('Drei Klassen Bezirke') 
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-vv2 <- validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1], errorbar = F)
-validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], errorbar = T) # Beim Zensus fehlt ein Stadtteil
+validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1],pop = Umfrage, errorbar = T)
+vv2 <- validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) # Beim Zensus fehlt ein Stadtteil
+vv2 <- vv2 + ggtitle('Drei Klassen Stadtteile') 
 
-pdf('./Essay/Pictures/PaT.pdf', height = 4, width = 8)
-grid.arrange(vv, vv2, nrow = 1)
+pdf('./Essay/Pictures/PaT.pdf', height = 8, width = 8)
+grid.arrange(vv, vv2, v22, vv22, nrow = 2)
 dev.off()
 
 #--------------------------------------------#
@@ -505,12 +507,12 @@ if (calc_CI){
 #---------------#
 
 # Validierung auf Bezirksebene
-validation(pred = S21.3.U.SB.IntSB, valid = Bezirke.Val)
-validation(pred = S21.3.Z.SB.IntSB, valid = Bezirke.Val)
+validation(pred = S21.3.U.SB.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+validation(pred = S21.3.Z.SB.IntSB, valid = Bezirke.Val, pop = Zensus, errorbar = T)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = S21.3.U.SB.IntST, valid = Stadtteile.Val[,-1])
-validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
+validation(pred = S21.3.U.SB.IntST, valid = Stadtteile.Val[,-1], pop = Umfrage, errorbar = T)
+validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) # Beim Zensus fehlt ein Stadtteil
 
 
 
