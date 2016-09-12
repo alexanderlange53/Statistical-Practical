@@ -2,6 +2,10 @@
 #### Plausibilitätskontrolle der Intervall Funktion ####
 #------------------------------------------------------#
 
+#----------------#
+## 3 Kategorien ##
+#----------------#
+
 bearbeiter <- 'Kai@Home'
 
 ## Daten einlesen ##
@@ -27,6 +31,7 @@ for(i in c (2 : 4)) {
 }
 
 # Modellparameter - Mittelwert aus boot. Sollte sehr nah aneinander liegen (falls nicht, ist dies ein hinweis darauf, dass die Parameteriserungsdaten gebiased sind)
+par(mfrow = c( 2, 2))
 for(i in c(2 : 4)) {
   hist(anteile_pred_agg[, i] - anteile_int_mean[, i])
 }
@@ -40,3 +45,12 @@ for(i in c(2 : 4)) {
   print(all(intervall[, i + 9] > intervall[, i]) && all(intervall[, i + 9] < intervall[, i + 3])) # median immer zwischen den Int.?
 }
 
+
+#----------------#
+## 2 Kategorien ##
+#----------------#
+
+if(bearbeiter == 'Kai@Home') {
+  intervall <- read.csv2('Boot_Results/S21_2_U_Ko_IntSB.csv', as.is= TRUE)
+  pred_agg <- read.csv2('Prediction_Results/S21_2_U_Ko_AggSB.csv', as.is = TRUE)
+}

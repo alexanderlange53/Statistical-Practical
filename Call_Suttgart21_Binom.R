@@ -17,10 +17,10 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
-pred = T # Vorhersage berechnen und als CSV speichern? Oder CSV laden
+pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
@@ -66,7 +66,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB2.R')
+source('PseudoB.R')
 source("evaluation.R")
 source("prediction_function.R")
 source('PredBarPlot.R')
@@ -530,7 +530,7 @@ validation(pred = AggPred.Z.ST, valid = Stadtteile.Val[-20,-1])
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = T)
+sample <- PseudoB(sample, SpatOb =  stadtteile, binom = T)
 
 sample$Stadtteil <- as.character(sample$Stadtteil)
 # Neue raeumliche Information, der rest bleibt gleich
