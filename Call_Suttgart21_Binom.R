@@ -614,9 +614,9 @@ if(pred) {
 #---------------#
 
 # Validierung auf Bezirksebene
-validation(pred = AggPred.U.ST.SB, valid = Bezirke.Val)
-validation(pred = AggPred.Z.ST.SB, valid = Bezirke.Val)
+validation(pred = AggPred.U.ST.SB, valid = Bezirke.Val, pop = Umfrage)
+validation(pred = AggPred.Z.ST.SB, valid = Bezirke.Val, pop = Zensus)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = AggPred.U.ST.ST, valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.Z.ST.ST, valid = Stadtteile.Val[-20,-1]) 
+validation(pred = AggPred.U.ST.ST, valid = Stadtteile.Val[,-1], pop = Umfrage)
+validation(pred = AggPred.Z.ST.ST, valid = Stadtteile.Val[-20,-1], pop =  Zensus) 

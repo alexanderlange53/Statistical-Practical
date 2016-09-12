@@ -3,11 +3,15 @@
 \contentsline {section}{\numberline {2}Material und Methoden}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Daten}{2}{subsection.2.1}
 \contentsline {subsubsection}{\numberline {2.1.1}Parametrisierungsstichprobe}{2}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}R\IeC {\"a}umliche Effekte}{5}{subsubsection.2.1.2}
 \contentsline {subsection}{\numberline {2.2}Statistische Methoden}{8}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Modell}{8}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{8}{subsubsection.2.2.2}
 \contentsline {subsection}{\numberline {2.3}Evaluierung}{9}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Validierung}{9}{subsection.2.4}
 \contentsline {section}{\numberline {3}Ergebnisse}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}Validierung}{9}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Extrapolation}{9}{subsection.3.2}
 \contentsline {section}{\numberline {4}Fazit}{9}{section.4}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{12}{section.4}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{13}{section.4}

@@ -687,12 +687,12 @@ if(calc_CI) {
 #-------------#
 
 # Validierung auf Bezirksebene
-validation(pred = AggPred.U.S.SB, valid = Bezirke.Val)
-validation(pred = AggPred.Z.S.SB, valid = Bezirke.Val)
+validation(pred = AggPred.U.S.SB, valid = Bezirke.Val, pop = Umfrage)
+validation(pred = AggPred.Z.S.SB, valid = Bezirke.Val, pop = Zensus)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = AggPred.U.S.ST, valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.Z.S.ST, valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
+validation(pred = AggPred.U.S.ST, valid = Stadtteile.Val[,-1], pop = Umfrage)
+validation(pred = AggPred.Z.S.ST, valid = Stadtteile.Val[-20,-1], pop = Zensus) # Beim Zensus fehlt ein Stadtteil
 
 # Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
 predlist <- list(S21.3.U.Ko.IntSB[,-c(1,8,9,10)], S21.3.Z.Ko.IntSB[,-c(1,8,9,10)], S21.3.U.Ko.IntST[,-c(1,8,9,10)],

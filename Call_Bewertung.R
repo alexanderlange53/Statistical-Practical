@@ -76,7 +76,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB.R')
+source('PseudoB2.R')
 source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
@@ -296,23 +296,12 @@ if(calc_CI) {
   rm(list = c('UInt.Z.SB', 'OInt.Z.SB', 'temp_mean', 'temp_median', 'pred.interval'))
   
 } else {
-  W.5.U.Ko.IntST <- read.csv2('./Prediction_Results/W_5_U_Ko_IntST.csv', as.is = TRUE)
-  W.5.U.Ko.IntSB <- read.csv2('./Prediction_Results/W_5_U_Ko_IntSB.csv', as.is = TRUE)
-  W.5.Z.Ko.IntST <- read.csv2('./Prediction_Results/W_5_Z_Ko_IntST.csv', as.is = TRUE)
-  W.5.Z.Ko.IntSB <- read.csv2('./Prediction_Results/W_5_Z_Ko_IntSB.csv', as.is = TRUE)
+  W.5.U.Ko.IntST <- read.csv2('./Boot_Results/W_5_U_Ko_IntST.csv', as.is = TRUE)
+  W.5.U.Ko.IntSB <- read.csv2('./Boot_Results/W_5_U_Ko_IntSB.csv', as.is = TRUE)
+  W.5.Z.Ko.IntST <- read.csv2('./Boot_Results/W_5_Z_Ko_IntST.csv', as.is = TRUE)
+  W.5.Z.Ko.IntSB <- read.csv2('./Boot_Results/W_5_Z_Ko_IntSB.csv', as.is = TRUE)
 }
 
-#-------------#
-# Validierung #
-#-------------#
-
-# Validierung auf Bezirksebene
-validation(pred = AggPred.U.SB[,-3], valid = Bezirke.Val)
-validation(pred = AggPred.Z.SB[,-3], valid = Bezirke.Val)
-
-# Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = AggPred.U.ST[,-3], valid = Stadtteile.Val[,-1])
-validation(pred = AggPred.Z.ST[,-3], valid = Stadtteile.Val[-20,-1]) # Beim Zensus fehlt ein Stadtteil
 
 #--------------------------------------------#
 #### Bezirke als Räumliche Informationen #####-----------------------------------------------------------------
@@ -489,10 +478,10 @@ if (calc_CI){
   W.5.Z.SB.IntSB <- cbind(UInt.Z.B.SB, OInt.Z.B.SB[, c(2 : 6)], temp_mean[, c(2 : 6)], temp_median[, c(2 : 6)])
   rm(list = c('UInt.Z.B.SB', 'OInt.Z.B.SB', 'temp_mean', 'temp_median', 'pred.interval'))
 } else {
-  W.5.U.SB.IntST <- read.csv2('./Prediction_Results/W_5_U_SB_IntST.csv', as.is = TRUE)
-  W.5.U.SB.IntSB <- read.csv2('./Prediction_Results/W_5_U_SB_IntSB.csv', as.is = TRUE)
-  W.5.Z.SB.IntST <- read.csv2('./Prediction_Results/W_5_Z_SB_IntST.csv', as.is = TRUE)
-  W.5.Z.SB.IntSB <- read.csv2('./Prediction_Results/W_5_Z_SB_IntSB.csv', as.is = TRUE)
+  W.5.U.SB.IntST <- read.csv2('./Boot_Results/W_5_U_SB_IntST.csv', as.is = TRUE)
+  W.5.U.SB.IntSB <- read.csv2('./Boot_Results/W_5_U_SB_IntSB.csv', as.is = TRUE)
+  W.5.Z.SB.IntST <- read.csv2('./Boot_Results/W_5_Z_SB_IntST.csv', as.is = TRUE)
+  W.5.Z.SB.IntSB <- read.csv2('./Boot_Results/W_5_Z_SB_IntSB.csv', as.is = TRUE)
 }
 
 
@@ -505,7 +494,7 @@ if (calc_CI){
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB(sample, stadtteile, binom = F)
+sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = F)
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"

@@ -130,7 +130,7 @@ Für die exogen in die Analyse einfließenden Variablen sind detailliertere Info
 
 \newpage
 
-%% \subsubsection{Räumliche Effekte}
+ \subsubsection{Räumliche Effekte}
 
 Da in dieser Arbeit ein besonderer Schwerpunkt auf die unterschiedlichen räumlichen Effekte gelegt werden soll, vergleicht dieses Kapitel alle drei räumlichen Effekte für beide endogene Variablen. Zunächst wird der stetige räumliche Effekt mit den Gauss-Krüger Informationen behandelt. Anschließend folgen die diskreten räumlichen Informationen auf Bezirks und Stadtteilebene.\\
 Aus Abbildung \ref{XYStuttgart3} ist die absolute Häufigkeit der Beobachtungen für jede der drei Kategorien zur Meinung zu Stuttgart 21 ersichtlich. Zuerst ist erkenntlich wo die meisten Personen befragt wurden, nämlich in der nähe des Innenstadt Bereichs. Hier findet sich eine Häufung der Beobachtung zu allen drei Kategorien, wohingegen die Randbezirke im allgemeinen weniger Beobachtungen aufweisen. Außerdem ist zu sehen, dass auf Grund der geographischen Beschaffenheit der Region in einigen Bereichen mit weniger Beobachtungen zu rechnen ist z.B. beim Wald im Westen und der hügeligen Landschaft im Osten.    
@@ -188,8 +188,11 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
 
 \subsection{Evaluierung}
 
+\subsection{Validierung}
+
 \section{Ergebnisse}
 
+\subsection{Validierung}
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 \begin{table}[h]
@@ -200,7 +203,7 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
 \hline \hline
                         &                               &                          &   & \multicolumn{2}{c|}{MSE} & \multicolumn{2}{c}{Überdeckungswk.} \\
                         &                               &                          &   & Zustimmung  & Ablehnung  & Zustimmung        & Ablehnung       \\ \hline
-\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0.04       & 0.749      & 1                 & 0.043           \\
+\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0.04        & 0.749      & 1                 & 0.043           \\
                         &                               &                          & Z & 0.116       & 0.557      & 0.391             & 0               \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Sadtt.}  & U & 0.461       & 5.708      & 0.954             & 0.139           \\
                         &                               &                          & Z & 0.813       & 4.415      & 0.553             & 0.02            \\ \cline{2-8} 
@@ -208,18 +211,19 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
                         &                               &                          & Z & 0.117       & 0.562      & 0.522             & 0               \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 0.482       & 5.678      & 0.934             & 0.139           \\
                         &                               &                          & Z & 0.835       & 4.38       & 0.567             & 0.027           \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0.023       & 0.903      &                   &                 \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0.022       & 0.903      &                   &                 \\
                         &                               &                          & Z & 0.081       & 0.593      &                   &                 \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 0.453       & 6.69       &                   &                 \\
                         &                               &                          & Z & 0.61        & 4.641       &                   &                 \\ \hline
-\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0.337       & 0.337      &                   &                 \\
-                        &                               &                          & Z & 0.164      & 0.164      &                   &                 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2.87       & 2.87      &                   &                 \\
-                        &                               &                          & Z & 1.65       & 1.65      &                   &                 \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0.337       & 0.337      &                   &                 \\
-                        &                               &                          & Z & 0.164       & 0.164      &                   &                 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2.87        & 2.85      &                   &                 \\
-                        &                               &                          & Z & 1.65        & 1.64     &                   &                
+\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & U & 0.312      & 0.312      &     0.826           &  0.826
+ \\
+                        &                               &                          & Z & 0.152      & 0.152      &   0.522           &  0.522     \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 2.694       & 2.679     &   0.649          &  0.649   \\
+                        &                               &                          & Z & 1.581       & 1.569      &  0.46            &   0.46   \\ \cline{2-8} 
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0.312       & 0.312      &  0.826            &   0.826    \\
+                        &                               &                          & Z & 0.153       & 0.153      &  0.565            &  0.565    \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 2.642       & 2.645      &  0.636           &   0.636    \\
+                        &                               &                          & Z & 1.527       & 1.513    &  0.433            &    0.44   
 \\ \cline{2-8} 
                         & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0.468       & 0.468      &                   &                 \\
                         &                               &                          & Z & 0.201       & 0.201      &                   &                 \\ \cline{3-8} 
@@ -236,6 +240,8 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
  \label{vali}
  \end{center}
 \end{figure}
+
+\subsection{Extrapolation}
 
 \begin{figure}[h]
  \begin{center}

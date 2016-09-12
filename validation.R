@@ -48,10 +48,10 @@ validation <- function(pred, valid, pop = pop, errorbar = F){
                     (upperb[,i] >= valid[,i]))/nrow(pred)
   }
   
-  cat("\nMittlerer quadratischer Prognosefehler Zustimmung: ", mse[1], "\n", sep="")
-  cat("\nMittlerer quadratischer Prognosefehler Ablehnung: ", mse[2], "\n", sep="")
-  cat("\nUeberdeckungsw'keit der Vorhersagen:    ", coverage[1], "\n\n", sep="")
-  cat("Ueberdeckungsw'keit der Vorhersagen:    ", coverage[2], "\n\n", sep="")
+  cat("\nMittlerer quadratischer Prognosefehler Zustimmung: ", round(mse[1], 3), "\n", sep="")
+  cat("\nMittlerer quadratischer Prognosefehler Ablehnung: ", round(mse[2], 3), "\n", sep="")
+  cat("\nUeberdeckungsw'keit der Vorhersagen:    ", round(coverage[1], 3), "\n\n", sep="")
+  cat("Ueberdeckungsw'keit der Vorhersagen:    ", round(coverage[2], 3), "\n\n", sep="")
   
   x <- rep('Zustimmung', nrow(medianr))
   Kategorie1 <- cbind(x, medianr[,1], valid[,1], lowerb[,1], upperb[,1])
@@ -110,8 +110,8 @@ validation <- function(pred, valid, pop = pop, errorbar = F){
       mse[i] <- MSE(pred[,i], valid[,i]) 
     }
     medianr <- pred
-    cat("\nMittlerer quadratischer Prognosefehler Zustimmung: ", mse[1], "\n", sep="")
-    cat("\nMittlerer quadratischer Prognosefehler Ablehnung: ", mse[2], "\n", sep="")
+    cat("\nMittlerer quadratischer Prognosefehler Zustimmung: ", round(mse[1], 3), "\n", sep="")
+    cat("\nMittlerer quadratischer Prognosefehler Ablehnung: ", round(mse[2], 3), "\n", sep="")
   
   x <- rep('Zustimmung', nrow(medianr))
   Kategorie1 <- cbind(x, medianr[,1], valid[,1])

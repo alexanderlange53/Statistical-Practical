@@ -2,11 +2,15 @@
 \BOOKMARK [1][-]{section.2}{Material und Methoden}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Daten}{section.2}% 3
 \BOOKMARK [3][-]{subsubsection.2.1.1}{Parametrisierungsstichprobe}{subsection.2.1}% 4
-\BOOKMARK [2][-]{subsection.2.2}{Statistische Methoden}{section.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Modell}{subsection.2.2}% 6
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Modellwahl}{subsection.2.2}% 7
-\BOOKMARK [2][-]{subsection.2.3}{Evaluierung}{section.2}% 8
-\BOOKMARK [1][-]{section.3}{Ergebnisse}{}% 9
-\BOOKMARK [1][-]{section.4}{Fazit}{}% 10
-\BOOKMARK [1][-]{section.4}{Literatur}{}% 11
-\BOOKMARK [1][-]{section.4}{Anhang}{}% 12
+\BOOKMARK [3][-]{subsubsection.2.1.2}{R\344umliche Effekte}{subsection.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Statistische Methoden}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Modell}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Modellwahl}{subsection.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Evaluierung}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Validierung}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Ergebnisse}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Validierung}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Extrapolation}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Fazit}{}% 14
+\BOOKMARK [1][-]{section.4}{Literatur}{}% 15
+\BOOKMARK [1][-]{section.4}{Anhang}{}% 16
