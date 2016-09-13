@@ -17,11 +17,12 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
+cross_eval <- FALSE # Kreuzevaluierung
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
-calc_CI <- TRUE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
+calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
 ## Laden der Daten ##
 if(bearbeiter == 'Alex') {
@@ -76,7 +77,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB2.R')
+source('PseudoB.R')
 source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
@@ -174,23 +175,25 @@ evaluate(step.model.Bewertung.5$model.spat, data = sample)
 evaluateAll(step.model.Bewertung.5, data = sample)
 
 ## Cross Evaluation ##
-repeatitions = 2
-model <- step.model.Bewertung.5$model.spat
-
-leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
-crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
-
-for (i in c(1 : repeatitions)) {
-  all <- c(1 : dim(sample)[1])
-  subset_i <- all[-leave_out]
-  print(paste('Model', i, 'of', repeatitions))
-  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
-  crosseval <- rbind(crosseval, ret_i)
+if (cross_eval) {
+  repeatitions = 3127
+  model <- step.model.Bewertung.5$model.spat
+  
+  leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+  crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+  for (i in c(1 : repeatitions)) {
+    all <- c(1 : dim(sample)[1])
+    subset_i <- all[-leave_out[i]]
+    print(paste('Model', i, 'of', repeatitions))
+    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+    crosseval <- rbind(crosseval, ret_i)
+  }
+  names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+  rm(list = c("all", "subset_i", "gam_i", "ret_i", "repeatitions", "model"))
+  write.csv2(crosseval,'./cv_results/W_5_Ko.csv', row.names = FALSE)
 }
-names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
-rm(list = c("all", "subset_i", "gam_i", "ret_i", "repeatitions", "model"))
-crosseval
+
 
 #---------------#
 ## Prediction  ##
@@ -335,23 +338,28 @@ evaluate(step.model.Bewertung.5.B$model.spat, data = sample)
 evaluateAll(step.model.Bewertung.5.B, data = sample)
 
 ## Cross Evaluation ##
-repeatitions = 2
-model <- step.model.Bewertung.5.B$model.spat
-
-leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
-crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
-
-for (i in c(1 : repeatitions)) {
-  all <- c(1 : dim(sample)[1])
-  subset_i <- all[-leave_out]
-  print(paste('Model', i, 'of', repeatitions))
-  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
-  crosseval <- rbind(crosseval, ret_i)
+if(cross_eval) {
+  repeatitions = 3127
+  model <- step.model.Bewertung.5.B$model.spat
+  
+  leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+  crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+  
+  for (i in c(1 : repeatitions)) {
+    all <- c(1 : dim(sample)[1])
+    subset_i <- all[-leave_out[i]]
+    print(paste('Model', i, 'of', repeatitions))
+    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+    crosseval <- rbind(crosseval, ret_i)
+  }
+  names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+  rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+  write.csv2(crosseval,'./cv_results/W_5_SB.csv', row.names = FALSE)
+} else {
+  crosseval <- read.csv2('./cv_results/W_5_SB.csv')
 }
-names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
-rm(list = c("all", "subset_i", "gam_i", "ret_i"))
-crosseval
+
 
 
 #--------------------------------#
@@ -494,7 +502,7 @@ if (calc_CI){
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = F)
+sample <- PseudoB(sample, SpatOb =  stadtteile, binom = F)
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
@@ -529,7 +537,7 @@ crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Pred
 
 for (i in c(1 : repeatitions)) {
   all <- c(1 : dim(sample)[1])
-  subset_i <- all[-leave_out]
+  subset_i <- all[-leave_out[i]]
   print(paste('Model', i, 'of', repeatitions))
   gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
   ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.

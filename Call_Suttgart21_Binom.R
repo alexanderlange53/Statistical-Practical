@@ -17,9 +17,10 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
+cross_eval <- FALSE # Kreuzevaluierung
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
@@ -170,26 +171,30 @@ summary(step.model.binom$model.spat)
 #--------------------#
 evaluate.bivariate(step.model.binom$model.spat, data = sample)
 
-## Cross Evaluation ##
-repeatitions = 2000
-model <- step.model.binom$model.spat
-
-leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
-crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
-
-for (i in c(1 : repeatitions)) {
-  all <- c(1 : dim(sample)[1])
-  subset_i <- all[-leave_out]
-  print(paste('Model', i, 'of', repeatitions))
-  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], predict(model, newdata = sample[leave_out[i],], type = "response")) # Compare true and estiamted y.
-  crosseval <- rbind(crosseval, ret_i)
+if (cross_eval){
+  ## Cross Evaluation ##
+  repeatitions = 2377
+  model <- step.model.binom$model.spat
+  
+  leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+  crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+    
+  for (i in c(1 : repeatitions)) {
+    all <- c(1 : dim(sample)[1])
+    subset_i <- all[-leave_out[i]]
+    print(paste('Model', i, 'of', repeatitions))
+    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], predict(model, newdata = sample[leave_out[i],], type = "response")) # Compare true and estiamted y.
+    crosseval <- rbind(crosseval, ret_i)
+  }
+  names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
+  crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
+  rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+  write.csv2(crosseval, './cv_results/S21_2_Ko.csv', row.names = FALSE)
+} else {
+  crosseval <- read.csv2('./cv_results/S21_2_Ko.csv', as.is = TRUE)
 }
-names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
-crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
-rm(list = c("all", "subset_i", "gam_i", "ret_i"))
-crosseval
-write.csv2(crosseval, './cv_results/S21_2.csv')
+
 
 #---------------#
 ## Prediction  ##
@@ -347,25 +352,30 @@ if(calculate_model){
 #--------------------#
 evaluate.bivariate(step.model.binom.B$model.spat, data = sample)
 
-## Cross Evaluation ##
-repeatitions = 5
-model <- step.model.binom.B$model.spat
-
-leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
-crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
-
-for (i in c(1 : repeatitions)) {
-  all <- c(1 : dim(sample)[1])
-  subset_i <- all[-leave_out]
-  print(paste('Model', i, 'of', repeatitions))
-  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], predict(model, newdata = sample[leave_out[i],], type = "response")) # Compare true and estiamted y.
-  crosseval <- rbind(crosseval, ret_i)
+if(cross_eval) {
+  ## Cross Evaluation ##
+  repeatitions = 2377
+  model <- step.model.binom.B$model.spat
+  
+  leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+  crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+  
+  for (i in c(1 : repeatitions)) {
+    all <- c(1 : dim(sample)[1])
+    subset_i <- all[-leave_out[i]]
+    print(paste('Model', i, 'of', repeatitions))
+    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
+    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], predict(model, newdata = sample[leave_out[i],], type = "response")) # Compare true and estiamted y.
+    crosseval <- rbind(crosseval, ret_i)
+  }
+  names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
+  crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
+  rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+  write.csv2(crosseval, './cv_results/S21_2_SB.csv', row.names = FALSE)
+} else {
+  crosseval <- read.csv2('./cv_results/S21_2_SB.csv', as.is = TRUE)
 }
-names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
-crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
-rm(list = c("all", "subset_i", "gam_i", "ret_i"))
-crosseval
+
 
 
 #--------------------------------#
