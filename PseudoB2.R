@@ -43,8 +43,11 @@ PseudoB2 <- function(sample, SpatOb, binom = T, response){
   D <- c(rep(0, length(u)))
   pseudo.a <- as.data.frame(cbind(MM, MM, P, M, A, G, FF, N, Sb, as.character(u), X, Y))
   # Gewichte einführen, um bias zu verhindern
+  
+  if(nrow(pseudo.a) >= 1){
   pseudo.a$Gewicht  <- 0
   names(pseudo.a) <- names(dataS)
+  }
   # erstellen der Pseudobeobachtungen für Stadtteile mit parziel fehlenden Beobachtungen
   pseudo <- as.data.frame(cbind(as.numeric(as.character(fehlende.b$Var2)), as.character(fehlende.b$Var1)))
   P <- c(rep(1,nrow(pseudo)))
@@ -61,16 +64,28 @@ PseudoB2 <- function(sample, SpatOb, binom = T, response){
                                   P, M, A, G, FF, N, Sb,as.character(fehlende.b$Var1), X, Y))
   
   # Pseudo Beobachtungen mit 0 gewichten
+  if(nrow(pseudo.b) >= 1){
   pseudo.b$Gewicht  <- 0
   names(pseudo.b) <- names(dataS)
+  }
   # Echte Beobachtungen mit 1 gewichten
   dat.teile <- dataS
   dat.teile$Gewicht <- 1
   
   # Zusammmenfügen von echten und pseudo Beobachtungen
+  if(nrow(pseudo.a) >= 1){
     names(pseudo.a)<- names(dat.teile)
+  }
+  if(nrow(pseudo.b) >= 1){
     names(pseudo.b)<- names(dat.teile)
+  }
+  if(nrow(pseudo.a) >= 1 & nrow(pseudo.b) >= 1){
     dat.teile <- rbind(dat.teile, pseudo.b, pseudo.a)
+  }else if(nrow(pseudo.a) >= 1 & nrow(pseudo.b) == 0){
+    dat.teile <- rbind(dat.teile, pseudo.a)
+  }else if(nrow(pseudo.a) == 0 & nrow(pseudo.b) >= 1){
+    dat.teile <- rbind(dat.teile, pseudo.b)
+  }
     dat.teile <- dat.teile[order(dat.teile$Stadtteil),]
   
   # Einige Variablen sind fälschlicherweise als Character gespeichert
