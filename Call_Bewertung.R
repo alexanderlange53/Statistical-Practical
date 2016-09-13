@@ -174,6 +174,9 @@ AIC(step.model.Bewertung.5$model.spatonly)
 evaluate(step.model.Bewertung.5$model.spat, data = sample)
 evaluateAll(step.model.Bewertung.5, data = sample)
 
+# Es ist bei der C.E. nicht wichtigt, dass die unwahrscheinlicheren Gruppen gut getroffen werden. Dies muss vor allem bei der kleinräumigen Extrapolation
+# berücksichtigt werden.
+
 ## Cross Evaluation ##
 if (cross_eval) {
   repeatitions = 3127
