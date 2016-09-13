@@ -50,6 +50,7 @@ count1$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
                  'Sehr schlecht', 'Keine Angabe')
 count1$Var1 <- factor(count1$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
                                                           'Sehr schlecht', 'Keine Angabe'))
+count1 <- count1[-6,]
 # Plotting              
 Wohngegend <- FreqPlot(count1, 'Bewertung Wohngegend')
 Wohngegend
@@ -60,6 +61,7 @@ count2$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
                  'Sehr schlecht', 'Keine Angabe')
 count2$Var1 <- factor(count2$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
                                               'Sehr schlecht', 'Keine Angabe'))
+count2 <- count2[-6,]
 # Plotting  
 Stuttgart21 <- FreqPlot(count2, 'Meinung zu Stuttgart 21')
 Stuttgart21
@@ -119,7 +121,7 @@ bb <- grid.arrange(Altersklasse, Einkommen, Familienstand, Geschlecht, Nationali
 dev.off()
 
 cc <- rbind(count1, count2)
-cc <- cbind(c(rep('Bewertung Wohngegend', 6), rep('Meinung zu Stuttgart 21', 6)), cc)
+cc <- cbind(c(rep('Bewertung Wohngegend', 5), rep('Meinung zu Stuttgart 21', 5)), cc)
 colnames(cc) <- c('response', 'Var1', 'Freq')
 FreqPlot2(cc)
 ggsave('./Essay/Pictures/BarResp.pdf', height = 3, width = 8)

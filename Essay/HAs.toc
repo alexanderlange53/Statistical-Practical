@@ -3,15 +3,15 @@
 \contentsline {section}{\numberline {2}Material und Methoden}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Daten}{2}{subsection.2.1}
 \contentsline {subsubsection}{\numberline {2.1.1}Parametrisierungsstichprobe}{2}{subsubsection.2.1.1}
-\contentsline {subsection}{\numberline {2.2}Zensus}{6}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Statistische Methoden}{7}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Modell}{7}{subsubsection.2.3.1}
-\contentsline {subsubsection}{\numberline {2.3.2}Modellwahl}{7}{subsubsection.2.3.2}
-\contentsline {subsection}{\numberline {2.4}Evaluierung}{8}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Validierung}{8}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.1.2}Zensus}{6}{subsubsection.2.1.2}
+\contentsline {subsection}{\numberline {2.2}Statistische Methoden}{7}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Modell}{7}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{7}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Evaluierung}{8}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Validierung}{8}{subsection.2.4}
 \contentsline {section}{\numberline {3}Ergebnisse}{8}{section.3}
 \contentsline {subsection}{\numberline {3.1}Validierung}{8}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Extrapolation}{9}{subsection.3.2}
-\contentsline {section}{\numberline {4}Fazit}{9}{section.4}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{11}{section.4}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{12}{section.4}
+\contentsline {subsection}{\numberline {3.2}Extrapolation}{8}{subsection.3.2}
+\contentsline {section}{\numberline {4}Fazit}{8}{section.4}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{12}{section.4}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{13}{section.4}
