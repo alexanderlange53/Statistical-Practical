@@ -17,7 +17,7 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -171,7 +171,7 @@ summary(step.model.binom$model.spat)
 evaluate.bivariate(step.model.binom$model.spat, data = sample)
 
 ## Cross Evaluation ##
-repeatitions = 5
+repeatitions = 2000
 model <- step.model.binom$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
@@ -189,6 +189,7 @@ names(crosseval) = c("Observation.No", "Observed.y", "Predicted.Prob")
 crosseval$Predicted.y <- NA; crosseval$Predicted.y[crosseval$Predicted.Prob < 0.5] <- 0; crosseval$Predicted.y[crosseval$Predicted.Prob >= 0.5] <- 1
 rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 crosseval
+write.csv2(crosseval, './cv_results/S21_2.csv')
 
 #---------------#
 ## Prediction  ##
