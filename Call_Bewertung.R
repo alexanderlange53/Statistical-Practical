@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -77,7 +77,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB.R')
+source('PseudoB2.R')
 source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
@@ -502,7 +502,7 @@ if (calc_CI){
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB(sample, SpatOb =  stadtteile, binom = F)
+sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = F, response)
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"

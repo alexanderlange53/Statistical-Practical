@@ -18,7 +18,7 @@ library(gridExtra)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
@@ -76,7 +76,7 @@ source("stepAIC.R")
 source("evaluation.R")
 source('DataPrep.R')
 source('MarkovRandomField.R')
-source('PseudoB.R')
+source('PseudoB2.R')
 source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
@@ -527,7 +527,7 @@ validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB(sample, stadtteile, binom = F)
+sample <- PseudoB2(sample, stadtteile, binom = F, response)
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
