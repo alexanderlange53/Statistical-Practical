@@ -175,3 +175,47 @@ ResultPlot <- function(predlist, predst, sample, models){
     theme_bw(12) + labs(y = 'Anteil', x = NULL) + 
     theme(legend.position = 'bottom')
 }
+
+ResultPlot5 <- function(predlist, predst, sample, models){
+  require(colorspace)
+  colo <- diverge_hsv(3)
+  pr <- lapply(predlist, colSums)
+  ps <- lapply(predst, colSums)
+  pr <- t(sapply(pr,unlist))
+  ps <- t(sapply(ps,unlist))
+  medianr <- pr[,c((ncol(pr)-4), (ncol(pr)-3), (ncol(pr)-2), (ncol(pr)-1), (ncol(pr)))]
+  medianr <- medianr /rowSums(medianr) # Anteil bilden
+  ms <- ps/rowSums(ps)
+  lowerb <- pr[,c(1:5)]/rowSums(pr[,c((ncol(pr)-4), (ncol(pr)-3), (ncol(pr)-2), (ncol(pr)-1), (ncol(pr)))])
+  upperb <- pr[,c(6:10)]/rowSums(pr[,c((ncol(pr)-4), (ncol(pr)-3), (ncol(pr)-2), (ncol(pr)-1), (ncol(pr)))])
+  
+  colnames(ms) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht')
+  colnames(medianr) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht')
+  medianr <- rbind(medianr, ms)
+  mmedian <- melt(medianr)
+  colnames(lowerb) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht')
+  lowerb <- rbind(lowerb, ms)
+  mlowerb<- melt(lowerb)
+  colnames(upperb) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 'Sehr schlecht')
+  upperb <- rbind(upperb, ms)
+  mupperb <- melt(upperb)
+  DATA <- cbind(as.factor(models),mlowerb[,-1], mmedian[,3], mupperb[,3])
+  names(DATA) <- c('model', 'Klasse', 'lower', 'med', 'upper')
+  
+  count1 <- as.data.frame(table(sample$Bewertung.Wohngegend))
+  count1$Freq <- count1$Freq/sum(count1$Freq)
+  
+  ggplot(DATA, aes(x = model, y = med, group = Klasse, color = Klasse)) +
+    geom_point(shape = 18, size = 4) + coord_flip() +
+    scale_y_continuous(breaks = pretty(DATA$med, n = 10)) +
+    scale_color_manual(values = c(colo[1], 'black', colo[3], 'grey50', 'cyan3')) +
+    geom_errorbar(aes(x = model, ymin = lower, ymax = upper), width = 0.5) +
+    geom_hline(yintercept = count1$Freq[2], color = 'black', linetype = "dashed") +
+    geom_hline(yintercept = count1$Freq[1], color = colo[1], linetype = "dashed") +
+    geom_hline(yintercept = count1$Freq[3], color = colo[3], linetype = "dashed") +
+    geom_hline(yintercept = count1$Freq[4], color = 'grey50', linetype = "dashed") +
+    geom_hline(yintercept = count1$Freq[5], color = 'cyan3', linetype = "dashed") +
+    theme_bw(12) + labs(y = 'Anteil', x = NULL) + 
+    theme(legend.position = 'bottom')
+}
+
