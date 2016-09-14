@@ -80,23 +80,23 @@ test
 %=================================================== Main Part  ====================================================%
 \section{Material und Methoden}
 \subsection{Daten}
-Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Die beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit damit kleinräumig extrapoliert. Die Bürgerumfrage von 20?? liegt mit einem Stichprobenumfang von 470.190 Befragten relativ nah an der Grundgesamtheit von 573.104 Bürgern mit Hauptwohnsitz in 2011 (Stat. Bundessamt). Beim Zensus (Stuchjahr 2011) wurden 380.238 Bürger befragt.
+Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Bei der Parametrisierungsumfrage handelt es sich folglich um eine Stichprobe  von der die Grundgesamtheit für eine Validierung nicht zur Verfügung steht. Alle Modellqualitätskriterien müssen entweder an der Stichprobe selbst oder an den beiden separat erhobenen Umfragen. Diese beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit somit kleinräumig extrapoliert. Die Bürgerumfrage von 20?? liegt mit einem Stichprobenumfang von 470.190 Befragten relativ nah an der Grundgesamtheit von 573.104 Bürgern, die 2011 mit Hauptwohnsitz in Stuttgart gemeldet waren (Stat. Bundessamt). Beim Zensus (Stuchjahr 2011) wurden 380.238 Bürger befragt.
 
 \subsubsection{Parametrisierungsstichprobe}
-In diesem Unterkapitel wird die Parametrisierungsstichprobe vorgestellt. Anhand der Parametrisierungsstichprobe soll im Verlauf der Arbeit das Modell zur Extrapolation geschätzt werden und mit Hilfe der Datensätze zur Grundgesamtheit die Häufigkeiten der abhängigen Variablen prognostiziert werden.
+Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle zur kleinräumigen  Extrapolation parametrisiert. Insgesamt beinhaltet die Umfrage 8 sozioökonomische Variablen und Angaben zur räumlichen Lage. Von jedem Datensatz sind die stetige räumliche Lage als Gauß-Krüger Geokoordinate sowie die diskrete räumliche Lage in Stadtteil und Stadtbezirk bekannt.\\
+
 %% Wärst Du einverstanden,wenn wir diese Überschriften rausnehmen? Ich finde, Du hast im Text / in de rTabelle schon sehr deutlich gemacht, dass die Datei hier deskr. beschrieben wird. Gilt dann auch für die rüuml. Effekte. Ich fänds übersichtlicher, wenn wir die 3 Umfrgen als Überschroft nehmen.
 %% \subsubsection{Deskriptive Statistik}
-Tabelle \ref{Datensatz} gibt einen Überblick über den Inhalt der Stichprobe. Wie zu erkennen ist, handelt es sich dabei um strukturell sozioökonomische Variablen. Zudem enthält der Datensatz drei verschiedene räumliche Informationen zu den Beobachtungen, auf die im nächsten Kapitel ausführlicher eingegangen wird.\\
 
 \begin{table}[h]
 \centering
-\caption{Datensatz}
+\caption{Erhobene sozioökonomische und geographische Variablen der Parameterisierungsstichprobe und deren Anzahl der Ausprägungen sowie vermutete Modellierung im additiven Modell.}
 \label{Datensatz}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
 \begin{tabular}{l|c|c}
 \multicolumn{2}{l}{Anzahl Beobachtungen: 3.143}     \\ \hline \hline
-\textbf{Variable} & \textbf{Mögliche Ausprägungen} & \textbf{Modellierung} \\ \hline
+\textbf{Variable} & \textbf{Anzahl Ausprägungen} & \textbf{Modellierung} \\ \hline
 Bewertung Wohngegend &  6 & Geordnet Kategorial \\ \hline
 Meinung Stuttgart 21 &  6 & Geordnet Kategorial \\ \hline
 Personenanzahl im Haushalt & 5 & Nicht Parametrisch \\ \hline
@@ -112,33 +112,24 @@ Gauß-Krüger & & Tensorprodukt-Splines  \\ \hline \hline
 }
 \end{table}
 
-Die rechte Spalte zeigt an, wie die einzelnen Variablen in das zu schätzende Modell einfließen sollen. Dabei ist zu erkennen, dass nominal skalierte Variablen, wie z.B. Nationalität als parametrisch und metrisch skalierte Variablen wie z.B. die Altersklasse der Befragten als nicht parametrisch modelliert werden sollen \cite[p. 9]{fahrmeir2009regression}. Genauere Erläuterungen zur Modellierung der Variablen finden sich im Kapitel Methodik. Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten  dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
-Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
-Dazu wurde Abbildung \ref{endogene} erstellt. Sie zeigt die Häufigkeiten der einzelnen Ausprägungen der beiden endogenen Variablen. Wie schon zuvor aus Tabelle \ref{Datensatz} ersichtlich, besitzen beide Variablen sechs mögliche Realisationen, wobei die Klasse \textit{keine Angabe} keine Informationen über die Meinung der Befragten liefert und diese Beobachtungen daher aus dem Datensatz entfernt werden müssen. Damit bleiben fünf mögliche Klassen zur Modellierung übrig.
-
+In der Tabelle sind nicht nur die Kategorienanzahlen der Variablen, sondern auch die vermuteten Formen der Einflüsse der Kovariablen auf die abhängigen Variablen aufgelistet. Diese wurden durch visuelle Darstellung aller Kovariablen über den abhängigen Variablen ermittelt. Nach visueller Einschätzung ergab sich, dass alle nominal skalierte Variablen, wie z.B. die Nationalität, als parametrisch und dass alle kardinal skalierte Variablen, wie z.B. die Altersklasse des Befragten, offensichtlich als nicht parametrisch modelliert werden sollten. Diese beobachteten Zusammenhänge finden sich häufig in Regressionsmodellen \cite[p. 9]{fahrmeir2009regression}. In Anhanlt an ZITAT Fahrmeier (2013) wird der räumliche Effekt entweder kontinuierlich als Tensor Produkt (p. 503-510) oder diskret als Gauß-Markov Zufallsfeld (p. 524-527) modelliert.\\
+Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhältnis der Häufigkeiten der Kategorienauspägungen der abhängigen Variable zu kennen uns seltene Ereignisse zu identifizieren. Während die meisten befragten Personen ihre Wohngegend mit \textit{gut} oder \textit{sehr gut} bewertet haben, Ereignisse mit schlechterer Einschätzung folglich deutlich seltener auftreten, sind die Gruppenhäufigkeiten der Antworten zum Projekt Stuttgart 21 näherungsweise gleichverteilt. In beiden Fällen wurden die wenigen, für die Modellierung irrelevanten Kategorien \textit{Keine Angabe} entfernt.
+In beiden Fällen kann den Gruppen eine Rangfolge, jedoch kein Intervall Abstand unterstellt werden. Es handelt sich demnach jeweils um ordinal Skalierte Daten.
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BarResp}
- \caption{Endogene Variablen}
+ \caption{Endogene Variablen der Parameterisierungsstichprobe.}
  \label{endogene}
  \end{center}
 \end{figure}
 
-Aus Abbildung \ref{endogene} ist zudem ersichtlich, dass die Verteilungen der Beiden Variablen sehr verschieden sind für die gleichen Antwortmöglichkeiten. Während die meisten befragten Personen ihre Wohngegend mit \textit{gut} oder \textit{sehr gut} bewertet haben, sind die Antworten zum Projekt Stuttgart 21 eher gleichmäßig verteilt.\\
-Abschließend ist die Entscheidung gefallen die Bewertung der Wohngegend mit fünf Klassen zu Modellieren, um eine möglichst genau Prognose der Meinung der Bevölkerung zu erreichen. Zudem sind keinerlei Daten zur Bewertung der Wohngegend für die Grundgesamtheit verfügbar, womit auch keine Rücksicht auf eine mögliche Validierung des Modells genommen werden muss. Hingegen ist eine Validierung für die Meinung zu Stuttgart 21 mit den Ergebnissen der Volksabstimmung aus dem Jahre 2011 möglich \cite{Amt}. Allerdings bietet die Volksabstimmung nur Informationen für maximal drei Kategorien (\textit{Zustimmung}, \textit{Ablehnung}, \textit{Enthaltung}), weshalb die weitere Analyse ebenfalls mit drei Kategorien erfolgen soll. Dafür werden die Kategorien \textit{sehr gut} und \textit{Gut} zusammengefasst zu \textit{Zustimmung} und die Klassen \textit{schlecht} und \textit{sehr schlecht} zu \textit{Ablehnung}. Die Klasse \textit{neutral} soll als mittlere Kategorie erhalten bleiben. 
-Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar. 
-
-\newpage
-
- \subsubsection{Räumliche Effekte}
-
-Da in dieser Arbeit ein besonderer Schwerpunkt auf die unterschiedlichen räumlichen Effekte gelegt werden soll, vergleicht dieses Kapitel alle drei räumlichen Effekte für beide endogene Variablen. Zunächst wird der stetige räumliche Effekt mit den Gauss-Krüger Informationen behandelt. Anschließend folgen die diskreten räumlichen Informationen auf Bezirks und Stadtteilebene.\\
-Aus Abbildung \ref{XYStuttgart3} ist die absolute Häufigkeit der Beobachtungen für jede der drei Kategorien zur Meinung zu Stuttgart 21 ersichtlich. Zuerst ist erkenntlich wo die meisten Personen befragt wurden, nämlich in der nähe des Innenstadt Bereichs. Hier findet sich eine Häufung der Beobachtung zu allen drei Kategorien, wohingegen die Randbezirke im allgemeinen weniger Beobachtungen aufweisen. Außerdem ist zu sehen, dass auf Grund der geographischen Beschaffenheit der Region in einigen Bereichen mit weniger Beobachtungen zu rechnen ist z.B. beim Wald im Westen und der hügeligen Landschaft im Osten.    
+Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Bürgerumfrage zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet eine zusätzliche Möglichkeit zur Modellevaluierung. Da hier nur 3 Kategorien (\textit{Zustimmung}, \textit{Enthaltung}, \textit{Ablehnung }) ICH VERSTEHE NICHT GANZ VOHER DIE GRUPPE ENTHALTUNG KOMT unterschieden wurden, wurden auch die Daten dieser Arbeit neu gruppiert. Es wurde, ergänzend zur Einteilung in 5 Kategorien (Abbildung \ref{endogene}, links), eine Neugruppierung in 3 (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}) sowie in 2 Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
+Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschielicher räumlicher Effekte liegt, vergleicht dieser Abschnitt alle drei räumlichen Effekte in Relation zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt die absolute Häufigkeit der Beobachtungen der Meinung zu Stuttgart 21 in kontinuierlicher räumlicher Lage. Zur besseren Übersicht wurden nicht alle Beobachtungen geplottet, sondern Beobachtungsdichten über bivariate normalverteilte Kerndichteschätzer mit festem Abstand für jede Richtungen ermittelt (REF ggplot2, MASS). Um die Hintergrundkarte einbinden zu können wurden die Gauß-Krüger Koordinaten in Dezimalgrad umgerechnet. Da absolute Dichten dargestellt werden, ist zunächst ersichtlich, in welchen Bereichen die meisten Bürger leben. Die Einwohnerdichte nimmt in allen 3 Klassen tendenziell vom Innenstadtbereich zu den Randbezirken ab. Des weiteren ersichtlich ist, dass einige Bereiche, wie das Naturschutzgebiet \textit{Rotwildpark} im Westen oder der \textit{Schurwald} im Osten, aufgrund ihrer geographischen Beschaffenheit oder Nutzungsform nicht oder nur sehr dünn besiedelt sind.    
 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.38]{Pictures/XYStuttgart3.png}
- \caption{Gauss Krüger Informationen Stuttgart 21}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in 3 Gruppen. Quelle der Hintergrundgrafik: REF: Google Maps}
  \label{XYStuttgart3}
  \end{center}
 \end{figure}
@@ -178,6 +169,11 @@ Die letzte räumliche Information ist der Anteil der jeweiligen Klasse pro Stadt
 Die schwarz eingefärbten Flächen signalisieren Stadtteile in denen von keiner der drei Klasse eine Beobachtung vorhanden sind. Wie bereits erwähnt handelt es dich dabei vor allem um Regionen die auf Grund ihrer geographischen Beschaffenheit kaum Einwohner haben (z.B. Wald). Hier fügt sich das Bild der Anteile nicht ganz in den bisherigen Verlauf der räumlichen Statistiken ein. In keiner der drei Klassen lässt sich klar eine Struktur oder räumliche Korrelation der Stadtteile beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar, wobei die Plots wieder mit eigenen Skalen illustriert wurden. Hier zeigt sich ein ähnlich unklares Muster wie bei der Meinung zu Stuttgart 21.\\
 Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 
+\subsubsection{Zensus}
+Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten  dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
+Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen. DIES IST ALLES DISKUSSION; GANZER ABSATZ MUSS IN DISK. KAPITEL\\
+
+
 \subsection{Statistische Methoden}
 
 \subsubsection{Modell}
@@ -189,6 +185,9 @@ Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in
 \subsection{Evaluierung}
 
 \subsection{Validierung}
+
+Ziel der Validierung ist es, die prognostizierten Anteile aus dem gewählten Modell mit den wahren Anteilen aus der Volksabstimmung \cite{Amt} zu vergleichen, um eine Aussage über die Qualität de Prognosemodells geben zu können. Die Validierung erfolgt auf Stadtteil- und Bezirksebene, sowie für das Gesamtergebnis von Stuttgart. Dafür werden insbesondere zwei statistische Gütemaße verwendet.\\
+Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungstreuen als auch effizienten Schätzer zu finden. Als geeignetes Gütemaß hat sich die mittlere quadratische Abweichung erwiesen, da sie sowohl die Varianz, als auch die quadrierte Verzerrung berücksichtigt \cite[p. 201]{HOG}. Ein weiteres Kriterium ist die Überdeckungswahrscheinlichkeit.
 
 \section{Ergebnisse}
 
