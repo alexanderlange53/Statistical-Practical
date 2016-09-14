@@ -10,7 +10,7 @@ require(dplyr);require(gstat);require(raster)
 
 # loading data
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Home'
 
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
@@ -33,6 +33,7 @@ if(bearbeiter == 'Kai@Work'){
 source('SpatialPlots.R')
 source('DataPrep.R')
 
+bezirke@data$STADTBEZIR
 # Plotten der Response Variablen mit Gauss-Krüger Informationen
 # Meinung Stuttgart 21
 GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
