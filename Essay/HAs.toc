@@ -3,7 +3,7 @@
 \contentsline {section}{\numberline {2}Material und Methoden}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Daten}{2}{subsection.2.1}
 \contentsline {subsubsection}{\numberline {2.1.1}Parametrisierungsstichprobe}{2}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}Zensus}{6}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.2}Zensus}{7}{subsubsection.2.1.2}
 \contentsline {subsection}{\numberline {2.2}Statistische Methoden}{7}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Modell}{7}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{7}{subsubsection.2.2.2}
