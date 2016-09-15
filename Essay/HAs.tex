@@ -114,8 +114,7 @@ Gauß-Krüger & & Tensorprodukt-Splines  \\ \hline \hline
 \end{table}
 
 In der Tabelle sind nicht nur die Kategorienanzahlen der Variablen, sondern auch die vermuteten Formen der Einflüsse der Kovariablen auf die abhängigen Variablen aufgelistet. Diese wurden durch visuelle Darstellung aller Kovariablen über den abhängigen Variablen ermittelt. Nach visueller Einschätzung ergab sich, dass alle nominal skalierte Variablen, wie z.B. die Nationalität, als parametrisch und dass alle kardinal skalierte Variablen, wie z.B. die Altersklasse des Befragten, offensichtlich als nicht parametrisch modelliert werden sollten. Diese beobachteten Zusammenhänge finden sich häufig in Regressionsmodellen \cite[p. 9]{fahrmeir2009regression}. In Anlehnung an \cite[p. 503 ff., p. 524 ff.]{fahrmeir2013regression} wird der räumliche Effekt entweder kontinuierlich als Tensor Produkt oder diskret als Gauß-Markov Zufallsfeld modelliert.\\
-Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhältnis der Häufigkeiten der Kategorienauspägungen der abhängigen Variable zu kennen und seltene Ereignisse zu identifizieren. Während die meisten befragten Personen ihre Wohngegend mit \textit{gut} oder \textit{sehr gut} bewertet haben, Ereignisse mit schlechterer Einschätzung folglich deutlich seltener auftreten, sind die Gruppenhäufigkeiten der Antworten zum Projekt Stuttgart 21 näherungsweise gleichverteilt. In beiden Fällen wurden die wenigen, für die Modellierung irrelevanten Kategorien \textit{Keine Angabe} entfernt.
-In beiden Fällen kann den Gruppen eine Rangfolge, jedoch kein Intervall Abstand unterstellt werden. Es handelt sich demnach jeweils um ordinal Skalierte Daten.
+Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhältnis der Häufigkeiten der Kategorienauspägungen der abhängigen Variable zu kennen und seltene Ereignisse zu identifizieren. Während die meisten befragten Personen ihre Wohngegend mit \textit{gut} oder \textit{sehr gut} bewertet haben, Ereignisse mit schlechterer Einschätzung folglich deutlich seltener auftreten, sind die Gruppenhäufigkeiten der Antworten zum Projekt Stuttgart 21 näherungsweise gleichverteilt. In beiden Fällen wurden die wenigen, für die Modellierung irrelevanten Kategorien \textit{Keine Angabe} entfernt. In beiden Fällen kann den Gruppen eine Rangfolge, jedoch kein Intervall Abstand unterstellt werden. Es handelt sich demnach jeweils um ordinal Skalierte Daten.
 
 \begin{figure}[h]
  \begin{center}
@@ -153,23 +152,24 @@ Im folgenden werden die diskreten räumlichen Informationen auf Stadtbezirkseben
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BStuttgart3}
- \caption{Anteile in Bezirken Stuttgart 21}
+ \caption{Anteile zur Meinung zu Stuttgart 21 nach Stadtbezirken.}
  \label{BStuttgart21}
  \end{center}
 \end{figure}
 
-Die letzte räumliche Information ist der Anteil der jeweiligen Klasse pro Stadtteil. Wie schon aus Tabelle \ref{Datensatz} bekannt, besitzt die Stadtteilebene eine wesentlich feinere Aufteilung, als die Bezirksebene. Dadurch ist es möglich, dass in einzelnen Stadtteilen keine Beobachtungen einer Klasse auftauchen. Damit kann die Ansicht auf Stadtteilebene zu einer Überschätzung der Bedeutung einer bestimmten Klasse in einem Stadtteil führen. Die Anteile der drei Klassen zu der Meinung zu Stuttgart 21 sind aus Abbildung \ref{SStuttgart21} zu entnehmen.
+Die letzte untersuchte räumliche Agrregation ist die Stadtteilebene. Abbildung \ref{SStuttgart21} zeigt die Verteilung der \textit{Zustimmungs} und \textit{Ablehnung}. Wie aus Tabelle \ref{Datensatz} hervorgeht,ist die Stadtteilebene deutlich feiner Aufgelöst als die Bezirksebene. Dies führt in der Abbildung dazu, dass in einzelnen Stadtteile mit einer geringen Gesamteinwohneranzahl keine Beobachtungen in einer Klasse oder mehreren Klassen auftauchen, die verbleibende Klasse somit zu 100 \% in dem Stadteil vertreten ist. Des weiteren gibt es sogar im Innenstadtbereich Stadtteile ohne jede Beobachtung, wie z. B. das Benzviertel.
 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/SStuttgart3}
- \caption{Anteile in Stadtteilen Stuttgart 21}
+ \caption{Anteile der Meinung zu Stuttgart 21 nach Stadtteilen.}
  \label{SStuttgart21}
  \end{center}
 \end{figure}
 
-Die schwarz eingefärbten Flächen signalisieren Stadtteile in denen von keiner der drei Klassen eine Beobachtung vorhanden ist. Wie bereits erwähnt, handelt es dich dabei vor allem um Regionen die auf Grund ihrer geographischen Beschaffenheit kaum Einwohner haben (z.B. Wald). Hier fügt sich das Bild der Anteile nicht ganz in den bisherigen Verlauf der räumlichen Statistiken ein. In keiner der drei Klassen lässt sich klar eine Struktur oder räumliche Korrelation der Stadtteile beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar, wobei die Plots wieder mit eigenen Skalen illustriert wurden. Hier zeigt sich ein ähnlich unklares Muster wie bei der Meinung zu Stuttgart 21.\\
-Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
+Diese Stadtteile sind in allen drei Diagrammen schwarz eingefärbt. Wegen der feineren Auflösung ergibt sich ein mosaikartiges, schwerer interpretierbareres Bild der Anteilsverteilung in der Region. In keiner der drei Klassen lassen sich eine klare Struktur oder räumliche Muster beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar \ref{SWohn}. Hier zeigt sich ein ähnlich schwer differenzierbares Muster wie bei der Meinung zu Stuttgart 21.\\
+
+DEN ABSATZ HABE ICH ZUR DISK. VERSCHOBEN
 
 \subsubsection{Zensus}
 Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
@@ -261,6 +261,9 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
  \end{center}
 \end{figure}
 %\clearpage
+
+\section{Diskussion}
+Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 %============================================== Conlcusion =========================================================%
 
 \section{Fazit}
@@ -357,7 +360,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BWohn}
- \caption{Anteile in Bezirken Bewertung Wohngegend}
+ \caption{Anteile der Bewertung der Wohngegend nach Stadtbezirken. Wegen der deutlichen unterschiede in den Anteilen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.}
  \label{BWohn}
  \end{center}
 \end{figure}
@@ -365,7 +368,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/SWohn}
- \caption{Anteile in Stadtteilen Bewertung Wohngegend. Wegen der deutlichen unterschiede in den Anteilen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.}
+ \caption{Anteile der Bewertung der Wohngegend nach Stadtteilen. Wegen der deutlichen unterschiede in den Anteilen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.}
  \label{SWohn}
  \end{center}
 \end{figure}
