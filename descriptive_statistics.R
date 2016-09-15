@@ -14,13 +14,13 @@ if(bearbeiter == 'Alex') {
 } else {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
-
+source('DataPrep.R')
 # Ordinal/Nominal Variables
-
+dataS2 <- DataPrep(dataS, binom = F)
 # Creating Bar plots of Variables
 # counting frequencies
 count1 <- as.data.frame(table(dataS$Bewertung.Wohngegend))
-count2 <- as.data.frame(table(dataS$Meinung.zu.Stuttgart.21))
+count2 <- as.data.frame(table(dataS2$Meinung.zu.Stuttgart.21))
 count3 <- as.data.frame(table(dataS$Personenzahl.im.Haushalt))
 count4 <- as.data.frame(table(dataS$Monatliches.Netto.Haushaltseinkommen))
 count5 <- as.data.frame(table(dataS$Altersklasse.Befragter))
@@ -33,15 +33,15 @@ colo <- diverge_hsv(3) # different color palette
 FreqPlot <- function(count, labx){
   ggplot(count, aes(x = Var1, y = Freq)) + 
     geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-    theme_bw(12) + theme(axis.text = element_text(size = '6')) +
+    theme_bw(13) + theme(axis.text = element_text(size = '6')) +
     labs(x = paste(labx), y = 'Häufigkeit', title = NULL)
 }
 
 FreqPlot2 <- function(count, labx){
   ggplot(count, aes(x = Var1, y = Freq)) + 
     geom_bar(stat="identity", position=position_dodge(), col = 'black', alpha = .5, fill = colo[1]) +
-    theme_bw(12) + theme(axis.text = element_text(size = '6')) +
-    labs(x =  NULL, y = 'Häufigkeit') + facet_wrap( ~response)
+    theme_bw(13) + theme(axis.text = element_text(size = '6')) +
+    labs(x =  NULL, y = 'Häufigkeit') + facet_wrap( ~response, scales = 'free_x')
 }
 
 # Bewertung Wohngegend
@@ -57,11 +57,9 @@ Wohngegend
 
 # Meinung über Stuttgart 21
 # rearranging of groups
-count2$Var1 <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                 'Sehr schlecht', 'Keine Angabe')
-count2$Var1 <- factor(count2$Var1, levels = c('Sehr gut', 'Gut', 'Neutral', 'Schlecht', 
-                                              'Sehr schlecht', 'Keine Angabe'))
-count2 <- count2[-6,]
+count2$Var1 <- c('Zustimmung', 'Neutral', 'Ablehnung')
+count2$Var1 <- factor(count2$Var1, levels = c('Zustimmung', 'Neutral', 'Ablehnung'))
+#count2 <- count2[-6,]
 # Plotting  
 Stuttgart21 <- FreqPlot(count2, 'Meinung zu Stuttgart 21')
 Stuttgart21
@@ -121,7 +119,10 @@ bb <- grid.arrange(Altersklasse, Einkommen, Familienstand, Geschlecht, Nationali
 dev.off()
 
 cc <- rbind(count1, count2)
-cc <- cbind(c(rep('Bewertung Wohngegend', 5), rep('Meinung zu Stuttgart 21', 5)), cc)
+cc <- cbind(c(rep('Bewertung Wohngegend', 5), rep('Meinung zu Stuttgart 21', 3)), cc)
 colnames(cc) <- c('response', 'Var1', 'Freq')
+cc$response <- factor(cc$response, levels = c('Meinung zu Stuttgart 21', 'Bewertung Wohngegend'))
+cc$Var1 <- factor(cc$Var1, levels = c('Sehr gut', 'Gut', 'Zustimmung', 'Neutral', 
+                                             'Ablehnung', 'Schlecht', 'Sehr schlecht'))
 FreqPlot2(cc)
 ggsave('./Essay/Pictures/BarResp.pdf', height = 3, width = 8)
