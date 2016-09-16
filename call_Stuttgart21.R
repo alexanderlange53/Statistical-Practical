@@ -18,10 +18,10 @@ library(gridExtra)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
-cross_eval <- TRUE
+cross_eval <- FALSE
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
@@ -534,7 +534,7 @@ validation(pred = S21.3.Z.SB.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus
 zt <- MarkovRandomField(stadtteile, Bezirke = F)
 
 # Erstellen der Pseudo Beobachtungen und in Datensatz integrieren
-sample <- PseudoB2(sample, stadtteile, binom = F, response)
+sample <- PseudoB2(sample = sample, SpatOb = stadtteile, binom = F, response = response)
 
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
