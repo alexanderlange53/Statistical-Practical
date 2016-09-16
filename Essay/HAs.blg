@@ -4,46 +4,46 @@ The top-level auxiliary file: HAs.aux
 The style file: apalike.bst
 Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
---line 26 of file LiteraturStuttgart.bib.bib
-You've used 3 entries,
+--line 36 of file LiteraturStuttgart.bib.bib
+You've used 4 entries,
             1935 wiz_defined-function locations,
-            487 strings with 3993 characters,
-and the built_in function-call counts, 881 in all, are:
-= -- 83
-> -- 32
-< -- 2
-+ -- 10
-- -- 10
-* -- 60
-:= -- 171
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 18
-chr.to.int$ -- 3
-cite$ -- 3
-duplicate$ -- 38
-empty$ -- 62
-format.name$ -- 13
-if$ -- 167
+            493 strings with 4115 characters,
+and the built_in function-call counts, 1151 in all, are:
+= -- 109
+> -- 39
+< -- 3
++ -- 12
+- -- 12
+* -- 77
+:= -- 223
+add.period$ -- 12
+call.type$ -- 4
+change.case$ -- 24
+chr.to.int$ -- 4
+cite$ -- 4
+duplicate$ -- 51
+empty$ -- 82
+format.name$ -- 16
+if$ -- 218
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 4
-newline$ -- 17
-num.names$ -- 9
-pop$ -- 21
+missing$ -- 5
+newline$ -- 22
+num.names$ -- 12
+pop$ -- 26
 preamble$ -- 1
-purify$ -- 20
+purify$ -- 26
 quote$ -- 0
-skip$ -- 29
+skip$ -- 40
 stack$ -- 0
-substring$ -- 36
-swap$ -- 2
+substring$ -- 48
+swap$ -- 3
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 14
+type$ -- 20
 warning$ -- 0
-while$ -- 6
+while$ -- 8
 width$ -- 0
-write$ -- 37
+write$ -- 49
 (There was 1 warning)

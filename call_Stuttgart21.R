@@ -724,4 +724,4 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '3 S.Teile auf Bezirke Zen.', '3 S.Teile auf S.Teile Umfr.', '3 S.Teile auf S.Teile Zen.')
 ResultPlot(predlist = predlist, predst = predst,  sample = sample, 
            models = models)
-ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 8, width = 8)
+ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 5, width = 8)

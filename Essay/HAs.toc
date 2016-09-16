@@ -12,6 +12,7 @@
 \contentsline {section}{\numberline {3}Ergebnisse}{8}{section.3}
 \contentsline {subsection}{\numberline {3.1}Validierung}{8}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Extrapolation}{8}{subsection.3.2}
-\contentsline {section}{\numberline {4}Fazit}{8}{section.4}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{12}{section.4}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{13}{section.4}
+\contentsline {section}{\numberline {4}Diskussion}{8}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{9}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{13}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{14}{section.5}

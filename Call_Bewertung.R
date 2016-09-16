@@ -615,63 +615,32 @@ PredBarPlot(sample, pred.Z.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
 ## Konfidenzintervalle laufen nicht ##
 
-# Modell mit 3 Klassen ----------------------------------------------------------------------------
-
-sample <- DataPrep(sample, binom = F, Stuttgart21 = F)
-
-#------------------#
-# Eingabeparameter #
-#------------------#
-
-# Schätzdatensatz (Stichprobe)
-# reine Textdatei mit
-# - Variablennamen in der ersten Zeile
-# - Semikolon-getrenten Spalten
-# - Kategoriale Variablen mit passenden Labeln versehen (als Text)
-# - "." als Dezimaltrennzeichen
-
-# Zielgröße & Verteilungsannahme
-response <- "Bewertung.Wohngegend"
-verteilung <- ocat(R=3)
-
-#--------------------#
-## Modellerstellung ##
-#--------------------#
-
-## Step AIC ##
-if(calculate_model){
-  step.model.Bewertung.3 <- stepAIC()
-  saveRDS(step.model.Bewertung.3, file="./Model_Results/step.model.Bewertungl.3_all.rds")
-} else {
-  step.model.Bewertung.3 <- readRDS(file = "./Model_Results/step.model.Bewertungl.3_all.rds")
-}
-
-#--------------------------------#
-## Modelleffekte interpretieren ##
-#--------------------------------#
-## GAM Plots ##
-m1 <- step.model.Bewertung.3$model.spat
-plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
-
-x11()
-par(mfrow = c(2, 2))
-plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
-dev.off()
-
-AIC(step.model.Bewertung.3$model.spat)
-AIC(step.model.Bewertung.3$model.nospat)
-AIC(step.model.Bewertung.3$model.spatonly)
-
-#--------------------#
-## Model Evaluation ##
-#--------------------#
-evaluate(step.model.Bewertung.3$model.nospat, data = sample)
-evaluateAll(step.model.Bewertung.3, data = sample)
+# Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
+predlist <- list(W.5.U.Ko.IntSB[,-c(1,12:16)], W.5.Z.Ko.IntSB[,-c(1,12:16)], W.5.U.Ko.IntST[,-c(1,12:16)],
+                 W.5.Z.Ko.IntST[,-c(1,12:16)], W.5.U.SB.IntSB[,-c(1,12:16)], W.5.Z.SB.IntSB[,-c(1,12:16)],
+                 W.5.U.SB.IntST[,-c(1,12:16)], W.5.Z.SB.IntST[,-c(1,12:16)])
+predst <- list(AggPred.U.S.SB[,-1], AggPred.Z.S.SB[,-1], 
+               AggPred.U.S.ST[,-1], AggPred.Z.S.ST[,-1])
+models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Teile Umfr.',
+            '1 G-K auf S.Teile Zen.', '1 Bezirke auf Bezirke Umfr.', '1 Bezirke auf Bezirke Zen.',
+            '1 Bezirke auf S.Teile Umfr.', '1 Bezirke auf S.Teile Zen.', '1 S.Teile auf Bezirke Umfr.',
+            '1 S.Teile auf Bezirke Zen.', '1 S.Teile auf S.Teile Umfr.', '1 S.Teile auf S.Teile Zen.',
+            '2 G-K auf Bezirke Umfr.', '2 G-K auf Bezirke Zen.', '2 G-K auf S.Teile Umfr.',
+            '2 G-K auf S.Teile Zen.', '2 Bezirke auf Bezirke Umfr.', '2 Bezirke auf Bezirke Zen.',
+            '2 Bezirke auf S.Teile Umfr.', '2 Bezirke auf S.Teile Zen.', '2 S.Teile auf Bezirke Umfr.',
+            '2 S.Teile auf Bezirke Zen.', '2 S.Teile auf S.Teile Umfr.', '2 S.Teile auf S.Teile Zen.',
+            '3 G-K auf Bezirke Umfr.', '3 G-K auf Bezirke Zen.', '3 G-K auf S.Teile Umfr.',
+            '3 G-K auf S.Teile Zen.', '3 Bezirke auf Bezirke Umfr.', '3 Bezirke auf Bezirke Zen.',
+            '3 Bezirke auf S.Teile Umfr.', '3 Bezirke auf S.Teile Zen.', '3 S.Teile auf Bezirke Umfr.',
+            '3 S.Teile auf Bezirke Zen.', '3 S.Teile auf S.Teile Umfr.', '3 S.Teile auf S.Teile Zen.',
+            '4 G-K auf Bezirke Umfr.', '4 G-K auf Bezirke Zen.', '4 G-K auf S.Teile Umfr.',
+            '4 G-K auf S.Teile Zen.', '4 Bezirke auf Bezirke Umfr.', '4 Bezirke auf Bezirke Zen.',
+            '4 Bezirke auf S.Teile Umfr.', '4 Bezirke auf S.Teile Zen.', '4 S.Teile auf Bezirke Umfr.',
+            '4 S.Teile auf Bezirke Zen.', '4 S.Teile auf S.Teile Umfr.', '4 S.Teile auf S.Teile Zen.',
+            '5 G-K auf Bezirke Umfr.', '5 G-K auf Bezirke Zen.', '5 G-K auf S.Teile Umfr.',
+            '5 G-K auf S.Teile Zen.', '5 Bezirke auf Bezirke Umfr.', '5 Bezirke auf Bezirke Zen.',
+            '5 Bezirke auf S.Teile Umfr.', '5 Bezirke auf S.Teile Zen.', '5 S.Teile auf Bezirke Umfr.',
+            '5 S.Teile auf Bezirke Zen.', '5 S.Teile auf S.Teile Umfr.', '5 S.Teile auf S.Teile Zen.')
+ResultPlot5(predlist = predlist, predst = predst,  sample = sample, 
+           models = models)
+ggsave('./Essay/Pictures/WohngegendAlleModelle.pdf', height = 8, width = 8)
