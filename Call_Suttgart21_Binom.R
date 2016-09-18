@@ -17,7 +17,7 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -317,12 +317,14 @@ if(calc_CI) {
 #---------------#
 
 # Validierung auf Bezirksebene
-validation(pred = S21.2.U.Ko.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+v <- validation(pred = S21.2.U.Ko.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
 validation(pred = S21.2.Z.Ko.IntSB, valid = Bezirke.Val, pop = Zensus, errorbar = T)
+v <- v + ggtitle('Zwei Klassen Bezirke') 
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = S21.2.U.Ko.IntST, valid = Stadtteile.Val[,-1], pop = Umfrage, errorbar = T)
+v2 <-validation(pred = S21.2.U.Ko.IntST, valid = Stadtteile.Val[,-1], pop = Umfrage, errorbar = T)
 validation(pred = S21.2.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) 
+v2 <- v2 + ggtitle('Zwei Klassen Stadtteile') 
 
 #--------------------------------------#
 # Bezirke als Räumliche Informationen  #-----------------------------------------------------------------

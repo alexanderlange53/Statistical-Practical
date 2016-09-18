@@ -68,11 +68,11 @@ validation <- function(pred, valid, pop = pop, errorbar = F){
                                                  position=position_dodge(.05)) +
            geom_point(shape = 21, fill = colo[1], size = 3) + 
            labs(x = 'Wahre Anteile', y = 'Geschätzte Anteile' ) +
-           theme_bw(12) + coord_fixed(1) + geom_abline(intercept = 0, slope = 1) +
-           xlim(0.15, 0.85) + 
-           ylim(0.15, 0.85) +
-           annotate("text", x = 0.25, y = 0.8, label = paste("mse: ", round(mse[1], 3))) +
-           annotate("text", x = 0.25, y = 0.75, label = paste("cov.: ", round(coverage[1], 3)))
+           theme_bw(12) + geom_abline(intercept = 0, slope = 1) +
+           xlim(0.25, 0.9) + 
+           ylim(0.25, 0.9) +
+           annotate("text", x = 0.33, y = 0.85, label = paste("MSE: ", round(mse[1], 3))) +
+           annotate("text", x = 0.33, y = 0.75, label = paste("Übw.: ", round(coverage[1], 3)))
            #facet_wrap(~ x)
    plotv
    return(plotv)
@@ -165,7 +165,7 @@ ResultPlot <- function(predlist, predst, sample, models){
   ggplot(DATA, aes(x = model, y = med, group = Klasse, color = Klasse)) +
     geom_point(shape = 18, size = 4) + coord_flip() +
     scale_y_continuous(breaks = pretty(DATA$med, n = 10)) +
-    scale_color_manual(values = c(colo[1], 'black', colo[3])) +
+    scale_color_manual(values = c(colo[1], 'black', colo[3]), name = NULL) +
     geom_errorbar(aes(x = model, ymin = lower, ymax = upper), width = 0.5) +
     geom_hline(yintercept = 0.471, color = colo[3], size = 1) +
     geom_hline(yintercept = 0.529, color = colo[1], size = 1) +
@@ -208,7 +208,7 @@ ResultPlot5 <- function(predlist, predst, sample, models){
   ggplot(DATA, aes(x = model, y = med, group = Klasse, color = Klasse)) +
     geom_point(shape = 18, size = 4) + coord_flip() +
     scale_y_continuous(breaks = pretty(DATA$med, n = 10)) +
-    scale_color_manual(values = c(colo[1], 'black', colo[3], 'grey50', 'cyan3')) +
+    scale_color_manual(values = c(colo[1], 'black', colo[3], 'grey50', 'cyan3'), name = NULL) +
     geom_errorbar(aes(x = model, ymin = lower, ymax = upper), width = 0.5) +
     geom_hline(yintercept = count1$Freq[2], color = 'black', linetype = "dashed") +
     geom_hline(yintercept = count1$Freq[1], color = colo[1], linetype = "dashed") +

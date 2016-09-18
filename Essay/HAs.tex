@@ -124,7 +124,7 @@ Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhäl
  \end{center}
 \end{figure}
 
-Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Bürgerumfrage zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadurch eine zusätzliche Möglichkeit zur Modellevaluierung an. Da hier nur 3 Kategorien (\textit{Zustimmung}, \textit{Enthaltung}, \textit{Ablehnung }) ICH VERSTEHE NICHT GANZ VOHER DIE GRUPPE ENTHALTUNG KOMT unterschieden wurden, wurden auch die Daten dieser Arbeit neu gruppiert. Es wurde, ergänzend zur Einteilung in 5 Kategorien (Abbildung \ref{endogene}, links), eine Neugruppierung in 3 (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}) sowie in zwei Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
+Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Bürgerumfrage zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadurch eine zusätzliche Möglichkeit zur Modellevaluierung an. Da hier mit Sicherheit nur 2 Kategorien (\textit{Zustimmung}, \textit{Ablehnung }) unterschieden werden können, wurden  die Daten dieser Arbeit neu gruppiert. Es wurde eine Neugruppierung in 3 (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}, Tabelle \ref{endogene}, links) sowie in zwei Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
 Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumlicher Effekte liegt, vergleicht dieser Abschnitt alle drei räumlichen Effekte in Relation zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt die absolute Häufigkeit der Beobachtungen der Meinung zu Stuttgart 21 in kontinuierlicher räumlicher Lage. Zur besseren Übersicht wurden nicht alle Beobachtungen geplottet, sondern Beobachtungsdichten über bivariate normalverteilte Kerndichteschätzer mit festem Abstand für jede Richtungen ermittelt (REF ggplot2, MASS). Um die Hintergrundkarte einbinden zu können wurden die Gauß-Krüger Koordinaten in Dezimalgrad umgerechnet. Da absolute Dichten dargestellt werden, ist zunächst ersichtlich, in welchen Bereichen die meisten Bürger leben. Wegen der hohen Einwohnerdichte im Innenstadtbereich sind dort die Beobachtungsdichten aller 3 Klassen tendenziell höher als in den Randbezirken. Des weiteren ersichtlich ist, dass einige Bereiche, wie das Naturschutzgebiet \textit{Rotwildpark} im Westen oder der \textit{Schurwald} im Osten, aufgrund ihrer geographischen Beschaffenheit oder Landnutzungsform nicht oder nur sehr dünn besiedelt sind.
 
 \begin{figure}[h]
@@ -248,7 +248,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 % \usepackage{multirow}
 \begin{table}[h]
 \centering
-\caption{Validierung \textcolor{red}{Vorher hatten wir '.' als Tausender Trennzeichen hier als Dezimaltrenner. Wir müssen uns entscheiden, ob wir die deutsche (. = 1000er Trenner , = Dezimaltrenner) oder englische Trennung (genau andersrum)}. Ich würde vorschlagen, die deutsche zu nehmen, wasmeinst Du?}
+\caption{Vergleich der mittleren quadratischen Abweichung (MSE) und der Überdeckungswahrscheinlichkeit bei allen Prognosen aus den geschätzten Modellen und den beiden Extrapolationsdateien für die Meinung zu Stuttgart 21}
 \label{vali}
 \begin{tabular}{llll|cc|cc}
 \hline \hline
@@ -287,8 +287,8 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT}
- \caption{Validierung Stuttgart 21}
- \label{vali}
+ \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf die Bürgerumfrage mit zwei und drei Klassenmodell mit 95\% Quantielen}
+ \label{vali4}
  \end{center}
 \end{figure}
 
@@ -297,7 +297,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/S21AlleModelle}
- \caption{Extrapolation aller Modelle}
+ \caption{Vergleich der extrapolierten Gesamtanteile für Stuttgart mit allen geschätzten Modellen und beiden Extrapolationsdateien mit den wahren Anteilen, sowie den Anteilen der Stichprobe mit 95\% Quantielen zur Meinung zu Stuttgart 21}
  \label{S21Alle}
  \end{center}
 \end{figure}
@@ -306,7 +306,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/WohngegendAlleModelle}
- \caption{Extrapolation aller Modelle W}
+ \caption{Vergleich der extrapolierten Gesamtanteile für Stuttgart mit allen geschätzten Modellen und beiden Extrapolationsdateien mit den Anteilen der Stichprobe mit 95\% Quantielen zur Bewertung der Wohngegend}
  \label{WAlle}
  \end{center}
 \end{figure}
