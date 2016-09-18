@@ -1,49 +1,50 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: HAs.aux
 The style file: apalike.bst
 Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
---line 36 of file LiteraturStuttgart.bib.bib
-You've used 4 entries,
+--line 54 of file LiteraturStuttgart.bib.bib
+Warning--can't use both author and editor fields in fahrmeir2013regression
+You've used 5 entries,
             1935 wiz_defined-function locations,
-            493 strings with 4115 characters,
-and the built_in function-call counts, 1151 in all, are:
-= -- 109
-> -- 39
-< -- 3
-+ -- 12
-- -- 12
-* -- 77
-:= -- 223
-add.period$ -- 12
-call.type$ -- 4
-change.case$ -- 24
-chr.to.int$ -- 4
-cite$ -- 4
-duplicate$ -- 51
-empty$ -- 82
-format.name$ -- 16
-if$ -- 218
+            500 strings with 4270 characters,
+and the built_in function-call counts, 1435 in all, are:
+= -- 135
+> -- 46
+< -- 4
++ -- 14
+- -- 14
+* -- 98
+:= -- 275
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 29
+chr.to.int$ -- 5
+cite$ -- 6
+duplicate$ -- 65
+empty$ -- 105
+format.name$ -- 19
+if$ -- 273
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 5
-newline$ -- 22
-num.names$ -- 12
-pop$ -- 26
+missing$ -- 7
+newline$ -- 27
+num.names$ -- 15
+pop$ -- 32
 preamble$ -- 1
-purify$ -- 26
+purify$ -- 32
 quote$ -- 0
-skip$ -- 40
+skip$ -- 50
 stack$ -- 0
-substring$ -- 48
-swap$ -- 3
+substring$ -- 60
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 20
-warning$ -- 0
-while$ -- 8
+type$ -- 24
+warning$ -- 1
+while$ -- 10
 width$ -- 0
-write$ -- 49
-(There was 1 warning)
+write$ -- 62
+(There were 2 warnings)
