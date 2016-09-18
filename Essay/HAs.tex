@@ -81,7 +81,7 @@ test
 %=================================================== Main Part  ====================================================%
 \section{Material und Methoden}
 \subsection{Daten}
-Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Bei der Parametrisierungsumfrage handelt es sich folglich um eine Stichprobe von der die Grundgesamtheit für eine Validierung nicht zur Verfügung steht. Alle Modellqualitätskriterien müssen entweder an der Stichprobe selbst oder an den beiden separat erhobenen Umfragen angewendet werden. Diese beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen Umfragen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit somit kleinräumig extrapoliert.
+Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Bei der Parametrisierungsumfrage handelt es sich folglich um eine Stichprobe von der die Grundgesamtheit für eine Validierung nicht zur Verfügung steht. Alle Modellqualitätskriterien müssen entweder an der Stichprobe selbst oder an den beiden separat erhobenen Umfragen angewendet werden. Diese beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen Umfragen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit somit kleinräumig extrapoliert. Einige Variablen unterscheiden sich in ihren Ausprägungen zwischen dem Umfragen. Zur Vereinheitlichung der Dateien mussten einige Gruppenausprägungen demnach umkodiert werden. Die Umkodierungen können in der digital anhängenden Datei \textit{Aufbereitung\_Stuttgart21.R} nachvollzogen werden.
 
 \subsubsection{Parametrisierungsstichprobe}
 Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle zur kleinräumigen  Extrapolation parametrisiert. Insgesamt beinhaltet die Umfrage 8 sozioökonomische Variablen und Angaben zur räumlichen Lage. Von jedem Datensatz sind die stetige räumliche Lage als Gauß-Krüger Geokoordinate sowie die diskrete räumliche Lage in Stadtteil und Stadtbezirk bekannt.\\
@@ -169,25 +169,23 @@ Die dritte und letzte untersuchte räumliche Agrregationsebene ist die Stadtteil
 
 Diese Stadtteile werden in den Diagrammen schwarz dargestellt. Wegen der feineren Auflösung ergibt sich ein mosaikartiges, visuell schwerer interpretierbareres Bild. In keiner der drei Klassen lassen sich eine klare Struktur oder räumliche Muster beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar \ref{SWohn}. Hier zeigt sich ein ähnlich schwer differenzierbares Muster wie bei der Meinung zu Stuttgart 21. Wegen der deutlichen unterschiede in den Anteilen der fünf Gruppen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.\\
 
-\subsection{Bürgerumfrage}
-In der Bürgerumfrage von 20?? wurden 470.190 Bürger zu acht sozioökonomischen Punkten befragt. Der Stichprobenumfang dieser Umfrage liegt also relativ nah an der Grundgesamtheit von 573.104 Bürgern, die 2011 mit Hauptwohnsitz in Stuttgart gemeldet waren (REF Stat. Bundessamt). Von allen Befragten liegt der Wohnsitz als kontinuierliche Gauß-Krüger Geokoordinate vor. Um eine kleinräumige Extrapolation mit diskreten räumlichen Informationen vornehmen zu können, wurden die Stadtteil- und Stadtbezirksinformationen an die Datei angehängt. Hierzu wurden die Stadtteil- und Stadtbezirkspolygone, welche uns von der Stadt Stuttgart zur Verfügung gestellt wurden, über eine räumliche Abfrage mit der Bürgerumfrage datei verknüpft. Die Geoanalyse wurde mit dem freien Geoinformationssystem QGIS (REF) durchgeführt. Die Projektdatei mit der Geoabfrage (Geographische_Abfrage.QGS) sowie die Shapefiledateien (Stadtteile_netto.SHP) liegen dieser Arbeit digital bei. Wie in den Tabellen \ref{Datensatz} und \ref{buergerumfrage} ersichtlich
-
-
+\subsubsection{Bürgerumfrage}
+In der Bürgerumfrage von 20?? wurden 470.190 Bürger zu acht sozioökonomischen Punkten befragt. Der Stichprobenumfang dieser Umfrage liegt also relativ nah an der Grundgesamtheit von 573.104 Bürgern, die 2011 mit Hauptwohnsitz in Stuttgart gemeldet waren (REF Stat. Bundessamt). Von allen Befragten liegt der Wohnsitz als kontinuierliche Gauß-Krüger Geokoordinate vor. Um eine kleinräumige Extrapolation mit diskreten räumlichen Informationen vornehmen zu können, wurden die Stadtteil- und Stadtbezirksinformationen an die Datei angehängt. Hierzu wurden die Stadtteil- und Stadtbezirkspolygone, welche uns von der Stadt Stuttgart zur Verfügung gestellt wurden, über eine räumliche Abfrage mit der Bürgerumfrage datei verknüpft. Die Geoanalyse wurde mit dem freien Geoinformationssystem QGIS (REF) durchgeführt. Die Projektdatei mit der Geoabfrage (\textit{Geographische\_Abfrage.QGS}) sowie die Shapefiledateien (\textit{Stadtteile\_netto.SHP}) liegen dieser Arbeit digital bei. Wie in den Tabellen \ref{Datensatz} und REF ? ersichtlich eignen sich nicht alle Variablen zur Extrapolation, da nicht alle Variablen in jeder Umfrag erhoben wurden. Es ergibt sich ein Überschneidungsbereich der fünf sozioökonomischen Variablen \textit{Altersklasse Befragter}, \textit{Geschlecht}, \textit{Nationalität}, \textit{Familienstand} und \textit{Personenzahl im Haushalt}. \textcolor{red}{IN TAB 2 BRAUCHEN WIR DIE SPALTE MODLLEIRUNG EIGENTLICH NICHT MEHR ODER? ICH HABE DIE VARIABLEN Z.T. UMBEBENANNT, DAMIT SIE GLEICH HEIßen WIE IN TAB 1. AUßERDEM SIND JA NACH DEM UMKODIEREN BEI DER ALTERSKLASSE NUR NOCH  6 AUSPR. ICH WÜRDE DAS IN DER TAB. 2 ANPASSEN WAS MEINST DU?}
 
 \begin{table}[h]
 \centering
-\caption{Grundgesamtheit Bürgerumfrage}
+\caption{Erhobene sozioökonomische und geographische Variablen der Bürgerumfrage und deren Anzahl der Ausprägungen.}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
 \begin{tabular}{l|c|c}
 \multicolumn{3}{l}{Anzahl Beobachtungen: 470.190}     \\ 
 \hline \hline
-\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Nicht Parametrisch & 14 \\ \hline
+\textbf{Variable} & \textbf{Modellierung} & \textbf{Anzahl Ausprägungen}  \\ \hline
+\multicolumn{1}{l|}{Altersklasse Befragter} &  Nicht Parametrisch & 14 \\ \hline
 \multicolumn{1}{l|}{Geschlecht} &  Parametrisch  & 2 \\ \hline
 \multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Nicht Parametrisch  & 5 \\ \hline
+\multicolumn{1}{l|}{Personenzahl im Haushalt} &  Nicht Parametrisch  & 5 \\ \hline
 \multicolumn{1}{l|}{Wohndauer} & Nicht Parametrisch  & 3 \\ \hline
 \multicolumn{1}{l|}{ALG II Quote} & Nicht Parametrisch  & 9 \\ \hline
 \multicolumn{1}{l|}{Ein/Zweifamilienhäuser}& Nicht Parametrisch & 8 \\ \hline 
@@ -198,11 +196,33 @@ In der Bürgerumfrage von 20?? wurden 470.190 Bürger zu acht sozioökonomischen
 \end{table}
 
 \subsubsection{Zensus}
-liegt mit einem Stichprobenumfang von 470.190 Befragten relativ nah an der Grundgesamtheit von  Beim Zensus (Stichjahr 2011) wurden 380.238 Bürger befragt.
+Im Rahmen der bundeweiten Volkszählung von 2011 wurden in Stuttgart 380.238 Bürger befragt \textcolor{red}{REF TAB 3}. Da beim Zensus auch für die Fragestellung dieser Arbeit relevante sozioökonomische Variablen erhoben wurden, eignet sich diese Umfrage ebenfalls für die kleinräumige Extrapolation. Die diskreten geographischen Angaben wurden analog zur Bürgerumfrage per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation eignen sich die gleichen möglichen sozioökonomischen Variablen wie bei der Bürgerumfrage. 
+\textcolor{red}{Wie in Tab. 2.: Habe die Namen angepasst. Anzahl Personenzahl und Alter umkodiert, also auch in Tabelle ändern? Wir könnten sogar überlegen, die nicht verwendeten Variablen zu löschen. Wir gehen ja im Text nicht mehr auf diese ein (gilt auch für Tab 2)}
 
+\begin{table}[h]
+\centering
+\caption{Erhobene sozioökonomische und geographische Variablen der Bürgerumfrage und deren Anzahl der Ausprägungen.}
+\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+           max width=\textwidth}{
+\begin{tabular}{l|c|c}
+\multicolumn{3}{l}{Anzahl Beobachtungen: 380.238}     \\ 
+\hline \hline
+\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
+\multicolumn{1}{l|}{Altersklasse Befragter} &  Nicht Parametrisch & 9 \\ \hline
+\multicolumn{1}{l|}{Geschlecht} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
+\multicolumn{1}{l|}{Personenzahl im Hasuhalt} &  Nicht Parametrisch  & 6 \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Nicht Parametrisch & 24 \\ \hline
+\multicolumn{1}{l|}{Stellung Beruf} & Parametrisch  & 9 \\ \hline
+\multicolumn{1}{l|}{Beamter}& Parametrisch & 2 \\ \hline 
+\multicolumn{1}{l|}{Gebäudetyp}& Parametrisch & 10 \\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung}& Parametrisch & 2 \\ \hline
+\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
+\end{tabular}
 
-Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
-Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen. DIES IST ALLES DISKUSSION; GANZER ABSATZ MUSS IN DISK. KAPITEL\\
+}
+\end{table}
 
 
 \subsection{Statistische Methoden}
@@ -211,9 +231,10 @@ Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushalts
 Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines
 
 \subsubsection{Modellwahl}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC (CITE AKAIKE) Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} CITE WOOD 2011 Paketes generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration eins bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration eins bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
 
-\subsection{Evaluierung}
+\subsection{Kreuzvalidierung}
+Für die Modellerstellung lag eine Stichprobe von 3.143 vor. Da außer der ungefähren Gesamtanzahl (Anzahl der gemeldeten Bürger in Stuttgart 2011) keine Informationen zur Grundgesamtheit vorliegen, wurde die Modellqualität zunächst an der Stichprobe eingeschätzt. Zu diesem Zweck wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite{fahrmeir2013regression}[p. 149].
 
 \subsection{Validierung}
 
@@ -227,7 +248,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 % \usepackage{multirow}
 \begin{table}[h]
 \centering
-\caption{Validierung}
+\caption{Validierung \textcolor{red}{Vorher hatten wir '.' als Tausender Trennzeichen hier als Dezimaltrenner. Wir müssen uns entscheiden, ob wir die deutsche (. = 1000er Trenner , = Dezimaltrenner) oder englische Trennung (genau andersrum)}. Ich würde vorschlagen, die deutsche zu nehmen, wasmeinst Du?}
 \label{vali}
 \begin{tabular}{llll|cc|cc}
 \hline \hline
@@ -292,6 +313,10 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 %\clearpage
 
 \section{Diskussion}
+Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
+Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
+
+
 Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 %============================================== Conlcusion =========================================================%
 
@@ -333,30 +358,7 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 
 
 
-\begin{table}[h]
-\centering
-\caption{Grundgesamtheit Zensus}
-\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
-           max width=\textwidth}{
-\begin{tabular}{l|c|c}
-\multicolumn{3}{l}{Anzahl Beobachtungen: 380.238}     \\ 
-\hline \hline
-\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Nicht Parametrisch & 9 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} & Parametrisch  & 2 \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Nicht Parametrisch  & 6 \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Nicht Parametrisch & 24 \\ \hline
-\multicolumn{1}{l|}{Stellung Beruf} & Parametrisch  & 9 \\ \hline
-\multicolumn{1}{l|}{Beamter}& Parametrisch & 2 \\ \hline 
-\multicolumn{1}{l|}{Gebäudetyp}& Parametrisch & 10 \\ \hline
-\multicolumn{1}{l|}{Gebäudenutzung}& Parametrisch & 2 \\ \hline
-\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
-\end{tabular}
 
-}
-\end{table}
 
 \begin{figure}[h]
  \begin{center}
