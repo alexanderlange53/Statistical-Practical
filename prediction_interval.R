@@ -26,7 +26,14 @@ for(b in 1:nboot) {
 bootfun <- function(b) {
   cat("Bootstrap sample ",b," (von ",nboot,")\n",sep="")
   # if(all(unique(sample[, aggregation] %in% unique(sample[indmat[,b], aggregation])))) {
-  helpmodel <- gam(model$formula, weights=wmat[,b], family=verteilung, method="REML", data=sample[indmat[,b],])
+  if(IFStadtteil){
+    subsample_b <- sample[indmat[,b],]
+    subsample_b <- PseudoB2(sample = subsample_b, SpatOb = stadtteile, binom = F, response = response)
+    helpmodel <- gam(model$formula, weights=subsample_b$Gewicht, family=verteilung, method="REML", data=subsample_b)
+  } else {
+    helpmodel <- gam(model$formula, weights=wmat[,b], family=verteilung, method="REML", data=sample[indmat[,b],])
+  }
+  
   helppred <- Prediction(population, helpmodel, IFUmfrage = IFUmfrage, binom = F)
   predData <- cbind(helppred[, c(1 : max(sample[,response]))], population[, aggregation])
   names(predData)[dim(predData)[2]] <- aggregation

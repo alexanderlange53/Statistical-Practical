@@ -40,7 +40,7 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
   if(loadGeo){
@@ -66,7 +66,7 @@ if(bearbeiter == 'Cluster') {
   cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden. 
       Es ist eine alte, nicht kompatible Version von RCpp installiert. Die aktuelle RCpp Version muss händisch geladen werden, sonst funktioniert die subset Funktion nicht.')
   setwd('/home/khusmann/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
@@ -560,24 +560,37 @@ evaluate(step.model.S$model.spat, data = sample)
 evaluateAll(step.model.S, data = sample)
 
 
+if(cross_eval) {
 ## Cross Evaluation ##
-repeatitions = 1
+repeatitions = 3062
 model <- step.model.S$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
 crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
 
+tryfun <- function(subset_i, sample_i, crosseval) {
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample_i, weights = as.vector(sample_i[, "Gewicht"])) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+  return(crosseval)
+}
+
 for (i in c(1 : repeatitions)) {
   all <- c(1 : dim(sample)[1])
   subset_i <- all[-leave_out[i]]
+  sample_i <- sample[subset_i,]
+  sample_i <- PseudoB2(sample = sample_i, SpatOb = stadtteile, binom = F, response = response)
+  
   print(paste('Model', i, 'of', repeatitions))
-  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
-  crosseval <- rbind(crosseval, ret_i)
+  
+  try(
+    crosseval <- tryfun(subset_i, sample_i, crosseval)
+  )
 }
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
-rm(list = c("all", "subset_i", "gam_i", "ret_i"))
-crosseval
+#rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+write.csv2(crosseval, './cv_results/S21_3_ST.csv')
+}
 
 
 #--------------------------------#
@@ -588,7 +601,7 @@ m1 <- step.model.S$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-x11()
+#x11()
 par(mfrow = c(2, 2))
 plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
 mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
@@ -658,6 +671,7 @@ if(calc_CI) {
   aggregation <- "Stadtteil"
   pred.sum <- AggPred.U.S.ST
   IFUmfrage <- TRUE
+  IFStadtteil <- TRUE
   source('./prediction_interval.R')
   UInt.U.S.ST <- pred.interval$u_intervall
   OInt.U.S.ST <- pred.interval$o_intervall
