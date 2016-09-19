@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -643,4 +643,4 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '5 S.Teile auf Bezirke Zen.', '5 S.Teile auf S.Teile Umfr.', '5 S.Teile auf S.Teile Zen.')
 ResultPlot5(predlist = predlist, predst = predst,  sample = sample, 
            models = models)
-ggsave('./Essay/Pictures/WohngegendAlleModelle.pdf', height = 8, width = 8)
+ggsave('./Essay/Pictures/WohngegendAlleModelle2.pdf', height = 8, width = 8)

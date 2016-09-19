@@ -81,7 +81,7 @@ test
 %=================================================== Main Part  ====================================================%
 \section{Material und Methoden}
 \subsection{Daten}
-Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Bei der Parametrisierungsumfrage handelt es sich folglich um eine Stichprobe von der die Grundgesamtheit für eine Validierung nicht zur Verfügung steht. Alle Modellqualitätskriterien müssen entweder an der Stichprobe selbst oder an den beiden separat erhobenen Umfragen angewendet werden. Diese beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit somit kleinräumig extrapoliert. Die Bürgerumfrage von 20?? liegt mit einem Stichprobenumfang von 470.190 Befragten relativ nah an der Grundgesamtheit von 573.104 Bürgern, die 2011 mit Hauptwohnsitz in Stuttgart gemeldet waren (Stat. Bundessamt). Beim Zensus (Stichjahr 2011) wurden 380.238 Bürger befragt.
+Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Bei der Parametrisierungsumfrage handelt es sich folglich um eine Stichprobe von der die Grundgesamtheit für eine Validierung nicht zur Verfügung steht. Alle Modellqualitätskriterien müssen entweder an der Stichprobe selbst oder an den beiden separat erhobenen Umfragen angewendet werden. Diese beiden anderen Umfragen haben jeweils einen deutliche größeren Stichprobenumfang. An diesen Umfragen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit somit kleinräumig extrapoliert. Einige Variablen unterscheiden sich in ihren Ausprägungen zwischen dem Umfragen. Zur Vereinheitlichung der Dateien mussten einige Gruppenausprägungen demnach umkodiert werden. Die Umkodierungen können in der digital anhängenden Datei \textit{Aufbereitung\_Stuttgart21.R} nachvollzogen werden.
 
 \subsubsection{Parametrisierungsstichprobe}
 Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle zur kleinräumigen  Extrapolation parametrisiert. Insgesamt beinhaltet die Umfrage 8 sozioökonomische Variablen und Angaben zur räumlichen Lage. Von jedem Datensatz sind die stetige räumliche Lage als Gauß-Krüger Geokoordinate sowie die diskrete räumliche Lage in Stadtteil und Stadtbezirk bekannt.\\
@@ -124,7 +124,7 @@ Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhäl
  \end{center}
 \end{figure}
 
-Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Bürgerumfrage zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadurch eine zusätzliche Möglichkeit zur Modellevaluierung an. Da hier nur 3 Kategorien (\textit{Zustimmung}, \textit{Enthaltung}, \textit{Ablehnung }) ICH VERSTEHE NICHT GANZ VOHER DIE GRUPPE ENTHALTUNG KOMT unterschieden wurden, wurden auch die Daten dieser Arbeit neu gruppiert. Es wurde, ergänzend zur Einteilung in 5 Kategorien (Abbildung \ref{endogene}, links), eine Neugruppierung in 3 (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}) sowie in zwei Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
+Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Bürgerumfrage zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadurch eine zusätzliche Möglichkeit zur Modellevaluierung an. Da hier mit Sicherheit nur 2 Kategorien (\textit{Zustimmung}, \textit{Ablehnung }) unterschieden werden können, wurden  die Daten dieser Arbeit neu gruppiert. Es wurde eine Neugruppierung in 3 (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}, Tabelle \ref{endogene}, links) sowie in zwei Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
 Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumlicher Effekte liegt, vergleicht dieser Abschnitt alle drei räumlichen Effekte in Relation zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt die absolute Häufigkeit der Beobachtungen der Meinung zu Stuttgart 21 in kontinuierlicher räumlicher Lage. Zur besseren Übersicht wurden nicht alle Beobachtungen geplottet, sondern Beobachtungsdichten über bivariate normalverteilte Kerndichteschätzer mit festem Abstand für jede Richtungen ermittelt (REF ggplot2, MASS). Um die Hintergrundkarte einbinden zu können wurden die Gauß-Krüger Koordinaten in Dezimalgrad umgerechnet. Da absolute Dichten dargestellt werden, ist zunächst ersichtlich, in welchen Bereichen die meisten Bürger leben. Wegen der hohen Einwohnerdichte im Innenstadtbereich sind dort die Beobachtungsdichten aller 3 Klassen tendenziell höher als in den Randbezirken. Des weiteren ersichtlich ist, dass einige Bereiche, wie das Naturschutzgebiet \textit{Rotwildpark} im Westen oder der \textit{Schurwald} im Osten, aufgrund ihrer geographischen Beschaffenheit oder Landnutzungsform nicht oder nur sehr dünn besiedelt sind.
 
 \begin{figure}[h]
@@ -136,7 +136,7 @@ Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumliche
 \end{figure}
 
 Die \textit{Zustimmung} zeigt offensichtliche räumliche Muster. Im Zentrum und im Nordosten ist sie höher als im Rest der Stadt. Der räumliche Trend der \textit{Ablehnung} ist schwächer ausgeprägt. Es zeigt sich jedoch, dass der Bereich der Innenstadt, sowie die südlichen Stadtbereiche etwas höhere Dichten bei der \textit{Ablehnung} aufweisen. Die Beobachtungen der Kategorie \textit{neutral} sind eher gleichmäßig über die Stadt verteilt.\\
-Abbildung \ref{XYWohnG5} zeigt die Dichte der Beobachtungen der fünf Kategorien zur Bewertung der Wohngegend. Hier zeigt sich ein deutlich ausgeprägteres räumliches Muster als bei der Meinung zu Stuttgart 21. Die Beobachtungen der Klasse \textit{Sehr gut} häufen sich sehr stark im Innenstadtbereich und im Süden. Die Kategorie \textit{gut} verteilt sich relativ homogen über das gesamte Stadtgebiet mit einer etwas stärkeren Konzentration in der Innenstadt und im Nordosten. Bei der Klasse \textit{Neutral} zeigt sich eine stärkere Konzentration auf den Osten und Nordosten der Stadt. Praktisch alle \textit{schlechten} und \textit{sehr schlechten} Bewertungen sind deutlich abgegrenzt im Osten und Nordosten lokalisiert. Hierbei ist zu erwähnen, dass der Anteil der Personen, die ihre Wohngegend mit \textit{schlecht} oder \textit{sehr schlecht} bewertet haben sehr gering ist im Vergleich zu allen Befragten wie aus Abbildung \ref{endogene} ersichtlich.\\
+Abbildung \ref{XYWohnG5} zeigt die Dichte der Beobachtungen der fünf Kategorien zur Bewertung der Wohngegend. Hier zeigt sich ein deutlich ausgeprägteres räumliches Muster als bei der Meinung zu Stuttgart 21. Die Beobachtungen der Klasse \textit{Sehr gut} häufen sich sehr stark im Innenstadtbereich und im Süden. Die Kategorie \textit{gut} verteilt sich relativ homogen über das gesamte Stadtgebiet mit einer etwas stärkeren Konzentration in der Innenstadt und im Nordosten. Bei der Klasse \textit{Neutral} zeigt sich eine stärkere Konzentration auf den Osten und Nordosten der Stadt. Praktisch alle \textit{schlechten} und \textit{sehr schlechten} Bewertungen sind deutlich abgegrenzt im Osten und Nordosten lokalisiert. Hierbei ist zu erwähnen, dass der Anteil der Personen, die ihre Wohngegend mit \textit{schlecht} oder \textit{sehr schlecht} bewertet haben sehr gering ist Abbildung \ref{endogene}.\\
 
 \begin{figure}[h]
  \begin{center}
@@ -147,7 +147,7 @@ Abbildung \ref{XYWohnG5} zeigt die Dichte der Beobachtungen der fünf Kategorien
 \end{figure}
 
 
-Im folgenden werden die diskreten räumlichen Informationen auf Stadtbezirksebene beschrieben. Es werden 23 Stadtbezirke unterschieden. Im Gegensatz zur stetigen Beobachtungsdichte werden die Beobachtungsdichten nach Regionen aggregiert dargestellt, wodurch eine relative Anteilsdarstellung möglich wird (Abbildung \ref{BStuttgart21}). Die Darstellung wird also weniger von der absoluten Gesamtbevölkerungsdichte in den Regionen überdeckt. Analog zur stetigen Darstellung (Abbildung \ref{XYStuttgart3}) ist auch hier zu sehen, dass die Bürger des Nordostens eine positivere Meinung zu Stuttgart 21 haben als die Bürger aus dem Süden. An dieser Darstellung zeigt sich auch, dass die Bürger in der Stadtmitte dem Projekt Stuttgart 21 eher zustimmen. KANN DAS SEIN?? SIEHT IN ABB 2 ANDERS AUS!! !! Die neutrale Klasse hat in allen Bezirken einen eher geringeren Anteil und es ist kein deutliches Muster von höheren oder niedrigeren Anteilen erkennbar. Die Anteilsgrafiken auf Bezirksebene mit fünf Klassen für die Bewertung der Wohngegend sind im Anhang verfügbar (Abbildung \ref{BWohn}). Wie in Abbildung \ref{XYWohnG5} zeigen sich negative Wohngebietseinschätzungen vor allem im Nordosten.
+Im folgenden werden die diskreten räumlichen Informationen auf Stadtbezirksebene beschrieben. Es werden 23 Stadtbezirke unterschieden. Im Gegensatz zur stetigen Beobachtungsdichte werden die Beobachtungsdichten nach Regionen aggregiert dargestellt, wodurch eine relative Anteilsdarstellung möglich wird (Abbildung \ref{BStuttgart21}). Die Darstellung wird also weniger von der absoluten Gesamtbevölkerungsdichte in den Regionen überdeckt. Analog zur stetigen Darstellung (Abbildung \ref{XYStuttgart3}) ist auch hier zu sehen, dass die Bürger des Nordostens eine positivere Meinung zu Stuttgart 21 haben als die Bürger aus dem Süden. An dieser Darstellung zeigt sich auch, dass die Bürger in der Stadtmitte dem Projekt Stuttgart 21 eher zustimmen. KANN DAS SEIN?? SIEHT IN ABB 2 ANDERS AUS!! !! Die neutrale Klasse hat in allen Bezirken einen geringeren Anteil und es ist kein räumliches Muster erkennbar. Die entsprechenden Anteilsgrafiken mit fünf Klassen für die Bewertung der Wohngegend sind im Anhang verfügbar (Abbildung \ref{BWohn}). Wie in Abbildung \ref{XYWohnG5} bereits angedeutet, zeigen sich negative Wohngebietseinschätzungen vor allem im Nordosten.
 
 \begin{figure}[h]
  \begin{center}
@@ -157,7 +157,7 @@ Im folgenden werden die diskreten räumlichen Informationen auf Stadtbezirkseben
  \end{center}
 \end{figure}
 
-Die letzte untersuchte räumliche Agrregation ist die Stadtteilebene. Abbildung \ref{SStuttgart21} zeigt die Verteilung der \textit{Zustimmungs} und \textit{Ablehnung}. Wie aus Tabelle \ref{Datensatz} hervorgeht,ist die Stadtteilebene deutlich feiner Aufgelöst als die Bezirksebene. Dies führt in der Abbildung dazu, dass in einzelnen Stadtteile mit einer geringen Gesamteinwohneranzahl keine Beobachtungen in einer Klasse oder mehreren Klassen auftauchen, die verbleibende Klasse somit zu 100 \% in dem Stadteil vertreten ist. Des weiteren gibt es sogar im Innenstadtbereich Stadtteile ohne jede Beobachtung, wie z. B. das Benzviertel.
+Die dritte und letzte untersuchte räumliche Agrregationsebene ist die Stadtteilebene. Abbildung \ref{SStuttgart21} zeigt die räumliche Verteilung von \textit{Zustimmungs}, \textit{Ablehnung} und \textit{neutraler} Haltung. Wie aus Tabelle \ref{Datensatz} hervorgeht, ist die Stadtteilebene deutlich feiner Aufgelöst als die Bezirksebene. Dies führt in der Abbildung dazu, dass einige Stadtteilen mit geringer Gesamteinwohneranzahl in einer oder mehreren Klassen keine Beobachtungen zeigen. Es gibt demnach auch Stadtteile, in denen die komplementäre Klasse zu 100 \% vertreten ist. Des weiteren gibt es in dieser Aggregationsebene sogar Stadtteile ohne jede Beobachtung, wie z. B. das Benzviertel im Innenstadtbereich oder die bereits angesprochenen Lagen im Westen.
 
 \begin{figure}[h]
  \begin{center}
@@ -167,13 +167,62 @@ Die letzte untersuchte räumliche Agrregation ist die Stadtteilebene. Abbildung 
  \end{center}
 \end{figure}
 
-Diese Stadtteile sind in allen drei Diagrammen schwarz eingefärbt. Wegen der feineren Auflösung ergibt sich ein mosaikartiges, schwerer interpretierbareres Bild der Anteilsverteilung in der Region. In keiner der drei Klassen lassen sich eine klare Struktur oder räumliche Muster beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar \ref{SWohn}. Hier zeigt sich ein ähnlich schwer differenzierbares Muster wie bei der Meinung zu Stuttgart 21.\\
+Diese Stadtteile werden in den Diagrammen schwarz dargestellt. Wegen der feineren Auflösung ergibt sich ein mosaikartiges, visuell schwerer interpretierbareres Bild. In keiner der drei Klassen lassen sich eine klare Struktur oder räumliche Muster beobachten. Die Anteile auf Stadtteileebene zu der Bewertung der Wohngegend sind im Anhang verfügbar \ref{SWohn}. Hier zeigt sich ein ähnlich schwer differenzierbares Muster wie bei der Meinung zu Stuttgart 21. Wegen der deutlichen unterschiede in den Anteilen der fünf Gruppen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.\\
 
-DEN ABSATZ HABE ICH ZUR DISK. VERSCHOBEN
+\subsubsection{Bürgerumfrage}
+In der Bürgerumfrage von 20?? wurden 470.190 Bürger zu acht sozioökonomischen Punkten befragt. Der Stichprobenumfang dieser Umfrage liegt also relativ nah an der Grundgesamtheit von 573.104 Bürgern, die 2011 mit Hauptwohnsitz in Stuttgart gemeldet waren (REF Stat. Bundessamt). Von allen Befragten liegt der Wohnsitz als kontinuierliche Gauß-Krüger Geokoordinate vor. Um eine kleinräumige Extrapolation mit diskreten räumlichen Informationen vornehmen zu können, wurden die Stadtteil- und Stadtbezirksinformationen an die Datei angehängt. Hierzu wurden die Stadtteil- und Stadtbezirkspolygone, welche uns von der Stadt Stuttgart zur Verfügung gestellt wurden, über eine räumliche Abfrage mit der Bürgerumfrage datei verknüpft. Die Geoanalyse wurde mit dem freien Geoinformationssystem QGIS (REF) durchgeführt. Die Projektdatei mit der Geoabfrage (\textit{Geographische\_Abfrage.QGS}) sowie die Shapefiledateien (\textit{Stadtteile\_netto.SHP}) liegen dieser Arbeit digital bei. Wie in den Tabellen \ref{Datensatz} und REF ? ersichtlich eignen sich nicht alle Variablen zur Extrapolation, da nicht alle Variablen in jeder Umfrag erhoben wurden. Es ergibt sich ein Überschneidungsbereich der fünf sozioökonomischen Variablen \textit{Altersklasse Befragter}, \textit{Geschlecht}, \textit{Nationalität}, \textit{Familienstand} und \textit{Personenzahl im Haushalt}. \textcolor{red}{IN TAB 2 BRAUCHEN WIR DIE SPALTE MODLLEIRUNG EIGENTLICH NICHT MEHR ODER? ICH HABE DIE VARIABLEN Z.T. UMBEBENANNT, DAMIT SIE GLEICH HEIßen WIE IN TAB 1. AUßERDEM SIND JA NACH DEM UMKODIEREN BEI DER ALTERSKLASSE NUR NOCH  6 AUSPR. ICH WÜRDE DAS IN DER TAB. 2 ANPASSEN WAS MEINST DU?}
+
+\begin{table}[h]
+\centering
+\caption{Erhobene sozioökonomische und geographische Variablen der Bürgerumfrage und deren Anzahl der Ausprägungen.}
+\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+           max width=\textwidth}{
+\begin{tabular}{l|c|c}
+\multicolumn{3}{l}{Anzahl Beobachtungen: 470.190}     \\ 
+\hline \hline
+\textbf{Variable} & \textbf{Modellierung} & \textbf{Anzahl Ausprägungen}  \\ \hline
+\multicolumn{1}{l|}{Altersklasse Befragter} &  Nicht Parametrisch & 14 \\ \hline
+\multicolumn{1}{l|}{Geschlecht} &  Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
+\multicolumn{1}{l|}{Personenzahl im Haushalt} &  Nicht Parametrisch  & 5 \\ \hline
+\multicolumn{1}{l|}{Wohndauer} & Nicht Parametrisch  & 3 \\ \hline
+\multicolumn{1}{l|}{ALG II Quote} & Nicht Parametrisch  & 9 \\ \hline
+\multicolumn{1}{l|}{Ein/Zweifamilienhäuser}& Nicht Parametrisch & 8 \\ \hline 
+\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
+\end{tabular}
+
+}
+\end{table}
 
 \subsubsection{Zensus}
-Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
-Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen. DIES IST ALLES DISKUSSION; GANZER ABSATZ MUSS IN DISK. KAPITEL\\
+Im Rahmen der bundeweiten Volkszählung von 2011 wurden in Stuttgart 380.238 Bürger befragt \textcolor{red}{REF TAB 3}. Da beim Zensus auch für die Fragestellung dieser Arbeit relevante sozioökonomische Variablen erhoben wurden, eignet sich diese Umfrage ebenfalls für die kleinräumige Extrapolation. Die diskreten geographischen Angaben wurden analog zur Bürgerumfrage per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation eignen sich die gleichen möglichen sozioökonomischen Variablen wie bei der Bürgerumfrage. 
+\textcolor{red}{Wie in Tab. 2.: Habe die Namen angepasst. Anzahl Personenzahl und Alter umkodiert, also auch in Tabelle ändern? Wir könnten sogar überlegen, die nicht verwendeten Variablen zu löschen. Wir gehen ja im Text nicht mehr auf diese ein (gilt auch für Tab 2)}
+
+\begin{table}[h]
+\centering
+\caption{Erhobene sozioökonomische und geographische Variablen der Bürgerumfrage und deren Anzahl der Ausprägungen.}
+\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+           max width=\textwidth}{
+\begin{tabular}{l|c|c}
+\multicolumn{3}{l}{Anzahl Beobachtungen: 380.238}     \\ 
+\hline \hline
+\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
+\multicolumn{1}{l|}{Altersklasse Befragter} &  Nicht Parametrisch & 9 \\ \hline
+\multicolumn{1}{l|}{Geschlecht} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
+\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
+\multicolumn{1}{l|}{Personenzahl im Hasuhalt} &  Nicht Parametrisch  & 6 \\ \hline
+\multicolumn{1}{l|}{Wohnfläche} & Nicht Parametrisch & 24 \\ \hline
+\multicolumn{1}{l|}{Stellung Beruf} & Parametrisch  & 9 \\ \hline
+\multicolumn{1}{l|}{Beamter}& Parametrisch & 2 \\ \hline 
+\multicolumn{1}{l|}{Gebäudetyp}& Parametrisch & 10 \\ \hline
+\multicolumn{1}{l|}{Gebäudenutzung}& Parametrisch & 2 \\ \hline
+\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
+\end{tabular}
+
+}
+\end{table}
 
 
 \subsection{Statistische Methoden}
@@ -182,9 +231,10 @@ Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushalts
 Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines
 
 \subsubsection{Modellwahl}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC (CITE AKAIKE) Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} CITE WOOD 2011 Paketes generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration eins bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration eins bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
 
-\subsection{Evaluierung}
+\subsection{Kreuzvalidierung}
+Für die Modellerstellung lag eine Stichprobe von 3.143 vor. Da außer der ungefähren Gesamtanzahl (Anzahl der gemeldeten Bürger in Stuttgart 2011) keine Informationen zur Grundgesamtheit vorliegen, wurde die Modellqualität zunächst an der Stichprobe eingeschätzt. Zu diesem Zweck wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite{fahrmeir2013regression}[p. 149].
 
 \subsection{Validierung}
 
@@ -198,7 +248,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 % \usepackage{multirow}
 \begin{table}[h]
 \centering
-\caption{Validierung}
+\caption{Vergleich der mittleren quadratischen Abweichung (MSE) und der Überdeckungswahrscheinlichkeit bei allen Prognosen aus den geschätzten Modellen und den beiden Extrapolationsdateien für die Meinung zu Stuttgart 21}
 \label{vali}
 \begin{tabular}{llll|cc|cc}
 \hline \hline
@@ -237,8 +287,8 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT}
- \caption{Validierung Stuttgart 21}
- \label{vali}
+ \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf die Bürgerumfrage mit zwei und drei Klassenmodell mit 95\% Quantielen}
+ \label{vali4}
  \end{center}
 \end{figure}
 
@@ -247,7 +297,7 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/S21AlleModelle}
- \caption{Extrapolation aller Modelle}
+ \caption{Vergleich der extrapolierten Gesamtanteile für Stuttgart mit allen geschätzten Modellen und beiden Extrapolationsdateien mit den wahren Anteilen, sowie den Anteilen der Stichprobe mit 95\% Quantielen zur Meinung zu Stuttgart 21}
  \label{S21Alle}
  \end{center}
 \end{figure}
@@ -256,13 +306,17 @@ Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungs
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/WohngegendAlleModelle}
- \caption{Extrapolation aller Modelle W}
+ \caption{Vergleich der extrapolierten Gesamtanteile für Stuttgart mit allen geschätzten Modellen und beiden Extrapolationsdateien mit den Anteilen der Stichprobe mit 95\% Quantielen zur Bewertung der Wohngegend}
  \label{WAlle}
  \end{center}
 \end{figure}
 %\clearpage
 
 \section{Diskussion}
+Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
+Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
+
+
 Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 %============================================== Conlcusion =========================================================%
 
@@ -302,53 +356,9 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 \addcontentsline{toc}{section}{\numberline{}Anhang}
 
 
-\begin{table}[h]
-\centering
-\caption{Grundgesamtheit Bürgerumfrage}
-\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
-           max width=\textwidth}{
-\begin{tabular}{l|c|c}
-\multicolumn{3}{l}{Anzahl Beobachtungen: 470.190}     \\ 
-\hline \hline
-\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Nicht Parametrisch & 14 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} &  Parametrisch  & 2 \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Nicht Parametrisch  & 5 \\ \hline
-\multicolumn{1}{l|}{Wohndauer} & Nicht Parametrisch  & 3 \\ \hline
-\multicolumn{1}{l|}{ALG II Quote} & Nicht Parametrisch  & 9 \\ \hline
-\multicolumn{1}{l|}{Ein/Zweifamilienhäuser}& Nicht Parametrisch & 8 \\ \hline 
-\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
-\end{tabular}
 
-}
-\end{table}
 
-\begin{table}[h]
-\centering
-\caption{Grundgesamtheit Zensus}
-\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
-           max width=\textwidth}{
-\begin{tabular}{l|c|c}
-\multicolumn{3}{l}{Anzahl Beobachtungen: 380.238}     \\ 
-\hline \hline
-\textbf{Variable} & \textbf{Modellierung} & \textbf{Mögliche Ausprägungen}  \\ \hline
-\multicolumn{1}{l|}{Altersklasse} &  Nicht Parametrisch & 9 \\ \hline
-\multicolumn{1}{l|}{Geschlecht} & Parametrisch  & 2 \\ \hline
-\multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
-\multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
-\multicolumn{1}{l|}{Haushaltsgröße} &  Nicht Parametrisch  & 6 \\ \hline
-\multicolumn{1}{l|}{Wohnfläche} & Nicht Parametrisch & 24 \\ \hline
-\multicolumn{1}{l|}{Stellung Beruf} & Parametrisch  & 9 \\ \hline
-\multicolumn{1}{l|}{Beamter}& Parametrisch & 2 \\ \hline 
-\multicolumn{1}{l|}{Gebäudetyp}& Parametrisch & 10 \\ \hline
-\multicolumn{1}{l|}{Gebäudenutzung}& Parametrisch & 2 \\ \hline
-\multicolumn{1}{l|}{Gauß-Krüger} & Tensorprodukt-Splines & \\ \hline \hline
-\end{tabular}
 
-}
-\end{table}
 
 \begin{figure}[h]
  \begin{center}
@@ -360,7 +370,7 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BWohn}
- \caption{Anteile der Bewertung der Wohngegend nach Stadtbezirken. Wegen der deutlichen unterschiede in den Anteilen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.}
+ \caption{Anteile der Bewertung der Wohngegend nach Stadtbezirken.}
  \label{BWohn}
  \end{center}
 \end{figure}

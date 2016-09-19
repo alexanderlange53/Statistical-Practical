@@ -18,7 +18,7 @@ library(gridExtra)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -312,17 +312,17 @@ if(calc_CI) {
 #-------------#
 
 # Validierung auf Bezirksebene
-validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+vv <- validation(pred = S21.3.U.Ko.IntSB, valid = Bezirke.Val, pop = Umfrage, errorbar = T)
 vv <- validation(pred = S21.3.Z.Ko.IntSB, valid = Bezirke.Val, pop = Zensus, errorbar = T)
 vv <- vv + ggtitle('Drei Klassen Bezirke') 
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1],pop = Umfrage, errorbar = T)
+vv2 <- validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1],pop = Umfrage, errorbar = T)
 vv2 <- validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) # Beim Zensus fehlt ein Stadtteil
 vv2 <- vv2 + ggtitle('Drei Klassen Stadtteile') 
 
-pdf('./Essay/Pictures/PaT.pdf', height = 8, width = 8)
-grid.arrange(vv, vv2, v22, vv22, nrow = 2)
+pdf('./Essay/Pictures/PaT2.pdf', height = 5, width = 8)
+grid.arrange(vv, vv2, v, v2, nrow = 2)
 dev.off()
 
 #--------------------------------------------#
@@ -738,4 +738,4 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '3 S.Teile auf Bezirke Zen.', '3 S.Teile auf S.Teile Umfr.', '3 S.Teile auf S.Teile Zen.')
 ResultPlot(predlist = predlist, predst = predst,  sample = sample, 
            models = models)
-ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 5, width = 8)
+ggsave('./Essay/Pictures/S21AlleModelle2.pdf', height = 5, width = 8)
