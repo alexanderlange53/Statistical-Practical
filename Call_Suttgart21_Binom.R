@@ -17,7 +17,7 @@ library('reshape2')
 
 ## Einstellungen ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -39,7 +39,7 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
   Bezirke.Val <- read.csv2('Bezirke_True.csv', as.is = TRUE)
@@ -588,9 +588,45 @@ AIC(step.model.binom.S$model.nospat)
 AIC(step.model.binom.S$model.spatonly)
 
 summary(step.model.binom.S$model.spat)
-plot(step.model.binom.S$model.spat, all = T)
+#plot(step.model.binom.S$model.spat, all = T)
+
+#--------------------#
+## Model Evaluation ##
+#--------------------#
 
 evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
+
+if(cross_eval) {
+  ## Cross Evaluation ##
+  repeatitions = 2419
+  model <- step.model.binom.S$model.spat
+  
+  leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
+  crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
+  
+  tryfun <- function(subset_i, sample_i, crosseval) {
+    gam_i <- gam(model$formula, family = model$family, method="REML", data = sample_i, weights = as.vector(sample_i[, "Gewicht"])) # Fit a GAM
+    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], ifelse(predict(model, newdata = sample[leave_out[i],], type = "response") <=0.5, 0, 1)) # Compare true and estiamted y.
+    crosseval <- rbind(crosseval, ret_i)
+    return(crosseval)
+  }
+  
+  for (i in c(1 : repeatitions)) {
+    all <- c(1 : dim(sample)[1])
+    subset_i <- all[-leave_out[i]]
+    sample_i <- sample[subset_i,]
+    sample_i <- PseudoB2(sample = sample_i, SpatOb = stadtteile, binom = T, response = response)
+    
+    print(paste('Model', i, 'of', repeatitions))
+    
+    try(
+      crosseval <- tryfun(subset_i, sample_i, crosseval)
+    )
+  }
+  names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
+  #rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+  write.csv2(crosseval, './cv_results/S21_2_ST.csv')
+}
 
 #---------------#
 ## Prediction  ##
@@ -622,6 +658,56 @@ if(pred) {
   AggPred.Z.ST.SB <- read.csv2(file = './Prediction_Results/S21_2_Z_ST_AggSB.csv', as.is = TRUE)
 }
 
+## Konfidenzintervalle ##
+if(calc_CI) {
+  ## Allg. Einstellungen
+  model <- step.model.S$model.spat
+  sample <- sample
+  ncores <- 4
+  nboot <- 1000
+  coverage <- 0.95
+  seed <- 123
+  
+  ## Konfidenzintervalle: Umfrage, Stadtteile ##
+  population <- Umfrage
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.U.S.ST
+  IFUmfrage <- TRUE
+  IFStadtteil <- TRUE
+  source('./prediction_interval.R')
+  UInt.U.S.ST <- pred.interval$u_intervall
+  OInt.U.S.ST <- pred.interval$o_intervall
+  write.csv2(cbind(UInt.U.S.ST, OInt.U.S.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_ST_IntST.csv', row.names = FALSE)
+  Int.U.S.ST <- cbind(UInt.U.S.ST, OInt.U.S.ST[, c(2 : 4)])
+  ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
+  pred.sum <- AggPred.U.B.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.U.B.SB <- pred.interval$u_intervall
+  OInt.U.B.SB <- pred.interval$o_intervall
+  write.csv2(cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_SB_IntSB.csv', row.names = FALSE)
+  Int.U.B.SB <- cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)])
+  
+  ## Konfidenzintervalle: Zensus, Stadtteile
+  population <- Zensus
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.Z.B.ST
+  IFUmfrage <- FALSE
+  
+  source('./prediction_interval.R')
+  UInt.Z.B.ST <- pred.interval$u_intervall
+  OInt.Z.B.ST <- pred.interval$o_intervall
+  
+  ## Konfidenzintervalle: Zensus, Stadtbezirke
+  pred.sum <- AggPred.Z.SB
+  aggregation <- "Stadtbezirk"
+  
+  source('./prediction_interval.R')
+  UInt.Z.SB <- pred.interval$u_intervall
+  OInt.Z.SB <- pred.interval$o_intervall
+}
+
 #---------------#
 ## Validierung ##
 #---------------#
@@ -633,3 +719,5 @@ validation(pred = AggPred.Z.ST.SB, valid = Bezirke.Val, pop = Zensus)
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
 validation(pred = AggPred.U.ST.ST, valid = Stadtteile.Val[,-1], pop = Umfrage)
 validation(pred = AggPred.Z.ST.ST, valid = Stadtteile.Val[-20,-1], pop =  Zensus) 
+
+
