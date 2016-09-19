@@ -322,7 +322,7 @@ vv2 <- validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1],pop = Umf
 vv2 <- validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) # Beim Zensus fehlt ein Stadtteil
 vv2 <- vv2 + ggtitle('Drei Klassen Stadtteile') 
 
-pdf('./Essay/Pictures/PaT2.pdf', height = 5, width = 8)
+pdf('./Essay/Pictures/PaT.pdf', height = 5, width = 8)
 grid.arrange(vv, vv2, v, v2, nrow = 2)
 dev.off()
 
