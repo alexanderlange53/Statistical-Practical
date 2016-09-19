@@ -1,5 +1,5 @@
 PseudoB2 <- function(sample, SpatOb, binom = T, response){
-  
+  require(dplyr)
   SpatOb@data$id <- rownames(SpatOb@data)
   helpdf <- fortify(SpatOb, region = "id")
   bb <- merge(helpdf, SpatOb@data, by = 'id', all.x = T)

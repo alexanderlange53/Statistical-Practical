@@ -8,13 +8,14 @@ rm(list = ls())
 library("ROCR")
 library("mgcv")
 library("splines")
-library(MASS)
+#library(MASS)
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 library(ggplot2)
 library(reshape2)
 library(gridExtra)
+library(dplyr)
 
 ## Einstellungen ##
 

@@ -40,6 +40,20 @@ evaluate.bivariate <- function(model, data) {
   return(list(classification=classification, tab = tab))
 }
 
+evaluateAll.bivariate <- function(step.model, data){
+  cat("\nVorhersagequalitaet des Modells:\n\n")
+  eval.spat <- evaluate.bivariate(step.model$model.spat, data)
+  eval.nospat <- evaluate.bivariate(step.model$model.nospat, data)
+  eval.spatonly <- evaluate.bivariate(step.model$model.spatonly, data)
+  cat("Geoadditives Modell:\n")
+  cat("  Reklassifikation: ", eval.spat$classification, "\n", sep="")
+  cat("Modell ohne raeumlichem Effekt:\n")
+  cat("  Reklassifikation: ", eval.nospat$classification, "\n", sep="")
+  cat("Modell nur mit raeumlichem Effekt:\n")
+  cat("  Reklassifikation: ", eval.spatonly$classification, "\n", sep="")
+  return(invisible())
+}
+
 
 # CrossEvaluation <- function (model, sample, repeatitions  = 10) {
 #   leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)

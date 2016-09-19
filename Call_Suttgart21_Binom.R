@@ -13,11 +13,11 @@ library("ROCR")
 library("mgcv")
 library("splines")
 library('reshape2')
-
+library(dplyr)
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -170,6 +170,7 @@ summary(step.model.binom$model.spat)
 ## Model Evaluation ##
 #--------------------#
 evaluate.bivariate(step.model.binom$model.spat, data = sample)
+evaluateAll.bivariate(step.model.binom, data = sample)
 
 if (cross_eval){
   ## Cross Evaluation ##
@@ -353,6 +354,7 @@ if(calculate_model){
 ## Model Evaluation ##
 #--------------------#
 evaluate.bivariate(step.model.binom.B$model.spat, data = sample)
+evaluateAll.bivariate(step.model.binom.B, data = sample)
 
 if(cross_eval) {
   ## Cross Evaluation ##
@@ -595,6 +597,7 @@ summary(step.model.binom.S$model.spat)
 #--------------------#
 
 evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
+evaluateAll.bivariate(step.model.binom.S, data = sample)
 
 if(cross_eval) {
   ## Cross Evaluation ##
