@@ -20,7 +20,7 @@ library(reshape2)
 bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
-cross_eval <- FALSE # Kreuzevaluierung
+cross_eval <- TRUE # Kreuzevaluierung
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
@@ -189,16 +189,18 @@ if (cross_eval) {
     subset_i <- all[-leave_out[i]]
     print(paste('Model', i, 'of', repeatitions))
     gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+    ret_i <- cbind(leave_out[i], sample$Bewertung.Wohngegend[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
     crosseval <- rbind(crosseval, ret_i)
   }
   names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
   rm(list = c("all", "subset_i", "gam_i", "ret_i", "repeatitions", "model"))
   write.csv2(crosseval,'./cv_results/W_5_Ko.csv', row.names = FALSE)
+  cv.5 <- crosseval
 } else {
   cv.5 <- read.csv2('./cv_results/W_5_Ko.csv', as.is = TRUE)
 }
-crossval(cv.5, sample)
+
+#crossval(cv.5, sample)
 
 #---------------#
 ## Prediction  ##
@@ -355,18 +357,17 @@ if(cross_eval) {
     subset_i <- all[-leave_out[i]]
     print(paste('Model', i, 'of', repeatitions))
     gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-    ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+    ret_i <- cbind(leave_out[i], sample$Bewertung.Wohngegend[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
     crosseval <- rbind(crosseval, ret_i)
   }
   names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   write.csv2(crosseval,'./cv_results/W_5_SB.csv', row.names = FALSE)
-} else {
-  crosseval <- read.csv2('./cv_results/W_5_SB.csv')
-} else {
+  cv.5.B <- crosseval
+  } else {
   cv.5.B <- read.csv2('./cv_results/W_5_SB.csv', as.is = TRUE)
 }
-crossval(cv.5.B, sample)
+#crossval(cv.5.B, sample)
 
 
 
@@ -537,7 +538,7 @@ evaluateAll(step.model.Bewertung.5.S, data = sample)
 
 
 ## Cross Evaluation ##
-repeatitions = 3437
+repeatitions = 3143
 model <- step.model.Bewertung.5.S$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
@@ -545,7 +546,7 @@ crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Pred
 
 tryfun <- function(subset_i, sample_i, crosseval) {
   gam_i <- gam(model$formula, family = model$family, method="REML", data = sample_i, weights = as.vector(sample_i[, "Gewicht"])) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  ret_i <- cbind(leave_out[i], sample$Bewertung.Wohngegend[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
   crosseval <- rbind(crosseval, ret_i)
   return(crosseval)
 }
