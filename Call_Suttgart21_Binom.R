@@ -193,9 +193,10 @@ if (cross_eval){
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   write.csv2(crosseval, './cv_results/S21_2_Ko.csv', row.names = FALSE)
 } else {
-  crosseval <- read.csv2('./cv_results/S21_2_Ko.csv', as.is = TRUE)
+  cv.2 <- read.csv2('./cv_results/S21_2_Ko.csv', as.is = TRUE)
 }
-
+cv.2 <- cv.2[,-c(3)]
+crossval(cv.2, sample)
 
 #---------------#
 ## Prediction  ##
@@ -377,9 +378,10 @@ if(cross_eval) {
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   write.csv2(crosseval, './cv_results/S21_2_SB.csv', row.names = FALSE)
 } else {
-  crosseval <- read.csv2('./cv_results/S21_2_SB.csv', as.is = TRUE)
+  cv.2.B <- read.csv2('./cv_results/S21_2_SB.csv', as.is = TRUE)
 }
-
+cv.2.B <- cv.2.B[,-3]
+crossval(cv.2.B, sample)
 
 
 #--------------------------------#

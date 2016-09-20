@@ -54,20 +54,16 @@ evaluateAll.bivariate <- function(step.model, data){
   return(invisible())
 }
 
-
-# CrossEvaluation <- function (model, sample, repeatitions  = 10) {
-#   leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
-#   ret <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
-#   
-#   for (i in c(1 : repeatitions)) {
-#     all <- c(1 : dim(sample)[1])
-#     subset_i <- all[-leave_out]
-#     print(paste('Model', i, 'of', repeatitions))
-#     gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = unlist(sample[, "Gewicht"]), subset = unlist(subset_i)) # Fit a GAM
-#     ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
-#     ret <- rbind(ret, ret_i)
-#   }
-#   names(ret) = c("Observation.No", "Observed.y", "Predicted.y")
-#   return(ret)
-# }
+crossval <- function(x, sample){
+  x <- x[order(x$Observation.No),]
+  x <- cbind(x[,c(2,3)], sample[,-c(1,2)])
+  x$Observed.y <- as.factor(x$Observed.y)
+  x$Predicted.y <- factor(x$Predicted.y, levels = levels(x$Observed.y))
+  
+  tab <- as.matrix(table(x$Observed.y, x$Predicted.y))
+  tab2 <- round(tab/rowSums(tab), 4)
+  classification <- round(sum(diag(tab))/sum(tab),4)
+  
+  return(list(classification=classification, tab = tab2))
+}
 
