@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -39,7 +39,7 @@ if(bearbeiter == 'Alex') {
 } 
 if(bearbeiter == 'Kai@Work') {
   setwd('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Praesentation1_06062016/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
   if(loadGeo){
@@ -51,7 +51,7 @@ if(bearbeiter == 'Kai@Work') {
 }
 if(bearbeiter == 'Kai@Home') {
   setwd('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   bezirke <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/bezirke/", layer = "bezirke")
   stadtteile <- readOGR(dsn = "/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/Geodaten/Stadtteile_netto/", layer = "Stadtteile_netto")
   if(loadGeo){
@@ -64,7 +64,7 @@ if(bearbeiter == 'Kai@Home') {
 if(bearbeiter == 'Cluster') {
   cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden.')
   setwd('/home/khusmann/Statistical-Practical/')
-  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet_stadtteile.csv", header=TRUE, sep=";")
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
   Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
   bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
@@ -537,22 +537,33 @@ evaluateAll(step.model.Bewertung.5.S, data = sample)
 
 
 ## Cross Evaluation ##
-repeatitions = 1
-model <- step.model.S$model.spat
+repeatitions = 3437
+model <- step.model.Bewertung.5.S$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
 crosseval <- data.frame(Observation.No = integer(), Observed.y = integer(), Predicted.y = integer())
 
+tryfun <- function(subset_i, sample_i, crosseval) {
+  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample_i, weights = as.vector(sample_i[, "Gewicht"])) # Fit a GAM
+  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
+  crosseval <- rbind(crosseval, ret_i)
+  return(crosseval)
+}
+
 for (i in c(1 : repeatitions)) {
   all <- c(1 : dim(sample)[1])
   subset_i <- all[-leave_out[i]]
+  sample_i <- sample[subset_i,]
+  sample_i <- PseudoB2(sample = sample_i, SpatOb = stadtteile, binom = F, response = response)
   print(paste('Model', i, 'of', repeatitions))
-  gam_i <- gam(model$formula, family = model$family, method="REML", data = sample, weights = as.vector(sample[, "Gewicht"]), subset = as.vector(subset_i)) # Fit a GAM
-  ret_i <- cbind(leave_out[i], sample$Meinung.zu.Stuttgart.21[leave_out[i]], apply(predict(model, newdata = sample[leave_out[i],], type = "response"), 1, which.max)) # Compare true and estiamted y.
-  crosseval <- rbind(crosseval, ret_i)
+  
+  try(
+    crosseval <- tryfun(subset_i, sample_i, crosseval)
+  )
+  
 }
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
-rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+
 crosseval
 
 
