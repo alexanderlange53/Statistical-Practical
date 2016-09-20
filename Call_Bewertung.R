@@ -199,7 +199,7 @@ if (cross_eval) {
 } else {
   cv.5 <- read.csv2('./cv_results/W_5_Ko.csv', as.is = TRUE)
 }
-
+table(cv.5$Observed.y, cv.5$Predicted.y)
 #crossval(cv.5, sample)
 
 #---------------#
@@ -367,9 +367,9 @@ if(cross_eval) {
   } else {
   cv.5.B <- read.csv2('./cv_results/W_5_SB.csv', as.is = TRUE)
 }
+
 #crossval(cv.5.B, sample)
-
-
+table(cv.5.B$Observed.y, cv.5.B$Predicted.y)
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
@@ -538,7 +538,7 @@ evaluateAll(step.model.Bewertung.5.S, data = sample)
 
 
 ## Cross Evaluation ##
-repeatitions = 3143
+repeatitions = 3437
 model <- step.model.Bewertung.5.S$model.spat
 
 leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
@@ -565,8 +565,9 @@ for (i in c(1 : repeatitions)) {
 }
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 
-crosseval
-
+cv.5.S <- crosseval
+table(cv.5.S$Observed.y, cv.5.S$Predicted.y)
+write.csv2(cv.5.S, './cv_results/W_5_ST.csv')
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##

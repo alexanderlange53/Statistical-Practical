@@ -20,7 +20,7 @@ library(mlr)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -670,7 +670,7 @@ if(calc_CI) {
   model <- step.model.S$model.spat
   sample <- sample
   ncores <- 4
-  nboot <- 4
+  nboot <- 1000
   coverage <- 0.95
   seed <- 123
   
@@ -680,7 +680,9 @@ if(calc_CI) {
   pred.sum <- AggPred.U.S.ST
   IFUmfrage <- TRUE
   IFStadtteil <- TRUE
-  source('./prediction_interval.R')
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  # source('./prediction_interval.R')
   UInt.U.S.ST <- pred.interval$u_intervall
   OInt.U.S.ST <- pred.interval$o_intervall
   write.csv2(cbind(UInt.U.S.ST, OInt.U.S.ST[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_ST_IntST.csv', row.names = FALSE)
@@ -688,8 +690,10 @@ if(calc_CI) {
   ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
   pred.sum <- AggPred.U.B.SB
   aggregation <- "Stadtbezirk"
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  #source('./prediction_interval.R')
   
-  source('./prediction_interval.R')
   UInt.U.B.SB <- pred.interval$u_intervall
   OInt.U.B.SB <- pred.interval$o_intervall
   write.csv2(cbind(UInt.U.B.SB, OInt.U.B.SB[, c(2 : 4)]), file = './Prediction_Results/S21_3_U_SB_IntSB.csv', row.names = FALSE)
@@ -701,7 +705,9 @@ if(calc_CI) {
   pred.sum <- AggPred.Z.B.ST
   IFUmfrage <- FALSE
   
-  source('./prediction_interval.R')
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  # source('./prediction_interval.R')
   UInt.Z.B.ST <- pred.interval$u_intervall
   OInt.Z.B.ST <- pred.interval$o_intervall
   
