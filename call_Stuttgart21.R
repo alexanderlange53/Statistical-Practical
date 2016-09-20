@@ -8,13 +8,15 @@ rm(list = ls())
 library("ROCR")
 library("mgcv")
 library("splines")
-library(MASS)
+#library(MASS)
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
 library(ggplot2)
 library(reshape2)
 library(gridExtra)
+library(dplyr)
+library(mlr)
 
 ## Einstellungen ##
 
@@ -194,9 +196,10 @@ if (cross_eval) {
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   write.csv2(crosseval, "./cv_results/S21_3_Ko.csv", row.names = FALSE)
 } else {
-  crosseval <- read.csv2('./cv_results/S21_3_Ko.csv')
+  cv <- read.csv2('./cv_results/S21_3_Ko.csv')
 }
 
+crossval(cv, sample)
 
 #---------------#
 ## Prediction  ##
@@ -321,7 +324,7 @@ vv2 <- validation(pred = S21.3.U.Ko.IntST, valid = Stadtteile.Val[,-1],pop = Umf
 vv2 <- validation(pred = S21.3.Z.Ko.IntST, valid = Stadtteile.Val[-20,-1], pop = Zensus, errorbar = T) # Beim Zensus fehlt ein Stadtteil
 vv2 <- vv2 + ggtitle('Drei Klassen Stadtteile') 
 
-pdf('./Essay/Pictures/PaT2.pdf', height = 5, width = 8)
+pdf('./Essay/Pictures/PaT.pdf', height = 5, width = 8)
 grid.arrange(vv, vv2, v, v2, nrow = 2)
 dev.off()
 
@@ -376,8 +379,11 @@ if(cross_eval){
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   crosseval
   write.csv2(crosseval, './cv_results/S21_3_SB.csv')
+} else {
+  cv.B <- read.csv2('./cv_results/S21_3_SB.csv')
 }
-
+cv.B <- cv.B[,-1]
+crossval(cv.B, sample)
 
 
 #--------------------------------#
@@ -590,8 +596,10 @@ for (i in c(1 : repeatitions)) {
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 #rm(list = c("all", "subset_i", "gam_i", "ret_i"))
 write.csv2(crosseval, './cv_results/S21_3_ST.csv')
+}else {
+  cv.S <- read.csv2('./cv_results/S21_3_ST.csv')
 }
-
+crossval(cv.S, sample)
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##

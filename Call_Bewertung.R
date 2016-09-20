@@ -8,7 +8,7 @@ rm(list = ls())
 library("ROCR")
 library("mgcv")
 library("splines")
-library(MASS)
+#library(MASS)
 require(rgdal);require(rgeos)
 require(ggplot2)
 require(maptools);require(rvest);require(dplyr)
@@ -195,8 +195,10 @@ if (cross_eval) {
   names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
   rm(list = c("all", "subset_i", "gam_i", "ret_i", "repeatitions", "model"))
   write.csv2(crosseval,'./cv_results/W_5_Ko.csv', row.names = FALSE)
+} else {
+  cv.5 <- read.csv2('./cv_results/W_5_Ko.csv', as.is = TRUE)
 }
-
+crossval(cv.5, sample)
 
 #---------------#
 ## Prediction  ##
@@ -361,7 +363,10 @@ if(cross_eval) {
   write.csv2(crosseval,'./cv_results/W_5_SB.csv', row.names = FALSE)
 } else {
   crosseval <- read.csv2('./cv_results/W_5_SB.csv')
+} else {
+  cv.5.B <- read.csv2('./cv_results/W_5_SB.csv', as.is = TRUE)
 }
+crossval(cv.5.B, sample)
 
 
 

@@ -13,11 +13,11 @@ library("ROCR")
 library("mgcv")
 library("splines")
 library('reshape2')
-
+library(dplyr)
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -170,6 +170,7 @@ summary(step.model.binom$model.spat)
 ## Model Evaluation ##
 #--------------------#
 evaluate.bivariate(step.model.binom$model.spat, data = sample)
+evaluateAll.bivariate(step.model.binom, data = sample)
 
 if (cross_eval){
   ## Cross Evaluation ##
@@ -192,9 +193,10 @@ if (cross_eval){
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   write.csv2(crosseval, './cv_results/S21_2_Ko.csv', row.names = FALSE)
 } else {
-  crosseval <- read.csv2('./cv_results/S21_2_Ko.csv', as.is = TRUE)
+  cv.2 <- read.csv2('./cv_results/S21_2_Ko.csv', as.is = TRUE)
 }
-
+cv.2 <- cv.2[,-c(3)]
+crossval(cv.2, sample)
 
 #---------------#
 ## Prediction  ##
@@ -353,6 +355,7 @@ if(calculate_model){
 ## Model Evaluation ##
 #--------------------#
 evaluate.bivariate(step.model.binom.B$model.spat, data = sample)
+evaluateAll.bivariate(step.model.binom.B, data = sample)
 
 if(cross_eval) {
   ## Cross Evaluation ##
@@ -375,9 +378,10 @@ if(cross_eval) {
   rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   write.csv2(crosseval, './cv_results/S21_2_SB.csv', row.names = FALSE)
 } else {
-  crosseval <- read.csv2('./cv_results/S21_2_SB.csv', as.is = TRUE)
+  cv.2.B <- read.csv2('./cv_results/S21_2_SB.csv', as.is = TRUE)
 }
-
+cv.2.B <- cv.2.B[,-3]
+crossval(cv.2.B, sample)
 
 
 #--------------------------------#
@@ -595,6 +599,7 @@ summary(step.model.binom.S$model.spat)
 #--------------------#
 
 evaluate.bivariate(step.model.binom.S$model.spat, data = sample)
+evaluateAll.bivariate(step.model.binom.S, data = sample)
 
 if(cross_eval) {
   ## Cross Evaluation ##
