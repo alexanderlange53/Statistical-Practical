@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- TRUE # Kreuzevaluierung
@@ -200,7 +200,7 @@ if (cross_eval) {
   cv.5 <- read.csv2('./cv_results/W_5_Ko.csv', as.is = TRUE)
 }
 table(cv.5$Observed.y, cv.5$Predicted.y)
-#crossval(cv.5, sample)
+crossval(cv.5, sample)
 
 #---------------#
 ## Prediction  ##
@@ -368,7 +368,7 @@ if(cross_eval) {
   cv.5.B <- read.csv2('./cv_results/W_5_SB.csv', as.is = TRUE)
 }
 
-#crossval(cv.5.B, sample)
+crossval(cv.5.B, sample)
 table(cv.5.B$Observed.y, cv.5.B$Predicted.y)
 
 #--------------------------------#
@@ -568,6 +568,10 @@ names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 cv.5.S <- crosseval
 table(cv.5.S$Observed.y, cv.5.S$Predicted.y)
 write.csv2(cv.5.S, './cv_results/W_5_ST.csv')
+
+cv.5.S <- read.csv2('./cv_results/W_5_ST.csv')
+cv.5.S <- cv.5.S[,-1]
+crossval(cv.5.S, sample)
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##

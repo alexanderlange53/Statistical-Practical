@@ -133,28 +133,28 @@ validation <- function(pred, valid, pop = pop, errorbar = F){
 
 }
 
-ResultPlot <- function(predlist, predst, sample, models){
+ResultPlot <- function(predlist, sample, models){
   require(colorspace)
   colo <- diverge_hsv(3)
   pr <- lapply(predlist, colSums)
-  ps <- lapply(predst, colSums)
+  #ps <- lapply(predst, colSums)
   pr <- t(sapply(pr,unlist))
-  ps <- t(sapply(ps,unlist))
+  #ps <- t(sapply(ps,unlist))
   medianr <- pr[,c((ncol(pr)-2), (ncol(pr)-1), (ncol(pr)))]
   medianr <- medianr /rowSums(medianr) # Anteil bilden
-  ms <- ps/rowSums(ps)
+  #ms <- ps/rowSums(ps)
   lowerb <- pr[,c(1,2,3)]/rowSums(pr[,c((ncol(pr)-2), (ncol(pr)-1), (ncol(pr)))])
   upperb <- pr[,c(4,5,6)]/rowSums(pr[,c((ncol(pr)-2), (ncol(pr)-1), (ncol(pr)))])
   
-  colnames(ms) <- c('Zustimmung', 'Neutral', 'Ablehnung')
+  #colnames(ms) <- c('Zustimmung', 'Neutral', 'Ablehnung')
   colnames(medianr) <- c('Zustimmung', 'Neutral', 'Ablehnung')
-  medianr <- rbind(medianr, ms)
+  #medianr <- rbind(medianr, ms)
   mmedian <- melt(medianr)
   colnames(lowerb) <- c('Zustimmung', 'Neutral', 'Ablehnung')
-  lowerb <- rbind(lowerb, ms)
+  #lowerb <- rbind(lowerb, ms)
   mlowerb<- melt(lowerb)
   colnames(upperb) <- c('Zustimmung', 'Neutral', 'Ablehnung')
-  upperb <- rbind(upperb, ms)
+  #upperb <- rbind(upperb, ms)
   mupperb <- melt(upperb)
   DATA <- cbind(as.factor(models),mlowerb[,-1], mmedian[,3], mupperb[,3])
   names(DATA) <- c('model', 'Klasse', 'lower', 'med', 'upper')

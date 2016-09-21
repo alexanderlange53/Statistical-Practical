@@ -8,9 +8,9 @@
 \contentsline {subsection}{\numberline {2.2}Statistische Methoden}{8}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Modell}{8}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{8}{subsubsection.2.2.2}
-\contentsline {subsection}{\numberline {2.3}Konfidenzb\IeC {\"a}nder}{9}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Kreuzvalidierung}{9}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Validierung}{10}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.2.3}Konfidenzb\IeC {\"a}nder}{9}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{9}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}Validierung}{10}{subsubsection.2.2.5}
 \contentsline {section}{\numberline {3}Ergebnisse}{10}{section.3}
 \contentsline {subsection}{\numberline {3.1}Modellwahl}{10}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Modell}{10}{subsection.3.2}
@@ -20,5 +20,5 @@
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{11}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{11}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{12}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{16}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{17}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{17}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{18}{section.5}

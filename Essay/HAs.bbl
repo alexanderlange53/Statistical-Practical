@@ -30,6 +30,17 @@ Lawrence D.~Brown, T. Tony~Cai, A.~D. (2001).
 Stuttgart, S. (2011).
 \newblock http://www.stuttgart.de/volksabstimmung.
 
+\bibitem[Venables and Ripley, 2002]{MASS}
+Venables, W.~N. and Ripley, B.~D. (2002).
+\newblock {\em Modern Applied Statistics with S}.
+\newblock Springer, New York, fourth edition.
+\newblock ISBN 0-387-95457-0.
+
+\bibitem[Wickham, 2009]{ggplot}
+Wickham, H. (2009).
+\newblock {\em ggplot2: Elegant Graphics for Data Analysis}.
+\newblock Springer-Verlag New York.
+
 \bibitem[Wood, 2011]{Wood2011}
 Wood, S.~N. (2011).
 \newblock Fast stable restricted maximum likelihood and marginal likelihood
