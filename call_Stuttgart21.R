@@ -711,14 +711,24 @@ if(calc_CI) {
   # source('./prediction_interval.R')
   UInt.Z.B.ST <- pred.interval$u_intervall
   OInt.Z.B.ST <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
   
+  write.csv2(cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_ST_IntST.csv', row.names = FALSE)
+  Int.Z.ST <- cbind(UInt.Z.B.ST, OInt.Z.B.ST[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
   ## Konfidenzintervalle: Zensus, Stadtbezirke
   pred.sum <- AggPred.Z.SB
   aggregation <- "Stadtbezirk"
   
-  source('./prediction_interval.R')
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  #source('./prediction_interval.R')
   UInt.Z.SB <- pred.interval$u_intervall
   OInt.Z.SB <- pred.interval$o_intervall
+  temp_mean <- pred.interval$mean
+  temp_median <- pred.interval$median
+  write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_ST_IntSB.csv', row.names = FALSE)
+  Int.Z.SB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
 }
 
 #-------------#
