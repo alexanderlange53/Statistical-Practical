@@ -56,6 +56,9 @@ evaluateAll.bivariate <- function(step.model, data){
 
 crossval <- function(x, sample){
   x <- x[order(x$Observation.No),]
+  if(!nrow(x) == nrow(sample)){
+    sample <- sample[1:nrow(x),]
+  }
   x <- cbind(x[,c(2,3)], sample[,-c(1,2)])
   x$Observed.y <- as.factor(x$Observed.y)
   x$Predicted.y <- factor(x$Predicted.y, levels = levels(x$Observed.y))

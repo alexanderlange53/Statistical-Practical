@@ -20,7 +20,7 @@ library(mlr)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -599,6 +599,7 @@ write.csv2(crosseval, './cv_results/S21_3_ST.csv')
 }else {
   cv.S <- read.csv2('./cv_results/S21_3_ST.csv')
 }
+cv.S <- cv.S[,-1]
 crossval(cv.S, sample)
 
 #--------------------------------#
