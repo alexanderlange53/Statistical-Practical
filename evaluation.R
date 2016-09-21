@@ -64,7 +64,7 @@ crossval <- function(x, sample){
   x$Predicted.y <- factor(x$Predicted.y, levels = levels(x$Observed.y))
   
   tab <- as.matrix(table(x$Observed.y, x$Predicted.y))
-  tab2 <- round(tab/rowSums(tab), 4)
+  tab2 <- round(tab/rowSums(tab), 3)
   classification <- round(sum(diag(tab))/sum(tab),4)
   
   return(list(classification=classification, tab = tab2))

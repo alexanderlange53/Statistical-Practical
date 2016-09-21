@@ -16,9 +16,9 @@
 \contentsline {subsection}{\numberline {3.2}Modell}{10}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{10}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{11}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Validierung}{11}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{11}{subsection.3.6}
-\contentsline {section}{\numberline {4}Diskussion}{11}{section.4}
-\contentsline {section}{\numberline {5}Fazit}{12}{section.5}
+\contentsline {subsection}{\numberline {3.5}Validierung}{12}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{12}{subsection.3.6}
+\contentsline {section}{\numberline {4}Diskussion}{12}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{13}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{16}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{17}{section.5}

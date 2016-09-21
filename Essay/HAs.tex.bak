@@ -362,6 +362,25 @@ Abschnitten, wurden die Ansätze ohne räumliche Effekte nicht weiter verfolgt.}
 
 \subsection{Kreuzvalidierung}
 
+\begin{table}[h]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{lc|ccccccccccccccc}
+\hline
+\multicolumn{1}{c}{}                                                     &   & \multicolumn{5}{c|}{Gauss-Krüger}              & \multicolumn{5}{c|}{Bezirke}                   & \multicolumn{5}{c}{Stadtteile}              \\ \cline{3-17} 
+                                                                         &   & \multicolumn{15}{c}{Geschätzte Klasse}                                                                                                        \\
+                                                                         &   & 1     & 2     & 3 & 4 & \multicolumn{1}{c|}{5} & 1     & 2     & 3 & 4 & \multicolumn{1}{c|}{5} & 1       & 2       & 3       & 4   & 5       \\ \hline
+\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Wahre \\ Klasse\end{tabular}} & 1 & 0.445 & 0.555 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.387 & 0.613 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.495   & 0.478   & 0.019   & 0   & 0.008   \\
+                                                                         & 2 & 0.254 & 0.746 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.252 & 0.748 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.300   & 0.671   & 0.023   & 0   & 0.006   \\
+                                                                         & 3 & 0.149 & 0.845 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.153 & 0.847 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.142   & 0.771   & 0.079   & 0   & 0.008   \\
+                                                                         & 4 & 0.141 & 0.859 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.141 & 0.859 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.099   & 0.474   & 0.349   & 0   & 0.078   \\
+                                                                         & 5 & 0.114 & 0.886 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.086 & 0.914 & 0 & 0 & \multicolumn{1}{c|}{0} & 0.031   & 0.275   & 0.556   & 0   & 0.138   \\ \hline
+\multicolumn{2}{l|}{Klassifikation}                                          & \multicolumn{5}{c|}{\multirow{2}{*}{0.4918}}   & \multicolumn{5}{c|}{\multirow{2}{*}{0.4704}}   & \multicolumn{5}{c}{\multirow{2}{*}{0.4594}} \\
+\multicolumn{2}{l|}{Modell}                                                  & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\ \hline
+\end{tabular}
+\end{table}
+
 \subsection{Validierung}
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
@@ -381,10 +400,10 @@ Abschnitten, wurden die Ansätze ohne räumliche Effekte nicht weiter verfolgt.}
                         &                               &                          & Z & 0,117       & 0,562      & 0,522             & 0               \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 0,482       & 5,678      & 0,934             & 0,139           \\
                         &                               &                          & Z & 0,835       & 4,38       & 0,567             & 0,027           \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,032      & 0,862     &      1             &   0.043          \\
-                        &                               &                          & Z & 0,148       & 0,552      &     0.478         &     0 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,646       & 6,367       &   0.947           &   0.225  \\
-                        &                               &                          & Z & 1,078        & 4.336       &   0.66           &                0.1 \\ \hline
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,032      & 0,862     &      1             &   0,043          \\
+                        &                               &                          & Z & 0,148       & 0,552      &     0,478         &     0 \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,646       & 6,367       &   0,947           &   0,225  \\
+                        &                               &                          & Z & 1,078        & 4,336       &   0,66           &                0,1 \\ \hline
 \multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & U & 0,312      & 0,312      &     0,826           &  0,826
  \\
                         &                               &                          & Z & 0,152      & 0,152      &   0,522           &  0,522     \\ \cline{3-8} 

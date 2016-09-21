@@ -362,6 +362,28 @@ Abschnitten, wurden die Ansätze ohne räumliche Effekte nicht weiter verfolgt.}
 
 \subsection{Kreuzvalidierung}
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[h]
+\centering
+\caption{Kreuzvalidierung der Bewertung der Wohngegend nach einzelnen Klassen}
+\label{KreuzBew}
+\begin{tabular}{lc|ccccccccccccccc}
+\hline \hline
+\multicolumn{1}{c}{}                                                     &   & \multicolumn{5}{c|}{Gauss-Krüger}              & \multicolumn{5}{c|}{Bezirke}                   & \multicolumn{5}{c}{Stadtteile}              \\ \cline{3-17} 
+                                                                         &   & \multicolumn{15}{c}{Geschätzte Klasse}                                                                                                        \\
+                                                                         &   & 1     & 2     & 3 & 4 & \multicolumn{1}{c|}{5} & 1     & 2     & 3 & 4 & \multicolumn{1}{c|}{5} & 1       & 2       & 3       & 4   & 5       \\ \hline
+\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Wahre \\ Klasse\end{tabular}} & 1 & 0,445 & 0,555 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,387 & 0,613 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,495   & 0,478   & 0,019   & 0   & 0,008   \\
+                                                                         & 2 & 0,254 & 0,746 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,252 & 0,748 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,300   & 0,671   & 0,023   & 0   & 0,006   \\
+                                                                         & 3 & 0,149 & 0,845 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,153 & 0,847 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,142   & 0,771   & 0,079   & 0   & 0,008   \\
+                                                                         & 4 & 0,141 & 0,859 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,141 & 0,859 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,099   & 0,474   & 0,349   & 0   & 0,078   \\
+                                                                         & 5 & 0,114 & 0,886 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,086 & 0,914 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,031   & 0,275   & 0,556   & 0   & 0,138   \\ \hline
+\multicolumn{2}{l|}{Klassifik.}                                              & \multicolumn{5}{c|}{\multirow{3}{*}{0.4918}}   & \multicolumn{5}{c|}{\multirow{3}{*}{0,4704}}   & \multicolumn{5}{c}{\multirow{3}{*}{0,4594}} \\
+\multicolumn{2}{l|}{Modell}                                                  & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\
+\multicolumn{2}{l|}{Insgesamt}                                               & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\ \hline  \hline
+\end{tabular}
+\end{table}
+
 \subsection{Validierung}
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
