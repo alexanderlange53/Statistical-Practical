@@ -600,14 +600,14 @@ write.csv2(crosseval, './cv_results/S21_3_ST.csv')
 }else {
   cv.S <- read.csv2('./cv_results/S21_3_ST.csv')
 }
-<<<<<<< HEAD
+
 #crossval(cv.S, sample)
 table(cv.S$Observed.y, cv.S$Predicted.y)
-=======
+
 cv.S <- cv.S[,-1]
 crossval(cv.S, sample)
 
->>>>>>> 5ad7dc449583d92dc2118ad83b22114f0bd0c4c8
+
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#
