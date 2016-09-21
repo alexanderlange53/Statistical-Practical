@@ -729,6 +729,11 @@ if(calc_CI) {
   temp_median <- pred.interval$median
   write.csv2(cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)]), file = './Prediction_Results/S21_3_Z_ST_IntSB.csv', row.names = FALSE)
   Int.Z.SB <- cbind(UInt.Z.SB, OInt.Z.SB[, c(2 : 4)], temp_mean[, c(2 : 4)], temp_median[, c(2 : 4)])
+}else{
+  S21.3.U.ST.IntST <- read.csv2('./Boot_Results/S21_3_U_ST_IntST.csv', as.is = TRUE)
+  S21.3.U.ST.IntSB <- read.csv2('./Boot_Results/S21_3_U_ST_IntSB.csv', as.is = TRUE)
+  S21.3.Z.ST.IntST <- read.csv2('./Boot_Results/S21_3_Z_ST_IntST.csv', as.is = TRUE)
+  S21.3.Z.ST.IntSB <- read.csv2('./Boot_Results/S21_3_Z_ST_IntSB.csv', as.is = TRUE) 
 }
 
 #-------------#
@@ -746,7 +751,8 @@ validation(pred = AggPred.Z.S.ST, valid = Stadtteile.Val[-20,-1], pop = Zensus) 
 # Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
 predlist <- list(S21.3.U.Ko.IntSB[,-c(1,8,9,10)], S21.3.Z.Ko.IntSB[,-c(1,8,9,10)], S21.3.U.Ko.IntST[,-c(1,8,9,10)],
                  S21.3.Z.Ko.IntST[,-c(1,8,9,10)], S21.3.U.SB.IntSB[,-c(1,8,9,10)], S21.3.Z.SB.IntSB[,-c(1,8,9,10)],
-                 S21.3.U.SB.IntST[,-c(1,8,9,10)], S21.3.Z.SB.IntST[,-c(1,8,9,10)])
+                 S21.3.U.SB.IntST[,-c(1,8,9,10)], S21.3.Z.SB.IntST[,-c(1,8,9,10)], S21.3.U.ST.IntST[,-c(1,8,9,10)],
+                 S21.3.Z.ST.IntST[,-c(1,8,9,10)], S21.3.U.ST.IntSB[,-c(1,8,9,10)], S21.3.Z.ST.IntSB[,-c(1,8,9,10)])
 predst <- list(AggPred.U.S.SB[,-1], AggPred.Z.S.SB[,-1], 
                AggPred.U.S.ST[,-1], AggPred.Z.S.ST[,-1])
 models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Teile Umfr.',
@@ -761,6 +767,6 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '3 G-K auf S.Teile Zen.', '3 Bezirke auf Bezirke Umfr.', '3 Bezirke auf Bezirke Zen.',
             '3 Bezirke auf S.Teile Umfr.', '3 Bezirke auf S.Teile Zen.', '3 S.Teile auf Bezirke Umfr.',
             '3 S.Teile auf Bezirke Zen.', '3 S.Teile auf S.Teile Umfr.', '3 S.Teile auf S.Teile Zen.')
-ResultPlot(predlist = predlist, predst = predst,  sample = sample, 
+ResultPlot(predlist = predlist,  sample = sample, 
            models = models)
-ggsave('./Essay/Pictures/S21AlleModelle2.pdf', height = 5, width = 8)
+ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 5, width = 8)

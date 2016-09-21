@@ -113,6 +113,7 @@ Gauß-Krüger & & Tensorprodukt-Splines  \\ \hline \hline
 }
 \end{table}
 
+
 In der Tabelle sind nicht nur die Kategorienanzahlen der Variablen, sondern auch die vermuteten Formen der Einflüsse der Kovariablen auf die abhängigen Variablen aufgelistet. Diese wurden durch visuelle Darstellung aller Kovariablen über den abhängigen Variablen ermittelt. Nach visueller Einschätzung ergab sich, dass alle nominal skalierten Variablen, wie z.B. die Nationalität, als parametrisch und dass alle kardinal skalierte Variablen, wie z.B. die Altersklasse des Befragten, offensichtlich als nicht parametrisch modelliert werden sollten. Diese beobachteten Zusammenhänge finden sich häufig in Regressionsmodellen \cite[p. 9]{fahrmeir2009regression}. In Anlehnung an \cite[p. 503 ff., p. 524 ff.]{fahrmeir2013regression} wird der räumliche Effekt entweder kontinuierlich als Tensor Produkt oder diskret als Gauss-Markov Zufallsfeld modelliert.\\
 Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhältnis der Häufigkeiten der Kategorienausprägungen der abhängigen Variable zu kennen und seltene Ereignisse zu identifizieren. Während die meisten befragten Personen ihre Wohngegend mit \textit{gut} oder \textit{sehr gut} bewertet haben, treten Beobachtungen mit schlechterer Einschätzung folglich deutlich seltener auf. Zudem sind die Gruppenhäufigkeiten der Antworten zum Projekt Stuttgart 21 näherungsweise gleichverteilt. In beiden Fällen wurden die wenigen, für die Modellierung irrelevanten Kategorien \textit{Keine Angabe} entfernt. In beiden Fällen kann den Gruppen eine Rangfolge, jedoch kein Intervall Abstand unterstellt werden. Es handelt sich demnach jeweils um ordinal Skalierte Daten.
 
@@ -124,7 +125,7 @@ Für die Auswahl der geeigneten Regressionsmethode ist es hilfreich, das Verhäl
  \end{center}
 \end{figure}
 
-Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Volksabstimmung zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadurch eine zusätzliche Möglichkeit zur Modellevaluierung an. Da hier mit Sicherheit nur zwei Kategorien (\textit{Zustimmung}, \textit{Ablehnung }) unterschieden werden können, wurden die Daten dieser Arbeit neu gruppiert. Es wurde eine Neugruppierung in drei (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}, Tabelle \ref{endogene}, links) sowie in zwei Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Dafür wurden jeweils die Grppen \textit{sehr gut} und \textit{gut} zu \textit{Zustimmung} und \textit{schlecht} und \textit{sehr schlecht} zu \textit{Ablehnung} zusammengefasst. Außerdem wurden die Beobachtungen mit der Meinung \textit{neutral} für das zwei Klassenmodell entfernt, womit sich hier ein reduzierter Stichprobenumfang von 2377 Beobachtungen ergibt. Dadurch bleibt die Möglichkeit erhalten eine multinomial verlteilte abhängige Variable zu modellieren und trotzdem  Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
+Das amtliche, nach Stadtteilen oder Stadtbezirken aufgelöste Ergebnis der Volksabstimmung zu Stuttgart 21 von 2011 kann dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadurch eine zusätzliche Möglichkeit zur Modellevaluierung an. Da hier mit Sicherheit nur zwei Kategorien (\textit{Zustimmung}, \textit{Ablehnung }) unterschieden werden können, wurden die Daten dieser Arbeit neu gruppiert. Es wurde eine Neugruppierung in drei (\textit{Zustimmung}, \textit{Neutral}, \textit{Ablehnung}, Tabelle \ref{endogene}, links) sowie in zwei Gruppen (\textit{Zustimmung}, \textit{Ablehnung}) vorgenommen. Dafür wurden jeweils die Grppen \textit{sehr gut} und \textit{gut} zu \textit{Zustimmung} und \textit{schlecht} und \textit{sehr schlecht} zu \textit{Ablehnung} zusammengefasst. Außerdem wurden die Beobachtungen mit der Meinung \textit{neutral} für das zwei Klassenmodell entfernt, womit sich hier ein reduzierter Stichprobenumfang von 2377 Beobachtungen ergibt. Dadurch bleibt die Möglichkeit erhalten eine multinomial verlteilte abhängige Variable zu modellieren und trotzdem eine Validierung für zwei Klassen vorzunehmen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den Häufigkeiten der Ausprägungen im Anhang verfügbar (REF ABB A.1).\\
 Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumlicher Effekte liegt, vergleicht dieser Abschnitt alle drei räumlichen Effekte in Relation zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt die absolute Häufigkeit der Beobachtungen der Meinung zu Stuttgart 21 in kontinuierlicher räumlicher Lage. Zur besseren Übersicht wurden nicht alle Beobachtungen geplottet, sondern Beobachtungsdichten über bivariate normalverteilte Kerndichteschätzer mit festem Abstand für jede Richtungen ermittelt (REF ggplot2, MASS). Um die Hintergrundkarte einbinden zu können wurden die Gauß-Krüger Koordinaten in Dezimalgrad umgerechnet. Da absolute Dichten dargestellt werden, ist zunächst ersichtlich, in welchen Bereichen die meisten Bürger leben. Wegen der hohen Einwohnerdichte im Innenstadtbereich sind dort die Beobachtungsdichten aller 3 Klassen tendenziell höher als in den Randbezirken. Des weiteren ersichtlich ist, dass einige Bereiche, wie das Naturschutzgebiet \textit{Rotwildpark} im Westen oder der \textit{Schurwald} im Osten, aufgrund ihrer geographischen Beschaffenheit oder Landnutzungsform nicht oder nur sehr dünn besiedelt sind.
 
 \begin{figure}[h]
@@ -241,24 +242,74 @@ Im Rahmen der bundeweiten Volkszählung von 2011 wurden in Stuttgart 380.238 Bü
 \subsection{Statistische Methoden}
 
 \subsubsection{Modell}
-Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines. Pseudobeobachtungen
+Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines. Pseudobeobachtungen. Wahl 
+des Glättungsparameters  (Wood 2000).
 
 \subsubsection{Modellwahl}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion \texttt{stepAIC()} zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in Iteration eins bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist (falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche Modellbestandteile eingehen.
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion 
+\texttt{stepAIC()} zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
+geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
+Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC 
+berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, 
+die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt 
+werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es 
+wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In 
+Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird 
+jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch 
+oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC 
+führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls 
+das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in 
+Iteration eins bereits beendet.\\ Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen 
+Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen 
+zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist 
+(falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren 
+Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das 
+Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC 
+als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die 
+Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche 
+Modellbestandteile eingehen.
 
-\subsection{Reklassifizierung}
+\subsection{Konfidenzbänder}
+Die Intervalle der Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punktschätzungen alleine keine 
+Angaben zur Unsicherheit enthalten. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur 
+Punktschätzung zur Unsicherheit und somit ein weiteres Modellgütemerkmal \cite{fahrmeir2013regression}[p. 471]. Des 
+weiteren eignen sich Konfidenzintervalle zur Formulierung von Hypothesentests und zur Berechnung von 
+Überdeckungswahrscheinlichkeiten bestimmter Werte von Interesse. Grundsätzlich gibt es die Möglichkeit intervalle aus 
+den Modellinformationen abzuleiten oder Bootstrap-Intervalle durch wierderholte zufällige Reparametrisierung 
+des Modells zu berechnen. Bei ersterem Vorgehen sind, je nach Methode, oft zusätzliche Annahmen, beispielsweise zur 
+Verteilung oder zur Symmetrie, der Intervalle zu treffen. Aus diesen Gründen wurden punktweise Bootstrap-Intervalle für 
+jede Punktschätzung berechnet.\\
+Zur Berechnung der Intervalle wurde jedes Modell 1.000 mal mit einer Zufallsstichprobe (\textit{Ziehen-mit-Zurücklegen}) 
+aus der Parameterisierungsstichprobe prametrisiert. Um den Einfluss des Stichprobenumfangs zu eliminieren, enthielt 
+jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Aus den Wiederholungen wurden arithmetischer Mittelwert, 
+Median, unteres sowie oberes 95 \% Perzentil berechnet.
+
 
 
 \subsection{Kreuzvalidierung}
-Für die Modellerstellung der GAM Modelle lag eine Stichprobe von 3.143 vor. Da außer der ungefähren Gesamtanzahl 
-(Anzahl der gemeldeten Bürger in Stuttgart 2011) keine Informationen zur Grundgesamtheit vorlagen, wurde die 
-Vorhersagequalität des Modells zunächst an der Stichprobe eingeschätzt. Zu diesem Zweck wurde eine 
-\textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite{fahrmeir2013regression}[p. 149].
+Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 vor. Außer der Gesamtindividuenanzahl 
+(573.104 gemeldete Bürger) lagen keine Informationen zur Grundgesamtheit vor. Die Qualität der Modelle ließ sich 
+folglich nicht an der Grundgesamtheit validieren sondern musste an der Stichprobe selbst eingeschätzt werden. Zu diesem 
+Zweck wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite{fahrmeir2013regression}[p. 149], in welcher 
+jeweils eine beobachtung zufällig entfernt wurde. Die verbleibenden Beobachtungen wurden genutzt, um ein additives 
+Moell zu erstellen, mit dem die entfernte Beobachtung vorhergesagt wurde. Mit diesen Daten ließ sich ein Statistik zu 
+den korrekt reklassifizierten Beobachtungen erstellen.
+
 
 \subsection{Validierung}
-
-Ziel der Validierung ist es, die prognostizierten Anteile aus dem gewählten Modell mit den wahren Anteilen aus der Volksabstimmung \cite{Amt} zu vergleichen, um eine Aussage über die Qualität der geschätzten Prognosemodelle geben zu können. Die Validierung erfolgt auf Stadtteil- und Bezirksebene, sowie für das Gesamtergebnis der Stadt Stuttgart. Dazu werden insbesondere zwei statistische Gütemaße verwendet.\\
-Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungstreuen als auch effizienten Schätzer zu finden. Als geeignetes Gütemaß hat sich die mittlere quadratische Abweichung erwiesen, da sie sowohl die Varianz, als auch die quadrierte Verzerrung berücksichtigt. Zudem hat ein konsistenter Schätzer die Eigenschaft, dass die mittlere quadratische Abweichung bei unendlich groß werdender Stichprobe gen Null konvergiert \cite[p. 201]{HOG}. Ein weiteres Kriterium ist die Überdeckungswahrscheinlichkeit. Sie gibt an, mit welcher Wahrscheinlichkeit das geschätzte Konfidenzintervall den wahren Wert enthält. Erwartet wird hier, dass die Überdeckungswahrscheinlichkeit dem Konfidenzniveau entspricht. Mögliche größere Abweichungen können durch die Approximation einer diskreten Verteilung durch eine stetige Verteilung resultieren, was z.B. oft bei der Approximation der Binomial- durch die Normalverteilung vorkommt \cite[p. 102]{Int}.  
+Ziel der Validierung ist es, die prognostizierten Anteile aus dem gewählten Modell mit den wahren Anteilen aus der 
+Volksabstimmung \cite{Amt} zu vergleichen, um eine Aussage über die Qualität der geschätzten Prognosemodelle geben zu 
+können. Die Validierung erfolgt auf Stadtteil- und Bezirksebene, sowie für das Gesamtergebnis der Stadt Stuttgart. Dazu 
+werden insbesondere zwei statistische Gütemaße verwendet.\\
+Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungstreuen als auch effizienten Schätzer zu 
+finden. Als geeignetes Gütemaß hat sich die mittlere quadratische Abweichung erwiesen, da sie sowohl die Varianz, als 
+auch die quadrierte Verzerrung berücksichtigt. Zudem hat ein konsistenter Schätzer die Eigenschaft, dass die mittlere 
+quadratische Abweichung bei unendlich groß werdender Stichprobe gen Null konvergiert \cite[p. 201]{HOG}. Ein weiteres 
+Kriterium ist die Überdeckungswahrscheinlichkeit. Sie gibt an, mit welcher Wahrscheinlichkeit das geschätzte 
+Konfidenzintervall den wahren Wert enthält. Erwartet wird hier, dass die Überdeckungswahrscheinlichkeit dem 
+Konfidenzniveau entspricht. Mögliche größere Abweichungen können durch die Approximation einer diskreten Verteilung 
+durch eine stetige Verteilung resultieren, was z.B. oft bei der Approximation der Binomial- durch die Normalverteilung 
+vorkommt \cite[p. 102]{Int}.
 
 \section{Ergebnisse}
 

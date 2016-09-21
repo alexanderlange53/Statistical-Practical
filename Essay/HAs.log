@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  20 SEP 2016 14:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  21 SEP 2016 10:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1469,7 +1469,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 475.
 
-<Pictures/BarData.pdf, id=468, 578.16pt x 578.16pt>
+<Pictures/BarData.pdf, id=465, 578.16pt x 578.16pt>
 File: Pictures/BarData.pdf Graphic file (type pdf)
  <use Pictures/BarData.pdf>
 Package pdftex.def Info: Pictures/BarData.pdf used on input line 484.
@@ -1479,7 +1479,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 484--485
  [] 
  []
 
-<Pictures/BWohn.pdf, id=469, 578.16pt x 505.89pt>
+<Pictures/BWohn.pdf, id=466, 578.16pt x 505.89pt>
 File: Pictures/BWohn.pdf Graphic file (type pdf)
  <use Pictures/BWohn.pdf>
 Package pdftex.def Info: Pictures/BWohn.pdf used on input line 491.
@@ -1492,7 +1492,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 491--492
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/SWohn.pdf, id=470, 578.16pt x 505.89pt>
+<Pictures/SWohn.pdf, id=467, 578.16pt x 505.89pt>
 File: Pictures/SWohn.pdf Graphic file (type pdf)
  <use Pictures/SWohn.pdf>
 Package pdftex.def Info: Pictures/SWohn.pdf used on input line 499.
@@ -1587,10 +1587,10 @@ re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type
 1/public/tex-gyre/qhvr.pfb>
-Output written on HAs.pdf (23 pages, 9676675 bytes).
+Output written on HAs.pdf (23 pages, 9663606 bytes).
 PDF statistics:
- 630 PDF objects out of 1000 (max. 8388607)
- 550 compressed objects within 6 object streams
+ 627 PDF objects out of 1000 (max. 8388607)
+ 547 compressed objects within 6 object streams
  69 named destinations out of 1000 (max. 500000)
  257 words of extra memory for PDF output out of 10000 (max. 10000000)
 
