@@ -595,12 +595,13 @@ for (i in c(1 : repeatitions)) {
 }
 names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 #rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+cv.S <- crosseval
 write.csv2(crosseval, './cv_results/S21_3_ST.csv')
 }else {
   cv.S <- read.csv2('./cv_results/S21_3_ST.csv')
 }
-crossval(cv.S, sample)
-
+#crossval(cv.S, sample)
+table(cv.S$Observed.y, cv.S$Predicted.y)
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#

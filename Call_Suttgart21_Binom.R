@@ -17,7 +17,7 @@ library(dplyr)
 
 ## Einstellungen ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -61,7 +61,16 @@ if(bearbeiter == 'Kai@Home') {
     Zensus <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/zensus/population_aufbereitet_stadtteile.txt')
   }
 }
-
+if(bearbeiter == 'Cluster') {
+  cat('Auf dem Cluster gibt es keinen GIT Ordner. Die Dateien müssen manuell aktualisiert werden. Es sollte keine Datei verändert werden. 
+      Es ist eine alte, nicht kompatible Version von RCpp installiert. Die aktuelle RCpp Version muss händisch geladen werden, sonst funktioniert die subset Funktion nicht.')
+  setwd('/home/khusmann/Statistical-Practical/')
+  sample <- read.table("./Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv", header=TRUE, sep=";")
+  Umfrage <- read.csv2('./Rohdaten/buergerumfrage/population_aufbereitet_stadtteile.txt', as.is = TRUE)
+  Zensus <- read.csv2('./Rohdaten/zensus/population_aufbereitet_stadtteile.txt', as.is = TRUE)
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+}
 # Funktionen
 source("stepAIC.R")
 source("evaluation.R")
@@ -603,7 +612,9 @@ evaluateAll.bivariate(step.model.binom.S, data = sample)
 
 if(cross_eval) {
   ## Cross Evaluation ##
-  repeatitions = 2419
+  repeatitions = 2377
+  
+  
   model <- step.model.binom.S$model.spat
   
   leave_out <- sample.int(n = dim(sample)[1], size = repeatitions)
@@ -630,9 +641,10 @@ if(cross_eval) {
   }
   names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
   #rm(list = c("all", "subset_i", "gam_i", "ret_i"))
+  cv.2.ST <- crosseval
   write.csv2(crosseval, './cv_results/S21_2_ST.csv')
 }
-
+table(cv.2.ST$Observed.y, cv.3.ST$Predicted.y)
 #---------------#
 ## Prediction  ##
 #---------------#
