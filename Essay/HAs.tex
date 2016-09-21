@@ -84,7 +84,7 @@ test
 Insgesamt liegen für die Analysen drei Umfragen mit unterschiedlichen Stichprobenumfängen vor. Die kleinste Datei enthält Angaben zur Bewertung der Wohngegend, der Meinung zu Stutttgart 21 sowie weitere sozioökonomische Kovariablen, die zur Erklärung der beiden abhängigen Variablen dienen sollen. Die Datei wird im Folgenden als Parametrisierungsstichprobe bezeichnet. Bei der Parametrisierungsumfrage handelt es sich folglich um eine Stichprobe von der die Grundgesamtheit für eine Validierung nicht zur Verfügung steht. Alle Modellqualitätskriterien müssen entweder an der Stichprobe selbst oder an den beiden separat erhobenen Umfragen angewendet werden. Diese beiden anderen Umfragen haben jeweils einen deutlich größeren Stichprobenumfang. An diesen Umfragen werden die parametrisierten Modelle angewendet und die Meinung zu Stuttgart 21 sowie die Wohnzufriedenheit somit kleinräumig extrapoliert. Einige Variablen unterscheiden sich in ihren Ausprägungen zwischen den Umfragen. Zur Vereinheitlichung der Dateien mussten einige Gruppenausprägungen demnach umkodiert werden. Die Umkodierungen können in der digital anhängenden Datei \textit{Aufbereitung\_Stuttgart21.R} nachvollzogen werden.
 
 \subsubsection{Parametrisierungsstichprobe}
-Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle zur kleinräumigen Extrapolation parametrisiert. Bei dieser umfrage handelt es sich um eine Befragung aus dem Jahr 2015 zur Lebensqualität der Einwohner Stuttgarts bei der unter anderem die Bewertugn der Wohnsituation und die Meinugn zu Stuttgart 21 abgefragt wurden \cite[Stuttgart2015}. Insgesamt standen uns für die Analyse 8 sozioökonomische Variablen und Angaben zur räumlichen Lage. Von jedem Datensatz sind die stetige räumliche Lage als Gauss-Krüger Geokoordinate sowie die diskrete räumliche Lage in Stadtteil und Stadtbezirk bekannt.\\
+Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle zur kleinräumigen Extrapolation parametrisiert. Bei dieser umfrage handelt es sich um eine Befragung aus dem Jahr 2015 zur Lebensqualität der Einwohner Stuttgarts bei der unter anderem die Bewertugn der Wohnsituation und die Meinugn zu Stuttgart 21 abgefragt wurden \cite{Stuttgart2015}. Insgesamt standen uns für die Analyse 8 sozioökonomische Variablen und Angaben zur räumlichen Lage. Von jedem Datensatz sind die stetige räumliche Lage als Gauss-Krüger Geokoordinate sowie die diskrete räumliche Lage in Stadtteil und Stadtbezirk bekannt.\\
 
 %% Wärst Du einverstanden,wenn wir diese Überschriften rausnehmen? Ich finde, Du hast im Text / in de rTabelle schon sehr deutlich gemacht, dass die Datei hier deskr. beschrieben wird. Gilt dann auch für die rüuml. Effekte. Ich fänds übersichtlicher, wenn wir die 3 Umfrgen als Überschroft nehmen.
 %% \subsubsection{Deskriptive Statistik}
@@ -315,6 +315,32 @@ vorkommt \cite[p. 102]{Int}.
 
 \subsection{Modellwahl}
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[h]
+\centering
+\caption{Vergleich der step AIC Ergebnisse zwischen den Modellen}
+\label{stepAIC}
+\begin{tabular}{llccc}
+\hline \hline
+\multicolumn{5}{c}{Meinung zu Stuttgart 21}                                                                                                                                            \\ \hline
+                          & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
+                          & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
+\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
+                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6455,284}                             & \multicolumn{1}{c|}{6383}              & 6455,284          \\
+                          & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6428,6}                               & \multicolumn{1}{c|}{6509,871}          & 6510,838          \\ \hline
+\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
+                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116.13}           & 3271,325          \\
+                          & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{3079,12}                              & \multicolumn{1}{c|}{3117.902}          & 3163,597          \\ \hline
+\multicolumn{5}{c}{Bewertung der Wohngegend}                                                                                                                                           \\ \hline
+                          & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
+                          & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
+\multicolumn{2}{l|}{Gauss-Krüger}                             & \multicolumn{1}{c|}{7051,606}                             & \multicolumn{1}{c|}{7318,815}          & 7062,108          \\
+\multicolumn{2}{l|}{Bezirke}                                  & \multicolumn{1}{c|}{7175,601}                             & \multicolumn{1}{c|}{7318,815}          & 7197,003          \\
+\multicolumn{2}{l|}{Stadtteile}                               & \multicolumn{1}{c|}{8252,374}                             & \multicolumn{1}{c|}{8567,358}          & 8750,801          \\ \hline \hline
+\end{tabular}
+\end{table}
+
 \subsection{Modell}
 
 \subsection{Reklassifizierung}
@@ -366,8 +392,8 @@ Für die Modelle mit den kontinuierlichen Gauss-Krüger Informationen und den Be
 \caption{Kreuzvalidierung der Meinung zu Stuttgart 21 nach einzelnen Klassen}
 \label{KreuzM}
 \begin{tabular}{lcccccccccc}
-\hline
-\multicolumn{11}{c}{Drei Klassen}                                                                                                                                                                                                        \\ \hline
+\hline \hline
+\multicolumn{11}{c}{Drei Klassen}                                                                                                                                                                                                        \\ \hline 
 \multicolumn{1}{c}{}                                                     & \multicolumn{1}{c|}{}  & \multicolumn{3}{c|}{Gauss-Krüger}            & \multicolumn{3}{c|}{Bezirke}                 & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
                                                                          & \multicolumn{1}{c|}{}  & \multicolumn{9}{c}{Geschätzte Klasse}                                                                                                \\
                                                                          & \multicolumn{1}{c|}{}  & 1       & 2   & \multicolumn{1}{c|}{3}       & 1       & 2   & \multicolumn{1}{c|}{3}       & 1           & 2           & 3          \\ \hline
@@ -383,7 +409,7 @@ Für die Modelle mit den kontinuierlichen Gauss-Krüger Informationen und den Be
 Wahre                                                                    & \multicolumn{1}{l|}{1} & 0,747   & \multicolumn{2}{c|}{0,253}         & 0,732   & \multicolumn{2}{c|}{0,268}         & +           & \multicolumn{2}{c}{+}    \\
 Klasse                                                                   & \multicolumn{1}{l|}{2} & 0,538   & \multicolumn{2}{c|}{0,462}         & 0,545   & \multicolumn{2}{c|}{0,455}         & +           & \multicolumn{2}{c}{+}    \\ \hline
 \multicolumn{2}{l|}{Klassifikation Modell}                                                        & \multicolumn{3}{c|}{\multirow{2}{*}{0,6193}} & \multicolumn{3}{c|}{\multirow{2}{*}{0,6079}} & \multicolumn{3}{c}{\multirow{2}{*}{+}} \\
-\multicolumn{2}{l|}{Insgesamt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline
+\multicolumn{2}{l|}{Insgesamt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline \hline
 \end{tabular}
 \end{table}
 

@@ -13,12 +13,12 @@
 \contentsline {subsubsection}{\numberline {2.2.5}Validierung}{10}{subsubsection.2.2.5}
 \contentsline {section}{\numberline {3}Ergebnisse}{10}{section.3}
 \contentsline {subsection}{\numberline {3.1}Modellwahl}{10}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Modell}{10}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{10}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{11}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Validierung}{11}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{11}{subsection.3.6}
-\contentsline {section}{\numberline {4}Diskussion}{11}{section.4}
-\contentsline {section}{\numberline {5}Fazit}{12}{section.5}
+\contentsline {subsection}{\numberline {3.2}Modell}{11}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{11}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{12}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Validierung}{12}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{12}{subsection.3.6}
+\contentsline {section}{\numberline {4}Diskussion}{12}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{14}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{17}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{18}{section.5}
