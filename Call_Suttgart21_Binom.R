@@ -643,7 +643,11 @@ if(cross_eval) {
   #rm(list = c("all", "subset_i", "gam_i", "ret_i"))
   cv.2.ST <- crosseval
   write.csv2(crosseval, './cv_results/S21_2_ST.csv')
+}else{
+  cv.2.ST <- read.csv2('./cv_results/S21_2_ST.csv', as.is = TRUE)
 }
+cv.2.ST <- cv.2.ST[,-1]
+crossval(cv.2.ST, sample)
 table(cv.2.ST$Observed.y, cv.2.ST$Predicted.y)
 #---------------#
 ## Prediction  ##
@@ -723,6 +727,11 @@ if(calc_CI) {
   source('./prediction_interval.R')
   UInt.Z.SB <- pred.interval$u_intervall
   OInt.Z.SB <- pred.interval$o_intervall
+}else {
+  S21.2.U.ST.IntST <- read.csv2('./Boot_Results/S21_2_U_ST_IntST.csv', as.is = TRUE)
+  S21.2.U.ST.IntSB <- read.csv2('./Boot_Results/S21_2_U_ST_IntSB.csv', as.is = TRUE)
+  S21.2.Z.ST.IntST <- read.csv2('./Boot_Results/S21_2_Z_ST_IntST.csv', as.is = TRUE)
+  S21.2.Z.ST.IntSB <- read.csv2('./Boot_Results/S21_2_Z_ST_IntSB.csv', as.is = TRUE)
 }
 
 #---------------#
