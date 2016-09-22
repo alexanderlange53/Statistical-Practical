@@ -644,7 +644,7 @@ if(cross_eval) {
   cv.2.ST <- crosseval
   write.csv2(crosseval, './cv_results/S21_2_ST.csv')
 }
-table(cv.2.ST$Observed.y, cv.3.ST$Predicted.y)
+table(cv.2.ST$Observed.y, cv.2.ST$Predicted.y)
 #---------------#
 ## Prediction  ##
 #---------------#
