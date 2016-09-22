@@ -334,9 +334,8 @@ Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten
 des Glättungsparameters  (Wood 2000).
 
 \subsubsection{Modellwahl}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion 
-\texttt{stepAIC()} zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
-geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
+geeignetsten Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
 Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC 
 berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, 
 die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt 
@@ -359,11 +358,7 @@ Modellbestandteile eingehen.
 
 \subsubsection{Konfidenzbänder}
 Die Intervalle der Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punktschätzungen alleine keine 
-Angaben zur Unsicherheit enthalten. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur 
-Punktschätzung zur Unsicherheit und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des 
-weiteren eignen sich Konfidenzintervalle zur Formulierung von Hypothesentests und zur Berechnung von 
-Überdeckungswahrscheinlichkeiten bestimmter Werte von Interesse. Grundsätzlich gibt es die Möglichkeit intervalle aus 
-den Modellinformationen abzuleiten oder Bootstrap-Intervalle durch wierderholte zufällige Reparametrisierung 
+Angaben zur Unsicherheit enthalten. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten der Volksabstimmungsergebnisse zu berechnen. Grundsätzlich gibt es die Möglichkeit intervalle aus den Modellinformationen abzuleiten oder Bootstrap-Intervalle durch wierderholte zufällige Reparametrisierung 
 des Modells zu berechnen. Bei ersterem Vorgehen sind, je nach Methode, oft zusätzliche Annahmen, beispielsweise zur 
 Verteilung oder zur Symmetrie, der Intervalle zu treffen. Aus diesen Gründen wurden punktweise Bootstrap-Intervalle für 
 jede Punktschätzung berechnet.\\
@@ -372,15 +367,9 @@ aus der Parameterisierungsstichprobe prametrisiert. Um den Einfluss des Stichpro
 jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Aus den Wiederholungen wurden arithmetischer Mittelwert, 
 Median, unteres sowie oberes 95 \% Perzentil berechnet.
 
-
-
 \subsubsection{Kreuzvalidierung}
-Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 Beobachtungen vor. Informationen zur Grundgesamtheit lagen nicht vor. Die Qualität der parametrisierten Modelle ließ sich folglich nicht anhand einer Grundgesamtheit validieren, sondern musste an der Stichprobe selbst eingeschätzt werden. Da die Modelle an einer 
- Zu diesem 
-Zweck wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher 
-jeweils eine beobachtung zufällig entfernt wurde. Die verbleibenden Beobachtungen wurden genutzt, um ein additives 
-Moell zu erstellen, mit dem die entfernte Beobachtung vorhergesagt wurde. Mit diesen Daten ließ sich ein Statistik zu 
-den korrekt reklassifizierten Beobachtungen erstellen.
+Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 Beobachtungen vor. Informationen zur Grundgesamtheit dieser Stichprobe lagen nicht vor. Die Qualität der parametrisierten Modelle ließ sich folglich nicht anhand einer Grundgesamtheit validieren, sondern musste an der Stichprobe selbst eingeschätzt werden. Die erstellten Modelle wurden an anderen Dat3en als den Parametrisierungsdaten angewendet. Aus diesem Grunde ist war vor allem die Modellqualität außerhalb der Parametrisierungsdaten interessant. Aus diesem Grunde wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher 
+jeweils eine Beobachtung zufällig entfernt wurde. Mit den verbliebenen Datensätzen wurde das additive Modell, welches sich zuvor im schrittweisen AIC Vergleich als am vorteilhaftesten herausgestellt hat, neu parametrisiert und die entfernte Beobachtung mit diesem Modell vorhergesagt. Dies wurde so lange wiederholt bis jeder Datensatz einmal entfernt (und geschätzt) wurde. Mit diesen Daten ließ sich eine Statistik zur Reklassifikation der Beobachtungen außerhalb der Stichprobe erstellen.
 
 
 \subsubsection{Validierung}
