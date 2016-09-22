@@ -158,16 +158,14 @@ dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadur
 Modellevaluierung an, indem die Modellierungsergebnisse mit den tatsächlichen Ergebnissen verglichen werden. Da bei der 
 Abstimmung mit Sicherheit nur die beiden Kategorien (\textit{Zustimmung} und \textit{Ablehnung }) unterschieden werden 
 können, wurden die Gruppenausprägungen der Parameterisierungsstichprobe neu zusammengefasst. In den Rohdaten wurden noch 
-6 Gruppen unterschieden.
-
-Es wurde eine Neugruppierung in drei Gruppenausprägungen vorgenommen (Tabelle \ref{endogene}). Dafür wurden jeweils die 
+6 Gruppen unterschieden. Es wurde eine Neugruppierung in drei Gruppenausprägungen vorgenommen (Tabelle \ref{endogene}). Dafür wurden jeweils die 
 Gruppen \textit{sehr gut} und \textit{gut} zu \textit{Zustimmung} und \textit{schlecht} und \textit{sehr schlecht} zu 
 \textit{Ablehnung} zusammengefasst. Falls nur \textit{Zustimmung} und \textit{Ablehnung} für die Modellierung 
 berücksichtigt werden sollen, reduziert sich der Stichprobenumfang auf 2377 Beobachtungen. Dadurch bleibt die 
 Möglichkeit erhalten eine multinomial verlteilte abhängige Variable zu modellieren und trotzdem eine Validierung für 
 zwei Klassen vorzunehmen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den 
 Häufigkeiten der Ausprägungen im Anhang verfügbar (Abbildung \ref{exogen_parametrisierungsdatensatz}). 
-textcolor{red}{bei der abb. Einkommen müsste es <900 statt 900 sein}\\
+\textcolor{red}{bei der abb. Einkommen müsste es <900 statt 900 sein}\\
 
 Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumlicher Effekte liegt, vergleicht dieser 
 Abschnitt alle drei räumlichen Effekte in Bezug zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt 
@@ -245,8 +243,7 @@ verfügbar \ref{SWohn}. Hier zeigt sich ein ähnlich schwer differenzierbares Mu
 Wegen der deutlichen Unterschiede in den Anteilen der fünf Gruppen sind die Farbskalen nicht einheitlich, sondern 
 unterscheiden sich in den Diagrammen.\\
 
-\subsubsection{Bürgerumfrage}
-\textcolor{red}{Leider hat sich rausgestellt, dass die Datei Melderegister heißt und nicht Bürgerumfrage. Siehe Mail.}
+\subsubsection{Melderegister}
 Die erste Datei an der die Modelle Anwendung finden sollen ist eine personenbezogene Auswertung aus dem Melderegister 
 Stuttgarts vom 31.01.2011. Der Auszug umfasst alle volljährigen Einwohner Stuttgarts außer Bewohner von Anstalten und 
 Pflegeheimen. Mit einem Stichprobenumfang von 470.190 Bürgern liegt der Melderegisterauszug also sehr nah an 
@@ -268,7 +265,7 @@ UMKODIEREN BEI DER ALTERSKLASSE NUR NOCH  6 AUSPR. ICH WÜRDE DAS IN DER TAB. 2 
 
 \begin{table}[h]
 \centering
-\caption{Erhobene sozioökonomische und geographische Variablen der Bürgerumfrage und deren Anzahl der Ausprägungen.}
+\caption{Sozioökonomische und geographische Variablen des Melderegisters und deren Anzahl der Ausprägungen.}
 \label{Var_Buergerumfrage}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
@@ -291,18 +288,17 @@ UMKODIEREN BEI DER ALTERSKLASSE NUR NOCH  6 AUSPR. ICH WÜRDE DAS IN DER TAB. 2 
 \end{table}
 
 \subsubsection{Zensus}
-Im Rahmen der bundesweiten Volkszählung von 2011 (Stichtag 09.05.2011) wurden in Stuttgart 380.238 Bürger befragt 
-\ref{Var_Zensus}. Da beim Zensus auch für die Fragestellung dieser Arbeit relevante sozioökonomische Variablen 
+Im Rahmen der bundesweiten Volkszählung von 2011 wurde in Stuttgart eine Gebäude- und Wohnungszählung durchgeführt. Diese Datei umfasst 380.238 Bürger Datensätze (Tabelle \ref{Var_Zensus}). Da bei der Zählung auch für die Fragestellung dieser Arbeit relevante sozioökonomische Variablen 
 erhoben wurden, eignet sich diese Umfrage ebenfalls zur kleinräumige Extrapolation. Die diskreten geographischen 
-Angaben wurden analog zur Bürgerumfrage per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation kommen 
-die gleichen sozioökonomischen Variablen wie bei der Bürgerumfrage in Frage. 
+Angaben wurden analog zum Vorgehen beim Melderegister per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation kommen 
+die gleichen sozioökonomischen Variablen wie beim Melderegister in Frage. 
 \textcolor{red}{Wie in Tab. 2.: Habe die Namen angepasst. Anzahl Personenzahl und Alter umkodiert, also auch in Tabelle 
 ändern? Wir könnten sogar überlegen, die nicht verwendeten Variablen zu löschen. Wir gehen ja im Text nicht mehr auf 
 diese ein (gilt auch für Tab 2)}
 
 \begin{table}[h]
 \centering
-\caption{Erhobene sozioökonomische und geographische Variablen des Zensus und deren Anzahl der Ausprägungen.}
+\caption{Erhobene sozioökonomische und geographische Variablen der Gebäude- und Wohnungszählung im Rahmen des Zensus und deren Anzahl der Ausprägungen.}
 \label{Var_Zensus}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
@@ -562,7 +558,7 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT}
- \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf die Bürgerumfrage mit zwei und drei Klassenmodell mit 95\% Quantielen}
+ \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf  Melderegister mit zwei und drei Klassenmodell mit 95\% Quantielen}
  \label{vali4}
  \end{center}
 \end{figure}
@@ -588,7 +584,7 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 %\clearpage
 
 \section{Diskussion}
-Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
+Die beiden Datensätze zur Grundgesamtheit stammen aus einer Melderegister mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
 
 
@@ -686,7 +682,7 @@ Umgang mit Quellen unter Umständen strafbar mache und die vorliegende Hausarbei
 bewertet wird.
 \\
 \\Göttingen, den
-\\Unteschrift
+\\Unterschrift
 \vspace*{4cm}
 \\
 Hiermit erlaube ich, dass meine Arbeit auf Betrug und falsche, sowie fehlende Zitate auch online geprüft wird.\\
