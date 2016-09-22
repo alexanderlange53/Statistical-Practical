@@ -17,10 +17,10 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
-cross_eval <- TRUE # Kreuzevaluierung
+cross_eval <- FALSE # Kreuzevaluierung
 pred = FALSE # Vorhersage berechnen und als CSV speichern? Oder CSV laden
 calc_CI <- FALSE # Konfidenzintervalle berechnen und als CSV speichern? Dauert sehr lange, je nach Bootstrap-Wiederholungen bis zu mehreren Stunden!!
 
@@ -538,6 +538,7 @@ evaluateAll(step.model.Bewertung.5.S, data = sample)
 
 
 ## Cross Evaluation ##
+if(cross_eval){
 repeatitions = 3437
 model <- step.model.Bewertung.5.S$model.spat
 
@@ -568,8 +569,10 @@ names(crosseval) = c("Observation.No", "Observed.y", "Predicted.y")
 cv.5.S <- crosseval
 table(cv.5.S$Observed.y, cv.5.S$Predicted.y)
 write.csv2(cv.5.S, './cv_results/W_5_ST.csv')
+} else {
+  cv.5.S <- read.csv2('./cv_results/W_5_ST.csv')
+}
 
-cv.5.S <- read.csv2('./cv_results/W_5_ST.csv')
 cv.5.S <- cv.5.S[,-1]
 crossval(cv.5.S, sample)
 
@@ -598,8 +601,6 @@ AIC(step.model.Bewertung.5.S$model.spat)
 AIC(step.model.Bewertung.5.S$model.nospat)
 AIC(step.model.Bewertung.5.S$model.spatonly)
 
-summary(step.model.S$model.spat)
-# plot(step.model.S$model.spat, all = T)
 
 #---------------#
 ## Prediction  ##
@@ -635,7 +636,96 @@ if(pred){
 PredBarPlot(sample, pred.U.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 PredBarPlot(sample, pred.Z.S, x = c('Zustimmung', 'Neutral', 'Ablehnung'))
 
-## Konfidenzintervalle laufen nicht ##
+
+
+
+## Konfidenzintervalle ##
+if(calc_CI) {
+  ## Allg. Einstellungen
+  model <- step.model.Bewertung.5.S$model.spat
+  sample <- sample
+  ncores <- 4
+  nboot <- 1000
+  coverage <- 0.95
+  seed <- 123
+  
+  ## Konfidenzintervalle: Umfrage, Stadtteile ##
+  population <- Umfrage
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.U.S.ST
+  IFUmfrage <- TRUE
+  IFStadtteil <- TRUE
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  # source('./prediction_interval.R')
+  source('./prediction_interval_W_ST.R')
+  
+  UInt <- pred.interval$u_intervall
+  OInt <- pred.interval$o_intervall
+  meanInt <- pred.interval$mean
+  mediInt <- pred.interval$median
+  
+  Int.U.ST.ST <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
+  write.csv2(Int.U.ST.ST, file = './Prediction_Results/W_5_U_ST_IntST.csv', row.names = FALSE)
+  
+  ## Konfidenzintervalle: Umfrage, Stadtbezirke ##
+  pred.sum <- AggPred.U.B.SB
+  aggregation <- "Stadtbezirk"
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  #source('./prediction_interval.R')
+  source('./prediction_interval_W_ST.R')
+  
+  UInt <- pred.interval$u_intervall
+  OInt <- pred.interval$o_intervall
+  meanInt <- pred.interval$mean
+  mediInt <- pred.interval$median
+  
+  Int.U.ST.SB <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
+  write.csv2(Int.U.ST.ST, file = './Prediction_Results/W_5_U_ST_IntSB.csv', row.names = FALSE)
+  
+  
+  ## Konfidenzintervalle: Zensus, Stadtteile
+  population <- Zensus
+  aggregation <- "Stadtteil"
+  pred.sum <- AggPred.Z.B.ST
+  IFUmfrage <- FALSE
+  
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  # source('./prediction_interval.R')
+  source('./prediction_interval_W_ST.R')
+  
+  UInt <- pred.interval$u_intervall
+  OInt <- pred.interval$o_intervall
+  meanInt <- pred.interval$mean
+  mediInt <- pred.interval$median
+  
+  Int.Z.ST.ST <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
+  write.csv2(Int.U.ST.ST, file = './Prediction_Results/W_5_Z_ST_IntST.csv', row.names = FALSE)
+  
+  
+  ## Konfidenzintervalle: Zensus, Stadtbezirke
+  pred.sum <- AggPred.Z.SB
+  aggregation <- "Stadtbezirk"
+  
+  # Dies Funktioniert wegen der Pseudobeob. nicht: Es funktioniert nur das spezifische Skript: prediction_inteval_S21_ST.R
+  # Dies muss Schritt für Schritt aufgerufen werden
+  #source('./prediction_interval.R')
+  source('./prediction_interval_W_ST.R')
+  
+  UInt <- pred.interval$u_intervall
+  OInt <- pred.interval$o_intervall
+  meanInt <- pred.interval$mean
+  mediInt <- pred.interval$median
+  
+  Int.Z.ST.SB <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
+  write.csv2(Int.U.ST.SB, file = './Prediction_Results/W_5_Z_ST_IntSB.csv', row.names = FALSE)
+  } else {
+    # load
+}
+
+
 
 # Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
 predlist <- list(W.5.U.Ko.IntSB[,-c(1,12:16)], W.5.Z.Ko.IntSB[,-c(1,12:16)], W.5.U.Ko.IntST[,-c(1,12:16)],
