@@ -10,6 +10,11 @@ DiCiccio, T.~J. and Efron, B. (1996).
 \newblock Bootstrap confidence intervals.
 \newblock {\em Statistical Science}, 11(3):189--228.
 
+\bibitem[Eilers and Marx, 1996]{eilers1996}
+Eilers, P. H.~C. and Marx, B.~D. (1996).
+\newblock Flexible smoothing with {B}-splines and penalties.
+\newblock {\em Statistical Science}, 11(2):89--121.
+
 \bibitem[Fahrmeir et~al., 2009]{fahrmeir2009regression}
 Fahrmeir, L., Kneib, T., and Lang, S. (2009).
 \newblock {\em Regression}.
