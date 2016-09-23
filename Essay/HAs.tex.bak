@@ -352,21 +352,12 @@ als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Fun
 Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche 
 Modellbestandteile eingehen.
 
-\subsubsection{Konfidenzbänder}
-Die Intervalle der Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punktschätzungen alleine keine 
-Angaben zur Unsicherheit enthalten. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten der Volksabstimmungsergebnisse zu berechnen. Grundsätzlich gibt es die Möglichkeit intervalle aus den Modellinformationen abzuleiten oder Bootstrap-Intervalle durch wierderholte zufällige Reparametrisierung 
-des Modells zu berechnen. Bei ersterem Vorgehen sind, je nach Methode, oft zusätzliche Annahmen, beispielsweise zur 
-Verteilung oder zur Symmetrie, der Intervalle zu treffen. Aus diesen Gründen wurden punktweise Bootstrap-Intervalle für 
-jede Punktschätzung berechnet.\\
-Zur Berechnung der Intervalle wurde jedes Modell 1.000 mal mit einer Zufallsstichprobe (\textit{Ziehen-mit-Zurücklegen}) 
-aus der Parameterisierungsstichprobe prametrisiert. Um den Einfluss des Stichprobenumfangs zu eliminieren, enthielt 
-jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Aus den Wiederholungen wurden arithmetischer Mittelwert, 
-Median, unteres sowie oberes 95 \% Perzentil berechnet.
+\subsubsection{Konfidenzintervalle}
+Die Intervalle zu den Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punktschätzungen alleine keine Angaben zur Unsicherheit beinhalten. Das Konfidenzintervall gibt an, mit welcher Wahrscheinlichkeit die unbekannte wahre Punktschätzung von einer Konfidenzregion überdeckt wird. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten des Volksabstimmungsergebnisses \cite{amt} zu berechnen. Grundsätzlich gibt es die Möglichkeiten die Intervalle entweder aus Modelleigenschaften abzuleiten oder Bootstrap-Intervalle durch wiederholte zufällige Modellreparametrisierungen und Punktschätzungen zu berechnen. Bei ersterem Vorgehen müssen, je nach gewählter Berechnungsmethode, weitere Modellinformationen in die Intervallberechnung eingehen. So wird zur analytischen Berechnung von Score-Konfidenzintervallen \cite[p. 64 ff.]{held2008}, welche den Vorteil haben, dass sie invariant gegenüber eindeutigen Parametertransformationen sind, beispielsweise die Fischer-Information benötigt. Sie sind deshalb oft nur schwer analytisch zu berechnen \cite[p. 74]{held2008}. Andere Intervalle, wie bespielsweise das Wald-Konfidenzintervall, sind obligatorisch symmetrisch \cite[p. 60]{held2008} und werden der wahren Datenverteilung daher oft nicht gerecht.\\
+Da in dieser Arbeit weniger die Intervalle um die Modellparameter als vielmehr die Intervall um die Punktschätzungen, also die einzelnen Hochrechnungen, von Interesse sind, wurden einfache Bootstrap-Kofidenzintervalle für jede Punktschätzung berechnet. Zur Berechnung der Intervalle wurde jedes Modell 1.000 mal mit einer Zufallsstichprobe (\textit{Ziehen-mit-Zurücklegen}) aus der Parameterisierungsstichprobe reprametrisiert. Um den Einfluss des Stichprobenumfangs zu eliminieren, enthielt jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Mit jedem neuparametrisierten Modell wurde eine kleinräumige Extrapolation durchgeführt. Die Hochrechnungsergebnisse wurden genutzt, um das arithmetische Mittel, den Median sowie unteres und oberes 95 \% Perzentil der Punktschätzungen zu berechnen.
 
 \subsubsection{Kreuzvalidierung}
-Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 Beobachtungen vor. Informationen zur Grundgesamtheit dieser Stichprobe lagen nicht vor. Die Qualität der parametrisierten Modelle ließ sich folglich nicht anhand einer Grundgesamtheit validieren, sondern musste an der Stichprobe selbst eingeschätzt werden. Die erstellten Modelle wurden an anderen Dat3en als den Parametrisierungsdaten angewendet. Aus diesem Grunde ist war vor allem die Modellqualität außerhalb der Parametrisierungsdaten interessant. Aus diesem Grunde wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher 
-jeweils eine Beobachtung zufällig entfernt wurde. Mit den verbliebenen Datensätzen wurde das additive Modell, welches sich zuvor im schrittweisen AIC Vergleich als am vorteilhaftesten herausgestellt hat, neu parametrisiert und die entfernte Beobachtung mit diesem Modell vorhergesagt. Dies wurde so lange wiederholt bis jeder Datensatz einmal entfernt (und geschätzt) wurde. Mit diesen Daten ließ sich eine Statistik zur Reklassifikation der Beobachtungen außerhalb der Stichprobe erstellen.
-
+Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 Beobachtungen vor. Informationen zur Grundgesamtheit dieser Stichprobe lagen nicht vor. Die Qualität der parametrisierten Modelle ließ sich folglich nicht anhand einer Grundgesamtheit validieren, sondern musste an der Stichprobe selbst eingeschätzt werden. Die erstellten Modelle wurden an anderen Dat3en als den Parametrisierungsdaten angewendet. Aus diesem Grunde ist war vor allem die Modellqualität außerhalb der Parametrisierungsdaten interessant. Aus diesem Grunde wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher jeweils eine Beobachtung zufällig entfernt wurde. Mit den verbliebenen Datensätzen wurde das additive Modell, welches sich zuvor im schrittweisen AIC Vergleich als am vorteilhaftesten herausgestellt hat, neu parametrisiert und die entfernte Beobachtung mit diesem Modell vorhergesagt. Dies wurde so lange wiederholt bis jeder Datensatz einmal entfernt (und geschätzt) wurde. Mit diesen Daten ließ sich eine Statistik zur Reklassifikation der Beobachtungen außerhalb der Stichprobe erstellen.
 
 \subsubsection{Validierung}
 Ziel der Validierung ist es, die prognostizierten Anteile aus dem gewählten Modell mit den wahren Anteilen aus der 
@@ -515,8 +506,10 @@ Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis 
 Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variablen, sowie das totale Unterschätzen einiger Klassen, wird in der weiteren Validierung und Extrapolation auf das Vorhersagen einzelner Beobachtungen verzichtet. Stattdessen wird in einem bestimmten Gebiet über die Wahrscheinlichkeiten der Beobachtungen aggregiert und ein Anteil geschätzt, um auch geringere Wahrscheinlichkeiten für Beobachtungen zu berücksichtigen.
 
 \subsection{Validierung}
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
+
+Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere Quadratische Abweichung und Überdeckungswahrscheinlichkeit der prognostizierten Anteilen aus den Modellen, bezogen auf die wahren Anteile aus der Volksabstimmung. Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartete, dass das zwei Klassenmodell die beiden Kategorien signifikant besser schätzt.
+Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Kombination aus Modell, räumlichem Effekt und Datei es sich handelt. Die mittlere Spalte zeigt die mittlere quadratische Abweichung für die beiden Kategorien der Volksabstimmung und die rechte Spalte zeigt die Überdeckungswahrscheinlichkeit ebenfalls für diese Klassen. Damit gibt die erste Reihe z.B. die statistischen Gütemaße für das zwei Klassenmodell mit Gauss-Krüger Informationen als räumlichem Effekt aggregiert auf Bezirksebene mit dem Melderegister an.
+
 \begin{table}[h]
 \centering
 \caption{Vergleich der mittleren quadratischen Abweichung (MSE) und der Überdeckungswahrscheinlichkeit bei allen Prognosen aus den geschätzten Modellen und den beiden Extrapolationsdateien für die Meinung zu Stuttgart 21}
@@ -555,6 +548,8 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 \end{tabular}
 \end{table}
 
+Zuerst erfolgt ein Vergleich zwischen den beiden Modellierungsmöglichkeiten. Für die Kategorie \textit{Ablehnung} zeigt die Tabelle die erwarteten Ergebnisse, sowohl die mittlere quadratische Abweichung als auch die Überdeckungswahrscheinlichkeit ist durchweg für alle Kombinationen besser im zwei Klassenmodell als im drei Klassenmodell. Die Überdeckung im drei Klassen Fall ist so gering, dass der wahre Wert nahezu nie enthalten ist. Für die Kategorie \textit{Zustimmung} ergibt sich ein komplett konträres Ergebnis. Hier ist die mittlere quadratische Abweichung bei jeder Kombination im zwei Klassenmodell deutlich geringer als im drei Klassenmodell. Auch die Überdeckungswahrscheinlichkeit ist insbesondere bei den Ergebnissen zum Melderegister signifikant höher. Zu besseren Einordnung dieser Ergebnisse wurde Abbildung \ref{vali4} erstellt. Dort ist zu sehen, dass die prognostizierten Anteile des drei Klassenmodells sehr nahe bei den wahren Anteilen liegen, wobei Punkte auf der 45 Grad Linie Beobachtungen signalisieren bei denen der wahre und der prognostizierte Anteil nahezu gleich sind. Beim zwei Klassenmodell ist zu erkennen, dass die wahren Anteile deutlich überschätzt werden, sowohl auf Bezirks- als auch auf Stadtteilebene.
+
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT2}
@@ -562,6 +557,8 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
  \label{vali4}
  \end{center}
 \end{figure}
+
+Innerhalb des drei Klassenmodells lässt sich anhand von Tabelle \ref{vali} nicht eindeutig bestimmen, welcher räumliche Effekt das beste Modell liefert, da die größten Unterschiede sowohl bei dem MSE und der Überdeckung zwischen den Dateien auftreten, was auch darauf hinweisen kann, dass der Melderegister näher mit der Volksabstimmung übereinstimmt. Beim Melderegister liefert das Modell mit Stadtteilen als räumlichem Effekt das beste Modell und auf Bezirksebene und auf Stadtteilebene das Modell mit Gauss-Krüger Informationen, wobei die Un Insgesamt kann das zwei Klassenmodell aus bestes Prognosemodell verworfen werden, da das drei Klassenmodell die \textit{Zustimmung} und folglich auch die \textit{Ablehnung} deutlich genauer bestimmen kann.
 
 \subsection{Extrapolation}
 
@@ -651,7 +648,7 @@ Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/SWohn}
- \caption{Anteile der Bewertung der Wohngegend nach Stadtteilen. Wegen der deutlichen unterschiede in den Anteilen sind die Farbskalen nicht einheitlich, sondern unterscheiden sich in den Diagrammen.}
+ \caption{Anteile der Bewertung der Wohngegend nach Stadtteilen.}
  \label{SWohn}
  \end{center}
 \end{figure}
