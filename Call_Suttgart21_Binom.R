@@ -739,11 +739,11 @@ if(calc_CI) {
 #---------------#
 
 # Validierung auf Bezirksebene
-validation(pred = AggPred.U.ST.SB, valid = Bezirke.Val, pop = Umfrage)
-validation(pred = AggPred.Z.ST.SB, valid = Bezirke.Val, pop = Zensus)
+validation(pred = S21.2.U.ST.IntSB[,-1], valid = Bezirke.Val, pop = Umfrage, errorbar = T)
+validation(pred = S21.2.Z.ST.IntSB[,-1], valid = Bezirke.Val, pop = Zensus, errorbar = T)
 
 # Validierung auf Stadtteilebene (Ohne Briefwahl)
-validation(pred = AggPred.U.ST.ST, valid = Stadtteile.Val[,-1], pop = Umfrage)
-validation(pred = AggPred.Z.ST.ST, valid = Stadtteile.Val[-20,-1], pop =  Zensus) 
+validation(pred = S21.2.U.ST.IntST[,-1], valid = Stadtteile.Val[,-1], pop = Umfrage, errorbar = T)
+validation(pred = S21.2.Z.ST.IntST[,-1], valid = Stadtteile.Val[-20,-1], pop =  Zensus, errorbar = T) 
 
 
