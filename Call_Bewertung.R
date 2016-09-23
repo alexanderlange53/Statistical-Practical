@@ -682,7 +682,7 @@ if(calc_CI) {
   mediInt <- pred.interval$median
   
   Int.U.ST.SB <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
-  write.csv2(Int.U.ST.ST, file = './Prediction_Results/W_5_U_ST_IntSB.csv', row.names = FALSE)
+  write.csv2(Int.U.ST.SB, file = './Prediction_Results/W_5_U_ST_IntSB.csv', row.names = FALSE)
   
   
   ## Konfidenzintervalle: Zensus, Stadtteile
@@ -702,7 +702,7 @@ if(calc_CI) {
   mediInt <- pred.interval$median
   
   Int.Z.ST.ST <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
-  write.csv2(Int.U.ST.ST, file = './Prediction_Results/W_5_Z_ST_IntST.csv', row.names = FALSE)
+  write.csv2(Int.Z.ST.ST, file = './Prediction_Results/W_5_Z_ST_IntST.csv', row.names = FALSE)
   
   
   ## Konfidenzintervalle: Zensus, Stadtbezirke
@@ -720,7 +720,7 @@ if(calc_CI) {
   mediInt <- pred.interval$median
   
   Int.Z.ST.SB <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
-  write.csv2(Int.U.ST.SB, file = './Prediction_Results/W_5_Z_ST_IntSB.csv', row.names = FALSE)
+  write.csv2(Int.Z.ST.SB, file = './Prediction_Results/W_5_Z_ST_IntSB.csv', row.names = FALSE)
   } else {
     # load
 }
