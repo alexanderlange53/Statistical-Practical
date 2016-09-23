@@ -1,49 +1,55 @@
 This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: HAs.aux
+Case mismatch error between cite keys amt and Amt
+---line 59 of file HAs.aux
+ : \citation{amt
+ :              }
+I'm skipping whatever remains of this command
 The style file: apalike.bst
 Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
---line 91 of file LiteraturStuttgart.bib.bib
-You've used 10 entries,
+--line 108 of file LiteraturStuttgart.bib.bib
+Warning--can't use both author and editor fields in held2008
+You've used 11 entries,
             1935 wiz_defined-function locations,
-            530 strings with 4953 characters,
-and the built_in function-call counts, 3098 in all, are:
-= -- 301
-> -- 103
-< -- 9
-+ -- 32
-- -- 32
-* -- 220
-:= -- 574
-add.period$ -- 30
-call.type$ -- 10
-change.case$ -- 62
-chr.to.int$ -- 10
-cite$ -- 10
-duplicate$ -- 136
-empty$ -- 223
-format.name$ -- 44
-if$ -- 600
+            537 strings with 5094 characters,
+and the built_in function-call counts, 3382 in all, are:
+= -- 327
+> -- 110
+< -- 10
++ -- 34
+- -- 34
+* -- 241
+:= -- 626
+add.period$ -- 33
+call.type$ -- 11
+change.case$ -- 67
+chr.to.int$ -- 11
+cite$ -- 12
+duplicate$ -- 150
+empty$ -- 246
+format.name$ -- 47
+if$ -- 655
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 13
-newline$ -- 52
-num.names$ -- 30
-pop$ -- 63
+missing$ -- 15
+newline$ -- 57
+num.names$ -- 33
+pop$ -- 69
 preamble$ -- 1
-purify$ -- 66
+purify$ -- 72
 quote$ -- 0
-skip$ -- 106
+skip$ -- 116
 stack$ -- 0
-substring$ -- 155
-swap$ -- 13
+substring$ -- 167
+swap$ -- 15
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 50
-warning$ -- 0
-while$ -- 25
+type$ -- 54
+warning$ -- 1
+while$ -- 27
 width$ -- 0
-write$ -- 126
-(There was 1 warning)
+write$ -- 139
+(There was 1 error message)
