@@ -7,6 +7,7 @@
 \contentsline {subsubsection}{\numberline {2.1.3}Zensus}{8}{subsubsection.2.1.3}
 \contentsline {subsection}{\numberline {2.2}Statistische Methoden}{9}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Modell}{9}{subsubsection.2.2.1}
+<<<<<<< HEAD
 \contentsline {subsubsection}{\numberline {2.2.2}Schrittweise AIC}{10}{subsubsection.2.2.2}
 \contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{11}{subsubsection.2.2.3}
 \contentsline {subsubsection}{\numberline {2.2.4}Konfidenzintervalle}{11}{subsubsection.2.2.4}
@@ -17,6 +18,17 @@
 \contentsline {subsection}{\numberline {3.2}Schrittweise AIC}{12}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{13}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{14}{subsection.3.4}
+=======
+\contentsline {subsubsection}{\numberline {2.2.2}Modellwahl}{10}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Konfidenzintervalle}{11}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{12}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}Validierung}{12}{subsubsection.2.2.5}
+\contentsline {section}{\numberline {3}Ergebnisse}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Modell}{13}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Modellwahl}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{14}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{15}{subsection.3.4}
+>>>>>>> 9b7dfd405d05641690d25a39feab1e8bdacee9b4
 \contentsline {subsection}{\numberline {3.5}Validierung}{16}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{18}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{18}{section.4}
