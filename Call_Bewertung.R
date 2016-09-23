@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -722,7 +722,10 @@ if(calc_CI) {
   Int.Z.ST.SB <- cbind(UInt, OInt[, c(2 : 6)], meanInt[, c(2 : 6)], mediInt[, c(2 : 6)])
   write.csv2(Int.Z.ST.SB, file = './Prediction_Results/W_5_Z_ST_IntSB.csv', row.names = FALSE)
   } else {
-    # load
+    W.5.U.ST.IntST <- read.csv2('./Boot_Results/W_5_U_ST_IntST.csv', as.is = TRUE)
+    W.5.U.ST.IntSB <- read.csv2('./Boot_Results/W_5_U_ST_IntSB.csv', as.is = TRUE)
+    W.5.Z.ST.IntST <- read.csv2('./Boot_Results/W_5_Z_ST_IntST.csv', as.is = TRUE)
+    W.5.Z.ST.IntSB <- read.csv2('./Boot_Results/W_5_Z_ST_IntSB.csv', as.is = TRUE)
 }
 
 
@@ -730,9 +733,8 @@ if(calc_CI) {
 # Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
 predlist <- list(W.5.U.Ko.IntSB[,-c(1,12:16)], W.5.Z.Ko.IntSB[,-c(1,12:16)], W.5.U.Ko.IntST[,-c(1,12:16)],
                  W.5.Z.Ko.IntST[,-c(1,12:16)], W.5.U.SB.IntSB[,-c(1,12:16)], W.5.Z.SB.IntSB[,-c(1,12:16)],
-                 W.5.U.SB.IntST[,-c(1,12:16)], W.5.Z.SB.IntST[,-c(1,12:16)])
-predst <- list(AggPred.U.S.SB[,-1], AggPred.Z.S.SB[,-1], 
-               AggPred.U.S.ST[,-1], AggPred.Z.S.ST[,-1])
+                 W.5.U.SB.IntST[,-c(1,12:16)], W.5.Z.SB.IntST[,-c(1,12:16)], W.5.U.ST.IntSB[,-c(1,12:16)], W.5.Z.ST.IntSB[,-c(1,12:16)],
+                 W.5.U.ST.IntST[,-c(1,12:16)], W.5.Z.ST.IntST[,-c(1,12:16)])
 models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Teile Umfr.',
             '1 G-K auf S.Teile Zen.', '1 Bezirke auf Bezirke Umfr.', '1 Bezirke auf Bezirke Zen.',
             '1 Bezirke auf S.Teile Umfr.', '1 Bezirke auf S.Teile Zen.', '1 S.Teile auf Bezirke Umfr.',
@@ -753,6 +755,5 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '5 G-K auf S.Teile Zen.', '5 Bezirke auf Bezirke Umfr.', '5 Bezirke auf Bezirke Zen.',
             '5 Bezirke auf S.Teile Umfr.', '5 Bezirke auf S.Teile Zen.', '5 S.Teile auf Bezirke Umfr.',
             '5 S.Teile auf Bezirke Zen.', '5 S.Teile auf S.Teile Umfr.', '5 S.Teile auf S.Teile Zen.')
-ResultPlot5(predlist = predlist, predst = predst,  sample = sample, 
-           models = models)
+ResultPlot5(predlist = predlist, sample = sample, models = models)
 ggsave('./Essay/Pictures/WohngegendAlleModelle2.pdf', height = 8, width = 8)

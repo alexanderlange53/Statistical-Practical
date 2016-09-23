@@ -158,16 +158,14 @@ dem Internetauftritt der Stadt entnommen werden \cite{Amt}. Es bietet sich dadur
 Modellevaluierung an, indem die Modellierungsergebnisse mit den tatsächlichen Ergebnissen verglichen werden. Da bei der 
 Abstimmung mit Sicherheit nur die beiden Kategorien (\textit{Zustimmung} und \textit{Ablehnung }) unterschieden werden 
 können, wurden die Gruppenausprägungen der Parameterisierungsstichprobe neu zusammengefasst. In den Rohdaten wurden noch 
-6 Gruppen unterschieden.
-
-Es wurde eine Neugruppierung in drei Gruppenausprägungen vorgenommen (Tabelle \ref{endogene}). Dafür wurden jeweils die 
+6 Gruppen unterschieden. Es wurde eine Neugruppierung in drei Gruppenausprägungen vorgenommen (Tabelle \ref{endogene}). Dafür wurden jeweils die 
 Gruppen \textit{sehr gut} und \textit{gut} zu \textit{Zustimmung} und \textit{schlecht} und \textit{sehr schlecht} zu 
 \textit{Ablehnung} zusammengefasst. Falls nur \textit{Zustimmung} und \textit{Ablehnung} für die Modellierung 
 berücksichtigt werden sollen, reduziert sich der Stichprobenumfang auf 2377 Beobachtungen. Dadurch bleibt die 
 Möglichkeit erhalten eine multinomial verlteilte abhängige Variable zu modellieren und trotzdem eine Validierung für 
 zwei Klassen vorzunehmen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den 
 Häufigkeiten der Ausprägungen im Anhang verfügbar (Abbildung \ref{exogen_parametrisierungsdatensatz}). 
-textcolor{red}{bei der abb. Einkommen müsste es <900 statt 900 sein}\\
+\textcolor{red}{bei der abb. Einkommen müsste es <900 statt 900 sein}\\
 
 Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumlicher Effekte liegt, vergleicht dieser 
 Abschnitt alle drei räumlichen Effekte in Bezug zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt 
@@ -245,8 +243,7 @@ verfügbar \ref{SWohn}. Hier zeigt sich ein ähnlich schwer differenzierbares Mu
 Wegen der deutlichen Unterschiede in den Anteilen der fünf Gruppen sind die Farbskalen nicht einheitlich, sondern 
 unterscheiden sich in den Diagrammen.\\
 
-\subsubsection{Bürgerumfrage}
-\textcolor{red}{Leider hat sich rausgestellt, dass die Datei Melderegister heißt und nicht Bürgerumfrage. Siehe Mail.}
+\subsubsection{Melderegister}
 Die erste Datei an der die Modelle Anwendung finden sollen ist eine personenbezogene Auswertung aus dem Melderegister 
 Stuttgarts vom 31.01.2011. Der Auszug umfasst alle volljährigen Einwohner Stuttgarts außer Bewohner von Anstalten und 
 Pflegeheimen. Mit einem Stichprobenumfang von 470.190 Bürgern liegt der Melderegisterauszug also sehr nah an 
@@ -268,7 +265,7 @@ UMKODIEREN BEI DER ALTERSKLASSE NUR NOCH  6 AUSPR. ICH WÜRDE DAS IN DER TAB. 2 
 
 \begin{table}[h]
 \centering
-\caption{Erhobene sozioökonomische und geographische Variablen der Bürgerumfrage und deren Anzahl der Ausprägungen.}
+\caption{Sozioökonomische und geographische Variablen des Melderegisters und deren Anzahl der Ausprägungen.}
 \label{Var_Buergerumfrage}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
@@ -291,18 +288,17 @@ UMKODIEREN BEI DER ALTERSKLASSE NUR NOCH  6 AUSPR. ICH WÜRDE DAS IN DER TAB. 2 
 \end{table}
 
 \subsubsection{Zensus}
-Im Rahmen der bundesweiten Volkszählung von 2011 (Stichtag 09.05.2011) wurden in Stuttgart 380.238 Bürger befragt 
-\ref{Var_Zensus}. Da beim Zensus auch für die Fragestellung dieser Arbeit relevante sozioökonomische Variablen 
+Im Rahmen der bundesweiten Volkszählung von 2011 wurde in Stuttgart eine Gebäude- und Wohnungszählung durchgeführt. Diese Datei umfasst 380.238 Bürger Datensätze (Tabelle \ref{Var_Zensus}). Da bei der Zählung auch für die Fragestellung dieser Arbeit relevante sozioökonomische Variablen 
 erhoben wurden, eignet sich diese Umfrage ebenfalls zur kleinräumige Extrapolation. Die diskreten geographischen 
-Angaben wurden analog zur Bürgerumfrage per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation kommen 
-die gleichen sozioökonomischen Variablen wie bei der Bürgerumfrage in Frage. 
+Angaben wurden analog zum Vorgehen beim Melderegister per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation kommen 
+die gleichen sozioökonomischen Variablen wie beim Melderegister in Frage. 
 \textcolor{red}{Wie in Tab. 2.: Habe die Namen angepasst. Anzahl Personenzahl und Alter umkodiert, also auch in Tabelle 
 ändern? Wir könnten sogar überlegen, die nicht verwendeten Variablen zu löschen. Wir gehen ja im Text nicht mehr auf 
 diese ein (gilt auch für Tab 2)}
 
 \begin{table}[h]
 \centering
-\caption{Erhobene sozioökonomische und geographische Variablen des Zensus und deren Anzahl der Ausprägungen.}
+\caption{Erhobene sozioökonomische und geographische Variablen der Gebäude- und Wohnungszählung im Rahmen des Zensus und deren Anzahl der Ausprägungen.}
 \label{Var_Zensus}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
@@ -334,9 +330,8 @@ Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten
 des Glättungsparameters  (Wood 2000).
 
 \subsubsection{Modellwahl}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart wurde die R Funktion 
-\texttt{stepAIC()} zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
-geeignetsten Kovariablenkombination dient. In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
+geeignetsten Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
 Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC 
 berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, 
 die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt 
@@ -359,11 +354,7 @@ Modellbestandteile eingehen.
 
 \subsubsection{Konfidenzbänder}
 Die Intervalle der Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punktschätzungen alleine keine 
-Angaben zur Unsicherheit enthalten. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur 
-Punktschätzung zur Unsicherheit und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des 
-weiteren eignen sich Konfidenzintervalle zur Formulierung von Hypothesentests und zur Berechnung von 
-Überdeckungswahrscheinlichkeiten bestimmter Werte von Interesse. Grundsätzlich gibt es die Möglichkeit intervalle aus 
-den Modellinformationen abzuleiten oder Bootstrap-Intervalle durch wierderholte zufällige Reparametrisierung 
+Angaben zur Unsicherheit enthalten. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten der Volksabstimmungsergebnisse zu berechnen. Grundsätzlich gibt es die Möglichkeit intervalle aus den Modellinformationen abzuleiten oder Bootstrap-Intervalle durch wierderholte zufällige Reparametrisierung 
 des Modells zu berechnen. Bei ersterem Vorgehen sind, je nach Methode, oft zusätzliche Annahmen, beispielsweise zur 
 Verteilung oder zur Symmetrie, der Intervalle zu treffen. Aus diesen Gründen wurden punktweise Bootstrap-Intervalle für 
 jede Punktschätzung berechnet.\\
@@ -372,16 +363,9 @@ aus der Parameterisierungsstichprobe prametrisiert. Um den Einfluss des Stichpro
 jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Aus den Wiederholungen wurden arithmetischer Mittelwert, 
 Median, unteres sowie oberes 95 \% Perzentil berechnet.
 
-
-
 \subsubsection{Kreuzvalidierung}
-Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 vor. Außer der Gesamtindividuenanzahl 
-(573.104 gemeldete Bürger) lagen keine Informationen zur Grundgesamtheit vor. Die Qualität der Modelle ließ sich 
-folglich nicht an der Grundgesamtheit validieren sondern musste an der Stichprobe selbst eingeschätzt werden. Zu diesem 
-Zweck wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher 
-jeweils eine beobachtung zufällig entfernt wurde. Die verbleibenden Beobachtungen wurden genutzt, um ein additives 
-Moell zu erstellen, mit dem die entfernte Beobachtung vorhergesagt wurde. Mit diesen Daten ließ sich ein Statistik zu 
-den korrekt reklassifizierten Beobachtungen erstellen.
+Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 Beobachtungen vor. Informationen zur Grundgesamtheit dieser Stichprobe lagen nicht vor. Die Qualität der parametrisierten Modelle ließ sich folglich nicht anhand einer Grundgesamtheit validieren, sondern musste an der Stichprobe selbst eingeschätzt werden. Die erstellten Modelle wurden an anderen Dat3en als den Parametrisierungsdaten angewendet. Aus diesem Grunde ist war vor allem die Modellqualität außerhalb der Parametrisierungsdaten interessant. Aus diesem Grunde wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher 
+jeweils eine Beobachtung zufällig entfernt wurde. Mit den verbliebenen Datensätzen wurde das additive Modell, welches sich zuvor im schrittweisen AIC Vergleich als am vorteilhaftesten herausgestellt hat, neu parametrisiert und die entfernte Beobachtung mit diesem Modell vorhergesagt. Dies wurde so lange wiederholt bis jeder Datensatz einmal entfernt (und geschätzt) wurde. Mit diesen Daten ließ sich eine Statistik zur Reklassifikation der Beobachtungen außerhalb der Stichprobe erstellen.
 
 
 \subsubsection{Validierung}
@@ -477,7 +461,7 @@ Für die Modelle mit den kontinuierlichen Gauss-Krüger Informationen und den Be
 
 \subsection{Kreuzvalidierung}
 
-Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb der eigenen Stichprobe der Modelle einzuschätzen. Die Ergebnisse zur Meinung zu Stuttgart 21 (Tabelle \ref{KreuzM}) zeigen eine ähnliche Erfolgsquote wie die innerhalb der Stichprobe vorgenommene Reklassifizierung (Tabelle \ref{evalS21}). Für das drei Klassenmodell liegt der Anteil der erfolgreich Klassifierten Beobachtungen bei ca 49\% und im zwei Klassenmodell zwischen 60\% und 63\%. Im drei Klassen Fall kann das Modell mit Stadtteilen als räumlichem Effekt ca. 3,5\%  mehr Beobachtungen richtig zuweisen als in der Reklassifizierung und das Modell mit Bezirken als räumlichem Effekt ca. 2\%, womit es insgesamt sogar die höchste Erfolgsrate aufweist. Die Erfolgsrate mit den Gauss-Krüger Informationen ist in etwa gleich geblieben, ähnlich wie die Modelle im zwei Klassen Fall.
+Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb der eigenen Stichprobe der Modelle einzuschätzen. Die Ergebnisse zur Meinung zu Stuttgart 21 (Tabelle \ref{KreuzM}) zeigen eine ähnliche Erfolgsquote wie die innerhalb der Stichprobe vorgenommene Reklassifizierung (Tabelle \ref{evalS21}). Für das drei Klassenmodell liegt der Anteil der erfolgreich Klassifizierten Beobachtungen bei ca. 49\% und im zwei Klassenmodell zwischen 60\% und 63\%. Im drei Klassen Fall kann das Modell mit Stadtteilen als räumlichem Effekt ca. 3,5\%  mehr Beobachtungen richtig zuweisen als in der Reklassifizierung und das Modell mit Bezirken als räumlichem Effekt ca. 2\%, womit es insgesamt auch die höchste Erfolgsrate aufweist. Die Erfolgsquote mit den Gauss-Krüger Informationen ist in etwa gleich geblieben, ähnlich wie die Modelle im zwei Klassen Fall.
  
 \begin{table}[h]
 \centering
@@ -505,7 +489,7 @@ Klasse                                                                   & \mult
 \end{tabular}
 \end{table}
 
-Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelnen Klassen entnehmen. Die Tabelle zeigt die Anteile der Zuordnung von Beobachtungen der jeweiligen Klasse auf jede der Klassen. Die Hauptdiagonale liefert die Anteile der korrekt zugeordneten Beobachtungen. Die Einträge auf den Nebendiagonalen geben damit an, wie viele Beobachtungen einer Klasse relativ zur Gesamtzahl der Beobachtungen in eine falsche Klasse zugeordnet wurden. Markant ist, dass der zweiten Klasse in keinem Modell Beobachtungen zugeordnet wurden, weder falsch noch richtig. Mehrheitlich wurden diese der ersten Kategorie zugewiesen. Zudem ist die erste Klasse am öftesten richtig zugeordnet worden, allerdings wurden ihr auch die meisten falsch klassifizierten Beobachtungen zugeordnet. Die gilt für alle drei Modelle. Im zwei Klassen Fall wurde das Problem der nicht geschätzten zweite Klasse durch ihr auslassen umgangen. Allerdings findet sich auch hier ein deutlich häufigeres falsches zuordnen der zweiten Klasse in die erste als anders herum. 
+Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelnen Klassen entnehmen. Die Tabelle zeigt die Anteile der Zuordnung von Beobachtungen der jeweiligen Klasse auf die eigene und jede der anderen Klassen. Die Hauptdiagonale liefert die Anteile der korrekt zugeordneten Beobachtungen. Die Einträge auf den Nebendiagonalen geben damit an, wie viele Beobachtungen einer Klasse relativ zur Gesamtzahl der Beobachtungen in eine falsche Klasse zugeordnet wurden. Markant ist, dass der zweiten Klasse in keinem Modell Beobachtungen zugeordnet wurden, weder falsch noch richtig. Mehrheitlich wurden diese der ersten Kategorie zugewiesen. Zudem ist die erste Klasse am öftesten richtig zugeordnet worden, allerdings wurden ihr auch die meisten falsch klassifizierten Beobachtungen zugeordnet. Dies gilt für alle drei Modelle. Im zwei Klassen Fall wurde das Problem der nicht geschätzten zweiten Klasse durch ihr auslassen umgangen. Allerdings findet sich auch hier ein deutlich häufigeres falsches zuordnen der zweiten Klasse in die erste als anders herum. 
 
 \begin{table}[h]
 \centering
@@ -563,18 +547,18 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
                         &                               & \multirow{2}{*}{Stadtt.} & U & 2,642       & 2,645      &  0,636           &   0,636    \\
                         &                               &                          & Z & 1,527       & 1,513    &  0,433            &    0,44   
 \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,468       & 0,468      &                   &                 \\
-                        &                               &                          & Z & 0,201       & 0,201      &                   &                 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 3,741        & 3,723      &                   &                 \\
-                        &                               &                          & Z & 1,906        & 1,893     &                   &                                        
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,524       & 0,524      &   0,043          &    0,043 \\
+                        &                               &                          & Z & 0,172       & 0,172      &     0,652        &     0,652 \\ \cline{3-8} 
+                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,813        &  2,797      &  0,848     &  0,848 \\
+                        &                               &                          & Z & 1,758        & 1,746     &    0,693     &     0,713
                          \\ \hline \hline
 \end{tabular}
 \end{table}
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.8]{Pictures/PaT}
- \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf die Bürgerumfrage mit zwei und drei Klassenmodell mit 95\% Quantielen}
+ \includegraphics[scale=0.8]{Pictures/PaT2}
+ \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf  Melderegister mit zwei und drei Klassenmodell mit 95\% Quantielen}
  \label{vali4}
  \end{center}
 \end{figure}
@@ -592,7 +576,7 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.8]{Pictures/WohngegendAlleModelle}
+ \includegraphics[scale=0.8]{Pictures/WohngegendAlleModelle2}
  \caption{Vergleich der extrapolierten Gesamtanteile für Stuttgart mit allen geschätzten Modellen und beiden Extrapolationsdateien mit den Anteilen der Stichprobe mit 95\% Quantielen zur Bewertung der Wohngegend}
  \label{WAlle}
  \end{center}
@@ -600,7 +584,7 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 %\clearpage
 
 \section{Diskussion}
-Die beiden Datensätze zur Grundgesamtheit stammen aus einer Bürgerumfrage mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
+Die beiden Datensätze zur Grundgesamtheit stammen aus einer Melderegister mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
 
 
@@ -698,7 +682,7 @@ Umgang mit Quellen unter Umständen strafbar mache und die vorliegende Hausarbei
 bewertet wird.
 \\
 \\Göttingen, den
-\\Unteschrift
+\\Unterschrift
 \vspace*{4cm}
 \\
 Hiermit erlaube ich, dass meine Arbeit auf Betrug und falsche, sowie fehlende Zitate auch online geprüft wird.\\

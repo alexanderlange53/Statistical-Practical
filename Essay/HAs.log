@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.9)  23 SEP 2016 09:54
+=======
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  23 SEP 2016 09:55
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **HAs.tex
 (./HAs.tex
 LaTeX2e <2011/06/27>
+<<<<<<< HEAD
 Babel <3.9h> and hyphenation patterns for 7 languages loaded.
+=======
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 (./Vorlage.cls
 Document Class: Vorlage 
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -1371,10 +1379,17 @@ Package babel Info: Redefining ngerman shorthand "~
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<<<<<<< HEAD
 <Pictures/PaT.pdf, id=461, 578.16pt x 361.35pt>
 File: Pictures/PaT.pdf Graphic file (type pdf)
  <use Pictures/PaT.pdf>
 Package pdftex.def Info: Pictures/PaT.pdf used on input line 560.
+=======
+<Pictures/PaT2.pdf, id=463, 578.16pt x 361.35pt>
+File: Pictures/PaT2.pdf Graphic file (type pdf)
+ <use Pictures/PaT2.pdf>
+Package pdftex.def Info: Pictures/PaT2.pdf used on input line 560.
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 (pdftex.def)             Requested size: 462.52863pt x 289.0804pt.
 
 Overfull \hbox (7.28452pt too wide) in paragraph at lines 560--561
@@ -1402,12 +1417,17 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 570--571
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<<<<<<< HEAD
 <Pictures/WohngegendAlleModelle.pdf, id=463, 578.16pt x 578.16pt>
 File: Pictures/WohngegendAlleModelle.pdf Graphic file (type pdf)
+=======
+<Pictures/WohngegendAlleModelle2.pdf, id=465, 578.16pt x 578.16pt>
+File: Pictures/WohngegendAlleModelle2.pdf Graphic file (type pdf)
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 
-<use Pictures/WohngegendAlleModelle.pdf>
-Package pdftex.def Info: Pictures/WohngegendAlleModelle.pdf used on input line 
-579.
+<use Pictures/WohngegendAlleModelle2.pdf>
+Package pdftex.def Info: Pictures/WohngegendAlleModelle2.pdf used on input line
+ 579.
 (pdftex.def)             Requested size: 462.52863pt x 462.52863pt.
 
 Overfull \hbox (7.28452pt too wide) in paragraph at lines 579--580
@@ -1456,7 +1476,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 596.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 596.
- [16 <./Pictures/PaT.pdf>]
+ [16 <./Pictures/PaT2.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 596.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1475,7 +1495,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 596.
 
-[18 <./Pictures/WohngegendAlleModelle.pdf>]
+[18 <./Pictures/WohngegendAlleModelle2.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 600.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1497,7 +1517,11 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 627.
 
+<<<<<<< HEAD
 <Pictures/BarData.pdf, id=503, 578.16pt x 578.16pt>
+=======
+<Pictures/BarData.pdf, id=508, 578.16pt x 578.16pt>
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 File: Pictures/BarData.pdf Graphic file (type pdf)
  <use Pictures/BarData.pdf>
 Package pdftex.def Info: Pictures/BarData.pdf used on input line 636.
@@ -1507,7 +1531,11 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 636--637
  [] 
  []
 
+<<<<<<< HEAD
 <Pictures/BWohn.pdf, id=504, 578.16pt x 505.89pt>
+=======
+<Pictures/BWohn.pdf, id=509, 578.16pt x 505.89pt>
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 File: Pictures/BWohn.pdf Graphic file (type pdf)
  <use Pictures/BWohn.pdf>
 Package pdftex.def Info: Pictures/BWohn.pdf used on input line 645.
@@ -1520,7 +1548,11 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 645--646
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<<<<<<< HEAD
 <Pictures/SWohn.pdf, id=505, 578.16pt x 505.89pt>
+=======
+<Pictures/SWohn.pdf, id=510, 578.16pt x 505.89pt>
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
 File: Pictures/SWohn.pdf Graphic file (type pdf)
  <use Pictures/SWohn.pdf>
 Package pdftex.def Info: Pictures/SWohn.pdf used on input line 653.
@@ -1602,12 +1634,21 @@ Package rerunfilecheck Info: File `HAs.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 699.
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  17589 strings out of 494976
  302332 string characters out of 6179138
  413654 words of memory out of 5000000
  20353 multiletter control sequences out of 15000+600000
  13672 words of font info for 50 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
+=======
+ 17589 strings out of 493304
+ 302342 string characters out of 6139871
+ 417800 words of memory out of 5000000
+ 20586 multiletter control sequences out of 15000+600000
+ 13672 words of font info for 50 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
  63i,16n,75p,1281b,449s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
@@ -1615,10 +1656,17 @@ re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type
 1/public/tex-gyre/qhvr.pfb>
+<<<<<<< HEAD
 Output written on HAs.pdf (26 pages, 10335252 bytes).
 PDF statistics:
  664 PDF objects out of 1000 (max. 8388607)
  571 compressed objects within 6 object streams
+=======
+Output written on HAs.pdf (26 pages, 10349106 bytes).
+PDF statistics:
+ 669 PDF objects out of 1000 (max. 8388607)
+ 576 compressed objects within 6 object streams
+>>>>>>> a621dd346697398aae911d7e6b6333e968da4cef
  78 named destinations out of 1000 (max. 500000)
  257 words of extra memory for PDF output out of 10000 (max. 10000000)
 
