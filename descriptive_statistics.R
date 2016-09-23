@@ -8,10 +8,11 @@ require(rgdal);require(rgeos);
 require(ggmap)
 
 # loading data
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv')
-} else {
+} 
+if (bearbeiter == 'Kai@Work') {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
 source('DataPrep.R')
@@ -126,3 +127,6 @@ cc$Var1 <- factor(cc$Var1, levels = c('Sehr gut', 'Gut', 'Zustimmung', 'Neutral'
                                              'Ablehnung', 'Schlecht', 'Sehr schlecht'))
 FreqPlot2(cc)
 ggsave('./Essay/Pictures/BarResp.pdf', height = 3, width = 8)
+
+# Bewertung Wohngegend over Pers. im Haushalt
+boxplot(dataS$Bewertung.Wohngegend ~ dataS$Altersklasse.Befragter)
