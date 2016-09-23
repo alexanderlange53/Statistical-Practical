@@ -506,8 +506,10 @@ Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis 
 Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variablen, sowie das totale Unterschätzen einiger Klassen, wird in der weiteren Validierung und Extrapolation auf das Vorhersagen einzelner Beobachtungen verzichtet. Stattdessen wird in einem bestimmten Gebiet über die Wahrscheinlichkeiten der Beobachtungen aggregiert und ein Anteil geschätzt, um auch geringere Wahrscheinlichkeiten für Beobachtungen zu berücksichtigen.
 
 \subsection{Validierung}
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
+
+Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere Quadratische Abweichung und Überdeckungswahrscheinlichkeit der prognostizierten Anteile aus den Modellen, bezogen auf die wahren Anteile aus der Volksabstimmung. Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartet, dass das zwei Klassenmodell die beiden Kategorien signifikant besser prognostiziert.
+Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Kombination aus Modell, räumlichem Effekt und Datei es sich handelt. Die mittlere Spalte zeigt die mittlere quadratische Abweichung für die beiden Kategorien der Volksabstimmung und die rechte Spalte zeigt die Überdeckungswahrscheinlichkeit ebenfalls für diese Kategorien. Damit gibt die erste Reihe z.B. die statistischen Gütemaße für das zwei Klassenmodell mit Gauss-Krüger Informationen als räumlichem Effekt aggregiert auf Bezirksebene mit dem Melderegister an.
+
 \begin{table}[h]
 \centering
 \caption{Vergleich der mittleren quadratischen Abweichung (MSE) und der Überdeckungswahrscheinlichkeit bei allen Prognosen aus den geschätzten Modellen und den beiden Extrapolationsdateien für die Meinung zu Stuttgart 21}
@@ -546,6 +548,8 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 \end{tabular}
 \end{table}
 
+Zuerst erfolgt ein Vergleich zwischen den beiden Modellierungsmöglichkeiten. Für die Kategorie \textit{Ablehnung} zeigt die Tabelle die erwarteten Ergebnisse, sowohl die mittlere quadratische Abweichung als auch die Überdeckungswahrscheinlichkeit ist durchweg für alle Kombinationen besser im zwei Klassenmodell als im drei Klassenmodell. Die Überdeckung im drei Klassen Fall ist so gering, dass der wahre Wert nahezu nie enthalten ist. Für die Kategorie \textit{Zustimmung} ergibt sich ein komplett konträres Ergebnis. Hier ist die mittlere quadratische Abweichung bei jeder Kombination im zwei Klassenmodell deutlich geringer als im drei Klassenmodell. Auch die Überdeckungswahrscheinlichkeit ist insbesondere bei den Ergebnissen zum Melderegister signifikant höher. Zu besseren Einordnung dieser Ergebnisse wurde Abbildung \ref{vali4} erstellt. Dort ist zu sehen, dass die prognostizierten Anteile des drei Klassenmodells sehr nahe bei den wahren Anteilen liegen, wobei Punkte auf der 45 Grad Linie Beobachtungen signalisieren bei denen der wahre und der prognostizierte Anteil nahezu gleich sind. Beim zwei Klassenmodell ist zu erkennen, dass die wahren Anteile deutlich überschätzt werden, sowohl auf Bezirks- als auch auf Stadtteilebene.
+
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT2}
@@ -553,6 +557,8 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
  \label{vali4}
  \end{center}
 \end{figure}
+
+Innerhalb des drei Klassenmodells lässt sich anhand von Tabelle \ref{vali} nicht eindeutig bestimmen, welcher räumliche Effekt das beste Modell liefert, da die größten Unterschiede sowohl bei dem MSE und der Überdeckung zwischen den Dateien auftreten, was auch darauf hinweisen kann, dass der Melderegister näher mit der Volksabstimmung übereinstimmt. Beim Melderegister liefert das Modell mit Stadtteilen als räumlichem Effekt das beste Modell und auf Bezirksebene und auf Stadtteilebene das Modell mit Gauss-Krüger Informationen, wobei die Unterscheide eher marginal sind. Insgesamt kann das zwei Klassenmodell aus bestes Prognosemodell verworfen werden, da das drei Klassenmodell die \textit{Zustimmung} und folglich auch die \textit{Ablehnung} deutlich genauer bestimmen kann.
 
 \subsection{Extrapolation}
 
