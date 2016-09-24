@@ -776,3 +776,8 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
 ResultPlot(predlist = predlist,  sample = sample, 
            models = models)
 ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 5, width = 8)
+
+# Extrapolierte Anteile
+colSums(S21.3.U.Ko.IntSB[,11:13])/sum(S21.3.U.Ko.IntSB[,11:13])*100
+colSums(S21.3.U.SB.IntSB[,11:13])/sum(S21.3.U.SB.IntSB[,11:13])*100
+colSums(S21.3.U.ST.IntSB[,11:13])/sum(S21.3.U.ST.IntSB[,11:13])*100

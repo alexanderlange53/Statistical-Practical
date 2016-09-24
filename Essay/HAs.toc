@@ -19,7 +19,7 @@
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{15}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{17}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{19}{subsection.3.6}
-\contentsline {section}{\numberline {4}Diskussion}{19}{section.4}
-\contentsline {section}{\numberline {5}Fazit}{20}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{22}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{23}{section.5}
+\contentsline {section}{\numberline {4}Diskussion}{22}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{22}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{23}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{24}{section.5}
