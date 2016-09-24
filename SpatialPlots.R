@@ -454,3 +454,108 @@ SepPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Kateg
     
   }
 }
+
+ExtraPlot <- function(Extrapolation, stadtteile, samescale = F){
+  require(colorspace)
+  colo <- diverge_hsv(3)
+  if(samescale == F){
+    # ID variable erzeugen um objecte zu verbinden
+    Stadtteile@data$id <- rownames(Stadtteile@data)
+    watershedPoints <- fortify(Stadtteile, region = "id")
+    
+    # Errechneten Anteile und räumliche Informationen verbinden
+    bb <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+    
+    # Relative Anteile
+    S <- Extrapolation[,1]
+    E <- Extrapolation[,-1]
+    E <- E/rowSums(E)*100
+    Extrapolation <- cbind(E,S)
+    
+    if(ncol(Extrapolation) > 4){
+      colnames(Extrapolation) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                                   'Sehr schlecht', 'STADTTEIL')
+    }else{
+      colnames(Extrapolation) <- c('Zustimmung', 'Neutral', 
+                                   'Ablehnung', 'STADTTEIL')
+    }
+    ExtrapolationM <- melt(Extrapolation, id = 'STADTTEIL')
+    bbA <- merge(bb, ExtrapolationM, by = 'STADTTEIL')
+    
+    # Sortieren damit Poylogene richtig geplottet werden
+    bbA <- bbA[order(bbA$order),]
+    b.facet <- bbA
+    
+    bb.facet <- by(b.facet, b.facet$variable, list)
+    name <- names(bb.facet)
+    
+    # Plotten 
+    pplot <- function(b.facet, name){
+      ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value))+  
+        geom_polygon(color = "black") +
+        labs(x=NULL, y=NULL, title= paste(name)) +
+        scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
+                            breaks = pretty_breaks(n = 5)) +
+        scale_alpha(range = c(0.8,1), guide=FALSE) +
+        coord_equal(1)+
+        theme_bw(10) +
+        theme(
+          legend.position = 'bottom'
+          ,axis.text.x=element_blank()
+          ,axis.text.y=element_blank()
+          ,axis.ticks.y=element_blank()
+          ,axis.ticks.x=element_blank()
+        ) 
+    }
+    
+    p <- mapply(pplot, bb.facet, name, SIMPLIFY = F)
+    return(p)
+    
+  }else{
+    # ID variable erzeugen um objecte zu verbinden
+    Stadtteile@data$id <- rownames(Stadtteile@data)
+    watershedPoints <- fortify(Stadtteile, region = "id")
+    
+    # Errechneten Anteile und räumliche Informationen verbinden
+    bb <- merge(watershedPoints, Stadtteile@data, by = 'id', all.x = T)
+    
+    # Relative Anteile
+    S <- Extrapolation[,1]
+    E <- Extrapolation[,-1]
+    E <- E/rowSums(E)*100
+    Extrapolation <- cbind(E,S)
+    
+    if(ncol(Extrapolation) > 4){
+      colnames(Extrapolation) <- c('Sehr gut', 'Gut', 'Neutral', 'Schlecht',
+                                   'Sehr schlecht', 'STADTTEIL')
+    }else{
+      colnames(Extrapolation) <- c('Zustimmung', 'Neutral', 
+                                   'Ablehnung', 'STADTTEIL')
+    }
+    ExtrapolationM <- melt(Extrapolation, id = 'STADTTEIL')
+    bbA <- merge(bb, ExtrapolationM, by = 'STADTTEIL')
+    
+    # Sortieren damit Poylogene richtig geplottet werden
+    bbA <- bbA[order(bbA$order),]
+    s.facet <- bbA
+    pol.na <- filter(s.facet, is.na(variable))
+    plo.na <- subset(pol.na, select = c(STADTTEILN, id, long, lat, order, group))
+    s.facet <- na.omit(s.facet)
+    
+    ggplot() + geom_polygon(data = plo.na, aes(x = long, y = lat, group = group), fill = 'black') +
+      geom_polygon(data=s.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value), color = "black") +
+      labs(x=NULL, y=NULL, title=NULL) +
+      scale_fill_gradient(name = "Anteil\n in %", low = colo[2], high = 'darkblue', guide = "colorbar", na.value="black",
+                          breaks = pretty_breaks(n = 5)) +
+      scale_alpha(range = c(0.3,1), guide=FALSE) +
+      coord_equal(1)+
+      theme_bw(15) +
+      theme(
+        legend.position = 'right'
+        ,axis.text.x=element_blank()
+        ,axis.text.y=element_blank()
+        ,axis.ticks.y=element_blank()
+        ,axis.ticks.x=element_blank()
+      ) + facet_wrap(~ variable)
+  }
+}

@@ -81,6 +81,7 @@ source('PseudoB2.R')
 source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
+source('SpatialPlots.R')
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -757,3 +758,13 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '5 S.Teile auf Bezirke Zen.', '5 S.Teile auf S.Teile Umfr.', '5 S.Teile auf S.Teile Zen.')
 ResultPlot5(predlist = predlist, sample = sample, models = models)
 ggsave('./Essay/Pictures/WohngegendAlleModelle2.pdf', height = 8, width = 8)
+
+# Anteile
+colSums(W.5.U.Ko.IntSB[,17:21])/sum(W.5.U.Ko.IntSB[,17:21])*100
+colSums(W.5.U.SB.IntSB[,17:21])/sum(W.5.U.SB.IntSB[,17:21])*100
+colSums(W.5.U.ST.IntSB[,17:21])/sum(W.5.U.ST.IntSB[,17:21])*100
+
+ex <- ExtraPlot(W.5.U.Ko.IntST[,c(1,17:21)], stadtteile, samescale = T)
+pdf('./Essay/Pictures/BWohnExtra.pdf', height = 7, width = 8)
+marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
+dev.off()

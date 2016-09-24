@@ -83,7 +83,7 @@ source('PseudoB2.R')
 source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
-
+source('SpatialPlots.R')
 #-------------------#
 # Daten vorbereiten #
 #-------------------#
@@ -781,3 +781,13 @@ ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 5, width = 8)
 colSums(S21.3.U.Ko.IntSB[,11:13])/sum(S21.3.U.Ko.IntSB[,11:13])*100
 colSums(S21.3.U.SB.IntSB[,11:13])/sum(S21.3.U.SB.IntSB[,11:13])*100
 colSums(S21.3.U.ST.IntSB[,11:13])/sum(S21.3.U.ST.IntSB[,11:13])*100
+
+ex <- ExtraPlot(W.5.U.Ko.IntSB[,c(1,17:21)], stadtteile)
+pdf('./Essay/Pictures/BWohnExtra.pdf', height = 7, width = 8)
+marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
+dev.off()
+
+ex <- ExtraPlot(S21.3.U.Ko.IntST[,c(1,11:13)], stadtteile, samescale = F)
+pdf('./Essay/Pictures/S21Extra.pdf', height = 7, width = 8)
+marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
+dev.off()
