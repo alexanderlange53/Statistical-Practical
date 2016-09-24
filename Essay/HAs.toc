@@ -12,6 +12,7 @@
 \contentsline {subsubsection}{\numberline {2.2.4}Konfidenzintervalle}{12}{subsubsection.2.2.4}
 \contentsline {subsubsection}{\numberline {2.2.5}Kreuzvalidierung}{13}{subsubsection.2.2.5}
 \contentsline {subsubsection}{\numberline {2.2.6}Validierung}{13}{subsubsection.2.2.6}
+<<<<<<< HEAD
 \contentsline {section}{\numberline {3}Ergebnisse}{14}{section.3}
 \contentsline {subsection}{\numberline {3.1}Modell}{14}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Schrittweise AIC}{14}{subsection.3.2}
@@ -21,5 +22,16 @@
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{20}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{20}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{21}{section.5}
+=======
+\contentsline {section}{\numberline {3}Ergebnisse}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Modell}{13}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Schrittweise AIC}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{14}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{15}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Validierung}{17}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{19}{subsection.3.6}
+\contentsline {section}{\numberline {4}Diskussion}{22}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{22}{section.5}
+>>>>>>> 18c375b9c1963a695ba5212600c633e78431775c
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{23}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{24}{section.5}

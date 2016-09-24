@@ -76,6 +76,8 @@ Die Grundgesamtheit dieser Unteruchung ist die Bevölkerung Stuttgarts.
 Fragestellungen: Wie ist die Wohzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? Kleinräumige Extrapolation
 test
 
+Obwohl die Formulierung \textit{nichtparametrisch} für den in dieser Arbeit verwendeten Spline-Typ mathematisch unpäzise ist \cite[p. 1]{eilers1996}, wird sie, wie in der Literatur üblich, synonym für \textit{semiparametrisch} verwendet.
+
 \newpage
 
 %=================================================== Main Part  ====================================================%
@@ -316,48 +318,46 @@ diese ein (gilt auch für Tab 2)}
 \subsection{Statistische Methoden}
 
 \subsubsection{Modell}
-Bei allen endogenen Variablen handelt es sich um kategorielle Variablen, von denen die Ausprägungswahrscheinlichkeiten modelliert werden sollen. Da Ausprägungswahrscheinlichkeiten für diese kategoriellen Responses nur im Wertebereich zwischen 0 und 1 sinnvoll interpretierbar sind und keine der Response-Variablen Normalverteilung aufweist, sind einfache Regressionsmodelle ohne Transformationsfunktion ungeeignet. Für die Fragestellung dieser Arbeit kommen nur Regressionsmodelle in Frage, die eine Modellierung von Wahrscheinlichkeiten im genannten Wertebereich sicherstellen. Lineare generalisierte Modelle ermöglichen die Transformation des linearen Prädiktors 
-<<<<<<< HEAD
+Bei allen endogenen Variablen handelt es sich um kategorielle Variablen, deren Ausprägungswahrscheinlichkeiten modelliert werden sollen. Da Ausprägungswahrscheinlichkeiten für diese kategoriellen Responses nur im Wertebereich zwischen 0 und 1 sinnvoll interpretierbar sind, sind einfache Regressionsmodelle ohne Transformationsfunktion ungeeignet. Des Weitern sind kategorielle transformierten endogene Response-Variablen häufig nicht normalverteilt \cite[p. 277]{fahrmeir2013regression}. Für die Fragestellung dieser Arbeit kommen demnach nur Regressionsmodelle in Frage, welche eine Modellierung von Wahrscheinlichkeiten im genannten Wertebereich sicherstellen und unterschiedliche Verteilungsannahmen ermöglichen der endogenen Variablen. Generalisierte lineare Modelle (GLM) ermöglichen die Transformation des linearen Prädiktors 
 
-\begin{equation}
-\eta_{i} =\mathbf{x}'_i \boldsymbol{\beta},
+\begin{equation} \label{linPraed}
+\eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}
 \end{equation}
 
-durch eine Response-Funktion $h$, wobei die Wahl von $h$ von der Fragestellung und der Skalierung der Response-Variable abhängt. $h$ kann jede monoton ansteigende Funktion sein. Zur Sicherstellung des gewünschten Wertebereichs zwischen 0 und 1 wird der lineare Prädiktor bei kategoriellen Regressionen häufig über eine Logit Response-Funktion transformiert. Bei einer binären Response ergibt sich nach \cite[p. 270 f.]{fahrmeir2013regression} folgende Transformation des linearen Prädiktors 
+über eine Response-Funktion $h$, wobei die Wahl von $h$ von der Fragestellung und der Skalierung der Response-Variable abhängt. $h$ kann jede monoton ansteigende Funktion sein. Zur Sicherstellung des gewünschten Wertebereichs zwischen 0 und 1 wird der lineare Prädiktor bei kategoriellen Regressionen häufig über die logistische Response-Funktion transformiert. Bei einer binären Response ergibt sich durch die logistische Transformation nach \cite[p. 270 f.]{fahrmeir2013regression} das binäre Logit Modell
 
 \begin{equation}
-h(\eta)=\frac{\exp(\eta)}{1+\exp(\eta)}.
+h(\eta)=\frac{\exp(\eta)}{1+\exp(\eta)},
 \end{equation}
 
-Bei ordinalskalierter Response kann die Reihenfolge der Ausprägung im generalisierten Modell explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Im kumulativen Modell wird angenommen, dass für jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit bestimmt. Unter der Annahme, dass diese latente Variable über den linearen Prädiktor
+wobei die Daten nach der Transformation einer Bernoulli Verteilung folgen. Durch Datengruppierung kann die Rechenzeit reduziert werden. Die absoluten Gruppenhäufigkeiten folgen dann einer Binomial- und die relativen Gruppenhäufigkeiten skalierten Binomialverteilung \cite[p. 277 f.]{fahrmeir2013regression}.\\
+Bei ordinalskalierter Response kann die Reihenfolge der Ausprägung im generalisierten Modell explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Dem kumulativen Modell unterliegt die Annahme, dass für jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit bestimmt. Unter der Annahme, dass diese latente Variable durch einen linearen Prädiktor
 
 \begin{equation}
-u_i=-\mathbf{x}'_i \boldsymbol{\tilde{\beta}}+\varepsilon,
+u_i=-\mathbf{x}'_i \boldsymbol{\tilde{\beta}}+\varepsilon
 \end{equation}
 
-=======
-$$\eta_{i} =\mathbf{x'}_i \boldsymbol{\beta}$$ 
-durch eine Response-Funktion $h$, wobei die Wahl von $h$ von der Fragestellung und der Skalierung der Response-Variable abhängt. $h$ kann jede monoton ansteigende Funktion sein. Zur Sicherstellung des gewünschten Wertebereichs zwischen 0 und 1 wird der lineare Prädiktor bei kategoriellen Regressionen häufig über eine Logit Response-Funktion transformiert. Bei einer binären Response ergibt sich nach \cite[p. 270 f.]{fahrmeir2013regression} folgende Transformation des linearen Prädiktors \textcolor{red}{weißt du, wie man die Formel nummeriert?}
-$$h(\eta)=\frac{exp(\eta)}{1+exp(\eta)}$$
-Nach einer Logit-Transformation folgen die Daten häufig einer Binomialverteilung. Ein weiterer Vorteil von GLM ist, dass diese spezifischen Verteilungsannahmen berücksichtigt werden können. Bei ordinalskalierter Response kann die Reihenfolge der Ausprägung im generalisierten Modell explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Im kumulativen Modell wird angenommen, dass für jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit bestimmt. Unter der Annahme, dass diese latente Variable über den linearen Prädiktor
-$$u_i=-\mathbf{x'}_i \boldsymbol{\tilde{\beta}}+\varepsilon$$
->>>>>>> 9b7dfd405d05641690d25a39feab1e8bdacee9b4
-vorhergesagt werden kann, existieren für die latenten Variablen geordnete Schwellenwerte $\theta_{r}$. Damit die Schwellenwerte identifizierbar werden, hat der lineare selbst keinen Intercept. Eine Beobachtung zeigt die Ausprägung $r$, wenn ihre latente Variable zwischen $\theta_{r-1}$ und $\theta_r$ liegt. Über die kumulative Verteilungsfunktion $F$ des Fehlers $\varepsilon_i$ um die latente Variable $u_i$ kann die Wahrscheinlichkeit jeder Ausprägung für jede Beobachtung als 
+über die Kovariablen vorhergesagt werden kann, existieren für die latenten Variablen geordnete Schwellenwerte $\theta_{r}$. Das Modell hängt nicht mehr von der latenten Variable, sondern von einer linearen Kombination der Kovariablen ab. Ein Datensatz zeigt die Ausprägung $r$, wenn ihre latente Variable zwischen $\theta_{r-1}$ und $\theta_r$ liegt. Damit die Schwellenwerte identifizierbar werden, hat der lineare selbst keinen Intercept. Wie zuvor im binären Fall, wird der lineare Prädiktor über eine kumulative Verteilungsfunktion transformiert. Über die Verteilung $F$ des Fehlers des linearen Prädiktors  $\varepsilon_i$ um die latente Variable $u_i$ kann die Wahrscheinlichkeit jeder Kategorie der Response-Variablen als 
 
 \begin{equation}
-P(y_i=r)=F(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})-F(\theta_{r-1}+\mathbf{x}'_i \boldsymbol{\tilde{\beta}}),
+P(y_i=r)=F(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})-F(\theta_{r-1}+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})
 \end{equation}
 
-berechnet werden. Wenn das in der Literatur vorgeschlagene kumulative Logit Modell gewählt wird \cite[p. 334]{fahrmeir2013regression}, berechnet sich die kumulative Wahrscheinlichkeit einer Beobachtung $y_i$ kleiner oder gleich der geordneten Ausprägung $r$ zu sein als
+berechnet werden. Da es sich um geordnete Kategorien handelt, muss für die Wahrscheinlichkeit der Gruppenzugehörigkeit zu $r$ nur die Wahrscheinlichkeitsdichte zwischen den Schwellenwerten $\theta_{r}$ und $\theta_{r-1}$ berechnet werden.
+Wenn die in der Literatur vorgeschlagene logistische Transformation gewählt wird \cite[p. 335]{fahrmeir2013regression}, ergibt sich das kumulatives Logit Modell
 
 \begin{equation}
 P(y_i\leq r)=\frac{\exp(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})}{\exp(1+\exp(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}}))}.
 \end{equation}
 
-Die exogenen Variablen, mit denen das Modell für die räumliche Extrapolation parametrisiert werden soll, sind sehr heterogen. Es kommen sowohl nominal als auch kardinalskalierte sozioökonomischen Variablen in Frage (Abbildung \ref{endogene}, Tabelle \ref{Datensatz}). Während ein linearer Prädiktor zur Beschreibung des Zusammenhangs zwischen ordinalskalierte Variablen und einer kategoriellen Response-Variable ausreichend ist, zeigen kardinal skalierte Variablen oft einen nichtlinearen Zusammenhang \cite[p. 9]{fahrmeir2009regression}. Die in generalisierten linearen Modellen vorausgesetzte lineare Abhängigkeit zwischen allen transformierten Kovariablen und der Response-Variable $\eta$ ist demnach für die Daten dieser Arbeit zu unflexibel. Aufgrund dieser Ausgangslage haben flexiblere Modelle in dieser Arbeit also voraussichtlich Vorteile gegenüber reinen linearen Modellen. Durch generalisierte additive Modelle (GAM) können lineare und nichtlineare Effekte sehr flexibel in einem Modell verbinden werden. Im Unterschied zu generalisierten linearen Modellen sind die einzelnen Terme des Prädiktors nicht auf lineare Funktionen beschränkt, sondern können auch durch semiparametrische Splines nichtlinear modelliert werden. Zurt Modellierung der nichtlinrearen, alos der nichtparametrischen Terme des Prädiktors, wurden penarisierte Basissplines verwendet \cite{eilers1996}. Diese haben den Vorteil, dass 
+Die exogenen Variablen, mit denen das Modell für die räumliche Extrapolation parametrisiert werden soll, sind sehr heterogen. Es kommen sowohl nominal- als auch kardinalskalierte sozioökonomischen Variablen in Frage (Abbildung \ref{endogene}, Tabelle \ref{Datensatz}). Während ein linearer Prädiktor zur Beschreibung des Zusammenhangs zwischen ordinalskalierten Kovariablen und kategorieller Response-Variablen ausreichend ist, zeigen kardinal skalierte Variablen oft einen nichtlinearen Zusammenhang \cite[p. 9]{fahrmeir2009regression}. Der in GLM vorausgesetzte lineare Prädiktor (Formel \ref{linPraed}) ist demnach für die Daten dieser Arbeit zu unflexibel. Aufgrund dieser Ausgangslage haben flexiblere Modelle voraussichtlich Vorteile gegenüber GLM. In generalisierten additiven Modellen (GAM) können lineare und nichtlineare Effekte sehr flexibel in einem Modell verbunden werden, da die Terme des Prädiktors in GAM nicht auf lineare Funktionen beschränkt sind. Während die linearen Effekte, analog zum GLM, durch den linearen Prädiktor modelliert werden, werden nichtlineare Effekte über sehr flexible, semi- bzw. nichtparametrische Splines modelliert \cite[p. 1 f.]{wood2016}. Zur Modellierung der nichtlinrearen Effekte, wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Die abstrakten Parameter können demnach nicht interpretiert werden \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher nur verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt der eigentliche Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen aufwendig über Modellauswahlstrategien hergeleitet werden müssen, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalirisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penarisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression}, zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben und relativ wenig Rechenzeit erfordern.
 
-Analog zu den generalisierten linearen Modellen wird der Prädiktor beim GAM ebenfalls über die Response Logit Response-Funktion transformiert. Im Falle einer binären Response wird die Ausprägungswahrscheinlichkeit über eine Logit Response-Funktion
-Je nachdem, ob die Ausprägungswahrscheinlichkeiten für eine Binäre oder geordnet kategorielle Response modelliert werden
+
+
+
+
+Analog zu den generalisierten linearen Modellen wird der Prädiktor beim GAM ebenfalls über die Response logistische Response-Funktion transformiert. Im Falle einer binären Response wird die Ausprägungswahrscheinlichkeit über eine logistische Response-Funktion
+Je nachdem, ob die Ausprägungswahrscheinlichkeiten für eine binäre oder geordnet kategorielle Response modelliert werden
 
 
 ocat, gam \cite{wood2016}
@@ -366,14 +366,8 @@ ocat, gam \cite{wood2016}
 Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines. Pseudobeobachtungen. Wahl 
 des Glättungsparameters  (Wood 2000).
 
-<<<<<<< HEAD
 \subsubsection{Schrittweise AIC}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
-=======
-\subsubsection{Modellwahl}
-Basierend auf den vorhergegangenen Analysen zum Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der 
->>>>>>> 9b7dfd405d05641690d25a39feab1e8bdacee9b4
-geeignetsten Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
 Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC 
 berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, 
 die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt 
@@ -392,7 +386,7 @@ Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit d
 Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC 
 als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die 
 Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche 
-Modellbestandteile eingehen.
+Modellbestandteile eingehen. In dieser Arbeit wird der Einfluss unterschiedlicher räumlicher Effekte auf die Modellqualität analysiert. Demnach gingen die räumlichen Effekte ebenfalls als fester, unveränderlicher Modellbestandteil in die schrittweise AIC Analyse ein.
 
 \subsubsection{Reklassifizierung}
 
@@ -426,9 +420,8 @@ vorkommt \cite[p. 102]{Int}.
 \subsection{Schrittweise AIC}
 
 
-Die Modellwahl mit Hilfe der schrittweisen AIC Funktion hat eine Zusammensetzung von Kovariablen geliefert, welche das Modell mit der besten Passung und der geringsten Komplexität liefert. Da der räumliche Effekt stets als fester Bestandteil aufgenommen wurde, listet Tabelle \ref{stepAIC} zu jedem Modell das AIC für ein vollständiges Geoadditives Modell, einem Modell nur mit räumlichem Effekt und ein Modell bestehend aus allen Kovariablen außer dem räumlichem Effekt auf. Dadurch lässt sich die relative Informationsqualität des jeweiligen räumlichen Effekts untersuchen. \\
+Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. Da der räumliche Effekt stets als fester Bestandteil aufgenommen wurde, listet Tabelle \ref{stepAIC} zu jedem Modell das AIC für ein vollständiges geoadditives Modell, einem Modell nur mit räumlichem Effekt und ein Modell bestehend aus allen Kovariablen außer dem räumlichem Effekt auf. Dadurch lässt sich die relative Informationsqualität des jeweiligen räumlichen Effekts untersuchen. \\
 Für die Meinung zu Stuttgart 21 im drei Klassen Fall lässt sich erkennen, dass das Geoadditive Modell mit den Gauss-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Bei dem Modell mit Bezirken als räumlichem Effekt scheint dieser die Qualität des Modells in Abhängigkeit von der Komplexität nicht zu verbessern. Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauss-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
-
 
 \begin{table}[h]
 \centering
@@ -608,7 +601,8 @@ Innerhalb des drei Klassenmodells lässt sich anhand von Tabelle \ref{vali} nich
 
 \subsection{Extrapolation}
 
-Dieses Kapitel stellt nun die Prognostizierten Anteile der Klassen für gesamt Stuttgart von den noch verbliebenen Modellen vor. Dazu zeigt Abbildung \ref{S21Alle} die Extrapolierten Anteile der Modelle zur Meinung zu Stuttgart 21. Dargestellt ist der Median als Punktschätzer zusammen mit den Konfidenzintervallen. Die gestrichelten Linien stellen die respektiven Anteile in der Stichprobe dar und die durchgezogenen Linien die Anteile aus der Volksabstimmung. Bei den noch verbliebenen Modellen handelt es sich um den drei Klassen Fall mit den drei räumlichen Effekten extrapoliert auf beide Dateien und den beiden Aggregaten Bezirke und Stadtteile. Zunächst ist zu sehen, dass ein signifikanter Unterschied zwischen dem Zensus und dem Melderegister besteht. Da die Validierung schon ergeben hat, dass der Melderegister und die 
+Dieses Kapitel stellt nun die Prognostizierten Anteile der Klassen für gesamt Stuttgart von den noch verbliebenen Modellen vor. Dazu zeigt Abbildung \ref{S21Alle} die Extrapolierten Anteile der Modelle zur Meinung zu Stuttgart 21. Dargestellt ist der Median als Punktschätzer zusammen mit den Konfidenzintervallen. Die gestrichelten Linien stellen die respektiven Anteile in der Stichprobe dar und die durchgezogenen Linien die Anteile aus der Volksabstimmung. Bei den noch verbliebenen Modellen handelt es sich um den drei Klassen Fall mit den drei räumlichen Effekten extrapoliert auf beide Dateien und den beiden Aggregaten Bezirke und Stadtteile. Deutlich erkennbar ist ein Unterschied zwischen den Extrapolierten Anteilen aus dem Zensus und dem Melderegister. Da die Validierung ergeben hat, dass die extrapolierten Anteile aus dem Melderegister näher mit den Anteilen aus der Volksabstimmung übereinstimmen wird sich im weiteren die Analyse au die Anteile aus dem Melderegister beziehen. Vorab zu sehen ist außerdem, dass die Anteile der Stichprobe und die Anteile der wahren Ergebnisse aus der Volksabstimmung deutliche Differenzen aufweisen. Während die Stichprobe für die Klasse \textit{Zustimmung} einen Anteil von ca. 47\% zeigt, haben sich in der Volksabstimmung 52,9\% für Stuttgart 21 ausgesprochen. Natürlich aber muss dabei auch beachtet werden, dass es sich dabei um unterschiedliche Erhebungen handelt und es bei der Volksabstimmung keine neutrale Klasse erfasst wurde.\\
+Auffällig sind die breiten Konfidenzintervalle, die auf eine relativ hohe Unsicherheit hindeuten. Zwischen den Modellen mit unterschiedlichen räumlichen Effekten weist das Modell mit Stadtteilen die höchste Unsicherheit auf. Die Punktschätzer von dem Modell mit Gauss-Krüger Informationen und Bezirken sind nahezu identisch. Die Punktschätzer des Stadtteilmodells weichen als einzige sichtbar ab und befinden sich am nächsten an dem Anteil der Volksabstimmung der Kategorie \textit{Zustimmung}. 
 
 \begin{figure}[h]
  \begin{center}
@@ -618,6 +612,7 @@ Dieses Kapitel stellt nun die Prognostizierten Anteile der Klassen für gesamt S
  \end{center}
 \end{figure}
 
+Aggregiert auf Bezirksebene Für die Klasse \textit{Zustimmung} hat das Modell mit Gauss-Krüger Informationen einen Anteil von 51,12\% prognostiziert. Das Bezirksmodell hat einen Anteil von 51,09\% ergeben und das Stadtteilmodell einen Anteil von 52,06\%. Damit ergibt die 1 - \textit{Zustimmung} für jedes Modell eine
 
 \begin{figure}[h]
  \begin{center}
@@ -626,7 +621,8 @@ Dieses Kapitel stellt nun die Prognostizierten Anteile der Klassen für gesamt S
  \label{WAlle}
  \end{center}
 \end{figure}
-%\clearpage
+
+\clearpage
 
 \section{Diskussion}
 Die beiden Datensätze zur Grundgesamtheit stammen aus einer Melderegister mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
