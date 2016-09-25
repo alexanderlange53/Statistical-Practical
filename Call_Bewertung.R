@@ -82,6 +82,7 @@ source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
 source('SpatialPlots.R')
+source('PlotModel.R')
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -150,19 +151,29 @@ if(calculate_model) {
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.Bewertung.5$model.spat
-plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 2, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-#x11()
-#par(mfrow = c(2, 2))
-plot(m1, select = 3, all = TRUE, ann = F) # Geschlecht
-#mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 4, all = TRUE, ann = F) # Nationalität
-#mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-#plot(m1, select = 5, all = TRUE, ann = F) # Familienstand
-#mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-#plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-#mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+# Non Parametric Effects
+variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
+g1 <-ggplot.model(m1, variables = variables)
+ggsave('./Essay/Pictures/BWGKnoParam.pdf', height = 2.5, width = 8)
+
+# Parametric Effects
+variables <- c("Nationalität")
+ll <- function(part){   
+  data.frame(Variable = part$meta$x, 
+             x=part$fit[[part$meta$x]], 
+             smooth=part$fit$visregFit, 
+             lower=part$fit$visregLwr, 
+             upper=part$fit$visregUpr)}
+plotdata <- visreg(m1, xvar = variables, type = type, plot = FALSE)
+smooths <- ll(plotdata)
+g2 <- ggplot(smooths, aes(x, smooth)) + geom_hline(yintercept = 0, color = 'red') +
+  geom_errorbar(aes(x = x, ymin = lower, ymax= upper), width=.5, position=position_dodge(.05)) +
+  geom_point(shape = 21, fill = 'darkblue', size = 5) + labs(x = NULL, y = NULL) +
+  facet_grid(. ~ Variable, scales = "free_x") + theme_bw(11)
+
+pdf('./Essay/Pictures/BWModelEffects.pdf', height = 5, width = 8)
+grid.arrange(g1,g2, nrow = 2, ncol = 1, top = NULL)
 dev.off()
 
 AIC(step.model.Bewertung.5$model.spat)
