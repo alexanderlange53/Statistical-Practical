@@ -72,11 +72,9 @@
 \pagestyle{fancy}
 
 \section{Einleitung}
-Die Grundgesamtheit dieser Unteruchung ist die Bevölkerung Stuttgarts.
-Fragestellungen: Wie ist die Wohzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? Kleinräumige Extrapolation
-test
-
-Obwohl die Formulierung \textit{nichtparametrisch} für den in dieser Arbeit verwendeten Spline-Typ mathematisch unpäzise ist \cite[p. 1]{eilers1996}, wird sie, wie in der Literatur üblich, synonym für \textit{semiparametrisch} verwendet.
+Die Grundgesamtheit dieser Untersuchung ist die Bevölkerung Stuttgarts.
+Fragestellungen: Wie ist die Wohnzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? Kleinräumige Extrapolation
+Obwohl die Formulierung \textit{nicht-parametrisch} für den in dieser Arbeit verwendeten Spline-Typ mathematisch unpräzise ist \cite[p. 1]{eilers1996}, wird sie, wie in der Literatur üblich, synonym für \textit{semiparametrisch} verwendet.
 
 \newpage
 
@@ -97,7 +95,7 @@ einige Gruppenausprägungen demnach umkodiert werden. Die Umkodierungen können 
 
 \subsubsection{Parametrisierungsstichprobe}
 Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle für die kleinräumige 
-Extrapolation parametrisiert. Bei dieser umfrage handelt es sich um eine Befragung aus dem Jahr 2015 zur Lebensqualität 
+Extrapolation parametrisiert. Bei dieser Umfrage handelt es sich um eine Befragung aus dem Jahr 2015 zur Lebensqualität 
 der Einwohner Stuttgarts bei der unter anderem die Bewertugn der Wohnsituation und die Meinugn zu Stuttgart 21 abgefragt 
 wurden \cite{Stuttgart2015}. Insgesamt standen 8 sozioökonomische Variablen und Angaben zur räumlichen Lage zur 
 Verfügung. Von jedem Datensatz waren stetige räumliche Lage als Gauss-Krüger Geokoordinate sowie die diskrete räumliche 
@@ -241,7 +239,7 @@ Stuttgarts vom 31.01.2011. Der Auszug umfasst alle volljährigen Einwohner Stutt
 Pflegeheimen. Mit einem Stichprobenumfang von 470.190 Bürgern liegt der Melderegisterauszug also sehr nah an 
 der Grundgesamtheit von 573.104 Bürgern, die 2011 mit Hauptwohnsitz in Stuttgart gemeldet waren \textcolor{red}{(REF 
 Stat. Bundessamt)}. Insgesamt wurden 8 sozioökonomische Variablen erhoben. Bei allen Datensätzen liegt der Wohnsitz als 
-kontinuierliche Gauss-Krüger Geokoordinate vor. Um eine kleinräumige Extrapolation mit diskreten räumlichen 
+kontinuierliche Gauß-Krüger Geokoordinate vor. Um eine kleinräumige Extrapolation mit diskreten räumlichen 
 Informationen vornehmen zu können, wurden die Stadtteil- und Stadtbezirksinformationen an die Datensätze des 
 Melderegisters angehängt. Hierzu wurden die Stadtteil- und Stadtbezirkspolygone, welche uns von der Stadt Stuttgart für 
 die Analyse zur Verfügung gestellt wurden, über eine räumliche Abfrage mit den Melderegisterdatensätzen verknüpft. Die 
@@ -302,7 +300,7 @@ diese ein (gilt auch für Tab 2)}
 \multicolumn{1}{l|}{Geschlecht} & Parametrisch  & 2 \\ \hline
 \multicolumn{1}{l|}{Nationalität} & Parametrisch  & 2 \\ \hline
 \multicolumn{1}{l|}{Familienstand} & Parametrisch & 4 \\ \hline
-\multicolumn{1}{l|}{Personenzahl im Hasuhalt} &  Nicht Parametrisch  & 6 \\ \hline
+\multicolumn{1}{l|}{Personenzahl im Haushalt} &  Nicht Parametrisch  & 6 \\ \hline
 \multicolumn{1}{l|}{Wohnfläche} & Nicht Parametrisch & 24 \\ \hline
 \multicolumn{1}{l|}{Stellung Beruf} & Parametrisch  & 9 \\ \hline
 \multicolumn{1}{l|}{Beamter}& Parametrisch & 2 \\ \hline 
@@ -318,46 +316,47 @@ diese ein (gilt auch für Tab 2)}
 \subsection{Statistische Methoden}
 
 \subsubsection{Geoadditive Modelle}
-Bei allen endogenen Variablen handelt es sich um kategorielle Variablen, deren Ausprägungswahrscheinlichkeiten modelliert werden sollen. Da Ausprägungswahrscheinlichkeiten für diese kategoriellen Responses nur im Wertebereich zwischen 0 und 1 sinnvoll interpretierbar sind, sind einfache Regressionsmodelle ohne Transformationsfunktion ungeeignet. Des Weitern sind kategorielle transformierten endogene Response-Variablen häufig nicht normalverteilt \cite[p. 277]{fahrmeir2013regression}. Für die Fragestellung dieser Arbeit kommen demnach nur Regressionsmodelle in Frage, welche eine Modellierung von Wahrscheinlichkeiten im genannten Wertebereich sicherstellen und unterschiedliche Verteilungsannahmen ermöglichen der endogenen Variablen. Generalisierte lineare Modelle (GLM) ermöglichen die Transformation des linearen Prädiktors 
+Bei allen zu modellierenden endogenen Variablen handelt es sich um kategoriale Variablen. Ziel der Modellierung ist es also die Ausprägungswahrscheinlichkeit der einzelnen Kategorien vorherzusagen. Da negative Wahrscheinlichkeiten sowie Wahrscheinlichkeiten über 1 nicht sinnvoll interpretierbar sind, muss sichergestellt sein, dass die endogene Variable des Regressionsmodells nur stetige Werte zwischen 0 und 1 einnehmen kann. Einfache lineare Regressionsmodelle sind demnach für die Modellierung ungeeignet. Des Weiteren weisen kategoriale Regressionsmodelle häufig keine Normalverteilung auf \cite[p. 277]{fahrmeir2013regression}. Für die Fragestellung dieser Arbeit kommen demnach nur Regressionsmodelle in Frage, welche eine Modellierung von Wahrscheinlichkeiten im genannten Wertebereich sicherstellen und unterschiedliche Verteilungsannahmen der endogenen Variablen ermöglichen. Im Gegensatz zu einfachen linearen Regression kann der lineare Prädiktor
+
 
 \begin{equation} \label{linPraed}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}
 \end{equation}
 
-über eine Response-Funktion $h$, wobei die Wahl von $h$ von der Fragestellung und der Skalierung der Response-Variable abhängt. $h$ kann jede monoton ansteigende Funktion sein. Zur Sicherstellung des gewünschten Wertebereichs zwischen 0 und 1 wird der lineare Prädiktor bei kategoriellen Regressionen häufig über die logistische Response-Funktion transformiert. Bei einer binären Response ergibt sich durch die logistische Transformation nach \cite[p. 270 f.]{fahrmeir2013regression} das binäre Logit Modell
+in generalisierten linearen Modellen (GLM) über eine Response-Funktion $h$ transformiert werden. Die Wahl der Response-Funktion hängt von der Fragestellung und von der Skalierung der Response-Variable ab. $h$ kann jede monoton ansteigende Funktion sein. Um den gewünschten gewünschten Wertebereichs zwischen 0 und 1 sicherzustellen wird der lineare Prädiktor bei kategorialen Regressionen häufig über eine logistische Response-Funktion transformiert. Im Falle einer binären Response-Variablen ergibt sich durch die logistische Transformation nach \cite[p. 270 f.]{fahrmeir2013regression} das binäre Logit Modell
 
 \begin{equation}
 h(\eta)=\frac{\exp(\eta)}{1+\exp(\eta)},
 \end{equation}
 
-wobei die Daten nach der Transformation einer Bernoulli Verteilung folgen. Durch Datengruppierung kann die Rechenzeit reduziert werden. Die absoluten Gruppenhäufigkeiten folgen dann einer Binomial- und die relativen Gruppenhäufigkeiten skalierten Binomialverteilung \cite[p. 277 f.]{fahrmeir2013regression}.\\
-Bei ordinalskalierter Response kann die Reihenfolge der Ausprägung im generalisierten Modell explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Dem kumulativen Modell unterliegt die Annahme, dass für jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit bestimmt. Unter der Annahme, dass diese latente Variable durch einen linearen Prädiktor
+wobei die Response nach der Transformation einer Bernoulli Verteilung folgt. Durch Datengruppierung kann die Rechenzeit reduziert werden. Die absoluten Gruppenhäufigkeiten folgen dann einer Binomial- und die relativen Gruppenhäufigkeiten skalierten Binomialverteilung \cite[p. 277 f.]{fahrmeir2013regression}.\\
+Bei ordinalskalierter Response kann die Reihenfolge der Ausprägung explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Dem kumulativen Modell unterliegt die Annahme, dass für jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit bestimmt.  Dem Modell unterliegt die Annahme, dass diese latente Variable durch einen linearen Prädiktor
 
 \begin{equation}
 u_i=-\mathbf{x}'_i \boldsymbol{\tilde{\beta}}+\varepsilon
 \end{equation}
 
-über die Kovariablen vorhergesagt werden kann, existieren für die latenten Variablen geordnete Schwellenwerte $\theta_{r}$. Das Modell hängt nicht mehr von der latenten Variable, sondern von einer linearen Kombination der Kovariablen ab. Ein Datensatz zeigt die Ausprägung $r$, wenn ihre latente Variable zwischen $\theta_{r-1}$ und $\theta_r$ liegt. Damit die Schwellenwerte identifizierbar werden, hat der lineare selbst keinen Intercept. Wie zuvor im binären Fall, wird der lineare Prädiktor über eine kumulative Verteilungsfunktion transformiert. Über die Verteilung $F$ des Fehlers des linearen Prädiktors  $\varepsilon_i$ um die latente Variable $u_i$ kann die Wahrscheinlichkeit jeder Kategorie der Response-Variablen als 
+über die Modellkovariablen vorhergesagt werden kann. Ein Datensatz zeigt die Ausprägung $r$, wenn ihre latente Variable zwischen den Schwellenwerten $\theta_{r-1}$ und $\theta_r$ liegt. Um sicherzustellen, dass diese Schwellenwerte identifizierbar sind, hat der lineare selbst keinen Intercept. Wie zuvor im binären Fall, wird der lineare Prädiktor über eine kumulative Verteilungsfunktion transformiert. Über die Verteilung $F$ des Fehlers des linearen Prädiktors  $\varepsilon_i$ um die latente Variable $u_i$ kann die Wahrscheinlichkeit jeder Kategorie der Response-Variablen als 
 
 \begin{equation}
 P(y_i=r)=F(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})-F(\theta_{r-1}+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})
 \end{equation}
 
-berechnet werden. Da es sich um geordnete Kategorien handelt, muss für die Wahrscheinlichkeit der Gruppenzugehörigkeit zu $r$ nur die Wahrscheinlichkeitsdichte zwischen den Schwellenwerten $\theta_{r}$ und $\theta_{r-1}$ berechnet werden.
-Wenn die in der Literatur vorgeschlagene logistische Transformation gewählt wird \cite[p. 335]{fahrmeir2013regression}, ergibt sich das kumulatives Logit Modell
+berechnet werden. Da es sich um geordnete Kategorien handelt, muss für die Wahrscheinlichkeit der Gruppenzugehörigkeit zu $r$ nur die Wahrscheinlichkeitsdichte zwischen den Schwellenwerten $\theta_{r}$ und $\theta_{r-1}$ berechnet werden. Wenn die in der Literatur vorgeschlagene logistische Transformation gewählt wird \cite[p. 335]{fahrmeir2013regression}, ergibt sich das kumulatives Logit Modell
 
 \begin{equation}
 P(y_i\leq r)=\frac{\exp(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})}{\exp(1+\exp(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}}))}.
 \end{equation}
 
 Die exogenen Variablen, mit denen das Modell für die räumliche Extrapolation parametrisiert werden soll, sind sehr heterogen. Es kommen sowohl nominal- als auch kardinalskalierte sozioökonomischen Variablen in Frage (Abbildung \ref{endogene}, Tabelle \ref{Datensatz}). Während ein linearer Prädiktor zur Beschreibung des Zusammenhangs zwischen ordinalskalierten Kovariablen und kategorieller Response-Variablen ausreichend ist, zeigen kardinal skalierte Variablen oft einen nichtlinearen Zusammenhang \cite[p. 9]{fahrmeir2009regression}. Der in GLM vorausgesetzte lineare Prädiktor (Formel \ref{linPraed}) ist demnach für die Daten dieser Arbeit zu unflexibel. Aufgrund dieser Ausgangslage haben flexiblere Modelle voraussichtlich Vorteile gegenüber GLM.\\
-In generalisierten additiven Modellen (GAM) können lineare und nichtlineare Effekte sehr flexibel in einem Modell verbunden werden, da die Terme des Prädiktors in GAM nicht auf lineare Funktionen beschränkt sind (Formel \ref{SplinePraed}). Während die Kovariablen mit linearen Effekten $\mathbf{x}_i$, analog zum GLM, durch den linearen Prädiktor modelliert werden, können die nichtlinearen Kovariableneffekte $\mathbf{z}_i$ über sehr flexible, semi- bzw. nichtparametrische Splines modelliert werden \cite[p. 1 f.]{wood2016}.
+In generalisierten additiven Modellen (GAM) können lineare und nichtlineare Effekte sehr flexibel in einem Modell verbunden werden, da die Terme des Prädiktors in GAM nicht auf lineare Funktionen beschränkt sind (Formel \ref{SplinePraed}). Während die Kovariablen mit linearen Effekten $\mathbf{x}_i$, analog zum GLM, durch den linearen Prädiktor modelliert werden, können die nichtlinearen Kovariableneffekte $\mathbf{z}_i$ über sehr flexible, semi- bzw. nonparametrische Splines modelliert werden \cite[p. 1 f.]{wood2016}.
 
 \begin{equation} \label{SplinePraed}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})
 \end{equation}
 
-GAM bieten sich also immer an, wenn lineare und nichtlineare Kovariableneffekte in einem Modell berücksichtigt werden sollen oder wenn die genauen Formen der Effekte unbekannt sind. Zur Modellierung der univariaten nichtlinrearen Effekte dieser Arbei wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Die abstrakten Parameter können demnach nicht interpretiert werden \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher nur verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt der eigentliche Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen aufwendig über Modellauswahlstrategien hergeleitet werden müssen, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalirisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penalisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression}, zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben erfordern und die Rechenzeit gering ist.\\
+GAM bieten sich also immer an, wenn lineare und nichtlineare Kovariableneffekte in einem Modell berücksichtigt werden sollen oder wenn die genauen Formen der Effekte unbekannt sind. Zur Modellierung der univariaten nichtlinearen Effekte dieser Arbeit wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Das Modell setzt sich also aus einer großen Zahl abstrakter Variablen zusammen, die keine direkte Interpretation zulassen \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt der eigentliche Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen zum Teil aufwendig über Modellauswahlstrategien hergeleitet werden müssen, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penalisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression}, zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben erfordern und die Rechenzeit gering ist.\\
+
 Bei räumlich expliziten Daten kann häufig nicht von der Unabhängigkeit der Beobachtungen ausgegangen werden. Wie die visuelle Interpretation der Rohdaten nahelegt (z. B. Abbildung \ref{BStuttgart21}) existiert räumliche Korrelation in den Daten. Das Modell lässt sich also voraussichtlich durch Hinzunahme eines räumlichen Efekts verbessern. Wenn räumliche Effekte in GAM berücksichtigt werden, spricht mal von geoadditiven Modellen. In dieser Arbeit wurden zwei unterschiedliche Methoden zur Berücksichtigung des räumlichen Effektes verwendet. Zunächst gingen die Gauß-Krüger Geokoordinaten $s_x$ und $s_y$ kontinuierlich in der Form
 
 \begin{equation} \label{SplinePraed}
@@ -638,7 +637,10 @@ Aggregiert auf Bezirksebene Für die Klasse \textit{Zustimmung} hat das Modell m
  \end{center}
 \end{figure}
 
-Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Sie ist analog zu der  bereits diskutierte Abbildung \ref{S21Alle} aufgebaut, außer dem Unterschied dass keine Anteile für die Grundgesamtheit verfügbar sind. Hier ist gerade bei den Klassen \textit{neutral}, \textit{gut} und \textit{sehr gut} ein deutlicher Unterschied zwischen den Modellen erkennbar, sowohl für den Punkt- als auch den Intervallschätzer. Auch zwischen den Dateien sind wie schon bei der Meinung zu Stuttgart 21 deutliche Unterscheide vorhanden. Um in dieser Arbeit konsistent zu bleiben und da der Melderegister mehr Beobachtungen hat, folgt die weitere Analyse wieder mit diesem. Die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen und den Klassen. Die schmalsten Prognoseintervalle liefert das Bezirkmodell, während das Gauss-Krüger- und Stadtteilmodell deutlich weitere Intervalle ergibt. Aggregiert auf Bezirksebene ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauss-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell.  Für die Klasse \textit{gut} wurden 40,84\% für das Gauss-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Es ist dabei ein deutlich größerer Unterschied zu beobachten als bei den geschätzten Anteilen der Meinung zu Stuttgart 21, wodurch die Wahl des finalen Prognosemodells noch zusätzliche Wichtigkeit bekommt. Wie bereits erwähnt, kann nur spekuliert werden, wo die wahren Anteile zur Bewertung der Wohngegend liegen. Dadurch stehen auch nur die drei Kriterien AIC, Reklassifizierung und Kreuzvalidierung nur Verfügung. Nach diesen Kriterien wird auch für diesen Fall das Modell mit den Gauss-Krüger Informationen als bestes Prognosemodell empfohlen, da es in allen drei Situationen die besten Ergebnisse gezeigt hat. 
+Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Sie ist analog zu der  bereits diskutierte Abbildung \ref{S21Alle} aufgebaut, außer dem Unterschied dass keine Anteile für die Grundgesamtheit verfügbar sind. Hier ist gerade bei den Klassen \textit{neutral}, \textit{gut} und \textit{sehr gut} ein deutlicher Unterschied zwischen den Modellen erkennbar, sowohl für den Punkt- als auch den Intervallschätzer. Auch zwischen den Dateien sind wie schon bei der Meinung zu Stuttgart 21 deutliche Unterscheide vorhanden. Um in dieser Arbeit konsistent zu bleiben und da der Melderegister mehr Beobachtungen hat, folgt die weitere Analyse wieder mit diesem. Die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen und den Klassen. Die schmalsten Prognoseintervalle liefert das Bezirkmodell, während das Gauss-Krüger- und Stadtteilmodell deutlich weitere Intervalle ergibt. Aggregiert auf Bezirksebene ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauss-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell.  Für die Klasse \textit{gut} wurden 40,84\% für das Gauss-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Es ist dabei ein deutlich größerer Unterschied zu beobachten als bei den geschätzten Anteilen der Meinung zu Stuttgart 21, wodurch die Wahl des finalen Prognosemodells noch zusätzliche Wichtigkeit bekommt. Wie bereits erwähnt, kann nur spekuliert werden, wo die wahren Anteile zur Bewertung der Wohngegend liegen. Dadurch stehen auch nur die drei Kriterien AIC, Reklassifizierung und Kreuvalidierung nur Verfügung. Nach diesen Kriterien wird auch für diesen Fall das Modell mit den Gauss-Krüger Informationen als bestes Prognosemodell empfohlen, da es in allen drei Situationen die besten Ergebnisse gezeigt hat.\\
+Zuletzt wurden die beiden besten Modelle genutzt um die Extrapolierten Anteile auf Stadtteileebene in Stuttgart darzustellen. Die beiden Abbildungen dazu befinden sich im Anhang. Für die Meinung zu Stuttgart 21 (Abbildung \ref{S21Extra}) kann dazu gut ein Vergleich mit den Anteile der Stichprobe aus Abbildung \ref{XYStuttgart3}, Abbildung \ref{BStuttgart21} und Abbildung \ref{SStuttgart21} vorgenommen werden. Dabei zu beachten ist, dass Abbildung \ref{S21Extra} mit unterschiedlicher Skalierung dargestellt wird, um deutlicher räumliche Unterschiede innerhalb der Klassen zu erkennen. Deutlich zu erkennen, ist dass die Lokalisierung der Anteile in den Kategorien sehr ähnlich ist zu der bereits besprochenen Lokalisierung im Parametrisierungsdatensatz ist. Die hohen Anteile der \textit{Zustimmung} befinden sich vor allem im Norden und Osten, die Klasse \textit{neutral} zeigt keine klare Struktur und die Klasse \textit{Ablehnung} findet sich besonders im Süden und Westen.\\
+Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein guter Vergleich mit den Anteilen des Parametrisierungsdatensatz (Abbildung \ref{XYWohnG5}, Abbildung \ref{BWohn}, Abbildung \ref{SWohn}) vorgenommen werden. Besonders interessant sind hier die Kategorien \textit{neutral}, \textit{schlecht} und \textit{sehr schlecht}. Aus Abbildung \ref{BWohn} geht z.B hervor, dass die höchsten Anteile dieser Klassen im Osten und teilweise im Norden lokalisiert werden können. Durch die Extrapolation konnten wir den Bereich nun genauer isolieren auf 
+
 
 \clearpage
 \section{Diskussion}
@@ -724,6 +726,22 @@ Ein \textit{B} von 1.000 erwies sich als ausreichend, da sich die Mittelwerte un
 % \label{endogene}
 % \end{center}
 %\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/S21Extra}
+ \caption{Extrapolierte Anteile auf Stadtteilebene für die Meinung zu Stuttgart 21 mit dem besten Modell}
+ \label{S21Extra}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/BWohnExtra}
+ \caption{Extrapolierte Anteile auf Stadtteilebene für die Bewertung der Wohngegend mit dem besten Modell}
+ \label{WohnExtra}
+ \end{center}
+\end{figure}
 
 \end{appendix}
 \clearpage
