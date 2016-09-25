@@ -165,14 +165,14 @@ ll <- function(part){
              smooth=part$fit$visregFit, 
              lower=part$fit$visregLwr, 
              upper=part$fit$visregUpr)}
-plotdata <- visreg(m1, xvar = variables, type = type, plot = FALSE)
+plotdata <- visreg(m1, xvar = variables, plot = FALSE)
 smooths <- ll(plotdata)
 g2 <- ggplot(smooths, aes(x, smooth)) + geom_hline(yintercept = 0, color = 'red') +
   geom_errorbar(aes(x = x, ymin = lower, ymax= upper), width=.5, position=position_dodge(.05)) +
   geom_point(shape = 21, fill = 'darkblue', size = 5) + labs(x = NULL, y = NULL) +
   facet_grid(. ~ Variable, scales = "free_x") + theme_bw(11)
 
-pdf('./Essay/Pictures/BWModelEffects.pdf', height = 5, width = 8)
+pdf('./Essay/Pictures/BWModelEffects.pdf', height = 4, width = 8)
 grid.arrange(g1,g2, nrow = 2, ncol = 1, top = NULL)
 dev.off()
 

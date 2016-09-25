@@ -169,7 +169,7 @@ ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
 # Spatial Plots
 
-pdf('./Essay/Pictures/S21ModelEffects.pdf', height = 5, width = 8)
+pdf('./Essay/Pictures/S21ModelEffects.pdf', height = 4, width = 8)
 grid.arrange(g1,g2, nrow = 2, ncol = 1, top = NULL)
 dev.off()
 
