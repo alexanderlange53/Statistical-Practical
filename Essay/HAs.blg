@@ -14,29 +14,59 @@ I was expecting a `,' or a `}'---line 128 of file LiteraturStuttgart.bib.bib
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Warning--entry type for "Amt" isn't style-file defined
+<<<<<<< HEAD
+--line 165 of file LiteraturStuttgart.bib.bib
+Warning--entry type for "bundesamt" isn't style-file defined
+--line 176 of file LiteraturStuttgart.bib.bib
+Warning--I didn't find a database entry for "gu1993"
+You've used 17 entries,
+=======
 --line 183 of file LiteraturStuttgart.bib.bib
 You've used 16 entries,
+>>>>>>> 54fcf4d978ac6b9ef02c1798af55578aa480a811
             1935 wiz_defined-function locations,
-            566 strings with 5733 characters,
-and the built_in function-call counts, 5396 in all, are:
-= -- 537
-> -- 174
-< -- 15
+            566 strings with 5885 characters,
+and the built_in function-call counts, 5464 in all, are:
+= -- 543
+> -- 175
+< -- 16
 + -- 54
 - -- 54
-* -- 413
-:= -- 967
-add.period$ -- 49
-call.type$ -- 16
-change.case$ -- 102
-chr.to.int$ -- 16
-cite$ -- 16
-duplicate$ -- 225
+* -- 406
+:= -- 993
+add.period$ -- 50
+call.type$ -- 17
+change.case$ -- 107
+chr.to.int$ -- 17
+cite$ -- 17
+duplicate$ -- 231
 empty$ -- 394
-format.name$ -- 78
-if$ -- 1054
+format.name$ -- 77
+if$ -- 1061
 int.to.chr$ -- 1
 int.to.str$ -- 0
+<<<<<<< HEAD
+missing$ -- 19
+newline$ -- 86
+num.names$ -- 51
+pop$ -- 96
+preamble$ -- 1
+purify$ -- 112
+quote$ -- 0
+skip$ -- 183
+stack$ -- 0
+substring$ -- 327
+swap$ -- 23
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 90
+warning$ -- 0
+while$ -- 48
+width$ -- 0
+write$ -- 213
+(There were 4 warnings)
+=======
 missing$ -- 20
 newline$ -- 83
 num.names$ -- 48
@@ -57,3 +87,4 @@ while$ -- 48
 width$ -- 0
 write$ -- 206
 (There were 2 error messages)
+>>>>>>> 54fcf4d978ac6b9ef02c1798af55578aa480a811
