@@ -365,13 +365,21 @@ Bei räumlich expliziten Daten kann häufig nicht von der Unabhängigkeit der Be
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_{x_i},s_{y_i})
 \end{equation}
 
+<<<<<<< HEAD
 in den Prädiktor ein. $f_{spat}$ wird als Tensorprodukt-Spline
 
 
+=======
+
+Der TP-Spline hat sich wegen ihrer radialen Struktur für geographische Koordinaten als vorteilhaft erwiesen \cite[p. 354]{gu1993}. Des weitere sind TP-Splines bei großen Datenmengen für multivariate Einflüsse in Bezug auf die Rechenzeit effizient \cite[p. 95 f.]{wood2003}.\\
+Die zweite in dieser Arbeit vorgestellte Möglichkeit der Berücksichtigung räumlicher Effekte ist das Markov-Zufallsfeld. Der räumliche Effekt kann nach \cite[p. 541]{fahrmeir2013regression} als "Stellvertreter für unbeobachtete räumliche Variablen" interpretiert werden. Der räumliche Effekt ist also eine Proxy-Variable für unbekannte Variablen, die sich in diskreten Regionen unterscheiden. Der Prädiktor des geoadditiven Modells mit Markov-Zufallsfeld kann als
+>>>>>>> 237e5cc65e3cdca040e6c007041125405a62c536
 \begin{equation}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_i)
 \end{equation}
+ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten aller Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. In dieser Arbeit werden für die Penalisierung nur die Nachbarn erster Ordnung, also alle Regionen, die eine gemeinsame Grenze mit $s_i$ teilen, berücksichtigt. 
 
+<<<<<<< HEAD
 
 
 
@@ -380,6 +388,9 @@ REML
 
 Kurze Erläuterung GAM und logit,... Zusammengesetzt aus parametrischen Effekten und Splines. Pseudobeobachtungen. Wahl 
 des Glättungsparameters  (Wood 2000).
+=======
+Pseudobeobachtungen.
+>>>>>>> 237e5cc65e3cdca040e6c007041125405a62c536
 
 \subsubsection{Schrittweise AIC}
 Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
@@ -431,6 +442,22 @@ vorkommt \cite[p. 102]{Int}.
 
 
 \subsection{Modell}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/S21GKnoParam}
+ \caption{GK Modell no Param}
+ \label{GKnoParam}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/S21GKParam}
+ \caption{GK Modell Param}
+ \label{GKParam}
+ \end{center}
+\end{figure}
 
 \subsection{Schrittweise AIC}
 

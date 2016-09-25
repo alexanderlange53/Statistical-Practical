@@ -15,8 +15,10 @@ require(maptools);require(rvest);require(dplyr)
 library(ggplot2)
 library(reshape2)
 library(gridExtra)
+library(plyr)
 library(dplyr)
 library(mlr)
+library(visreg)
 
 ## Einstellungen ##
 
@@ -84,6 +86,8 @@ source("prediction_function.R")
 source('PredBarPlot.R')
 source('validation.R')
 source('SpatialPlots.R')
+source('PlotModel.R')
+
 #-------------------#
 # Daten vorbereiten #
 #-------------------#
@@ -150,21 +154,17 @@ if(calculate_model){
 ## Modelleffekte interpretieren ##
 #--------------------------------#
 ## GAM Plots ##
-m1 <- step.model$model.spat
-plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+model <- step.model$model.spat
 
-x11()
-par(mfrow = c(2, 2))
-plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
-dev.off()
+# Non Parametric Effects
+variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
+ggplot.model(model, variables = variables)
+ggsave('./Essay/Pictures/S21GKnoParam.pdf', height = 2.5, width = 8)
+
+# Parametric Effects
+variables <- c("Familienstand", "Nationalität", "Geschlecht")
+ggplot.model(model, variables = variables, param = T)
+ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)

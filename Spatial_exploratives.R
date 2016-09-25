@@ -33,6 +33,7 @@ if(bearbeiter == 'Kai@Work'){
 source('SpatialPlots.R')
 source('DataPrep.R')
 
+
 # Plotten der Response Variablen mit Gauss-Krüger Informationen
 # Meinung Stuttgart 21
 GKPlot(dataS, bezirke = bezirke, Kategorien = 5)
