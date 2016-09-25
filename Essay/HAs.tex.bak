@@ -8,9 +8,11 @@
 \usepackage{color}
 \usepackage{multirow}
 \usepackage{bm}
+\usepackage{cite}
 %\usepackage[utf8]{inputenc}
 %\bibliographystyle{apalike}
 \setlength{\parindent}{0pt}
+\usepackage{tabularx}
 
 \pagestyle{fancy}
 \renewcommand*\sectionmark[1]{\markboth{\MakeUppercase{#1}}{}}
@@ -172,7 +174,7 @@ Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumliche
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/XYStuttgart3.png}
- \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in drei Gruppen. Quelle der Hintergrundgrafik: REF: Google Maps}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in drei Gruppen. Quelle der Hintergrundgrafik: \cite{google}}
  \label{XYStuttgart3}
  \end{center}
 \end{figure}
@@ -186,7 +188,7 @@ Abbildung \ref{XYWohnG5} zeigt die Dichte der Beobachtungen der fünf Kategorien
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/XYWohnG5.png}
- \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Wohnzufriedenheit in fünf Gruppen. Quelle der Hintergrundgrafik: REF: Google Maps}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Wohnzufriedenheit in fünf Gruppen. Quelle der Hintergrundgrafik: \cite{google}}
  \label{XYWohnG5}
  \end{center}
 \end{figure}
@@ -325,7 +327,7 @@ Allen zu modellierenden endogenen Variablen sind kategoriale Merkmale. Ziel der 
 
 in generalisierten linearen Modellen (GLM) über eine Response-Funktion $h$ transformiert werden. Die Response-Variable hängt demnach nicht mehr direkt von einer linearen Kombination der Modellkovariablen, sondern von deren Transformation ab. Die Wahl der Response-Funktion hängt von der Fragestellung und von der Skalierung der Response-Variable ab. $h$ kann jede monoton ansteigende Funktion sein. Um den gewünschten gewünschten Wertebereichs zwischen 0 und 1 sicherzustellen wird der lineare Prädiktor bei kategorialen Regressionen häufig über eine logistische Response-Funktion transformiert. Im Falle einer binären Response-Variablen ergibt sich durch die logistische Transformation nach \cite[p. 270 f.]{fahrmeir2013regression} das binäre Logit Modell
 
-\begin{equation}
+\begin{equation} \label{logit}
 h(\eta)=\frac{\exp(\eta)}{1+\exp(\eta)},
 \end{equation}
 
@@ -355,10 +357,10 @@ In generalisierten additiven Modellen (GAM) können lineare und nichtlineare Eff
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})
 \end{equation}
 
-GAM bieten sich also immer an, wenn lineare und nichtlineare Kovariableneffekte in einem Modell berücksichtigt werden sollen oder wenn die genauen Formen der Effekte unbekannt sind. Zur Modellierung der univariaten nichtlinearen Effekte dieser Arbeit wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Das Modell setzt sich also aus einer großen Zahl abstrakter Variablen zusammen, die keine direkte Interpretation zulassen \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt ein weiterer Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen zum Teil aufwendig über Modellauswahlstrategien hergeleitet werden muss, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penalisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression} oder \textit{Restricted Maximum Likelihood} \cite{wood2011b} und \cite[p. 32 f.]{wood2016}, zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben erfordern und die Rechenzeit gering ist.\\
-Analog zu GLM können die Prädiktoren in GAM ebenfalls durch eine Response-Funktion transformiert werden, um bestimmte Modelleigenschaften zu erzwingen.
+GAM bieten sich also immer an, wenn lineare und nichtlineare Kovariableneffekte in einem Modell berücksichtigt werden sollen oder wenn die genauen Formen der Effekte unbekannt sind. Zur Modellierung der univariaten nichtlinearen Effekte dieser Arbeit wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Das Modell setzt sich also aus einer großen Zahl abstrakter Variablen zusammen, die keine direkte Interpretation zulassen \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt ein weiterer Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen zum Teil aufwendig über Modellauswahlstrategien hergeleitet werden muss, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penalisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression} oder \textit{Restricted Maximum Likelihood} \cite{wood2011b, wood2016}[, p. 32 f.], zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben erfordern und die Rechenzeit gering ist.\\
+Analog zu GLM können in GAM ebenfalls Response-Funktionen und unterschiedliche Verteilungsannahmen der Response Variablen definiert werden \cite[p. 448]{fahrmeir2013regression}. Die Ausprägungswahrscheinlichkeiten für binäre Responses können in GAM demnach über eine logistische Response-Funktion (Formel \ref{logit}) modelliert werden. Unterschiedlich ist lediglich der Prädiktor (Formel \ref{SplinePraed}). Ebendies gilt für geordnete kategoriale Modelle. Als kumulative Verteilungsfunktion für Wahrscheinlichkeitsdichte $F$ ist im \textit{mgcv} Paket ebenfalls die logistische Transformationsfunktion implementiert \cite{wood2016}[p. 22].\\
 
-Bei räumlich expliziten Daten kann häufig nicht von der Unabhängigkeit der Beobachtungen ausgegangen werden. Wie die visuelle Interpretation der Rohdaten nahelegt (z. B. Abbildung \ref{BStuttgart21}) existiert räumliche Korrelation in den Daten. Das Modell lässt sich also voraussichtlich durch Hinzunahme eines räumlichen Efekts verbessern. Wenn räumliche Effekte in GAM berücksichtigt werden, spricht mal von geoadditiven Modellen. In dieser Arbeit wurden zwei unterschiedliche Methoden zur Berücksichtigung des räumlichen Effektes verwendet. Zunächst gingen die Gauß-Krüger Geokoordinaten $s_x$ und $s_y$ kontinuierlich in der Form
+Bei räumlich expliziten Daten kann häufig nicht von der Unabhängigkeit der Beobachtungen ausgegangen werden. Wie die visuelle Interpretation der Rohdaten nahelegt (z. B. Abbildung \ref{BStuttgart21}) zeigen räumlich nähere Beobachtungen mit höherer Wahrscheinlichkeit die gleiche Ausprägung als weiter entferntere. Es existiert offensichtlich räumliche Korrelation in den Daten. Das Modell lässt sich also voraussichtlich durch Hinzunahme eines räumlichen Effekts verbessern. Wenn in einem GAM räumliche Effekte berücksichtigt werden, spricht mal von einem geoadditiven Modellen \cite[p. 540]{fahrmeir2013regression}. In dieser Arbeit wurden zwei unterschiedliche Methoden zur Berücksichtigung des räumlichen Effektes verwendet. Zunächst gingen die Gauß-Krüger Geokoordinaten $s_x$ und $s_y$ kontinuierlich in der Form
 
 \begin{equation}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_{x_i},s_{y_i})
@@ -372,8 +374,7 @@ in den Prädiktor ein. $f_{spat}$ beschreibt hierbei \begin{equation}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_i)
 \end{equation}
 
-Analog zu den generalisierten linearen Modellen wird der Prädiktor beim GAM ebenfalls über die Response logistische Response-Funktion transformiert. Im Falle einer binären Response wird die Ausprägungswahrscheinlichkeit über eine logistische Response-Funktion
-Je nachdem, ob die Ausprägungswahrscheinlichkeiten für eine binäre oder geordnet kategorielle Response modelliert werden
+
 
 
 ocat, gam \cite{wood2016}
@@ -407,7 +408,7 @@ Modellbestandteile eingehen. In dieser Arbeit wird der Einfluss unterschiedliche
 \subsubsection{Reklassifizierung}
 
 \subsubsection{Konfidenzintervalle}
-Die Intervalle zu den Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punktschätzungen alleine keine Angaben zur Unsicherheit beinhalten. Das Konfidenzintervall gibt an, mit welcher Wahrscheinlichkeit die unbekannte wahre Punktschätzung von einer Konfidenzregion überdeckt wird. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten des Volksabstimmungsergebnisses \cite{Amt} zu berechnen. Grundsätzlich gibt es die Möglichkeiten die Intervalle entweder aus Modelleigenschaften abzuleiten oder Bootstrap-Intervalle durch wiederholte zufällige Modellreparametrisierungen und Punktschätzungen zu berechnen. Bei ersterem Vorgehen unterliegen die Intervallberechnungen, je nach gewählter Berechnungsmethode, asymptotischen Eigenschaften oder Verteilungsannahmen. So wird zur analytischen Berechnung von Score-Konfidenzintervallen \cite[p. 64 ff.]{held2008}, welche den Vorteil haben, dass sie invariant gegenüber eindeutigen Parametertransformationen sind, beispielsweise die Fischer-Information benötigt. Sie sind deshalb oft nur schwer analytisch zu berechnen \cite[p. 74]{held2008}. Andere Intervalle, wie bespielsweise das Wald-Konfidenzintervall, sind obligatorisch symmetrisch \cite[p. 60]{held2008} und werden der wahren Datenverteilung daher oft nicht gerecht. Bei beiden Intervallen hängt die tatsächliche Überdeckungswahrscheinlichkeit dea unbekannten wahren Parametera bei binärer Response Variable zudem von der Parameterausprägung sowie der Beobachtungsanzahl der Modellstichprobe ab und entspricht deshalb in ungünstigen Kombinationen nicht der nominellen, also der gewünschten Überdeckungswahrscheinlichkeit \cite{Int}. 
+Die Intervalle zu den Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punkt"-schätzungen alleine keine Angaben zur Unsicherheit beinhalten. Das Konfidenzintervall gibt an, mit welcher Wahrscheinlichkeit die unbekannte wahre Punktschätzung von einer Konfidenzregion überdeckt wird. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten des Volksabstimmungsergebnisses \cite{Amt} zu berechnen. Grundsätzlich gibt es die Möglichkeiten die Intervalle entweder aus Modelleigenschaften abzuleiten oder Bootstrap-Intervalle durch wiederholte zufällige Modellreparametrisierungen und Punktschätzungen zu berechnen. Bei ersterem Vorgehen unterliegen die Intervallberechnungen, je nach gewählter Berechnungsmethode, asymptotischen Eigenschaften oder Verteilungsannahmen. So wird zur analytischen Berechnung von Score-Konfidenzintervallen \cite[p. 64 ff.]{held2008}, welche den Vorteil haben, dass sie invariant gegenüber eindeutigen Parametertransformationen sind, beispielsweise die Fischer-Information benötigt. Sie sind deshalb oft nur schwer analytisch zu berechnen \cite[p. 74]{held2008}. Andere Intervalle, wie bespielsweise das Wald-Konfidenzintervall, sind obligatorisch symmetrisch \cite[p. 60]{held2008} und werden der wahren Datenverteilung daher oft nicht gerecht. Bei beiden Intervallen hängt die tatsächliche Überdeckungswahrscheinlichkeit dea unbekannten wahren Parametera bei binärer Response Variable zudem von der Parameterausprägung sowie der Beobachtungsanzahl der Modellstichprobe ab und entspricht deshalb in ungünstigen Kombinationen nicht der nominellen, also der gewünschten Überdeckungswahrscheinlichkeit \cite{Int}. 
 \\Bootstrap Konfidenzintervalle hingegen können für jede Form der statistischen Inferenz berechnet werden \cite{diciccio1996}. Da in dieser Arbeit Modelle mit unterschiedlichen Verteilungsannahmen und unterschiedlichen räumlichen Effekten vergleichen werden, bieteten es sich an auf die verteilungsunabhängigen Bootstrap-Intervallschätzungen zurückzugreifen. Von Interesse sind weniger die Intervalle um die Modellparameter als vielmehr die Intervalle um die Punktschätzungen, also die einzelnen Hochrechnungen. Dementsprechend wurden Bootstrap-Konfidenzintervalle für jede einzelne Punktschätzung berechnet. Zur Berechnung der Intervalle wurde jedes Modell 1.000 mal mit einer Zufallsstichprobe (\textit{Ziehen-mit-Zurücklegen}) aus der Parameterisierungsstichprobe reprametrisiert. Um den Einfluss des Stichprobenumfangs zu eliminieren, enthielt jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Mit jedem neuparametrisierten Modell wurde eine kleinräumige Extrapolation durchgeführt. Die Hochrechnungsergebnisse wurden genutzt um die arithmetischen Mittel, die Mediane sowie untere und obere 95 \% Perzentile der Punktschätzungen zu berechnen.
 
 \subsubsection{Kreuzvalidierung}
@@ -525,7 +526,7 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
 \multicolumn{2}{l|}{Klassifikation Modell}                                                        & \multicolumn{3}{c|}{\multirow{2}{*}{0,4905}} & \multicolumn{3}{c|}{\multirow{2}{*}{0,4928}} & \multicolumn{3}{c}{\multirow{2}{*}{0,4893}} \\
 \multicolumn{2}{l|}{Insgeasmt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline
 \multicolumn{11}{c}{Zwei Klassen}                                                                                                                                                                                                        \\ \hline
-                                                                         & \multicolumn{1}{l|}{}  & \multicolumn{3}{c}{Gauss-Krüger}             & \multicolumn{3}{c}{Bezirke}                  & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
+                                                                         & \multicolumn{1}{l|}{}  & \multicolumn{3}{c|}{Gauss-Krüger}             & \multicolumn{3}{c|}{Bezirke}                  & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
                                                                          & \multicolumn{1}{l|}{}  & \multicolumn{9}{c}{Geschätzte Klasse}                                                                                                \\
                                                                          & \multicolumn{1}{l|}{}  & 1       & \multicolumn{2}{c|}{2}             & 1       & \multicolumn{2}{c|}{2}             & 1           & \multicolumn{2}{c}{2}    \\ \hline
 Wahre                                                                    & \multicolumn{1}{l|}{1} & 0,747   & \multicolumn{2}{c|}{0,253}         & 0,732   & \multicolumn{2}{c|}{0,268}         & 0,748         & \multicolumn{2}{c}{0,252}    \\
@@ -541,7 +542,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 \centering
 \caption{Kreuzvalidierung der Bewertung der Wohngegend nach einzelnen Klassen}
 \label{KreuzBew}
-\begin{tabular}{lc|ccccccccccccccc}
+\begin{tabularx}{\textwidth}{lc|ccccccccccccccc}
 \hline \hline
 \multicolumn{1}{c}{}                                                     &   & \multicolumn{5}{c|}{Gauss-Krüger}              & \multicolumn{5}{c|}{Bezirke}                   & \multicolumn{5}{c}{Stadtteile}              \\ \cline{3-17} 
                                                                          &   & \multicolumn{15}{c}{Geschätzte Klasse}                                                                                                        \\
@@ -554,7 +555,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 \multicolumn{2}{l|}{Klassifik.}                                              & \multicolumn{5}{c|}{\multirow{3}{*}{0.4918}}   & \multicolumn{5}{c|}{\multirow{3}{*}{0,4704}}   & \multicolumn{5}{c}{\multirow{3}{*}{0,4594}} \\
 \multicolumn{2}{l|}{Modell}                                                  & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\
 \multicolumn{2}{l|}{Insgesamt}                                               & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\ \hline  \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis der Kreuzvalidierung für die Bewertung der Wohngegend ist, dass die Erfolgsquote zwischen ca. 46\% und 49\% liegt. Die Modelle mit Gauss-Krüger Informationen und Bezirken als räumlichen Effekten haben vergleichbar wie in der Reklassifizierung abgeschnitten. Das Modell mit den Stadtteilen hingegen weißt eine ca 5\% höhere Genauigkeit auf. Insgesamt jedoch behält das Modell mit den Gauss-Krüger Informationen die höchste Erfolgsrate. Auffällig ist auch hier, dass eine Klasse in keinem Modell Beobachtungen zugewiesen bekommen hat und zwei weitere Klassen in zwei von drei Modellen keine Beobachtungen zugewiesen bekommen haben. Abbildung \ref{endogene} gibt dabei einen Hinweis auf die Ursache dieses Phänomens, denn die Kategorien \textit{sehr gut} und \textit{gut} sind überproportional häufig im Datensatz vertreten im Vergleich zu den Klassen \textit{schlecht} und \textit{sehr schlecht}, weshalb schon durch die relative Häufigkeit die Wahrscheinlichkeit dass eine Beobachtungen in einer der letzten drei Kategorien ist, sehr klein wird. Bei der Bewertung der Wohngegend wurde am häufigsten die zweite Klasse sowohl richtig als auch falsch geschätzt.\\
@@ -567,37 +568,37 @@ Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Komb
 
 \begin{table}[h]
 \centering
-\caption{Vergleich der mittleren quadratischen Abweichung (MSE) und der Überdeckungswahrscheinlichkeit bei allen Prognosen aus den geschätzten Modellen und den beiden Extrapolationsdateien für die Meinung zu Stuttgart 21}
+\caption{Vergleich der mittleren quadratischen Abweichung (MSE) und der Überdeckungs"-wahrscheinlichkeit bei allen Prognosen aus den geschätzten Modellen und den beiden Extrapolationsdateien für die Meinung zu Stuttgart 21}
 \label{vali}
 \begin{tabular}{llll|cc|cc}
 \hline \hline
                         &                               &                          &   & \multicolumn{2}{c|}{MSE} & \multicolumn{2}{c}{Überdeckungswk.} \\
                         &                               &                          &   & Zustimmung  & Ablehnung  & Zustimmung        & Ablehnung       \\ \hline
-\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0,04        & 0,749      & 1                 & 0,043           \\
+\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & M & 0,04        & 0,749      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,116       & 0,557      & 0,391             & 0               \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Sadtt.}  & U & 0,461       & 5,708      & 0,954             & 0,139           \\
+                        &                               & \multirow{2}{*}{Sadtt.}  & M & 0,461       & 5,708      & 0,954             & 0,139           \\
                         &                               &                          & Z & 0,813       & 4,415      & 0,553             & 0,02            \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0,041       & 0,756      & 1                 & 0,043           \\
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & M & 0,041       & 0,756      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,117       & 0,562      & 0,522             & 0               \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,482       & 5,678      & 0,934             & 0,139           \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 0,482       & 5,678      & 0,934             & 0,139           \\
                         &                               &                          & Z & 0,835       & 4,38       & 0,567             & 0,027           \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,032      & 0,862     &      1             &   0,043          \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & M & 0,032      & 0,862     &      1             &   0,043          \\
                         &                               &                          & Z & 0,148       & 0,552      &     0,478         &     0 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,646       & 6,367       &   0,947           &   0,225  \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 0,646       & 6,367       &   0,947           &   0,225  \\
                         &                               &                          & Z & 1,078        & 4,336       &   0,66           &                0,1 \\ \hline
-\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & U & 0,312      & 0,312      &     0,826           &  0,826
+\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & M & 0,312      & 0,312      &     0,826           &  0,826
  \\
                         &                               &                          & Z & 0,152      & 0,152      &   0,522           &  0,522     \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,694       & 2,679     &   0,649          &  0,649   \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,694       & 2,679     &   0,649          &  0,649   \\
                         &                               &                          & Z & 1,581       & 1,569      &  0,46            &   0,46   \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0,312       & 0,312      &  0,826            &   0,826    \\
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & M & 0,312       & 0,312      &  0,826            &   0,826    \\
                         &                               &                          & Z & 0,153       & 0,153      &  0,565            &  0,565    \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,642       & 2,645      &  0,636           &   0,636    \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,642       & 2,645      &  0,636           &   0,636    \\
                         &                               &                          & Z & 1,527       & 1,513    &  0,433            &    0,44   
 \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,524       & 0,524      &   0,043          &    0,043 \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & M & 0,524       & 0,524      &   0,043          &    0,043 \\
                         &                               &                          & Z & 0,172       & 0,172      &     0,652        &     0,652 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,813        &  2,797      &  0,848     &  0,848 \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,813        &  2,797      &  0,848     &  0,848 \\
                         &                               &                          & Z & 1,758        & 1,746     &    0,693     &     0,713
                          \\ \hline \hline
 \end{tabular}
@@ -643,12 +644,11 @@ Zuletzt wurden die beiden besten Modelle genutzt um die Extrapolierten Anteile a
 Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein guter Vergleich mit den Anteilen des Parametrisierungsdatensatz (Abbildung \ref{XYWohnG5}, Abbildung \ref{BWohn}, Abbildung \ref{SWohn}) vorgenommen werden. Besonders interessant sind hier die Kategorien \textit{neutral}, \textit{schlecht} und \textit{sehr schlecht}. Aus Abbildung \ref{BWohn} geht z.B hervor, dass die höchsten Anteile dieser Klassen im Osten und teilweise im Norden lokalisiert werden können. Durch die Extrapolation konnten wir den Bereich nun genauer isolieren auf und um das Benzviertel herum. Hier scheinen die Bewohner Stuttgarts im Vergleich zum Rest der Stadt eher unzufrieden mit ihrer Wohngegend zu sein
 
 
-\clearpage
 \section{Diskussion}
 Die beiden Datensätze zur Grundgesamtheit stammen aus einer Melderegister mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
 
-
+\textcolor{red}{In Benzviertel und Wasen gibt es keine einzige Beob. im Param. D aber in beiden extrap. D. Hier ist die Wohnz. schlechter als umzu}\\
 Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 
 Ein \textit{B} von 1.000 erwies sich als ausreichend, da sich die Mittelwerte und Quantile bei einer Erhöhung kaum noch änderten.
