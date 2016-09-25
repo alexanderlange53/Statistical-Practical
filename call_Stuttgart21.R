@@ -166,14 +166,13 @@ variables <- c("Familienstand", "Nationalität", "Geschlecht")
 g2 <- ggplot.model(m1, variables = variables, param = T)
 ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
-<<<<<<< HEAD
+
 # Spatial Plots
 
-=======
 pdf('./Essay/Pictures/S21ModelEffects.pdf', height = 5, width = 8)
 grid.arrange(g1,g2, nrow = 2, ncol = 1, top = NULL)
 dev.off()
->>>>>>> a29ba7a2b77c18c52502d49674630efed936e31d
+
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
@@ -417,7 +416,7 @@ AIC(step.model.B$model.nospat)
 AIC(step.model.B$model.spatonly)
 
 summary(step.model.B$model.spat)
-#plot(step.model.B$model.spat, all = T)
+plot(step.model.B$model.spat, all = T)
 
 
 #---------------#
