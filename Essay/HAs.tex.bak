@@ -172,7 +172,7 @@ Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumliche
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/XYStuttgart3.png}
- \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in drei Gruppen. Quelle der Hintergrundgrafik: REF: Google Maps}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in drei Gruppen. Quelle der Hintergrundgrafik: \cite{google}}
  \label{XYStuttgart3}
  \end{center}
 \end{figure}
@@ -186,7 +186,7 @@ Abbildung \ref{XYWohnG5} zeigt die Dichte der Beobachtungen der fünf Kategorien
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/XYWohnG5.png}
- \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Wohnzufriedenheit in fünf Gruppen. Quelle der Hintergrundgrafik: REF: Google Maps}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Wohnzufriedenheit in fünf Gruppen. Quelle der Hintergrundgrafik: \cite{google}}
  \label{XYWohnG5}
  \end{center}
 \end{figure}
@@ -573,31 +573,31 @@ Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Komb
 \hline \hline
                         &                               &                          &   & \multicolumn{2}{c|}{MSE} & \multicolumn{2}{c}{Überdeckungswk.} \\
                         &                               &                          &   & Zustimmung  & Ablehnung  & Zustimmung        & Ablehnung       \\ \hline
-\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0,04        & 0,749      & 1                 & 0,043           \\
+\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & M & 0,04        & 0,749      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,116       & 0,557      & 0,391             & 0               \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Sadtt.}  & U & 0,461       & 5,708      & 0,954             & 0,139           \\
+                        &                               & \multirow{2}{*}{Sadtt.}  & M & 0,461       & 5,708      & 0,954             & 0,139           \\
                         &                               &                          & Z & 0,813       & 4,415      & 0,553             & 0,02            \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0,041       & 0,756      & 1                 & 0,043           \\
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & M & 0,041       & 0,756      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,117       & 0,562      & 0,522             & 0               \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,482       & 5,678      & 0,934             & 0,139           \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 0,482       & 5,678      & 0,934             & 0,139           \\
                         &                               &                          & Z & 0,835       & 4,38       & 0,567             & 0,027           \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,032      & 0,862     &      1             &   0,043          \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & M & 0,032      & 0,862     &      1             &   0,043          \\
                         &                               &                          & Z & 0,148       & 0,552      &     0,478         &     0 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,646       & 6,367       &   0,947           &   0,225  \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 0,646       & 6,367       &   0,947           &   0,225  \\
                         &                               &                          & Z & 1,078        & 4,336       &   0,66           &                0,1 \\ \hline
-\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & U & 0,312      & 0,312      &     0,826           &  0,826
+\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & M & 0,312      & 0,312      &     0,826           &  0,826
  \\
                         &                               &                          & Z & 0,152      & 0,152      &   0,522           &  0,522     \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,694       & 2,679     &   0,649          &  0,649   \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,694       & 2,679     &   0,649          &  0,649   \\
                         &                               &                          & Z & 1,581       & 1,569      &  0,46            &   0,46   \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0,312       & 0,312      &  0,826            &   0,826    \\
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & M & 0,312       & 0,312      &  0,826            &   0,826    \\
                         &                               &                          & Z & 0,153       & 0,153      &  0,565            &  0,565    \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,642       & 2,645      &  0,636           &   0,636    \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,642       & 2,645      &  0,636           &   0,636    \\
                         &                               &                          & Z & 1,527       & 1,513    &  0,433            &    0,44   
 \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,524       & 0,524      &   0,043          &    0,043 \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & M & 0,524       & 0,524      &   0,043          &    0,043 \\
                         &                               &                          & Z & 0,172       & 0,172      &     0,652        &     0,652 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,813        &  2,797      &  0,848     &  0,848 \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,813        &  2,797      &  0,848     &  0,848 \\
                         &                               &                          & Z & 1,758        & 1,746     &    0,693     &     0,713
                          \\ \hline \hline
 \end{tabular}
@@ -643,7 +643,6 @@ Zuletzt wurden die beiden besten Modelle genutzt um die Extrapolierten Anteile a
 Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein guter Vergleich mit den Anteilen des Parametrisierungsdatensatz (Abbildung \ref{XYWohnG5}, Abbildung \ref{BWohn}, Abbildung \ref{SWohn}) vorgenommen werden. Besonders interessant sind hier die Kategorien \textit{neutral}, \textit{schlecht} und \textit{sehr schlecht}. Aus Abbildung \ref{BWohn} geht z.B hervor, dass die höchsten Anteile dieser Klassen im Osten und teilweise im Norden lokalisiert werden können. Durch die Extrapolation konnten wir den Bereich nun genauer isolieren auf und um das Benzviertel herum. Hier scheinen die Bewohner Stuttgarts im Vergleich zum Rest der Stadt eher unzufrieden mit ihrer Wohngegend zu sein
 
 
-\clearpage
 \section{Diskussion}
 Die beiden Datensätze zur Grundgesamtheit stammen aus einer Melderegister mit 470.190 Beobachtungen und dem Zensus mit 380.238 Beobachtungen. Im Verhältnis zu den Grundgesamtheiten dieser Größenordnung sind 3143 Beobachtungen in der Stichprobe relativ gering, was eine gewisse Unsicherheit für die Extrapolation mit sich bringt [...].\\
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\

@@ -31,6 +31,11 @@ Georgii, H.-O. (2009).
   Statistik}.
 \newblock Walter de Gruyter.
 
+\bibitem[GoogleMaps, 2016]{google}
+GoogleMaps (2016).
+\newblock http://maps.googleapis.com/maps/api/staticmap?
+  center=48.778306,9.180159\&zoom=11\&size=640x640\&scale=2\&maptype=terrain\&language=en-en\&sensor=false.
+
 \bibitem[Held, 2008]{held2008}
 Held, L. (2008).
 \newblock {\em Methoden der statistischen {Inferenz}: {Likelihood} und
