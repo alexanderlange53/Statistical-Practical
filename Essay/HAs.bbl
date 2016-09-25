@@ -31,19 +31,10 @@ Georgii, H.-O. (2009).
   Statistik}.
 \newblock Walter de Gruyter.
 
-<<<<<<< HEAD
 \bibitem[{Google Maps}, 2016]{google}
 {Google Maps} (2016).
 \newblock http://maps.googleapis.com/maps/api/staticmap?
   center=48.778306,9.180159\&zoom=11\&size=640x640\&scale=2\&maptype=terrain\&language=en-en\&sensor=false.
-=======
-\bibitem[Gu and Wahba, 1993]{gu1993}
-Gu, C. and Wahba, G. (1993).
-\newblock Semiparametric {Analysis} of {Variance} with {Tensor} {Product}
-  {Thin} {Plate} {Splines}.
-\newblock {\em Journal of the Royal Statistical Society. Series B
-  (Methodological)}, 55(2):353--368.
->>>>>>> 54fcf4d978ac6b9ef02c1798af55578aa480a811
 
 \bibitem[Held, 2008]{held2008}
 Held, L. (2008).
