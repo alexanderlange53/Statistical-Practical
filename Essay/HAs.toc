@@ -18,8 +18,16 @@
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{15}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{16}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{18}{subsection.3.5}
+<<<<<<< HEAD
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{19}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{26}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{26}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{27}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{28}{section.5}
+=======
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{20}{subsection.3.6}
+\contentsline {section}{\numberline {4}Diskussion}{24}{section.4}
+\contentsline {section}{\numberline {5}Fazit}{24}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{25}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{26}{section.5}
+>>>>>>> c083a474db18d0b0e0f1d6fdcf2c5431b72b7df9

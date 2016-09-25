@@ -788,6 +788,6 @@ marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
 dev.off()
 
 ex <- ExtraPlot(S21.3.U.Ko.IntST[,c(1,11:13)], stadtteile, samescale = F)
-pdf('./Essay/Pictures/S21Extra.pdf', height = 7, width = 8)
-marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
+pdf('./Essay/Pictures/S21Extra.pdf', height = 4, width = 8)
+marrangeGrob(ex, nrow = 1, ncol = 3, top = NULL)
 dev.off()
