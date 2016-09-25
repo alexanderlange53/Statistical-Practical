@@ -6,10 +6,16 @@ Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "google" isn't style-file defined
 --line 103 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
+<<<<<<< HEAD
 --line 166 of file LiteraturStuttgart.bib.bib
+=======
+--line 156 of file LiteraturStuttgart.bib.bib
+Warning--I didn't find a database entry for "fahrmeir2013"
+>>>>>>> 285dc59225e1ff777b41f9fdae7d833346bd3ca2
 Warning--can't use both author and editor fields in held2008
 You've used 16 entries,
             1935 wiz_defined-function locations,
+<<<<<<< HEAD
             558 strings with 5666 characters,
 and the built_in function-call counts, 5215 in all, are:
 = -- 517
@@ -28,6 +34,26 @@ duplicate$ -- 221
 empty$ -- 377
 format.name$ -- 74
 if$ -- 1014
+=======
+            556 strings with 5511 characters,
+and the built_in function-call counts, 4979 in all, are:
+= -- 493
+> -- 161
+< -- 14
++ -- 51
+- -- 50
+* -- 377
+:= -- 897
+add.period$ -- 46
+call.type$ -- 15
+change.case$ -- 95
+chr.to.int$ -- 14
+cite$ -- 16
+duplicate$ -- 211
+empty$ -- 362
+format.name$ -- 71
+if$ -- 971
+>>>>>>> 285dc59225e1ff777b41f9fdae7d833346bd3ca2
 int.to.chr$ -- 2
 int.to.str$ -- 0
 missing$ -- 19
@@ -48,5 +74,9 @@ type$ -- 84
 warning$ -- 1
 while$ -- 46
 width$ -- 0
+<<<<<<< HEAD
 write$ -- 203
+=======
+write$ -- 193
+>>>>>>> 285dc59225e1ff777b41f9fdae7d833346bd3ca2
 (There were 3 warnings)
