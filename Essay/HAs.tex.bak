@@ -281,9 +281,6 @@ Im Rahmen der bundesweiten Volkszählung von 2011 wurde in Stuttgart eine Gebäu
 erhoben wurden, eignet sich diese Umfrage ebenfalls zur kleinräumige Extrapolation. Die diskreten geographischen 
 Angaben wurden analog zum Vorgehen beim Melderegister per geographischer Abfrage ergänzt. Für die kleinräumige Extrapolation kommen 
 die gleichen sozioökonomischen Variablen wie beim Melderegister in Frage. 
-\textcolor{red}{Wie in Tab. 2.: Habe die Namen angepasst. Anzahl Personenzahl und Alter umkodiert, also auch in Tabelle 
-ändern? Wir könnten sogar überlegen, die nicht verwendeten Variablen zu löschen. Wir gehen ja im Text nicht mehr auf 
-diese ein (gilt auch für Tab 2)}
 
 \begin{table}[h]
 \centering

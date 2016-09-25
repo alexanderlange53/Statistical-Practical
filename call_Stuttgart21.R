@@ -158,13 +158,17 @@ m1 <- step.model$model.spat
 
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
-ggplot.model(m1, variables = variables)
+g1 <- ggplot.model(m1, variables = variables)
 ggsave('./Essay/Pictures/S21GKnoParam.pdf', height = 2.5, width = 8)
 
 # Parametric Effects
 variables <- c("Familienstand", "Nationalität", "Geschlecht")
-ggplot.model(m1, variables = variables, param = T)
+g2 <- ggplot.model(m1, variables = variables, param = T)
 ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
+
+pdf('./Essay/Pictures/S21ModelEffects.pdf', height = 5, width = 8)
+grid.arrange(g1,g2, nrow = 2, ncol = 1, top = NULL)
+dev.off()
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
@@ -391,21 +395,17 @@ crossval(cv.B, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.B$model.spat
-plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
-x11()
-par(mfrow = c(2, 2))
-plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-#plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-#mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+visreg(m1, xvar = "Nationalität", type = 'conditional')
+# Non Parametric Effects
+variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
+ggplot.model(m1, variables = variables)
+ggsave('./Essay/Pictures/S21GKnoParam.pdf', height = 2.5, width = 8)
 
-dev.off()
+# Parametric Effects
+variables <- c("Familienstand", "Nationalität", "Geschlecht")
+ggplot.model(m1, variables = variables, param = T)
+ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
 AIC(step.model.B$model.spat)
 AIC(step.model.B$model.nospat)
