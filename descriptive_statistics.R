@@ -8,13 +8,17 @@ require(rgdal);require(rgeos);
 require(ggmap)
 
 # loading data
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Kai@Home'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv')
 } 
 if (bearbeiter == 'Kai@Work') {
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet.csv')
 }
+if (bearbeiter == 'Kai@Home') {
+  dataS <- read.csv2('/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Rohdaten/buergerumfrage_neu/Stuttgart21_aufbereitet.csv')
+}
+
 source('DataPrep.R')
 # Ordinal/Nominal Variables
 dataS2 <- DataPrep(dataS, binom = F)
