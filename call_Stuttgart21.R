@@ -154,16 +154,16 @@ if(calculate_model){
 ## Modelleffekte interpretieren ##
 #--------------------------------#
 ## GAM Plots ##
-model <- step.model$model.spat
+m1 <- step.model$model.spat
 
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
-ggplot.model(model, variables = variables)
+ggplot.model(m1, variables = variables)
 ggsave('./Essay/Pictures/S21GKnoParam.pdf', height = 2.5, width = 8)
 
 # Parametric Effects
 variables <- c("Familienstand", "Nationalität", "Geschlecht")
-ggplot.model(model, variables = variables, param = T)
+ggplot.model(m1, variables = variables, param = T)
 ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
 AIC(step.model$model.spat)
