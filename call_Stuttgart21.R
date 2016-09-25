@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -165,6 +165,9 @@ ggsave('./Essay/Pictures/S21GKnoParam.pdf', height = 2.5, width = 8)
 variables <- c("Familienstand", "Nationalität", "Geschlecht")
 ggplot.model(m1, variables = variables, param = T)
 ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
+
+# Spatial Plots
+
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
