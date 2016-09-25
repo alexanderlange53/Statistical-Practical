@@ -732,6 +732,43 @@ if(calc_CI) {
 
 
 # Insgesamter Vergleich aller geschätzter modelle mit 3 Klassen
+predlist <- list(W.5.U.Ko.IntSB[,-c(1,12:16)], W.5.Z.Ko.IntSB[,-c(1,12:16)],
+                 W.5.U.SB.IntSB[,-c(1,12:16)], W.5.Z.SB.IntSB[,-c(1,12:16)],
+                 W.5.U.ST.IntSB[,-c(1,12:16)], W.5.Z.ST.IntSB[,-c(1,12:16)])
+models <- c('1 Gauss-Krüger M.', '1 Gauss-Krüger Z.', 
+            '1 Bezirke M.', '1 Bezirke Z.',
+            '1 Stadteile M.',
+            '1 Stadteile Z.', 
+            '2 Gauss-Krüger M.', '2 Gauss-Krüger Z.', 
+            '2 Bezirke M.', '2 Bezirke Z.',
+            '2 Stadteile M.',
+            '2 Stadteile Z.', 
+            '3 Gauss-Krüger M.', '3 Gauss-Krüger Z.',
+            '3 Bezirke M.', '3 Bezirke Z.',
+            '3 Stadteile M.',
+            '3 Stadteile Z.', 
+            '4 Gauss-Krüger M.', '4 Gauss-Krüger Z.',
+            '4 Bezirke M.', '4 Bezirke Z.',
+            '4 Stadteile M.',
+            '4 Stadteile Z.',
+            '5 Gauss-Krüger M.', '5 Gauss-Krüger Z.', 
+            '5 Bezirke M.', '5 Bezirke Z.',
+            '5 Stadteile M.',
+            '5 Stadteile Z.')
+ResultPlot5(predlist = predlist, sample = sample, models = models)
+ggsave('./Essay/Pictures/WohngegendAlleModelle2.pdf', height = 5, width = 8)
+
+# Anteile
+colSums(W.5.U.Ko.IntSB[,17:21])/sum(W.5.U.Ko.IntSB[,17:21])*100
+colSums(W.5.U.SB.IntSB[,17:21])/sum(W.5.U.SB.IntSB[,17:21])*100
+colSums(W.5.U.ST.IntSB[,17:21])/sum(W.5.U.ST.IntSB[,17:21])*100
+
+ex <- ExtraPlot(W.5.U.Ko.IntST[,c(1,17:21)], stadtteile, samescale = T)
+pdf('./Essay/Pictures/BWohnExtra.pdf', height = 7, width = 8)
+marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
+dev.off()
+
+# Insgesamter Vergleich aller geschätzter modelle ohen Aggregate
 predlist <- list(W.5.U.Ko.IntSB[,-c(1,12:16)], W.5.Z.Ko.IntSB[,-c(1,12:16)], W.5.U.Ko.IntST[,-c(1,12:16)],
                  W.5.Z.Ko.IntST[,-c(1,12:16)], W.5.U.SB.IntSB[,-c(1,12:16)], W.5.Z.SB.IntSB[,-c(1,12:16)],
                  W.5.U.SB.IntST[,-c(1,12:16)], W.5.Z.SB.IntST[,-c(1,12:16)], W.5.U.ST.IntSB[,-c(1,12:16)], W.5.Z.ST.IntSB[,-c(1,12:16)],
@@ -758,13 +795,3 @@ models <- c('1 G-K auf Bezirke Umfr.', '1 G-K auf Bezirke Zen.', '1 G-K auf S.Te
             '5 S.Teile auf Bezirke Zen.', '5 S.Teile auf S.Teile Umfr.', '5 S.Teile auf S.Teile Zen.')
 ResultPlot5(predlist = predlist, sample = sample, models = models)
 ggsave('./Essay/Pictures/WohngegendAlleModelle2.pdf', height = 8, width = 8)
-
-# Anteile
-colSums(W.5.U.Ko.IntSB[,17:21])/sum(W.5.U.Ko.IntSB[,17:21])*100
-colSums(W.5.U.SB.IntSB[,17:21])/sum(W.5.U.SB.IntSB[,17:21])*100
-colSums(W.5.U.ST.IntSB[,17:21])/sum(W.5.U.ST.IntSB[,17:21])*100
-
-ex <- ExtraPlot(W.5.U.Ko.IntST[,c(1,17:21)], stadtteile, samescale = T)
-pdf('./Essay/Pictures/BWohnExtra.pdf', height = 7, width = 8)
-marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
-dev.off()

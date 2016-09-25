@@ -782,12 +782,32 @@ colSums(S21.3.U.Ko.IntSB[,11:13])/sum(S21.3.U.Ko.IntSB[,11:13])*100
 colSums(S21.3.U.SB.IntSB[,11:13])/sum(S21.3.U.SB.IntSB[,11:13])*100
 colSums(S21.3.U.ST.IntSB[,11:13])/sum(S21.3.U.ST.IntSB[,11:13])*100
 
-ex <- ExtraPlot(W.5.U.Ko.IntSB[,c(1,17:21)], stadtteile)
-pdf('./Essay/Pictures/BWohnExtra.pdf', height = 7, width = 8)
-marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
-dev.off()
-
 ex <- ExtraPlot(S21.3.U.Ko.IntST[,c(1,11:13)], stadtteile, samescale = F)
 pdf('./Essay/Pictures/S21Extra.pdf', height = 4, width = 8)
 marrangeGrob(ex, nrow = 1, ncol = 3, top = NULL)
 dev.off()
+
+# Extrapolierte Anteile ohne Aggregate
+predlist <- list(S21.3.U.Ko.IntSB[,-c(1,8,9,10)], S21.3.Z.Ko.IntSB[,-c(1,8,9,10)], 
+                 S21.3.U.SB.IntSB[,-c(1,8,9,10)], S21.3.Z.SB.IntSB[,-c(1,8,9,10)],
+                 S21.3.U.ST.IntSB[,-c(1,8,9,10)], S21.3.Z.ST.IntSB[,-c(1,8,9,10)])
+models <- c('1 Gauss-Krüger M.', '1 Gauss-Krüger auf Z.', 
+            '1 Bezirke M.', '1 Bezirke Z.',
+            '1 Stadtteile M.',
+            '1 Stadtteile Z.', 
+            '2 Gauss-Krüger M.', '2 Gauss-Krüger Z.', 
+            '2 Bezirke M.', '2 Bezirke Z.',
+            '2 Stadtteile M.',
+            '2 Stadteile Z.', 
+            '3 Gauss-Krüger M.', '3 Gauss-Krüger Z.', 
+            '3 Bezirke M.', '3 Bezirke Z.',
+            '3 Stadteile M.',
+            '3 Stadteile Z.')
+ResultPlot(predlist = predlist,  sample = sample, 
+           models = models)
+ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 3.5, width = 8)
+
+# Extrapolierte Anteile
+colSums(S21.3.U.Ko.IntSB[,11:13])/sum(S21.3.U.Ko.IntSB[,11:13])*100
+colSums(S21.3.U.SB.IntSB[,11:13])/sum(S21.3.U.SB.IntSB[,11:13])*100
+colSums(S21.3.U.ST.IntSB[,11:13])/sum(S21.3.U.ST.IntSB[,11:13])*100
