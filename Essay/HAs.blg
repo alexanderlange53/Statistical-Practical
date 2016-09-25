@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: HAs.aux
 The style file: apalike.bst
@@ -6,45 +6,45 @@ Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
 --line 156 of file LiteraturStuttgart.bib.bib
 Warning--can't use both author and editor fields in held2008
-You've used 14 entries,
+You've used 15 entries,
             1935 wiz_defined-function locations,
-            554 strings with 5490 characters,
-and the built_in function-call counts, 4643 in all, are:
-= -- 458
-> -- 154
-< -- 13
-+ -- 48
-- -- 48
-* -- 349
-:= -- 838
-add.period$ -- 43
-call.type$ -- 14
-change.case$ -- 89
+            555 strings with 5499 characters,
+and the built_in function-call counts, 4979 in all, are:
+= -- 493
+> -- 161
+< -- 14
++ -- 51
+- -- 50
+* -- 377
+:= -- 897
+add.period$ -- 46
+call.type$ -- 15
+change.case$ -- 95
 chr.to.int$ -- 14
-cite$ -- 15
-duplicate$ -- 197
-empty$ -- 335
-format.name$ -- 68
-if$ -- 906
-int.to.chr$ -- 1
+cite$ -- 16
+duplicate$ -- 211
+empty$ -- 362
+format.name$ -- 71
+if$ -- 971
+int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 18
-newline$ -- 73
-num.names$ -- 42
-pop$ -- 84
+missing$ -- 19
+newline$ -- 78
+num.names$ -- 45
+pop$ -- 87
 preamble$ -- 1
-purify$ -- 94
+purify$ -- 100
 quote$ -- 0
-skip$ -- 154
+skip$ -- 164
 stack$ -- 0
-substring$ -- 269
-swap$ -- 23
+substring$ -- 297
+swap$ -- 24
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 72
+type$ -- 78
 warning$ -- 1
-while$ -- 40
+while$ -- 44
 width$ -- 0
-write$ -- 180
+write$ -- 193
 (There were 2 warnings)

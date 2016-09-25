@@ -72,7 +72,7 @@
 \pagestyle{fancy}
 
 \section{Einleitung}
-Die Grundgesamtheit dieser &Untersuchung ist die Bevölkerung Stuttgarts.
+Die Grundgesamtheit dieser Untersuchung ist die Bevölkerung Stuttgarts.
 Fragestellungen: Wie ist die Wohnzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? Kleinräumige Extrapolation
 
 Obwohl die Formulierung \textit{nicht-parametrisch} für den in dieser Arbeit verwendeten Spline-Typ mathematisch unpräzise ist \cite[p. 1]{eilers1996}, wird sie, wie in der Literatur üblich, synonym für \textit{semiparametrisch} verwendet.
@@ -97,9 +97,9 @@ einige Gruppenausprägungen demnach umkodiert werden. Die Umkodierungen können 
 \subsubsection{Parametrisierungsstichprobe}
 Mit den Datensätzen der Parametrisierungsstichprobe (Tabelle \ref{Datensatz}) werden die Modelle für die kleinräumige 
 Extrapolation parametrisiert. Bei dieser Umfrage handelt es sich um eine Befragung aus dem Jahr 2015 zur Lebensqualität 
-der Einwohner Stuttgarts bei der unter anderem die Bewertugn der Wohnsituation und die Meinugn zu Stuttgart 21 abgefragt 
+der Einwohner Stuttgarts bei der unter anderem die Bewertung der Wohnsituation und die Meinung zu Stuttgart 21 abgefragt 
 wurden \cite{Stuttgart2015}. Insgesamt standen 8 sozioökonomische Variablen und Angaben zur räumlichen Lage zur 
-Verfügung. Von jedem Datensatz waren stetige räumliche Lage als Gauss-Krüger Geokoordinate sowie die diskrete räumliche 
+Verfügung. Von jedem Datensatz waren stetige räumliche Lage als Gauß-Krüger Geokoordinate sowie die diskrete räumliche 
 Lage im Stadtteil und Stadtbezirk bekannt.\\
 
 \begin{table}[h]
@@ -317,33 +317,33 @@ diese ein (gilt auch für Tab 2)}
 \subsection{Statistische Methoden}
 
 \subsubsection{Geoadditive Modelle}
-Bei allen zu modellierenden endogenen Variablen handelt es sich um kategoriale Variablen. Ziel der Modellierung ist es also die Ausprägungswahrscheinlichkeit der einzelnen Kategorien vorherzusagen. Da negative Wahrscheinlichkeiten sowie Wahrscheinlichkeiten über 1 nicht sinnvoll interpretierbar sind, muss sichergestellt sein, dass die endogene Variable des Regressionsmodells nur stetige Werte zwischen 0 und 1 einnehmen kann. Einfache lineare Regressionsmodelle sind demnach für die Modellierung ungeeignet. Des Weiteren weisen kategoriale Regressionsmodelle häufig keine Normalverteilung auf \cite[p. 277]{fahrmeir2013regression}. Für die Fragestellung dieser Arbeit kommen demnach nur Regressionsmodelle in Frage, welche eine Modellierung von Wahrscheinlichkeiten im genannten Wertebereich sicherstellen und unterschiedliche Verteilungsannahmen der endogenen Variablen ermöglichen. Im Gegensatz zu einfachen linearen Regression kann der lineare Prädiktor
+Allen zu modellierenden endogenen Variablen sind kategoriale Merkmale. Ziel der Modellierung ist also  die Ausprägungswahrscheinlichkeit dieser Kategorien vorherzusagen. Da negative Wahrscheinlichkeiten sowie Wahrscheinlichkeiten über 1 nicht sinnvoll interpretierbar sind, muss demnach sichergestellt sein, dass die endogene Variable des Regressionsmodells nur stetige Werte zwischen 0 und 1 einnehmen kann. Da sich diese Vorgabe mit einfachen linearen Regressionsmodellen normalerweise nicht einhalten lässt, sind diese folglich für die Fragestellung dieser Arbeit ungeeignet. Des Weiteren weisen kategoriale Regressionsmodelle häufig keine Normalverteilung auf \cite[p. 277]{fahrmeir2013regression}, was zusätzlich gegen einfache lineare Modelle mit ordinärer kleinste-Quadrate-Schätzung spricht. Im Gegensatz zu einfachen linearen Regression kann der lineare Prädiktor
 
 
 \begin{equation} \label{linPraed}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}
 \end{equation}
 
-in generalisierten linearen Modellen (GLM) über eine Response-Funktion $h$ transformiert werden. Die Wahl der Response-Funktion hängt von der Fragestellung und von der Skalierung der Response-Variable ab. $h$ kann jede monoton ansteigende Funktion sein. Um den gewünschten gewünschten Wertebereichs zwischen 0 und 1 sicherzustellen wird der lineare Prädiktor bei kategorialen Regressionen häufig über eine logistische Response-Funktion transformiert. Im Falle einer binären Response-Variablen ergibt sich durch die logistische Transformation nach \cite[p. 270 f.]{fahrmeir2013regression} das binäre Logit Modell
+in generalisierten linearen Modellen (GLM) über eine Response-Funktion $h$ transformiert werden. Die Response-Variable hängt demnach nicht mehr direkt von einer linearen Kombination der Modellkovariablen, sondern von deren Transformation ab. Die Wahl der Response-Funktion hängt von der Fragestellung und von der Skalierung der Response-Variable ab. $h$ kann jede monoton ansteigende Funktion sein. Um den gewünschten gewünschten Wertebereichs zwischen 0 und 1 sicherzustellen wird der lineare Prädiktor bei kategorialen Regressionen häufig über eine logistische Response-Funktion transformiert. Im Falle einer binären Response-Variablen ergibt sich durch die logistische Transformation nach \cite[p. 270 f.]{fahrmeir2013regression} das binäre Logit Modell
 
 \begin{equation}
 h(\eta)=\frac{\exp(\eta)}{1+\exp(\eta)},
 \end{equation}
 
 wobei die Response nach der Transformation einer Bernoulli Verteilung folgt. Durch Datengruppierung kann die Rechenzeit reduziert werden. Die absoluten Gruppenhäufigkeiten folgen dann einer Binomial- und die relativen Gruppenhäufigkeiten skalierten Binomialverteilung \cite[p. 277 f.]{fahrmeir2013regression}.\\
-Bei ordinalskalierter Response kann die Reihenfolge der Ausprägung explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Dem kumulativen Modell unterliegt die Annahme, dass für jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit bestimmt.  Dem Modell unterliegt die Annahme, dass diese latente Variable durch einen linearen Prädiktor
+In einem kumulativen Modell kann die Reihenfolge der Ausprägungen einer ordinalskalierten Response explizit berücksichtigt werden \cite[p.334 ff.]{fahrmeir2013regression}. Dem kumulativen Modell unterliegt die Annahme, dass in jeden Datensatz eine kontinuierliche (unbekannte) latente Variable $u_i$ existiert, deren Ausprägung die Kategoriezugehörigkeit dieser Beobachtung bestimmt. Dem Modell unterliegt des Weiteren die Annahme, dass diese latente Variable durch einen linearen Prädiktor
 
 \begin{equation}
 u_i=-\mathbf{x}'_i \boldsymbol{\tilde{\beta}}+\varepsilon
 \end{equation}
 
-über die Modellkovariablen vorhergesagt werden kann. Ein Datensatz zeigt die Ausprägung $r$, wenn ihre latente Variable zwischen den Schwellenwerten $\theta_{r-1}$ und $\theta_r$ liegt. Um sicherzustellen, dass diese Schwellenwerte identifizierbar sind, hat der lineare selbst keinen Intercept. Wie zuvor im binären Fall, wird der lineare Prädiktor über eine kumulative Verteilungsfunktion transformiert. Über die Verteilung $F$ des Fehlers des linearen Prädiktors  $\varepsilon_i$ um die latente Variable $u_i$ kann die Wahrscheinlichkeit jeder Kategorie der Response-Variablen als 
+über die Modellkovariablen vorhergesagt werden kann. Ein Datensatz zeigt die Ausprägung $r$, wenn ihre latente Variable zwischen den Schwellenwerten $\theta_{r-1}$ und $\theta_r$ liegt. Um sicherzustellen, dass diese Schwellenwerte identifizierbar sind, hat der lineare Prädiktor selbst keinen Intercept. Wie zuvor im binären Fall, wird der lineare Prädiktor über eine kumulative Verteilungsfunktion transformiert. Über die Verteilung $F$ des Fehlers des linearen Prädiktors  $\varepsilon_i$ um die latente Variable $u_i$ kann die Wahrscheinlichkeit jeder Kategorie der Response-Variablen als 
 
 \begin{equation}
 P(y_i=r)=F(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})-F(\theta_{r-1}+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})
 \end{equation}
 
-berechnet werden. Da es sich um geordnete Kategorien handelt, muss für die Wahrscheinlichkeit der Gruppenzugehörigkeit zu $r$ nur die Wahrscheinlichkeitsdichte zwischen den Schwellenwerten $\theta_{r}$ und $\theta_{r-1}$ berechnet werden. Wenn die in der Literatur vorgeschlagene logistische Transformation gewählt wird \cite[p. 335]{fahrmeir2013regression}, ergibt sich das kumulatives Logit Modell
+berechnet werden. Da es sich um geordnete Kategorien handelt, muss zur Berechnung der Wahrscheinlichkeit der Zugehörigkeit zur Gruppe $r$ nur die Wahrscheinlichkeitsdichte zwischen den Schwellenwerten $\theta_{r}$ und $\theta_{r-1}$ berechnet werden. Wenn die in der Literatur vorgeschlagene logistische Transformation gewählt wird \cite[p. 335]{fahrmeir2013regression}, ergibt sich demnach das kumulative Logit Modell
 
 \begin{equation}
 P(y_i\leq r)=\frac{\exp(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}})}{\exp(1+\exp(\theta_r+\mathbf{x}'_i \boldsymbol{\tilde{\beta}}))}.
@@ -356,19 +356,20 @@ In generalisierten additiven Modellen (GAM) können lineare und nichtlineare Eff
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})
 \end{equation}
 
-GAM bieten sich also immer an, wenn lineare und nichtlineare Kovariableneffekte in einem Modell berücksichtigt werden sollen oder wenn die genauen Formen der Effekte unbekannt sind. Zur Modellierung der univariaten nichtlinearen Effekte dieser Arbeit wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Das Modell setzt sich also aus einer großen Zahl abstrakter Variablen zusammen, die keine direkte Interpretation zulassen \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt der eigentliche Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen zum Teil aufwendig über Modellauswahlstrategien hergeleitet werden müssen, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penalisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression}, zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben erfordern und die Rechenzeit gering ist.\\
+GAM bieten sich also immer an, wenn lineare und nichtlineare Kovariableneffekte in einem Modell berücksichtigt werden sollen oder wenn die genauen Formen der Effekte unbekannt sind. Zur Modellierung der univariaten nichtlinearen Effekte dieser Arbeit wurden penalisierte Basissplines (P-Splines) verwendet \cite{eilers1996}. Dieser Spline-Typ ist der Gruppe der semiparametrischen Modelle zuzuordnen, da die Spline-Kurve, im Gegensatz zu z. B. Kernel-Regressionen, über zusammengesetzte Polynome konstruiert wird. Das Modell setzt sich also aus einer großen Zahl abstrakter Variablen zusammen, die keine direkte Interpretation zulassen \cite[p. 1]{eilers1996}. Basissplines (B-Splines) haben gegenüber anderen Spline-Typen, wie z. B. \textit{TP-Splines}, numerische Vorteile da die Regressionsparameter relativ kleine Werte annehmen und die abschnittsweisen Polynome untereinander weniger stark korrelliert sind \cite[p. 426]{fahrmeir2013regression}. B-Splines können über die Methode der kleinsten Quadrate gelöst werden \cite[p. 430]{fahrmeir2013regression} und benötigen daher verhältnismäßig wenig Rechenzeit. Die Qualität der Anpassung eines polynomischen Splines hängt maßgeblich von Anzahl und Lage der Übergänge (Knoten) der zusammengesetzten Polynome ab. Hier liegt ein weiterer Vorteil der B-Splines. Während die optimale Glättung bei anderen Spline-Typen zum Teil aufwendig über Modellauswahlstrategien hergeleitet werden muss, kann bei B-Splines eine relativ simple Penalisierung definiert werden \cite[p. 89 f.]{eilers1996}. Hierzu wird zunächst ein sehr flexibles Modell mit einer großen Anzahl Spline-Basen definiert, welches ex-post über den Penalisierungsterm geglättet wird. Die Krümmung von zweifach differenzierbaren Funktionen kann über das Integral der zweiten Ableitung ermittelt werden. Bei B-Splines kann dieses Integral einfach über die quadrierten zweiten Abweichungen der Spline Funktion approximiert werden \cite[p. 433]{fahrmeir2013regression}. Die penalisierte Spline Kurve (P-Spline) kann daher über die penalisierte Methode der kleinsten Quadrate geschätzt werden. In die Schätzung gehen nur die Rohdaten und der Glättungsparameter $\lambda$ ein \cite[p. 93]{eilers1996}. Über $\lambda$ kann der Trade-Off zwischen Glättung und Anpassung eingestellt werden. Das R Paket \texttt{mgcv} \cite{Wood2011} liefert zudem unterschiedliche Möglichkeiten $\lambda$ auf Grundlage der Eingangsdaten, z. B. per \textit{generalisierter Kreuzvalidierung} \cite[p. 480]{fahrmeir2013regression} oder \textit{Restricted Maximum Likelihood} \cite{wood2011b} und \cite[p. 32 f.]{wood2016}, zu optimieren. P-Splines sind demnach sehr komfortabel anzuwenden da sie außer den Eingangsdaten keine Benutzereingaben erfordern und die Rechenzeit gering ist.\\
+Analog zu GLM können die Prädiktoren in GAM ebenfalls durch eine Response-Funktion transformiert werden, um bestimmte Modelleigenschaften zu erzwingen.
 
 Bei räumlich expliziten Daten kann häufig nicht von der Unabhängigkeit der Beobachtungen ausgegangen werden. Wie die visuelle Interpretation der Rohdaten nahelegt (z. B. Abbildung \ref{BStuttgart21}) existiert räumliche Korrelation in den Daten. Das Modell lässt sich also voraussichtlich durch Hinzunahme eines räumlichen Efekts verbessern. Wenn räumliche Effekte in GAM berücksichtigt werden, spricht mal von geoadditiven Modellen. In dieser Arbeit wurden zwei unterschiedliche Methoden zur Berücksichtigung des räumlichen Effektes verwendet. Zunächst gingen die Gauß-Krüger Geokoordinaten $s_x$ und $s_y$ kontinuierlich in der Form
 
-\begin{equation} \label{SplinePraed}
+\begin{equation}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_{x_i},s_{y_i})
 \end{equation}
 
-in den Prädiktor ein. $f_{spat}$ beschreibt hierbei \begin{equation} \label{SplinePraed}
+in den Prädiktor ein. $f_{spat}$ beschreibt hierbei \begin{equation}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_x,s_y)
 \end{equation}
 
-\begin{equation} \label{SplinePraed}
+\begin{equation}
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_i)
 \end{equation}
 
