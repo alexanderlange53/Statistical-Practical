@@ -8,8 +8,8 @@
 \contentsline {subsection}{\numberline {2.2}Statistische Methoden}{9}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Geoadditive Modelle}{9}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Schrittweise AIC}{12}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{13}{subsubsection.2.2.3}
-\contentsline {subsubsection}{\numberline {2.2.4}Konfidenzintervalle}{13}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{12}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Konfidenzintervalle}{12}{subsubsection.2.2.4}
 \contentsline {subsubsection}{\numberline {2.2.5}Kreuzvalidierung}{13}{subsubsection.2.2.5}
 \contentsline {subsubsection}{\numberline {2.2.6}Validierung}{14}{subsubsection.2.2.6}
 \contentsline {section}{\numberline {3}Ergebnisse}{14}{section.3}
@@ -18,16 +18,8 @@
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{15}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{16}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{18}{subsection.3.5}
-<<<<<<< HEAD
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{19}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{24}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{24}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{25}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{27}{section.5}
-=======
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{20}{subsection.3.6}
-\contentsline {section}{\numberline {4}Diskussion}{24}{section.4}
-\contentsline {section}{\numberline {5}Fazit}{24}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{25}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{26}{section.5}
->>>>>>> 54fcf4d978ac6b9ef02c1798af55578aa480a811
