@@ -31,6 +31,13 @@ Georgii, H.-O. (2009).
   Statistik}.
 \newblock Walter de Gruyter.
 
+\bibitem[Gu and Wahba, 1993]{gu1993}
+Gu, C. and Wahba, G. (1993).
+\newblock Semiparametric {Analysis} of {Variance} with {Tensor} {Product}
+  {Thin} {Plate} {Splines}.
+\newblock {\em Journal of the Royal Statistical Society. Series B
+  (Methodological)}, 55(2):353--368.
+
 \bibitem[Held, 2008]{held2008}
 Held, L. (2008).
 \newblock {\em Methoden der statistischen {Inferenz}: {Likelihood} und
@@ -62,15 +69,14 @@ Wickham, H. (2009).
 \newblock {\em ggplot2: Elegant Graphics for Data Analysis}.
 \newblock Springer-Verlag New York.
 
-\bibitem[Wood, 2011a]{Wood2011}
-Wood, S.~N. (2011a).
-\newblock Fast stable restricted maximum likelihood and marginal likelihood
-  estimation of semiparametric generalized linear models.
+\bibitem[Wood, 2003]{wood2003}
+Wood, S.~N. (2003).
+\newblock Thin plate regression splines.
 \newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
-  Methodology)}, 73(1):3--36.
+  Methodology)}, 65(1):95--114.
 
-\bibitem[Wood, 2011b]{wood2011b}
-Wood, S.~N. (2011b).
+\bibitem[Wood, 2011]{Wood2011}
+Wood, S.~N. (2011).
 \newblock Fast stable restricted maximum likelihood and marginal likelihood
   estimation of semiparametric generalized linear models.
 \newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
