@@ -1,9 +1,36 @@
+# Ausführen von 'call_Stuttgart21' bis Zeile 404
 
-plot(m1, select = 1, scheme="heat")
+tt <- plot(m1, select = 1)
+dat <- data.frame(coef = tt[[1]]$fit, region = as.character(levels(tt[[1]]$raw)))
 
-tt[[1]]
 
-m1[["smooth"]][[1]]$S
+require(colorspace)
+
+  geo <- bezirke # Hier Wahl Bez./ST
+  colo <- diverge_hsv(3)
+  
+  # Merge: Geo, gam coef.
+  geo@data <- merge(geo@data, dat, by.x = "STADTBEZIR", by.y = "region")
+  
+  
+  # Plotten 
+  ggplot(data=b.facet, aes(x=long, y=lat, group=group, fill = value, alpha = value))+  
+    geom_polygon(color = "black") +
+    labs(x=NULL, y=NULL, title= NULL) +
+    scale_fill_gradient(name = "Anteil \n in %", low = colo[2], high = 'darkblue', guide = "colorbar",
+                        breaks = pretty_breaks(n = 5)) +
+    scale_alpha(range = c(0.8,1), guide=FALSE) +
+    coord_equal(1)+
+    theme_bw(12) +
+    theme(
+      legend.position = 'bottom'
+      ,axis.text.x=element_blank()
+      ,axis.text.y=element_blank()
+      ,axis.ticks.y=element_blank()
+      ,axis.ticks.x=element_blank()
+    ) + facet_wrap(~ variable)
+
+
 
 spat.plot.cont <- function(m1) {
 # Call Stuttgart21 ausführen bis Z. 158
@@ -23,6 +50,7 @@ rownames(mat) <- tt[[1]]$y
 ggmat <- as.data.frame(melt(mat))
 names(ggmat) <- c("y", "x", "coef")
 
+attr(m1$smooth[[1]], "qrc")
 
 # Idea 1: ggplot
 ret.plot <- ggplot(ggmat, aes(x = x, y = y, fill = coef), show.legend = FALSE) + geom_tile() + 
