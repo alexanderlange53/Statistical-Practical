@@ -685,9 +685,16 @@ lay <- c(c(1,2,3),
          c(1,2,3),
          c(1,2,3))
 
+<<<<<<< HEAD
 spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1,layout_matrix = lay)
 pdf('./Essay/Pictures/S21_3_all_spat_eff.pdf')
 spa.p.all
+=======
+spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
+
+pdf('./Essay/Pictures/x.pdf')
+grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
+>>>>>>> b1ca3cc66d3c67931336ebf30e98c1012966fe83
 dev.off()
 
 #---------------#
