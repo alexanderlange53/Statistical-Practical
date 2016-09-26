@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -83,6 +83,7 @@ source('PredBarPlot.R')
 source('validation.R')
 source('SpatialPlots.R')
 source('PlotModel.R')
+source('spat_effect_plot.R')
 
 #--------------------------------#
 # Daten einlesen und vorbereiten #
@@ -175,6 +176,14 @@ g2 <- ggplot(smooths, aes(x, smooth)) + geom_hline(yintercept = 0, color = 'red'
 pdf('./Essay/Pictures/BWModelEffects.pdf', height = 4, width = 8)
 grid.arrange(g1,g2, nrow = 2, ncol = 1, top = NULL)
 dev.off()
+
+
+# Spat- Effect #
+spat.p.c <- spat.plot.cont(m1)
+pdf('./Essay/Pictures/W_5_Kont_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.c
+dev.off()
+
 
 AIC(step.model.Bewertung.5$model.spat)
 AIC(step.model.Bewertung.5$model.nospat)
