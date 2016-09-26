@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -151,12 +151,26 @@ if(calculate_model){
   step.model <- readRDS(file = "./Model_Results/step.model_all.rds")
 }
 
+model.i <- c(  's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter)', 
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter)', 
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität + Familienstand',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität + Familienstand + s(Altersklasse.Befragter, bs = "ps")',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität + Familienstand',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität + Familienstand + Personenzahl.im.Haushalt + s(Altersklasse.Befragter, bs = "ps")',
+               's(Spat) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter) + Geschlecht + Nationalität + Familienstand + s(Altersklasse.Befragter, bs = "ps")')
+aic.i <-c(6456.846, 6408.784, 6456.846, 6390.473, 6381.882, 6390.473, 6379.428, 6381.882, 6379.428, 6381.882, 6379.345, 6379.428)
+AIC.it.S21.3 <- data.frame(model.i, aic.i)
+
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model$model.spat
-
+plot(m1, all = T)
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
 g1 <- ggplot.model(m1, variables = variables)
