@@ -15,19 +15,10 @@
 \contentsline {section}{\numberline {3}Ergebnisse}{15}{section.3}
 \contentsline {subsection}{\numberline {3.1}Modell}{15}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Schrittweise AIC}{15}{subsection.3.2}
-<<<<<<< HEAD
-\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{16}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{17}{subsection.3.4}
-=======
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{17}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{18}{subsection.3.4}
-<<<<<<< HEAD
+\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{19}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{20}{subsection.3.5}
-=======
->>>>>>> 3320c3f351cfae3bd928d922fd3ce0c31f0ffa90
-\contentsline {subsection}{\numberline {3.5}Validierung}{19}{subsection.3.5}
->>>>>>> eebf5334a6230c45c5d10886a8e2e3242b772496
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{21}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{22}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{26}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{26}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{27}{section.5}
