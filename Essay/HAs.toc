@@ -16,7 +16,7 @@
 \contentsline {subsection}{\numberline {3.1}Modell}{15}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Schrittweise AIC}{15}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{16}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{18}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{17}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{19}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{21}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{25}{section.4}
