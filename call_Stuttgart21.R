@@ -376,6 +376,8 @@ if(calculate_model){
   step.model.B <- readRDS(file = "./Model_Results/step.model_all_B.rds")
 }
 
+plot(step.model.B$model.spat, all = TRUE, pages = 1)
+plot(step.model$model.spat, all = TRUE, pages = 1)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
@@ -415,6 +417,10 @@ crossval(cv.B, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.B$model.spat
+
+tt <- plot(m1, all = TRUE)
+
+str(tt)
 
 visreg(m1, xvar = "Nationalität", type = 'conditional')
 # Non Parametric Effects
