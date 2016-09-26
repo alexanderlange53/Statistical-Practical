@@ -8,15 +8,17 @@ require(colorspace)
 
   geo <- bezirke # Hier Wahl Bez./ST
   colo <- diverge_hsv(3)
-  
-  # Merge: Geo, gam coef.
-  geo@data <- merge(geo@data, dat, by.x = "STADTBEZIR", by.y = "region")
-  
+  dat$id <- seq(1, nrow(dat))
+  colnames(dat) <- c('coef', 'STADTBEZIR', 'id')
+  # ID variable erzeugen um objecte zu verbinden
   geo@data$id <- rownames(geo@data)
-  geo.points <- fortify(geo, region = "id")
-  geo.df <- join(geo.points, geo@data, by = "id")
-  
-  
+  watershedPoints <- fortify(geo, region = "id")
+  geo <- merge(watershedPoints, geo@data, by = 'id', all.x = T)
+  # Zusammenfügen von DAten und spatial object
+  bbA <- merge(geo, dat, by = 'STADTBEZIR', all.x = T)
+  bbA <- bbA[order(bbA$order),]
+
+  geo.df <- bbA
   
   # Plotten 
   ggplot(data = geo.df, aes(x = long, y = lat, group = group, fill = coef, alpha = coef))+  
@@ -28,12 +30,12 @@ require(colorspace)
     coord_equal(1)+
     theme_bw(12) +
     theme(
-      legend.position = 'bottom'
+      legend.position = 'right'
       ,axis.text.x=element_blank()
       ,axis.text.y=element_blank()
       ,axis.ticks.y=element_blank()
       ,axis.ticks.x=element_blank()
-    ) + facet_wrap(~ variable)
+    ) 
 
   
 spat.plot.cont <- function(m1) {
