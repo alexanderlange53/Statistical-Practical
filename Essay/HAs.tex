@@ -366,8 +366,7 @@ Die zweite in dieser Arbeit vorgestellte Möglichkeit der Berücksichtigung räu
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_i)
 \end{equation}
 
-ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s_i$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten aller Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. In dieser Arbeit werden für die Penalisierung nur die Nachbarn erster Ordnung, also alle Regionen, die eine gemeinsame Grenze mit $s_i$ teilen, berücksichtigt. 
-
+ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s_i$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten der Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. Regionen, die eine gemeinsame Grenze mit $s_i$ teilen werden als Nachbarn erster Ordnung bezeichnet. In dieser Arbeit werden sowohl Nachbarn erster Odnung als auch Nachbarn höherer Ordnung berücksichtigt.
 
 
 Pseudobeobachtungen.
