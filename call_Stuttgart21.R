@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -170,7 +170,7 @@ AIC.it.S21.3 <- data.frame(model.i, aic.i)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model$model.spat
-plot(m1, all = T)
+#plot(m1, all = T)
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
 g1 <- ggplot.model(m1, variables = variables)
@@ -376,8 +376,8 @@ if(calculate_model){
   step.model.B <- readRDS(file = "./Model_Results/step.model_all_B.rds")
 }
 
-plot(step.model.B$model.spat, all = TRUE, pages = 1)
-plot(step.model$model.spat, all = TRUE, pages = 1)
+#plot(step.model.B$model.spat, all = TRUE, pages = 1)
+#plot(step.model$model.spat, all = TRUE, pages = 1)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
@@ -418,9 +418,9 @@ crossval(cv.B, sample)
 ## GAM Plots ##
 m1 <- step.model.B$model.spat
 
-tt <- plot(m1, all = TRUE)
+#tt <- plot(m1, all = TRUE)
 
-str(tt)
+#str(tt)
 
 visreg(m1, xvar = "Nationalität", type = 'conditional')
 # Non Parametric Effects
@@ -448,7 +448,7 @@ summary(step.model.B$model.nospat)
 summary(step.model$model.nospat)
 
 summary(step.model.B$model.spat)
-plot(step.model.B$model.spat, all = T)
+#plot(step.model.B$model.spat, all = T)
 
 
 #---------------#
@@ -593,7 +593,7 @@ if(calculate_model){
 } else {
   step.model.S <- readRDS(file = "./Model_Results/step.model_all_S.rds")
 }
-
+#plot(step.model.S$model.spat, all = T, pages = 1)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
@@ -649,19 +649,19 @@ crossval(cv.S, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.S$model.spat
-plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+#plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+#plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
 #x11()
-par(mfrow = c(2, 2))
-plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+# par(mfrow = c(2, 2))
+# plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
+# mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+# plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
+# mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+# plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+# mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+# plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+# mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 
 dev.off()
 
@@ -674,8 +674,15 @@ summary(step.model.S$model.spat)
 
 # Spatial effect
 spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
+
 pdf('./Essay/Pictures/S21_3_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
 spat.p.steil
+dev.off()
+
+
+spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
+pdf('./Essay/Pictures/S21_3_all_spat_eff.pdf')
+spa.p.all
 dev.off()
 
 #---------------#
@@ -848,6 +855,7 @@ models <- c('1 Gauss-Krüger M.', '1 Gauss-Krüger auf Z.',
 ResultPlot(predlist = predlist,  sample = sample, 
            models = models)
 ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 3.5, width = 8)
+
 
 # Extrapolierte Anteile
 colSums(S21.3.U.Ko.IntSB[,11:13])/sum(S21.3.U.Ko.IntSB[,11:13])*100
