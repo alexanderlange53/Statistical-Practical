@@ -681,8 +681,9 @@ dev.off()
 
 
 spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
-pdf('./Essay/Pictures/S21_3_all_spat_eff.pdf')
-spa.p.all
+
+pdf('./Essay/Pictures/x.pdf')
+grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
 dev.off()
 
 #---------------#
