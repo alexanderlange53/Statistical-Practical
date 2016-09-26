@@ -431,26 +431,29 @@ Nachdem im Material und Methoden Teil zunächst die Datensätze und statistische
 \subsection{Schrittweiser AIC Vergleich}
 Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. \textcolor{red}{ABB. X} zeigt den Verlauf der AIC Optimierung exemplarisch für das Prognosemodell der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Effekt. \textcolor{red}{Hier könnte dann die Abb. die Du eben meinstest mit dem Verlauf hin}. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC in allen Fällen minderte, wurden vorgegeben.
 
-\subsection{Modell}
+\subsection{Modelle}
 Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb der Modelltypen gleich. In Tabelle \ref{stepAIC} werden demnach die räumlichen Effekte je Modelltyp (also \textit{Meinung zu Stuttgart 21 in drei Kategorien}, \textit{Meinung zu Stuttgart 21 in zwei Kategorien} und \textit{Bewertung der Wohnzufriedenheit}) für die gleichen, im Unterkapitel \textit{Schrittweiser AIC Vergleich} vorgestellten Kovariablenkombinationen dargestellt.\\
-Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Bei dem Modell mit Bezirken als räumlichem Effekt scheint dieser die Qualität des Modells in Abhängigkeit von der Komplexität nicht zu verbessern. Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauss-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
+Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht.
+
+
+Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauß-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
 
 
 
 
 \begin{table}[h]
 \centering
-\caption{Vergleich der step AIC Ergebnisse zwischen den Modellen}
+\caption{AIC Vergleich der unterschiedlichen räumlichen Effekte.}
 \label{stepAIC}
 \begin{tabular}{llccc}
 \hline \hline
 \multicolumn{5}{c}{Meinung zu Stuttgart 21}                                                                                                                                            \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
+\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6455,284}                             & \multicolumn{1}{c|}{6383}              & 6455,284          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6428,6}                               & \multicolumn{1}{c|}{6509,871}          & 6510,838          \\ \hline
-\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
+\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116.13}           & 3271,325          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{3079,12}                              & \multicolumn{1}{c|}{3117.902}          & 3163,597          \\ \hline
 \multicolumn{5}{c}{Bewertung der Wohngegend}                                                                                                                                           \\ \hline
