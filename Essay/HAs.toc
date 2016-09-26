@@ -9,13 +9,13 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Geoadditive Modelle}{9}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Schrittweise AIC}{12}{subsubsection.2.2.2}
 \contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{13}{subsubsection.2.2.3}
-\contentsline {subsubsection}{\numberline {2.2.4}Prognoseintervalle}{13}{subsubsection.2.2.4}
-\contentsline {subsubsection}{\numberline {2.2.5}Kreuzvalidierung}{14}{subsubsection.2.2.5}
+\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{13}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}Prognoseintervalle}{14}{subsubsection.2.2.5}
 \contentsline {subsubsection}{\numberline {2.2.6}Validierung}{14}{subsubsection.2.2.6}
 \contentsline {section}{\numberline {3}Ergebnisse}{15}{section.3}
 \contentsline {subsection}{\numberline {3.1}Modell}{15}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Schrittweise AIC}{15}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{16}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{17}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{18}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{19}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{21}{subsection.3.6}
