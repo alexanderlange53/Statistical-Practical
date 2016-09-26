@@ -5,7 +5,7 @@ dat <- data.frame(coef = tt[[1]]$fit, region = as.character(levels(tt[[1]]$raw))
 
 
 require(colorspace)
-
+# Ab hier für Bezirke als räumlichem effekt
   geo <- bezirke # Hier Wahl Bez./ST
   colo <- diverge_hsv(3)
   dat$id <- seq(1, nrow(dat))
@@ -18,9 +18,22 @@ require(colorspace)
   bbA <- merge(geo, dat, by = 'STADTBEZIR', all.x = T)
   bbA <- bbA[order(bbA$order),]
 
-  geo.df <- bbA
+# Ab hier für Stadtteile 
+  geo <- stadtteile # Hier Wahl Bez./ST
+  colo <- diverge_hsv(3)
+  dat$id <- seq(1, nrow(dat))
+  colnames(dat) <- c('coef', 'STADTTEIL', 'id')
+  # ID variable erzeugen um objecte zu verbinden
+  geo@data$id <- rownames(geo@data)
+  watershedPoints <- fortify(geo, region = "id")
+  geo <- merge(watershedPoints, geo@data, by = 'id', all.x = T)
+  # Zusammenfügen von DAten und spatial object
+  bbA <- merge(geo, dat, by = 'STADTTEIL', all.x = T)
+  bbA <- bbA[order(bbA$order),]
   
-  # Plotten 
+# Ab hier für beide wieder
+  geo.df <- bbA
+    # Plotten 
   ggplot(data = geo.df, aes(x = long, y = lat, group = group, fill = coef, alpha = coef))+  
     geom_polygon(color = "black") +
     labs(x=NULL, y=NULL, title= NULL) +
