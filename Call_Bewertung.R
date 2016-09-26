@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -417,7 +417,11 @@ AIC(step.model.Bewertung.5.B$model.spatonly)
 
 summary(step.model.Bewertung.5.B$model.spat)
 
-
+# Spatial effect
+spat.p.bez <- spat.plot.disc(m1, IFbezirk = TRUE)
+pdf('./Essay/Pictures/W_5_Bezirke_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.bez
+dev.off()
 
 #---------------#
 ## Prediction  ##
@@ -621,6 +625,12 @@ dev.off()
 AIC(step.model.Bewertung.5.S$model.spat)
 AIC(step.model.Bewertung.5.S$model.nospat)
 AIC(step.model.Bewertung.5.S$model.spatonly)
+
+# Spatial effect
+spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
+pdf('./Essay/Pictures/W_5_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.steil
+dev.off()
 
 
 #---------------#

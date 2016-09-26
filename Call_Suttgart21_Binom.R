@@ -177,7 +177,7 @@ AIC(step.model.binom$model.spatonly)
 summary(step.model.binom$model.spat)
 
 # Spatial Effect
-spat.p.c <-spat.plot.cont(m1)
+spat.p.c <- spat.plot.cont(m1)
 pdf('./Essay/Pictures/S21_2_Kont_SpatEff.pdf', h = 5, w = 5.5)
 spat.p.c
 dev.off()
@@ -428,6 +428,14 @@ AIC(step.model.binom.B$model.spatonly)
 summary(step.model.binom.B$model.spat)
 #plot(step.model.binom.B$model.spat, all = T)
 
+
+# Spatial effect
+spat.p.bez <- spat.plot.disc(m1, IFbezirk = TRUE)
+pdf('./Essay/Pictures/S21_2_Bezirk_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.bez
+dev.off()
+
+
 #---------------#
 ## Prediction  ##
 #---------------#
@@ -609,6 +617,13 @@ AIC(step.model.binom.S$model.spatonly)
 
 summary(step.model.binom.S$model.spat)
 #plot(step.model.binom.S$model.spat, all = T)
+
+# Spatial effect
+spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
+pdf('./Essay/Pictures/S21_2_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.steil
+dev.off()
+
 
 #--------------------#
 ## Model Evaluation ##

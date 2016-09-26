@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -415,7 +415,10 @@ ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
 
 # Spatial effect
-
+spat.p.bez <- spat.plot.disc(m1)
+pdf('./Essay/Pictures/S21_3_Bezirke_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.bez
+dev.off()
 
 AIC(step.model.B$model.spat)
 AIC(step.model.B$model.nospat)
@@ -645,6 +648,12 @@ AIC(step.model.S$model.spatonly)
 
 summary(step.model.S$model.spat)
 # plot(step.model.S$model.spat, all = T)
+
+# Spatial effect
+spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
+pdf('./Essay/Pictures/S21_3_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
+spat.p.steil
+dev.off()
 
 #---------------#
 ## Prediction  ##
