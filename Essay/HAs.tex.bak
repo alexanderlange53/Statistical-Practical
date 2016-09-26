@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage{bm}
 \usepackage{cite}
+\usepackage{subfigure}
 %\usepackage[utf8]{inputenc}
 %\bibliographystyle{apalike}
 \setlength{\parindent}{0pt}
@@ -322,8 +323,8 @@ die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen defini
 werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es 
 wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In 
 Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird 
-jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch 
-oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC 
+jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen zunächst entsprechend der vorigen Eingabe parametrisch 
+oder semiparametrisch ein. Außerdem werden alle vorab als nichtparametrisch eingeschätzten Variablen zusätzlich als parametrischer Trend geprüft. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC 
 führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls 
 das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in 
 Iteration eins bereits beendet.\\ 
@@ -432,13 +433,9 @@ Nachdem im Material und Methoden Teil zunächst die Datensätze und statistische
 Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. \textcolor{red}{ABB. X} zeigt den Verlauf der AIC Optimierung exemplarisch für das Prognosemodell der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Effekt. \textcolor{red}{Hier könnte dann die Abb. die Du eben meinstest mit dem Verlauf hin}. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC in allen Fällen minderte, wurden vorgegeben.
 
 \subsection{Modelle}
-Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb der Modelltypen gleich. In Tabelle \ref{stepAIC} werden demnach die räumlichen Effekte je Modelltyp (also \textit{Meinung zu Stuttgart 21 in drei Kategorien}, \textit{Meinung zu Stuttgart 21 in zwei Kategorien} und \textit{Bewertung der Wohnzufriedenheit}) für die gleichen, im Unterkapitel \textit{Schrittweiser AIC Vergleich} vorgestellten Kovariablenkombinationen dargestellt.\\
-Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
-
+Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb eines Modells gleich. In Tabelle \ref{stepAIC} wird demnach jedes geoadditive Modell dem reinen räumlichen Effekt je Modell die räumlichen Effekte den reinen Kovariableneffekten gegenübergestellt und mit dem geoadditiven Modell verglichen. Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
 
 Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauß-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
-
-
 
 
 \begin{table}[h]
@@ -467,17 +464,16 @@ Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell m
 
 Für die Bewertung der Wohngegend als endogene Variable zeigt sich noch sehr deutlicher Unterschied zwischen Schätzungen mit räumlichem Effekt und ohne räumlichem Effekt. Modelle mit räumlichem Effekt zeigen stets deutlich niedrigere AIC.
 , so ist der Unterschied bei den Gauß-Krüger und Bezirksinformationen zwischen dem Geoaddtitven Modell und dem Modell nur mit räumlichem Effekt sehr viel geringer ist als zwischen Geoadditivem Modell und Modell ohne räumlichem Effekt. Dies weißt darauf hin, dass der räumliche Effekt einen hohen Erklärungsgehalt für die Ausprägung der abhängigen Variable liefert. Die gegenteilige Situation findet sich bei der Meinung zu Stuttgart 21 vor, hier scheint der räumliche Effekt weniger Erklärungsgehalt zu liefern. Insgesamt signalisiert das AIC die höchste Qualität für das Geoadditive Modell mit Gauß-Krüger Informationen bei der Bewertung der Wohngegend. Zusammenfassend ist zu sagen, dass die geoadditiven Modellen tendenziell einen geringeren AIC als die Modelle ohne räumlichen Effekt sowie die Modellen nur räumlichem Effekt zeigen und, dass der kontinuierliche räumliche Effekt innerhalb der geoadditiven Modelle den geringsten AIC aufweisen. Für die Extrapolation wurden dementsprechend nur geoadditive verwendet.\\
-Das erste geoadditive Modell zur Modellierung der Meinung zu Stuttgart 21 mit dreikategorialer Response (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) und kontinuierlichem räumlichen Trend wird im Folgenden näher erläutert. Aus Abbildung \ref{GKParam} und \textcolot{red}{Tabelle X} geht die Signifikanz der Modellparameter hervor. Hierbei ist zu beachten, dass \textit{Zustimmung} mit 1 und \textit{Ablehnung} mit 3 kodiert wurde. Je höher der Effekt, desto höher ist also die Wahrscheinlichkeit der \textit{Ablehnung}. Die \textit{Altersklasse des Befragten} zeigte einen stark nichtlinearen Trend. Die Wahrscheinlichkeit der Ablehnungswahrscheinlichkeit ist in den jüngeren Altersklassen bis 2 am geringsten. Sie steigt bis zu ihrem Höhepunkt bei Altersklasse  4,5 an und fällt dann relativ stark wieder ab. Die Personenzahl im Haushalt ging, entgegen der Erwartungen, parametrisch in das Modell ein. Der Effekt zeigt einen stark negativen linearen Trend. Die Wahrscheinlichkeit der \textit{Ablehnung} ist also in Single-Haushalten mit deutlichem Abstand am höchsten. Die Kategorien des Familienstands unterscheiden sich zwar nicht signifikant von 0, werden jedoch aufgrund der leichten AIC Verringerung dennoch berücksichtigt. Es ist ersichtlich, dass \textit{geschiedene} und \textit{ledige} Bürger eher eine ablehnende Haltung gegenüber Stuttgart 21 zeigen \textit{verheiratete} oder \textit{verwitwete}. Deutlicher sind die Effekte der Nationalität und des Geschlechts. \textit{Ausländische} Bürger sind signifikant geringer 
-
-
+Das erste geoadditive Modell zur Modellierung der Meinung zu Stuttgart 21 mit dreikategorialer Response (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) und kontinuierlichem räumlichen Trend wird im Folgenden näher erläutert. Aus Abbildung \ref{GKParam} und \textcolor{red}{Tabelle X} geht die Signifikanz der Modellparameter hervor. Hierbei ist zu beachten, dass \textit{Zustimmung} mit 1 und \textit{Ablehnung} mit 3 kodiert wurde. Je höher der Effekt, desto höher ist also die Wahrscheinlichkeit der \textit{Ablehnung}. Die \textit{Altersklasse des Befragten} zeigte einen stark nichtlinearen Trend. Die Wahrscheinlichkeit der Ablehnungswahrscheinlichkeit ist in den jüngeren Altersklassen bis 2 am geringsten. Sie steigt bis zu ihrem Höhepunkt bei Altersklasse  4,5 an und fällt dann relativ stark wieder ab. \textcolor{red}{gucken, was die AKL bedeutetn} Die Personenzahl im Haushalt ging, entgegen der Erwartungen, parametrisch in das Modell ein. Der Effekt zeigt einen stark negativen linearen Trend. Die Wahrscheinlichkeit der \textit{Ablehnung} ist also in Single-Haushalten mit deutlichem Abstand am höchsten. Die Kategorien des Familienstands unterscheiden sich zwar nicht signifikant von 0, werden jedoch aufgrund der leichten AIC Verringerung dennoch berücksichtigt. Es ist ersichtlich, dass \textit{geschiedene} und \textit{ledige} Bürger eher eine ablehnende Haltung gegenüber Stuttgart 21 zeigen \textit{verheiratete} oder \textit{verwitwete}. Deutlicher sind die Effekte der Nationalität und des Geschlechts. \textit{Deutsche} Bürger zeigen eine signifikant höhere Ablehnungswahrscheinlichkeit als ausländische Bürger. Der Unterschied zwischen den Geschlechtern ist etwa ebenso stark. Männer haben eine geringere Ablehnungswahrscheinlichkeit als Frauen. Die Kovariablenausprägungen finden sich in näherungsweise gleicher Ausprägung in geoadditiven Modellen mit diskreten räumlichen Effekten textcol{red}{Tabellen der GAM im Anhang}. Ausnahme bildet nur der Familienstand im diskreten räumlichen Modell aud Stadtbezirksebene, welcher nach schrittweiser AIC Analyse nicht in dieses Modell eingeflossen ist.\\
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.8]{Pictures/S21ModelEffects}
+ \includegraphics[scale=0.8]{Pictures/S21ModelEffects2}
  \caption{Parametrische und nonparametrische Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Trend.}
  \label{GKParam}
  \end{center}
 \end{figure}
+
 
 \begin{figure}[h]
  \begin{center}
@@ -487,9 +483,17 @@ Das erste geoadditive Modell zur Modellierung der Meinung zu Stuttgart 21 mit dr
  \end{center}
 \end{figure}
 
+\begin{figure}[htbp]
+  \centering
+  \subfigure[eins]{\includegraphics[scale=0.40]{Pictures/S21_3_Kont_SpatEff}}\quad
+  \subfigure[zwei]{\includegraphics[scale=0.40]{Pictures/S21_3_Kont_SpatEff}}\quad
+  \subfigure[drei]{\includegraphics[scale=0.40]{Pictures/S21_3_Kont_SpatEff}}
+  \caption{mehrere Bilder nebeneinander}
+\end{figure}
+
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.8]{Pictures/BWModelEffects}
+ \includegraphics[scale=0.8]{Pictures/BWModelEffects2}
  \caption{Parametrische und nonparametrische Effekte des zweikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Trend.}
  \label{BWParam}
  \end{center}
@@ -682,6 +686,8 @@ Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushalts
 Insgesamt ist zu sagen, dass die Gauß-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 
 Ein \textit{B} von 1.000 erwies sich als ausreichend, da sich die Mittelwerte und Quantile bei einer Erhöhung kaum noch änderten.
+
+modelle: Frauen eher ablehnen deutete sich an: internet service stuttgart
 
 %============================================== Conlcusion =========================================================%
 
