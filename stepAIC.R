@@ -28,7 +28,7 @@ stepAIC <- function()
 
   pars.candidate <- pars
   nonpars.candidate <- nonpars
-
+  trace <- matrix(NA, nrow = 10, ncol = 2)
   if(modellwahl)
     {
     test <- TRUE
@@ -133,6 +133,7 @@ stepAIC <- function()
           candidate.models.drop[[i]] <- make.formula(response, fixed, c(pars.current[-i]),
                                                 nonpars.current)
           AIClist.drop[i] <- AIC(gam(candidate.models.drop[[i]], weights=sample[,gewichte], family=verteilung, method="REML", data=sample))
+          cat("  AIC ohne ",pars.current[i]," ", AIClist.drop[i], "\n",sep="")
          }
        }
       if(length(nonpars.current)>0)
@@ -150,6 +151,7 @@ stepAIC <- function()
           candidate.models.drop[[offset + i]] <- make.formula(response,
                fixed, c(pars.current,nonpars.current[i]), nonpars.current[-i])
           AIClist.drop[offset + i] <- AIC(gam(candidate.models.drop[[offset + i]], weights=sample[,gewichte], family=verteilung, method="REML", data=sample))
+          cat("  AIC ohne ", nonpars.current[i]," ", AIClist.drop[offset + i], "\n",sep="")
           }
         }
 

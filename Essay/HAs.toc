@@ -16,11 +16,7 @@
 \contentsline {subsection}{\numberline {3.1}Schrittweiser AIC Vergleich}{15}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Modell}{16}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{17}{subsection.3.3}
-<<<<<<< HEAD
-\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{18}{subsection.3.4}
-=======
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{19}{subsection.3.4}
->>>>>>> 9ed15d73876bea072ddedebaba485392603dd31c
 \contentsline {subsection}{\numberline {3.5}Validierung}{21}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{23}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{26}{section.4}

@@ -2,7 +2,7 @@ ggplot.model <- function(model, type="conditional", res=FALSE, variables, param 
                          col.line="black", col.point="darkblue", size.line=1, size.point=1) {
   require(visreg)
   require(plyr)
-  plotdata <- visreg(model, xvar = variables, type = type, plot = FALSE)
+  plotdata <- visreg(model, xvar = variables, type = type, plot = FALSE, scale = 'linear')
   smooths <- ldply(plotdata, function(part)   
     data.frame(Variable = part$meta$x, 
                x=part$fit[[part$meta$x]], 
