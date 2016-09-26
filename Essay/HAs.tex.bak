@@ -436,7 +436,7 @@ vorkommt \cite[p. 102]{Int}.
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BWModelEffects}
  \caption{Parametrische und nicht-Parametrische Effekte im Modell mit Gauß-Krüger Informationen für die Meinung zu Stuttgart 21}
- \label{GKParam}
+ \label{BWParam}
  \end{center}
 \end{figure}
 

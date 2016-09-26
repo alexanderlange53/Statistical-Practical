@@ -28,10 +28,10 @@ names(ggmat) <- c("y", "x", "coef")
 
 # Idea 1: ggplot
 ggplot(ggmat, aes(x = x, y = y, fill = coef,  alpha = coef), show.legend = FALSE) + geom_tile() + 
-  scale_fill_gradient(low = colo[2],  high = "darkblue") +
+  scale_fill_gradient(low = colo[2],  high = "darkblue") + coord_equal() + coord_flip() + 
   theme_bw(13) + theme(axis.text = element_blank(),
                        axis.ticks = element_blank()) +
-  scale_alpha(range = c(0.1,0.7), guide=FALSE) +
+  scale_alpha(range = c(0.1,1), guide=FALSE) + 
   labs(x = NULL, y = NULL, fill = 'Koef.')
 
 
