@@ -10,7 +10,7 @@ require(dplyr);require(gstat);require(raster)
 
 # loading data
 
-bearbeiter = 'Kai@Home'
+bearbeiter = 'Kai@Work'
 
 if(bearbeiter == 'Alex'){
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv',
@@ -27,7 +27,10 @@ if(bearbeiter == 'Kai@Home'){
 if(bearbeiter == 'Kai@Work'){
   dataS <- read.csv2('/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Neue_Daten//Stuttgart21_aufbereitet.csv',
                      dec = '.')
-  bezirke <- readOGR(dsn = "/home/khusmann/mnt/U/Promotion/Kurse/Stat_Praktikum/Auswertung/Geodaten/bezirke/", layer = "bezirke")
+  bezirke <- readOGR(dsn = "./Rohdaten/Geodaten/bezirke/", layer = "bezirke")
+  stadtteile <- readOGR(dsn = "./Rohdaten/Geodaten/Stadtteile_Shapefile/", layer = "Stadtteile_netto")
+  
+  
 }
 
 source('SpatialPlots.R')
