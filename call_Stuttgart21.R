@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -679,8 +679,13 @@ pdf('./Essay/Pictures/S21_3_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
 spat.p.steil
 dev.off()
 
+ll <- list(spat.p.c, spat.p.bez, spat.p.steil)
+marrangeGrob(ll, nrow = 1, ncol = 3)
+lay <- c(c(1,2,3),
+         c(1,2,3),
+         c(1,2,3))
 
-spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
+spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1,layout_matrix = lay)
 pdf('./Essay/Pictures/S21_3_all_spat_eff.pdf')
 spa.p.all
 dev.off()
