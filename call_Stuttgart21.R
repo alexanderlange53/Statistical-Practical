@@ -438,6 +438,9 @@ AIC(step.model.B$model.spat)
 AIC(step.model.B$model.nospat)
 AIC(step.model.B$model.spatonly)
 
+summary(step.model.B$model.nospat)
+summary(step.model$model.nospat)
+
 summary(step.model.B$model.spat)
 plot(step.model.B$model.spat, all = T)
 

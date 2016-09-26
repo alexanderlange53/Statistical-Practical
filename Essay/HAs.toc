@@ -14,11 +14,11 @@
 \contentsline {subsubsection}{\numberline {2.2.6}Validierung}{14}{subsubsection.2.2.6}
 \contentsline {section}{\numberline {3}Ergebnisse}{15}{section.3}
 \contentsline {subsection}{\numberline {3.1}Schrittweiser AIC Vergleich}{15}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Modell}{16}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.2}Modelle}{16}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{17}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{19}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{21}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{23}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{22}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{26}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{26}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{27}{section.5}

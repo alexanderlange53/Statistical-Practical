@@ -431,47 +431,50 @@ Nachdem im Material und Methoden Teil zunächst die Datensätze und statistische
 \subsection{Schrittweiser AIC Vergleich}
 Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. \textcolor{red}{ABB. X} zeigt den Verlauf der AIC Optimierung exemplarisch für das Prognosemodell der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Effekt. \textcolor{red}{Hier könnte dann die Abb. die Du eben meinstest mit dem Verlauf hin}. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC in allen Fällen minderte, wurden vorgegeben.
 
+\subsection{Modelle}
+Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb der Modelltypen gleich. In Tabelle \ref{stepAIC} werden demnach die räumlichen Effekte je Modelltyp (also \textit{Meinung zu Stuttgart 21 in drei Kategorien}, \textit{Meinung zu Stuttgart 21 in zwei Kategorien} und \textit{Bewertung der Wohnzufriedenheit}) für die gleichen, im Unterkapitel \textit{Schrittweiser AIC Vergleich} vorgestellten Kovariablenkombinationen dargestellt.\\
+Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
 
-\subsection{Modell}
-Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb der Modelltypen gleich. In Tabelle \ref{stepAIC} werden demnach die räumlichen Effekte je Modelltyp (also \textit{Menung zu Stuttgart 21 in drei Kategorien}, \textit{Menung zu Stuttgart 21 in zwei Kategorien} und \textit{Bewertung der Wohnzufriedenheit}) für die gleichen, im Unterkapitel \textit{Schrittweiser AIC Vergleich} vorgestellten Kovariablenkombinationen dargestellt.\\
-Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Bei dem Modell mit Bezirken als räumlichem Effekt scheint dieser die Qualität des Modells in Abhängigkeit von der Komplexität nicht zu verbessern. Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauss-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
+
+Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauß-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
 
 
 
 
 \begin{table}[h]
 \centering
-\caption{Vergleich der step AIC Ergebnisse zwischen den Modellen}
+\caption{AIC Vergleich der unterschiedlichen räumlichen Effekte.}
 \label{stepAIC}
 \begin{tabular}{llccc}
 \hline \hline
 \multicolumn{5}{c}{Meinung zu Stuttgart 21}                                                                                                                                            \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
+\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6455,284}                             & \multicolumn{1}{c|}{6383}              & 6455,284          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6428,6}                               & \multicolumn{1}{c|}{6509,871}          & 6510,838          \\ \hline
-\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
+\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116.13}           & 3271,325          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{3079,12}                              & \multicolumn{1}{c|}{3117.902}          & 3163,597          \\ \hline
 \multicolumn{5}{c}{Bewertung der Wohngegend}                                                                                                                                           \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-                          & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{7051,606}                             & \multicolumn{1}{c|}{7318,815}          & 7062,108          \\
+                          & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{7051,606}                             & \multicolumn{1}{c|}{7318,815}          & 7062,108          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{7175,601}                             & \multicolumn{1}{c|}{7318,815}          & 7197,003          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{8252,374}                             & \multicolumn{1}{c|}{8567,358}          & 8750,801          \\ \hline \hline
 \end{tabular}
 \end{table}
 
-Für die Bewertung der Wohngegend als endogene Variable zeigt sich noch ein deutlicherer Unterschied zwischen Schätzungen mit räumlichem Effekt und ohne räumlichem Effekt. Modelle mit räumlichem Effekt zeigen einen deutlich niedrigeren AIC, so ist der Unterschied bei den Gauss-Krüger und Bezirksinformationen zwischen dem Geoaddtitven Modell und dem Modell nur mit räumlichem Effekt sehr viel geringer ist als zwischen Geoadditivem Modell und Modell ohne räumlichem Effekt. Dies weißt darauf hin, dass der räumliche Effekt einen hohen Erklärungsgehalt für die Ausprägung der abhängigen Variable liefert. Die gegenteilige Situation findet sich bei der Meinung zu Stuttgart 21 vor, hier scheint der räumliche Effekt weniger Erklärungsgehalt zu liefern. Insgesamt signalisiert das AIC die höchste Qualität für das Geoadditive Modell mit Gauss-Krüger Informationen bei der Bewertung der Wohngegend.
+Für die Bewertung der Wohngegend als endogene Variable zeigt sich noch sehr deutlicher Unterschied zwischen Schätzungen mit räumlichem Effekt und ohne räumlichem Effekt. Modelle mit räumlichem Effekt zeigen stets deutlich niedrigere AIC.
+, so ist der Unterschied bei den Gauß-Krüger und Bezirksinformationen zwischen dem Geoaddtitven Modell und dem Modell nur mit räumlichem Effekt sehr viel geringer ist als zwischen Geoadditivem Modell und Modell ohne räumlichem Effekt. Dies weißt darauf hin, dass der räumliche Effekt einen hohen Erklärungsgehalt für die Ausprägung der abhängigen Variable liefert. Die gegenteilige Situation findet sich bei der Meinung zu Stuttgart 21 vor, hier scheint der räumliche Effekt weniger Erklärungsgehalt zu liefern. Insgesamt signalisiert das AIC die höchste Qualität für das Geoadditive Modell mit Gauß-Krüger Informationen bei der Bewertung der Wohngegend. Zusammenfassend ist zu sagen, dass die geoadditiven Modellen tendenziell einen geringeren AIC als die Modelle ohne räumlichen Effekt sowie die Modellen nur räumlichem Effekt zeigen und, dass der kontinuierliche räumliche Effekt innerhalb der geoadditiven Modelle den geringsten AIC aufweisen. Für die Extrapolation wurden dementsprechend nur geoadditive verwendet.\\
+Das erste geoadditive Modell zur Modellierung der Meinung zu Stuttgart 21 mit dreikategorialer Response (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) und kontinuierlichem räumlichen Trend wird im Folgenden näher erläutert. Aus Abbildung \ref{GKParam} und \textcolot{red}{Tabelle X} geht die Signifikanz der Modellparameter hervor. Hierbei ist zu beachten, dass \textit{Zustimmung} mit 1 und \textit{Ablehnung} mit 3 kodiert wurde. Je höher der Effekt, desto höher ist also die Wahrscheinlichkeit der \textit{Ablehnung}. Die \textit{Altersklasse des Befragten} zeigte einen stark nichtlinearen Trend. Die Wahrscheinlichkeit der Ablehnungswahrscheinlichkeit ist in den jüngeren Altersklassen bis 2 am geringsten. Sie steigt bis zu ihrem Höhepunkt bei Altersklasse  4,5 an und fällt dann relativ stark wieder ab. Die Personenzahl im Haushalt ging, entgegen der Erwartungen, parametrisch in das Modell ein. Der Effekt zeigt einen stark negativen linearen Trend. Die Wahrscheinlichkeit der \textit{Ablehnung} ist also in Single-Haushalten mit deutlichem Abstand am höchsten. Die Kategorien des Familienstands unterscheiden sich zwar nicht signifikant von 0, werden jedoch aufgrund der leichten AIC Verringerung dennoch berücksichtigt. Es ist ersichtlich, dass \textit{geschiedene} und \textit{ledige} Bürger eher eine ablehnende Haltung gegenüber Stuttgart 21 zeigen \textit{verheiratete} oder \textit{verwitwete}. Deutlicher sind die Effekte der Nationalität und des Geschlechts. \textit{Ausländische} Bürger sind signifikant geringer 
 
 
-Zur Extrapolation der Meinung zu Stuttgart 21 wurden zunächst drei Modelle mit der dreikategorialer Response (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) und kontinuierlichem räumlichen Trend parametrisiert und verglichen. Eines mit räumlichem Effekt und sozioökonomischen Kovariablen, eines nur mit sozioökonomischen Kovariablen und eines nur mit dem räumlichen Effekt. Die geeignetste Kovariablenkombination wurde vorher über den schrittweisen AIC Vergleich. 
 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/S21ModelEffects}
- \caption{Parametrische und nicht-Parametrische Effekte des Vorhersagemodells zu Bewertung von Stuttgart 21 mit kontinuierlichen räumlichen Informationen.}
+ \caption{Parametrische und nonparametrische Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Trend.}
  \label{GKParam}
  \end{center}
 \end{figure}
@@ -487,7 +490,7 @@ Zur Extrapolation der Meinung zu Stuttgart 21 wurden zunächst drei Modelle mit 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BWModelEffects}
- \caption{Parametrische und nicht-Parametrische Effekte im Modell mit Gauß-Krüger Informationen für die Meinung zu Stuttgart 21}
+ \caption{Parametrische und nonparametrische Effekte des zweikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Trend.}
  \label{BWParam}
  \end{center}
 \end{figure}
