@@ -426,15 +426,29 @@ durch eine stetige Verteilung resultieren, was z.B. oft bei der Approximation de
 vorkommt \cite[p. 102]{Int}.
 
 \section{Ergebnisse}
+<<<<<<< HEAD
 Nachdem im Material und Methoden Teil zunächst die Datensätze und statistischen Methoden vorgestellt wurden, zeigt dieses Kapitel die daraus entstanden Ergebnisse. Dafür werden zunächst die geschätzten Parameter der verschiedenen Modelle und die geschätzten Modelle in Gänze analysiert. Insgesamt wurden zur Meinung zu Stuttgart 21 sechs geoadditive Modelle geschätzt, drei Modelle mit drei Ausprägungen der abhängigen Variable und drei Modelle mit zwei Ausprägungen. Beide Modellierungsmöglichkeiten wurden dabei einmal mit jedem der drei räumlichen Effekte parametrisiert. Zudem wurde in allen Fällen noch jeweils ein Modell nur mit räumlichem Effekt und ein Modell ohne räumlichem Effekt geschätzt. Für die Bewertung der Wohngegend wurde nur ein Fall mit fünf Klassen geschätzt, aber jeweils auch mit drei räumlichen Effekten und Modellen mit- und ohne räumlichem Effekt. Insgesamt ergibt das 18 geschätzte Modelle für die Meinung zu Stuttgart 21 und 9 Modelle für die Bewertung der Wohngegend. Um diese hohe Anzahl zu reduzieren werden anhand der Modellwahlkriterien aus dem vorangegangen Kapitel nach und nach Modelle eliminiert, die auf Grund dieser Kriterien als bestes Modell zur Extrapolation ausscheiden. Zum Schluss werden mit den zuletzt verbliebenen Modellen die Extrapolationen auf die Grundgesamtheit vorgenommen, um dann die beiden finalen Modelle zu finden. 
+=======
+\textcolor{red}{eig. müsste dieser Teil hinter StepAIC, wir müssen ja erst per AIC die Kovar. identifizieren}
+Das erste vorgestellte Modell
+
+>>>>>>> eebf5334a6230c45c5d10886a8e2e3242b772496
 
 \subsection{Modell}
 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/S21ModelEffects}
- \caption{Parametrische und nicht-Parametrische Effekte im Modell mit Gauß-Krüger Informationen für die Meinung zu Stuttgart 21}
+ \caption{Parametrische und nicht-Parametrische Effekte des Vorhersagemodells zu Bewertung von Stuttgart 21 mit kontinuierlichen räumlichen Informationen.}
  \label{GKParam}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.6]{Pictures/S21_3_Kont_SpatEff}
+ \caption{Kontinuierlicher räumlicher Effekt des Vorhersagemodells zur Bewertung zu Stuttgart 21.}
+ \label{S21_3_Kont_SpatEff}
  \end{center}
 \end{figure}
 
@@ -445,6 +459,9 @@ Nachdem im Material und Methoden Teil zunächst die Datensätze und statistische
  \label{BWParam}
  \end{center}
 \end{figure}
+
+
+
 
 \subsection{Schrittweise AIC}
 
