@@ -399,7 +399,7 @@ Die zweite in dieser Arbeit vorgestellte Möglichkeit der Berücksichtigung räu
 
 
 ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s_i$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten der Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. Regionen, die eine gemeinsame Grenze mit $s_i$ teilen werden als Nachbarn erster Ordnung bezeichnet. Nur diese werden für die Glättung berücksichtigt.
-Ein praktisches Problem in der Implementierung eines Markov-Randomfields mit dem \texttt{mgcv} Paket ist, dass in jeder Region mindestens eine Beobachtung jeder Kategorie der abhängigen Variable vorkommen muss. Wie bereits in dem Kapitel zum Parametrisierungsdatensatz gezeigt fehlen insbesondere auf Stadtteilebene häufig einzelne Beobachtungen einer Kategorie oder auch Beobachtungen im Allgemeinen in einzelnen Regionen. Um die Implementierung dennoch möglich zu machen wurde eine Funktion erstellt, die partiell oder komplett fehlende Beobachtungen durch Pseudo-Beobachtungen ersetzt und anschließend mit Null gewichtet, während echte Beobachtungen mit eins gewichtet werden (siehe digitaler Anhang \textit{PseudoB.R}).
+Ein praktisches Problem in der Implementierung eines Markov-Randomfields mit dem \texttt{mgcv} Paket ist, dass in jeder Region mindestens eine Beobachtung jeder Kategorie der abhängigen Variable vorkommen muss. Wie bereits in dem Kapitel zum Parametrisierungsdatensatz gezeigt fehlen insbesondere auf Stadtteilebene häufig einzelne Beobachtungen einer Kategorie oder auch Beobachtungen im Allgemeinen in einzelnen Regionen. \textcolor{red}{Habe neue Sätze eingefügt} Es müssen aus methodischer Sicht nicht zwingend in der Region und Kategorie Beobachtungen vorhanden sein, jedoch erlaube die \texttt{gam()} Funktion aus dem \texttt{mgcv} keine leeren Region-Kategorie Kombinationen. Um die Implementierung dennoch möglich zu machen wurde eine Funktion erstellt, die partiell oder komplett fehlende Beobachtungen durch Pseudo-Beobachtungen ersetzt und mit Null gewichtet. Alle anderen (echten) Beobachtungen werden mit eins gewichtet (siehe digitaler Anhang \textit{PseudoB.R}).
 
 \subsubsection{Reklassifizierung}
 
@@ -463,12 +463,14 @@ Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell m
 
 
 \subsection{Modelle}
-Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb eines Modells gleich. In Tabelle \ref{stepAIC} wird demnach jedes geoadditive Modell dem reinen räumlichen Effekt je Modell die räumlichen Effekte den reinen Kovariableneffekten gegenübergestellt und mit dem geoadditiven Modell verglichen. Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
+Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen jedes Modells festgelegt. In Tabelle \ref{stepAIC} wird der zusätzliche Effekt der räumlichen Komponente auf die Modelle betrachtet. Um die Einflüsse der räumlichen Effekte isoliert bewerten zu können, blieb die zuvor ermittelte Kovariablenkombination innerhalb eines Modells gleich. Die Kombination der sozioökonomischen Kovariablen ist in Tabelle \ref{stepAIC} folglich in jeder Zeile gleich. Jedes geoadditive Modell wird mit einem Modell ohne räumlichen Effekt sowie einem Modell nur mit dem räumlichen Effekt verglichen. Bei der Meinung zu Stuttgart 21 nach drei Kategorien lässt sich erkennen, dass das geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. 
+
+Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht.
 
 
 \begin{table}[h]
 \centering
-\caption{AIC Vergleich der unterschiedlichen räumlichen Effekte.}
+\caption{AIC der erstellten Modelle.}
 \label{stepAIC}
 \begin{tabular}{llccc}
 \hline \hline
