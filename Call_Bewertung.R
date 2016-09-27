@@ -195,11 +195,13 @@ pdf('./Essay/Pictures/W_5_Kont_SpatEff.pdf', h = 5, w = 5.5)
 spat.p.c
 dev.off()
 
+ggsave(plot = spat.p.c, filename = './Essay/Pictures/W_5_Kont_SpatEff.pdf', device = 'pdf', height = 5, width = 5.5)
+
 
 AIC(step.model.Bewertung.5$model.spat)
 AIC(step.model.Bewertung.5$model.nospat)
 AIC(step.model.Bewertung.5$model.spatonly)
-
+#plot(step.model.Bewertung.5$model.spat, all = TRUE, pages = 1)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
@@ -642,6 +644,7 @@ spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
 pdf('./Essay/Pictures/W_5_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
 spat.p.steil
 dev.off()
+
 
 
 #---------------#
