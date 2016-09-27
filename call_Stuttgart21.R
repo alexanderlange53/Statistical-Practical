@@ -19,6 +19,7 @@ library(plyr)
 library(dplyr)
 library(mlr)
 library(visreg)
+library(stargazer)
 
 ## Einstellungen ##
 
@@ -183,6 +184,8 @@ ggsave('./Essay/Pictures/stepAIC.pdf', height = 5.5, width = 8)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model$model.spat
+m.gk <- step.model$model.spat
+
 #plot(m1, all = T)
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
@@ -433,7 +436,7 @@ crossval(cv.B, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.B$model.spat
-
+m.sb <- step.model.B$model.spat
 #tt <- plot(m1, all = TRUE)
 
 #str(tt)
@@ -665,6 +668,11 @@ crossval(cv.S, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.S$model.spat
+m.st <- step.model.S$model.spat
+stargazer(m.gk, m.sb, m.st, title = 'Parameter Meinung zu Stuttgart 21 mit 5 Klassen')
+summary(m.gk)
+summary(m.sb)
+summary(m.st)
 #plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 #plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
