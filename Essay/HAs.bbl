@@ -64,6 +64,11 @@ Lawrence D.~Brown, T. Tony~Cai, A.~D. (2001).
 \newblock Interval estimation for a binomial proportion.
 \newblock {\em Statistical Science}.
 
+\bibitem[{R Core Team}, 2016]{RCore}
+{R Core Team} (2016).
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+
 \bibitem[Roser, 2013]{Natur}
 Roser, F. (2013).
 \newblock Ist die schönheit der landschaft berechenbar? bereitstellung einer

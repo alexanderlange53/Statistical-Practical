@@ -14,7 +14,7 @@
 \contentsline {subsubsection}{\numberline {2.2.6}Validierung}{15}{subsubsection.2.2.6}
 \contentsline {section}{\numberline {3}Ergebnisse}{15}{section.3}
 \contentsline {subsection}{\numberline {3.1}Schrittweiser AIC Vergleich}{16}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Modelle}{16}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.2}Modelle}{17}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{22}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{23}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Validierung}{25}{subsection.3.5}
