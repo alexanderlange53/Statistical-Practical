@@ -17,7 +17,7 @@ library(dplyr)
 
 ## Einstellungen ##
 
-bearbeiter = 'Alex'
+bearbeiter = 'Kai@Work'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -591,7 +591,7 @@ sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = T, response)
 #sample$Stadtteil <- as.character(sample$Stadtteil)
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
-
+fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
 #--------------------#
 ## Modellerstellung ##
 #--------------------#
@@ -599,7 +599,7 @@ fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Alters
 ## Step AIC ##
 if(calculate_model){
   step.model.binom.S <- stepAIC()
-  saveRDS(step.model.binom.S, file="./Model_Results/step.model_all_binomS.rds")
+  #saveRDS(step.model.binom.S, file="./Model_Results/step.model_all_binomS.rds")
 } else {
   step.model.binom.S <- readRDS(file = "./Model_Results/step.model_all_binomS.rds")
 }
