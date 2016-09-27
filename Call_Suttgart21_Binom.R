@@ -157,7 +157,7 @@ model.i.2 <- data.frame(m = factor(c( 's(Spat)',
                )), mm = factor(1:5))
 model.i.2$m <- factor(model.i.2$m, levels = model.i.2[order(model.i.2$mm), 'm'])
 aic.i <-c(3250.75, 3201.562, 3146.931, 3121.203, 3114.143)
-AIC.it.S21.2 <- data.frame(vari = 'Stuttgart 21 2 Klassen', model.i.2, aic.i)
+AIC.it.S21.2 <- data.frame(vari = 'Stuttgart 21 zwei Klassen', model.i.2, aic.i)
 
 ggplot(AIC.it.S21.2, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(11) +
   labs(x = 'Modell',  y = 'AIC')
