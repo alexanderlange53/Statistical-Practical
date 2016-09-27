@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  27 SEP 2016 00:16
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  27 SEP 2016 08:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1078,7 +1078,7 @@ Package babel Info: Redefining ngerman shorthand "~
 
 ]
 (./HAs.lof
-Overfull \hbox (0.39821pt too wide) in paragraph at lines 8--8
+Overfull \hbox (0.39821pt too wide) in paragraph at lines 9--9
  [][] [][][]\OT1/cmr/m/n/10.95 Kontinuierlicher r[]aumlicher Ef-fekt des Vor-he
 r-sa-ge-mo-dells zur Be-wer-tung zu Stutt- 
  []
@@ -1089,13 +1089,13 @@ r-sa-ge-mo-dells zur Be-wer-tung zu Stutt-
 
  (./HAs.lot
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 7.
+(babel)             in language  on input line 6.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 7.
+(babel)             in language  on input line 6.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 7.
+(babel)             in language  on input line 6.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 7.
+(babel)             in language  on input line 6.
  [2])
 \tf@lot=\write7
 \openout7 = `HAs.lot'.
@@ -1159,7 +1159,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 148.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 148.
-[2] <Pictures/BarResp.pdf, id=241, 578.16pt x 216.81pt>
+[2] <Pictures/BarResp.pdf, id=243, 578.16pt x 216.81pt>
 File: Pictures/BarResp.pdf Graphic file (type pdf)
 
 <use Pictures/BarResp.pdf>
@@ -1184,7 +1184,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 170.
 [3 <./Pictures/BarResp.pdf>]
-<Pictures/XYStuttgart3.png, id=266, 578.16pt x 289.08pt>
+<Pictures/XYStuttgart3.png, id=268, 578.16pt x 289.08pt>
 File: Pictures/XYStuttgart3.png Graphic file (type png)
 
 <use Pictures/XYStuttgart3.png>
@@ -1209,7 +1209,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 186.
 [4 <./Pictures/XYStuttgart3.png (PNG copy)>]
-<Pictures/XYWohnG5.png, id=280, 578.16pt x 469.755pt>
+<Pictures/XYWohnG5.png, id=282, 578.16pt x 469.755pt>
 File: Pictures/XYWohnG5.png Graphic file (type png)
 
 <use Pictures/XYWohnG5.png>
@@ -1229,7 +1229,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 205.
 [5 <./Pictures/XYWohnG5.png (PNG copy)>]
-<Pictures/BStuttgart3.pdf, id=292, 578.16pt x 289.08pt>
+<Pictures/BStuttgart3.pdf, id=294, 578.16pt x 289.08pt>
 File: Pictures/BStuttgart3.pdf Graphic file (type pdf)
 
 <use Pictures/BStuttgart3.pdf>
@@ -1240,7 +1240,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 208--209
  [] 
  []
 
-<Pictures/SStuttgart3.pdf, id=295, 578.16pt x 289.08pt>
+<Pictures/SStuttgart3.pdf, id=297, 578.16pt x 289.08pt>
 File: Pictures/SStuttgart3.pdf Graphic file (type pdf)
 
 <use Pictures/SStuttgart3.pdf>
@@ -1401,7 +1401,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 432.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 432.
- <Pictures/stepAIC.pdf, id=560, 578.16pt x 397.485pt>
+ <Pictures/stepAIC.pdf, id=562, 578.16pt x 397.485pt>
 File: Pictures/stepAIC.pdf Graphic file (type pdf)
 
 <use Pictures/stepAIC.pdf>
@@ -1579,7 +1579,7 @@ Package babel Info: Redefining ngerman shorthand "~
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/PaT2.pdf, id=651, 578.16pt x 289.08pt>
+<Pictures/PaT2.pdf, id=650, 578.16pt x 289.08pt>
 File: Pictures/PaT2.pdf Graphic file (type pdf)
  <use Pictures/PaT2.pdf>
 Package pdftex.def Info: Pictures/PaT2.pdf used on input line 652.
@@ -1613,7 +1613,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 664.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 664.
- [24] <Pictures/S21AlleModelle.pdf, id=663, 578.16pt x 252.945pt>
+ [24] <Pictures/S21AlleModelle.pdf, id=661, 578.16pt x 252.945pt>
 File: Pictures/S21AlleModelle.pdf Graphic file (type pdf)
 
 <use Pictures/S21AlleModelle.pdf>
@@ -1636,7 +1636,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 674.
 [25 <./Pictures/PaT2.pdf>]
-<Pictures/WohngegendAlleModelle2.pdf, id=671, 578.16pt x 361.35pt>
+<Pictures/WohngegendAlleModelle2.pdf, id=669, 578.16pt x 361.35pt>
 File: Pictures/WohngegendAlleModelle2.pdf Graphic file (type pdf)
 
 <use Pictures/WohngegendAlleModelle2.pdf>
@@ -1744,7 +1744,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 735.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 735.
- <Pictures/BarData.pdf, id=715, 578.16pt x 578.16pt>
+ <Pictures/BarData.pdf, id=713, 578.16pt x 578.16pt>
 File: Pictures/BarData.pdf Graphic file (type pdf)
 
 <use Pictures/BarData.pdf>
@@ -1755,7 +1755,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 744--745
  [] 
  []
 
-<Pictures/BWohn.pdf, id=716, 578.16pt x 505.89pt>
+<Pictures/BWohn.pdf, id=714, 578.16pt x 505.89pt>
 File: Pictures/BWohn.pdf Graphic file (type pdf)
  <use Pictures/BWohn.pdf>
 Package pdftex.def Info: Pictures/BWohn.pdf used on input line 753.
@@ -1768,7 +1768,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 753--754
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/SWohn.pdf, id=717, 578.16pt x 505.89pt>
+<Pictures/SWohn.pdf, id=715, 578.16pt x 505.89pt>
 File: Pictures/SWohn.pdf Graphic file (type pdf)
  <use Pictures/SWohn.pdf>
 Package pdftex.def Info: Pictures/SWohn.pdf used on input line 761.
@@ -1781,7 +1781,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 761--762
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/S21Extra.pdf, id=718, 578.16pt x 289.08pt>
+<Pictures/S21Extra.pdf, id=716, 578.16pt x 289.08pt>
 File: Pictures/S21Extra.pdf Graphic file (type pdf)
 
 <use Pictures/S21Extra.pdf>
@@ -1795,7 +1795,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 777--778
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/BWohnExtra.pdf, id=719, 578.16pt x 505.89pt>
+<Pictures/BWohnExtra.pdf, id=717, 578.16pt x 505.89pt>
 File: Pictures/BWohnExtra.pdf Graphic file (type pdf)
 
 <use Pictures/BWohnExtra.pdf>
@@ -1897,48 +1897,33 @@ Package rerunfilecheck Info: File `HAs.out' has not changed.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 823.
  ) 
 Here is how much of TeX's memory you used:
- 17951 strings out of 493304
- 307513 string characters out of 6139871
- 418775 words of memory out of 5000000
+ 17947 strings out of 493304
+ 307447 string characters out of 6139871
+ 418818 words of memory out of 5000000
  20885 multiletter control sequences out of 15000+600000
  13971 words of font info for 51 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,16n,75p,2839b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{table.caption.15} has been referenced but does no
-t exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{table.caption.10} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.caption.20} has been referenced but does not
- exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.caption.11} has been referenced but does not
- exist, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr
-/share/texmf/fonts/type1/public/tex-gyre/qhvr.pfb>
-Output written on HAs.pdf (40 pages, 12828854 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
+sr/share/texmf/fonts/type1/public/tex-gyre/qhvr.pfb>
+Output written on HAs.pdf (40 pages, 12829097 bytes).
 PDF statistics:
- 1000 PDF objects out of 1000 (max. 8388607)
- 843 compressed objects within 9 object streams
- 122 named destinations out of 1000 (max. 500000)
+ 996 PDF objects out of 1000 (max. 8388607)
+ 839 compressed objects within 9 object streams
+ 118 named destinations out of 1000 (max. 500000)
  295 words of extra memory for PDF output out of 10000 (max. 10000000)
 

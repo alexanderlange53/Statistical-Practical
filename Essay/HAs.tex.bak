@@ -432,6 +432,14 @@ Nachdem im Material und Methoden Teil zunächst die Datensätze und statistische
 \subsection{Schrittweiser AIC Vergleich}
 Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. \textcolor{red}{ABB. X} zeigt den Verlauf der AIC Optimierung exemplarisch für das Prognosemodell der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Effekt. \textcolor{red}{Hier könnte dann die Abb. die Du eben meinstest mit dem Verlauf hin}. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC in allen Fällen minderte, wurden vorgegeben.
 
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/stepAIC}
+ \caption{stepAIC}
+ \label{AIC}
+ \end{center}
+\end{figure}
+
 \subsection{Modelle}
 Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb eines Modells gleich. In Tabelle \ref{stepAIC} wird demnach jedes geoadditive Modell dem reinen räumlichen Effekt je Modell die räumlichen Effekte den reinen Kovariableneffekten gegenübergestellt und mit dem geoadditiven Modell verglichen. Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
 

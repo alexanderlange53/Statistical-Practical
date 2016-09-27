@@ -152,29 +152,31 @@ if(calculate_model){
 }
 
 model.i <- data.frame(m = factor(c(  's(Spat) + s(Personen, Alter)', 
-               's(Spat) + s(Personen, Alter) +\n
+               's(Spat) + s(Person, Alter) +\n
                 Geschlecht',
-               's(Spat) + s(Personen, Alter) +\n 
+               's(Spat) + s(Person, Alter) +\n 
                 Geschlecht + Nationalität',
-               's(Spat) + s(Personen, Alter) +\n 
-                Geschlecht + Nationalität + Familienstand',
-               's(Spat) + s(Personen, Alters) +\n
-                Geschlecht + Nationalität + Familienstand + \n
-               s(Alter)',
-               's(Spat) + s(Personen, Alter) +\n 
-                Geschlecht + Nationalität + Familienstand + \n
-               Personenzahl + s(Alter)'
+               's(Spat) + s(Person, Alter) +\n 
+                Geschlecht + Nationalität + \n 
+                Familie',
+               's(Spat) + s(Person, Alters) +\n
+                Geschlecht + Nationalität + \n 
+                Familie + s(Alter)',
+               's(Spat) + s(Person, Alter) +\n 
+                Geschlecht + Nationalität +  \n 
+                Familie + Person + s(Alter)'
                )), mm = factor(1:6))
 model.i$m <- factor(model.i$m, levels = model.i[order(model.i$mm), 'm'])
 aic.i <-c(6456.846, 6408.784, 6390.473, 6381.882, 6379.428, 6379.345)
-AIC.it.S21.3 <- data.frame(vari = 'Stuttgart 21 3 Klassen', model.i, aic.i)
+AIC.it.S21.3 <- data.frame(vari = 'Stuttgart 21 drei Klassen', model.i, aic.i)
 
 ggplot(AIC.it.S21.3, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(11) +
   labs(x = 'Modell',  y = 'AIC')
 
 AA <- rbind(AIC.it.S21.3, AIC.it.S21.2, AIC.it.BW)
-AI <- ggplot(AA, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(8) +
-  labs(x = NULL,  y = 'AIC') + facet_wrap(~ vari, scales = 'free', ncol = 1)
+AI <- ggplot(AA, aes(x = m, y = aic.i, group = 1)) + geom_point(stat = 'summary')+ theme_bw(12) +
+      labs(x = NULL,  y = 'AIC') + facet_wrap(~ vari, scales = 'free', ncol = 1) +
+      stat_summary(geom = 'line') + theme(axis.text = element_text(size = 6))
 ggsave('./Essay/Pictures/stepAIC.pdf', height = 5.5, width = 8)
 #--------------------------------#
 ## Modelleffekte interpretieren ##

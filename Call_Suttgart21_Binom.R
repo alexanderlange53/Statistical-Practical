@@ -153,7 +153,7 @@ model.i.2 <- data.frame(m = factor(c( 's(Spat)',
                 's(Spat) + Geschlecht + Nationalität +\n
                  s(Alter)',
                 's(Spat) + Geschlecht + Nationalität +\n
-                 Familienstand + s(Alter)'
+                 Familie + s(Alter)'
                )), mm = factor(1:5))
 model.i.2$m <- factor(model.i.2$m, levels = model.i.2[order(model.i.2$mm), 'm'])
 aic.i <-c(3250.75, 3201.562, 3146.931, 3121.203, 3114.143)
