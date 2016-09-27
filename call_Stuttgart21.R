@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -151,12 +151,39 @@ if(calculate_model){
   step.model <- readRDS(file = "./Model_Results/step.model_all.rds")
 }
 
+model.i <- data.frame(m = factor(c(  's(Spat) + s(Personen, Alter)', 
+               's(Spat) + s(Person, Alter) +\n
+                Geschlecht',
+               's(Spat) + s(Person, Alter) +\n 
+                Geschlecht + Nationalität',
+               's(Spat) + s(Person, Alter) +\n 
+                Geschlecht + Nationalität + \n 
+                Familie',
+               's(Spat) + s(Person, Alters) +\n
+                Geschlecht + Nationalität + \n 
+                Familie + s(Alter)',
+               's(Spat) + s(Person, Alter) +\n 
+                Geschlecht + Nationalität +  \n 
+                Familie + Person + s(Alter)'
+               )), mm = factor(1:6))
+model.i$m <- factor(model.i$m, levels = model.i[order(model.i$mm), 'm'])
+aic.i <-c(6456.846, 6408.784, 6390.473, 6381.882, 6379.428, 6379.345)
+AIC.it.S21.3 <- data.frame(vari = 'Stuttgart 21 drei Klassen', model.i, aic.i)
+
+ggplot(AIC.it.S21.3, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(11) +
+  labs(x = 'Modell',  y = 'AIC')
+
+AA <- rbind(AIC.it.S21.3, AIC.it.S21.2, AIC.it.BW)
+AI <- ggplot(AA, aes(x = m, y = aic.i, group = 1)) + geom_point(stat = 'summary')+ theme_bw(12) +
+      labs(x = NULL,  y = 'AIC') + facet_wrap(~ vari, scales = 'free', ncol = 1) +
+      stat_summary(geom = 'line') + theme(axis.text = element_text(size = 6))
+ggsave('./Essay/Pictures/stepAIC.pdf', height = 5.5, width = 8)
 #--------------------------------#
 ## Modelleffekte interpretieren ##
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model$model.spat
-
+#plot(m1, all = T)
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
 g1 <- ggplot.model(m1, variables = variables)
@@ -173,9 +200,12 @@ dev.off()
 
 # Spatial Effect
 spat.p.c <-spat.plot.cont(m1)
-pdf('./Essay/Pictures/S21_3_Kont_SpatEff.pdf', h = 5, w = 5.5)
-spat.p.c
-dev.off()
+#spat.p.c
+
+#pdf('./Essay/Pictures/S21_3_Kont_SpatEff.pdf', h = 5, w = 5.5)
+ggsave(plot = spat.p.c, filename = '/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Essay/Pictures/S21_3_Kont_SpatEff.pdf', device = 'pdf', height = 5, width = 5.5)
+
+
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
@@ -362,6 +392,8 @@ if(calculate_model){
   step.model.B <- readRDS(file = "./Model_Results/step.model_all_B.rds")
 }
 
+#plot(step.model.B$model.spat, all = TRUE, pages = 1)
+#plot(step.model$model.spat, all = TRUE, pages = 1)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
@@ -402,6 +434,10 @@ crossval(cv.B, sample)
 ## GAM Plots ##
 m1 <- step.model.B$model.spat
 
+#tt <- plot(m1, all = TRUE)
+
+#str(tt)
+
 visreg(m1, xvar = "Nationalität", type = 'conditional')
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
@@ -424,8 +460,11 @@ AIC(step.model.B$model.spat)
 AIC(step.model.B$model.nospat)
 AIC(step.model.B$model.spatonly)
 
+summary(step.model.B$model.nospat)
+summary(step.model$model.nospat)
+
 summary(step.model.B$model.spat)
-plot(step.model.B$model.spat, all = T)
+#plot(step.model.B$model.spat, all = T)
 
 
 #---------------#
@@ -570,7 +609,7 @@ if(calculate_model){
 } else {
   step.model.S <- readRDS(file = "./Model_Results/step.model_all_S.rds")
 }
-
+#plot(step.model.S$model.spat, all = T, pages = 1)
 #--------------------#
 ## Model Evaluation ##
 #--------------------#
@@ -626,19 +665,19 @@ crossval(cv.S, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.S$model.spat
-plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
-plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
+#plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
+#plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
 #x11()
-par(mfrow = c(2, 2))
-plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
-mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
-plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
-mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
-plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
-mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
-plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
-mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
+# par(mfrow = c(2, 2))
+# plot(m1, select = 4, all = TRUE, ann = F) # Geschlecht
+# mtext(side = 1, line = 3, "Geschlecht"); mtext(side = 2, line = 3, "Einfluss des Geschlechts")
+# plot(m1, select = 5, all = TRUE, ann = F) # Nationalität
+# mtext(side = 1, line = 3, "Nationalität"); mtext(side = 2, line = 3, "Einfluss der Nationalität")
+# plot(m1, select = 6, all = TRUE, ann = F) # Familienstand
+# mtext(side = 1, line = 3, "Familienstand"); mtext(side = 2, line = 3, "Einfluss des Familienstands")
+# plot(m1, select = 7, all = TRUE, ann = F) # Personenzahl
+# mtext(side = 1, line = 3, "Personenzahl im Haushalt"); mtext(side = 2, line = 3, "Einfluss der Personenzahl im Haushalt")
 
 dev.off()
 
@@ -651,8 +690,27 @@ summary(step.model.S$model.spat)
 
 # Spatial effect
 spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
+
 pdf('./Essay/Pictures/S21_3_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
 spat.p.steil
+dev.off()
+
+ll <- list(spat.p.c, spat.p.bez, spat.p.steil)
+marrangeGrob(ll, nrow = 1, ncol = 3)
+lay <- c(c(1,2,3),
+         c(1,2,3),
+         c(1,2,3))
+
+<<<<<<< HEAD
+spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1,layout_matrix = lay)
+pdf('./Essay/Pictures/S21_3_all_spat_eff.pdf')
+spa.p.all
+=======
+spa.p.all <- grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
+
+pdf('./Essay/Pictures/x.pdf')
+grid.arrange(spat.p.c, spat.p.bez, spat.p.steil, nrow = 1)
+>>>>>>> b1ca3cc66d3c67931336ebf30e98c1012966fe83
 dev.off()
 
 #---------------#
@@ -825,6 +883,7 @@ models <- c('1 Gauss-Krüger M.', '1 Gauss-Krüger auf Z.',
 ResultPlot(predlist = predlist,  sample = sample, 
            models = models)
 ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 3.5, width = 8)
+
 
 # Extrapolierte Anteile
 colSums(S21.3.U.Ko.IntSB[,11:13])/sum(S21.3.U.Ko.IntSB[,11:13])*100

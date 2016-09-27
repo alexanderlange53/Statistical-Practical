@@ -315,7 +315,30 @@ die gleichen sozioökonomischen Variablen wie beim Melderegister in Frage.
 
 Zur Vorstellung der statistischen Methoden dieser Arbeit wird zunächst das Geoadditiven Modell, welches zur Parametrisierung und anschließenden Extrapolation genutzt wird, eingeführt. Dabei wird insbesondere auf die modelspezifischen Besonderheiten der endogenen Variablen eingegangen, sowie auf die Modellierung der unterschiedlichen Kovariablen, die im vorangegangen Kapitel erläutert wurden. Außerdem wird kurz auf die Implementierung am Rechner eingegangen. Anschließend erfolgt eine Darstellung der Methoden, die zur Ermittlung des jeweils besten Modells für beide endogene Variablen genutzt werden.
 
-\subsubsection{Geoadditive Modelle}
+\subsubsection{Schrittweiser AIC Vergleich}
+Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten sozioökonomischen Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
+Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC 
+berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, 
+die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt 
+werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es 
+wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In 
+Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird 
+jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen zunächst entsprechend der vorigen Eingabe parametrisch 
+oder semiparametrisch ein. Außerdem werden alle vorab als nichtparametrisch eingeschätzten Variablen zusätzlich als parametrischer Trend geprüft. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC 
+führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls 
+das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in 
+Iteration eins bereits beendet.\\ 
+Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen 
+Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen 
+zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist 
+(falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren 
+Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das 
+Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC 
+als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die 
+Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche 
+Modellbestandteile eingehen. In dieser Arbeit wird der Einfluss unterschiedlicher räumlicher Effekte auf die Modellqualität analysiert. Die räumlichen Effekte wurden deshalb im schrittweisen AIC Vergleich nicht berücksichtigt. Sie gingen, sofern das betrachtete Modell über einen räumlichen Effekt verfügte, als unveränderlicher Modellbestandteil ein.
+
+\subsubsection{Verwendete Modelle}
 Alle zu modellierenden endogenen Variablen besitzen kategoriale Merkmale. Ziel der Modellierung ist also  die Ausprägungswahrscheinlichkeit dieser Kategorien vorherzusagen. Da negative Wahrscheinlichkeiten sowie Wahrscheinlichkeiten über 1 nicht sinnvoll interpretierbar sind, muss demnach sichergestellt sein, dass die endogene Variable des Regressionsmodells nur stetige Werte zwischen 0 und 1 einnehmen kann. Da sich diese Vorgabe mit einfachen linearen Regressionsmodellen normalerweise nicht einhalten lässt, sind diese folglich für die Fragestellung dieser Arbeit ungeeignet. Des Weiteren weisen kategoriale Regressionsmodelle häufig keine Normalverteilung auf \cite[p. 277]{fahrmeir2013regression}, was zusätzlich gegen einfache lineare Modelle mit gewöhnlicher kleinste-Quadrate-Schätzung spricht. Im Gegensatz zu einfachen linearen Regression kann der lineare Prädiktor
 
 
@@ -373,30 +396,6 @@ Die zweite in dieser Arbeit vorgestellte Möglichkeit der Berücksichtigung räu
 ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s_i$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten der Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. Regionen, die eine gemeinsame Grenze mit $s_i$ teilen werden als Nachbarn erster Ordnung bezeichnet. Nur diese werden für die Glättung berücksichtigt.
 Ein praktisches Problem in der Implementierung eines Markov-Randomfields mit dem \texttt{mgcv} Paket ist, dass in jeder Region mindestens eine Beobachtung jeder Kategorie der abhängigen Variable vorkommen muss. Wie bereits in dem Kapitel zum Parametrisierungsdatensatz gezeigt fehlen insbesondere auf Stadtteilebene häufig einzelne Beobachtungen einer Kategorie oder auch Beobachtungen im Allgemeinen in einzelnen Regionen. Um die Implementierung dennoch möglich zu machen wurde eine Funktion erstellt, die partiell oder komplett fehlende Beobachtungen durch Pseudo-Beobachtungen ersetzt und anschließend mit Null gewichtet, während echte Beobachtungen mit eins gewichtet werden (siehe digitaler Anhang \textit{PseudoB.R}).
 
-
-\subsubsection{Schrittweise AIC}
-Basierend auf den vorhergegangenen Analysen des Beamten- und Eigenheimanteils in Stuttgart, die uns zur Verfügung standen wurde eine Funktion zur schrittweisen AIC \cite{Akaike1981} Berechnung programmiert, die zur Identifikation der geeignetsten Kovariablenkombination dient (siehe digitaler Anhang \textit{stepAIC.R}). In der Funktion werden mithilfe der \texttt{gam()} Funktion des \texttt{mgcv} 
-Paketes \cite{Wood2011} generaliserte additive Modelle mit unterschiedlichen Kovariablen erstellt und deren AIC 
-berechnet. Vor dem Aufruf der Funktion müssen die abhängige Variable, die Verteilungsannahme des Regressionsmodelles, 
-die Gewichtungen der Einzelbeobachtungen und unveränderliche Kovariablen definiert werden. Außerdem muss eingeschätzt 
-werden, welche der veränderlichen Kovariablen parametrisch oder semiparametrisch als Spline in das Modell eingehen. Es 
-wird zunächst der AIC des einfachsten, nur aus den fest vorgegebenen Kovariablen bestehenden Modells berechnet. In 
-Iteration eins werden alle veränderlichen Kovariablen einzeln nacheinander in die Modellformel aufgenommen und es wird 
-jeweils ein GAM erstellt sowie dessen AIC berechnet. Die Kovariablen gehen entsprechend der vorigen Eingabe parametrisch 
-oder semiparametrisch ein. Falls die Hinzunahme mindestens einer Kovariable in Iteration eins zu einer Reduktion des AIC 
-führt, wird diejenige Kovariable, welche zu dem Modell mit dem kleinsten AIC führt zur Modellformel hinzugefügt. Falls 
-das Modell nur mit den festen Modellbestandteilen bereits den geringsten AIC zeigt ist die Modellwahl folglich in 
-Iteration eins bereits beendet.\\ 
-Andernfalls setzt sich das Ausgangsmodell für Iteration zwei aus den festen 
-Kovariablen und einer weiteren Kovariable zusammen. In Iteration zwei werden wie zuvor alle verbleibenden Kovariablen 
-zunächst nacheinander zur aktuellen Modellformel hinzugefügt. Wenn die Kovariable mit dem geringsten AIC gefunden ist 
-(falls diese existiert und das Modell aus Iteration eins nicht bereits das geeignetste ist), werden alle veränderbaren 
-Kovariablen in Iteration zwei nochmals nacheinander eliminiert. Das Modell mit dem geringsten AIC bildet das 
-Ausgangsmodell der nächsten Iteration. Dies wird wiederholt bis in einer Iteration kein Modell mit einem geringeren AIC 
-als in der vorigen Iteration parametrisiert werden kann. Um die Laufzeit der Funktion zu begrenzen, wurde auf die 
-Analyse von Wechselwirkungen zwischen den Kovariablen verzichtet. Wechselwirkungen können jedoch als unveränderliche 
-Modellbestandteile eingehen. In dieser Arbeit wird der Einfluss unterschiedlicher räumlicher Effekte auf die Modellqualität analysiert. Demnach gingen die räumlichen Effekte ebenfalls als fester, unveränderlicher Modellbestandteil in die schrittweise AIC Analyse ein.
-
 \subsubsection{Reklassifizierung}
 
 Das verfahren der Reklassifizierung wird genutzt, um die Prognosequalität der Modelle innerhalb der Stichprobe zu überprüfen.Im Gegensatz zur nachfolgenden Kreuzvaildierung zeichnet sich die Reklassifizierung durch eine simple Implementation und geringe Rechenzeit aus, was ihr zusätzlich auch in dieser Arbeit Attraktivität verleiht. Bei dem Verfahren selbst wird der vollständige Stichprobendatensatz genutzt um mithilfe des vorher parametrisierten Modells die Klassen der Beobachtungen in dem Datensatz zu Prognostizieren. Anschließend lässt sich ermitteln wie oft Beobachtungen in die richtige oder eine falsche Klasse prognostiziert wurde. Dies ist möglich sowohl für die Modelle insgesamt, als auch für die jeweils einzelnen Klassen.
@@ -427,28 +426,21 @@ durch eine stetige Verteilung resultieren, was z.B. oft bei der Approximation de
 vorkommt \cite[p. 102]{Int}.
 
 \section{Ergebnisse}
-\textcolor{red}{eig. müsste dieser Teil hinter StepAIC, wir müssen ja erst per AIC die Kovar. identifizieren}
-Das erste vorgestellte Modell
+Nachdem im Material und Methoden Teil zunächst die Datensätze und statistischen Methoden vorgestellt wurden, zeigt dieses Kapitel die daraus entstanden Ergebnisse. Dafür werden zunächst die geschätzten Parameter der verschiedenen Modelle und die geschätzten Modelle in Gänze analysiert. Insgesamt wurden zur Meinung zu Stuttgart 21 sechs geoadditive Modelle geschätzt, drei Modelle mit drei Ausprägungen der abhängigen Variable und drei Modelle mit zwei Ausprägungen. Beide Modellierungsmöglichkeiten wurden dabei einmal mit jedem der drei räumlichen Effekte parametrisiert. Zudem wurde in allen Fällen noch jeweils ein Modell nur mit räumlichem Effekt und ein Modell ohne räumlichem Effekt geschätzt. Für die Bewertung der Wohngegend wurde nur ein Fall mit fünf Klassen geschätzt, aber jeweils auch mit drei räumlichen Effekten und Modellen mit- und ohne räumlichem Effekt. Insgesamt ergibt das 18 geschätzte Modelle für die Meinung zu Stuttgart 21 und 9 Modelle für die Bewertung der Wohngegend. Um diese hohe Anzahl zu reduzieren werden anhand der Modellwahlkriterien aus dem vorangegangen Kapitel nach und nach Modelle eliminiert, die auf Grund dieser Kriterien als bestes Modell zur Extrapolation ausscheiden. Zum Schluss werden mit den zuletzt verbliebenen Modellen die Extrapolationen auf die Grundgesamtheit vorgenommen, um dann die beiden finalen Modelle zu finden. 
 
 
-\subsection{Modell}
-
-\begin{figure}[h]
- \begin{center}
- \includegraphics[scale=0.8]{Pictures/S21ModelEffects}
- \caption{Parametrische und nicht-Parametrische Effekte des Vorhersagemodells zu Bewertung von Stuttgart 21 mit kontinuierlichen räumlichen Informationen.}
- \label{GKParam}
- \end{center}
-\end{figure}
+\subsection{Schrittweiser AIC Vergleich}
+Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. \textcolor{red}{ABB. X} zeigt den Verlauf der AIC Optimierung exemplarisch für das Prognosemodell der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Effekt. \textcolor{red}{Hier könnte dann die Abb. die Du eben meinstest mit dem Verlauf hin}. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC in allen Fällen minderte, wurden vorgegeben.
 
 \begin{figure}[h]
  \begin{center}
- \includegraphics[scale=0.6]{Pictures/S21_3_Kont_SpatEff}
- \caption{Kontinuierlicher räumlicher Effekt des Vorhersagemodells zur Bewertung zu Stuttgart 21.}
- \label{S21_3_Kont_SpatEff}
+ \includegraphics[scale=0.8]{Pictures/stepAIC}
+ \caption{stepAIC}
+ \label{AIC}
  \end{center}
 \end{figure}
 
+<<<<<<< HEAD
 \begin{figure}[htbp]
   \centering
   \subfigure[eins]{\includegraphics{Pictures/S21_3_Kont_SpatEff}}\quad
@@ -468,38 +460,66 @@ Das erste vorgestellte Modell
 
 
 
+=======
+\subsection{Modelle}
+Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb eines Modells gleich. In Tabelle \ref{stepAIC} wird demnach jedes geoadditive Modell dem reinen räumlichen Effekt je Modell die räumlichen Effekte den reinen Kovariableneffekten gegenübergestellt und mit dem geoadditiven Modell verglichen. Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
+>>>>>>> 1a8e270548630dcd7fb4b58caf77731cff78bed5
 
-\subsection{Schrittweise AIC}
+Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauß-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
 
-
-Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. Da der räumliche Effekt stets als fester Bestandteil aufgenommen wurde, listet Tabelle \ref{stepAIC} zu jedem Modell das AIC für ein vollständiges geoadditives Modell, einem Modell nur mit räumlichem Effekt und ein Modell bestehend aus allen Kovariablen außer dem räumlichem Effekt auf. Dadurch lässt sich die relative Informationsqualität des jeweiligen räumlichen Effekts untersuchen. \\
-Für die Meinung zu Stuttgart 21 im drei Klassen Fall lässt sich erkennen, dass das Geoadditive Modell mit den Gauss-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Bei dem Modell mit Bezirken als räumlichem Effekt scheint dieser die Qualität des Modells in Abhängigkeit von der Komplexität nicht zu verbessern. Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauss-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
 
 \begin{table}[h]
 \centering
-\caption{Vergleich der step AIC Ergebnisse zwischen den Modellen}
+\caption{AIC Vergleich der unterschiedlichen räumlichen Effekte.}
 \label{stepAIC}
 \begin{tabular}{llccc}
 \hline \hline
 \multicolumn{5}{c}{Meinung zu Stuttgart 21}                                                                                                                                            \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
+\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6455,284}                             & \multicolumn{1}{c|}{6383}              & 6455,284          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6428,6}                               & \multicolumn{1}{c|}{6509,871}          & 6510,838          \\ \hline
-\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
+\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116.13}           & 3271,325          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{3079,12}                              & \multicolumn{1}{c|}{3117.902}          & 3163,597          \\ \hline
 \multicolumn{5}{c}{Bewertung der Wohngegend}                                                                                                                                           \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-                          & \multicolumn{1}{l|}{Gauss-Krüger} & \multicolumn{1}{c|}{7051,606}                             & \multicolumn{1}{c|}{7318,815}          & 7062,108          \\
+                          & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{7051,606}                             & \multicolumn{1}{c|}{7318,815}          & 7062,108          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{7175,601}                             & \multicolumn{1}{c|}{7318,815}          & 7197,003          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{8252,374}                             & \multicolumn{1}{c|}{8567,358}          & 8750,801          \\ \hline \hline
 \end{tabular}
 \end{table}
 
-Für die Bewertung der Wohngegend als endogene Variable zeigt sich noch ein deutlicherer Unterschied zwischen Schätzungen mit räumlichem Effekt und ohne räumlichem Effekt. Modelle mit räumlichem Effekt zeigen einen deutlich niedrigeren AIC, so ist der Unterschied bei den Gauss-Krüger und Bezirksinformationen zwischen dem Geoaddtitven Modell und dem Modell nur mit räumlichem Effekt sehr viel geringer ist als zwischen Geoadditivem Modell und Modell ohne räumlichem Effekt. Dies weißt darauf hin, dass der räumliche Effekt einen hohen Erklärungsgehalt für die Ausprägung der abhängigen Variable liefert. Die gegenteilige Situation findet sich bei der Meinung zu Stuttgart 21 vor, hier scheint der räumliche Effekt weniger Erklärungsgehalt zu liefern. Insgesamt signalisiert das AIC die höchste Qualität für das Geoadditive Modell mit Gauss-Krüger Informationen bei der Bewertung der Wohngegend.
+Für die Bewertung der Wohngegend als endogene Variable zeigt sich noch sehr deutlicher Unterschied zwischen Schätzungen mit räumlichem Effekt und ohne räumlichem Effekt. Modelle mit räumlichem Effekt zeigen stets deutlich niedrigere AIC.
+, so ist der Unterschied bei den Gauß-Krüger und Bezirksinformationen zwischen dem Geoaddtitven Modell und dem Modell nur mit räumlichem Effekt sehr viel geringer ist als zwischen Geoadditivem Modell und Modell ohne räumlichem Effekt. Dies weißt darauf hin, dass der räumliche Effekt einen hohen Erklärungsgehalt für die Ausprägung der abhängigen Variable liefert. Die gegenteilige Situation findet sich bei der Meinung zu Stuttgart 21 vor, hier scheint der räumliche Effekt weniger Erklärungsgehalt zu liefern. Insgesamt signalisiert das AIC die höchste Qualität für das Geoadditive Modell mit Gauß-Krüger Informationen bei der Bewertung der Wohngegend. Zusammenfassend ist zu sagen, dass die geoadditiven Modellen tendenziell einen geringeren AIC als die Modelle ohne räumlichen Effekt sowie die Modellen nur räumlichem Effekt zeigen und, dass der kontinuierliche räumliche Effekt innerhalb der geoadditiven Modelle den geringsten AIC aufweisen. Für die Extrapolation wurden dementsprechend nur geoadditive verwendet.\\
+Das erste geoadditive Modell zur Modellierung der Meinung zu Stuttgart 21 mit dreikategorialer Response (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) und kontinuierlichem räumlichen Trend wird im Folgenden näher erläutert. Aus Abbildung \ref{GKParam} und \textcolor{red}{Tabelle X} geht die Signifikanz der Modellparameter hervor. Hierbei ist zu beachten, dass \textit{Zustimmung} mit 1 und \textit{Ablehnung} mit 3 kodiert wurde. Je höher der Effekt, desto höher ist also die Wahrscheinlichkeit der \textit{Ablehnung}. Die \textit{Altersklasse des Befragten} zeigte einen stark nichtlinearen Trend. Die Wahrscheinlichkeit der Ablehnungswahrscheinlichkeit ist in den jüngeren Altersklassen bis 2 am geringsten. Sie steigt bis zu ihrem Höhepunkt bei Altersklasse  4,5 an und fällt dann relativ stark wieder ab. \textcolor{red}{gucken, was die AKL bedeutetn} Die Personenzahl im Haushalt ging, entgegen der Erwartungen, parametrisch in das Modell ein. Der Effekt zeigt einen stark negativen linearen Trend. Die Wahrscheinlichkeit der \textit{Ablehnung} ist also in Single-Haushalten mit deutlichem Abstand am höchsten. Die Kategorien des Familienstands unterscheiden sich zwar nicht signifikant von 0, werden jedoch aufgrund der leichten AIC Verringerung dennoch berücksichtigt. Es ist ersichtlich, dass \textit{geschiedene} und \textit{ledige} Bürger eher eine ablehnende Haltung gegenüber Stuttgart 21 zeigen \textit{verheiratete} oder \textit{verwitwete}. Deutlicher sind die Effekte der Nationalität und des Geschlechts. \textit{Deutsche} Bürger zeigen eine signifikant höhere Ablehnungswahrscheinlichkeit als ausländische Bürger. Der Unterschied zwischen den Geschlechtern ist etwa ebenso stark. Männer haben eine geringere Ablehnungswahrscheinlichkeit als Frauen. Die Kovariablenausprägungen finden sich in näherungsweise gleicher Ausprägung in geoadditiven Modellen mit diskreten räumlichen Effekten textcol{red}{Tabellen der GAM im Anhang}. Ausnahme bildet nur der Familienstand im diskreten räumlichen Modell aud Stadtbezirksebene, welcher nach schrittweiser AIC Analyse nicht in dieses Modell eingeflossen ist.\\
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/S21ModelEffects2}
+ \caption{Parametrische und nonparametrische Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Trend.}
+ \label{GKParam}
+ \end{center}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \subfigure[Kontinuierlich]{\includegraphics[scale=0.49]{Pictures/S21_3_Kont_SpatEff}}\quad
+  \subfigure[Diskret: Stadtbezirke]{\includegraphics[scale=0.5]{Pictures/S21_3_Bezirke_SpatEff}}\quad
+  \subfigure[Diskret: Stadtteile]{\includegraphics[scale=0.5]{Pictures/S21_3_Stadtt_SpatEff}}
+  \caption{Räumliche Effekte des Vorhersagemodells zur Bewertung zu Stuttgart 21.}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/BWModelEffects2}
+ \caption{Parametrische und nonparametrische Effekte des zweikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Trend.}
+ \label{BWParam}
+ \end{center}
+\end{figure}
 
 \subsection{Reklassifizierung}
 
@@ -513,10 +533,10 @@ Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{e
 \hline \hline
                           &              & \multirow{2}{*}{Geoadditives Modell} & Modell ohne       & Modell nur mit    \\
                           &              &                                      & räumlichem Effekt & räumlichem Effekt \\ \hline
-\multirow{3}{*}{Drei Kl.} & Gauss-Krüger & 0,4918                               & 0,4716            & 0,4732            \\
+\multirow{3}{*}{Drei Kl.} & Gauß-Krüger & 0,4918                               & 0,4716            & 0,4732            \\
                           & Bezirke      & 0,4726                               & 0,4719            & 0,4726            \\
                           & Stadtteile   & 0,451                                & 0,4685            & 0,4449            \\ \hline
-\multirow{3}{*}{Zwei Kl.} & Gauss-Krüger & 0,6193                               & 0,6104            & 0,5524            \\
+\multirow{3}{*}{Zwei Kl.} & Gauß-Krüger & 0,6193                               & 0,6104            & 0,5524            \\
                           & Bezirke      & 0,6079                               & 0,6104            & 0,5515            \\
                           & Stadtteile   & 0,6282                               & 0,6052            & 0,6099            \\ \hline \hline
 \end{tabular}
@@ -533,17 +553,17 @@ Für die Reklassifikation der Bewertung der Wohngegend (Tabelle \ref{evalB}) erg
 \hline \hline
              & \multirow{2}{*}{Geoadditives Modell} & Modell ohne       & Modell nur mit    \\
              &                                      & räumlichem Effekt & räumlichem Effekt \\ \hline
-Gauss-Krüger & 0,4922                               & 0,4461            & 0,4896            \\
+Gauß-Krüger & 0,4922                               & 0,4461            & 0,4896            \\
 Bezirke      & 0,4701                               & 0,4461            & 0,4621            \\
 Stadtteile   & 0,4046                               & 0,4204            & 0,4347            \\ \hline \hline
 \end{tabular}
 \end{table}
 
-Für die Modelle mit den kontinuierlichen Gauss-Krüger Informationen und den Bezirken als räumlichem Effekt hat das Geoadditive Modell die höchste Erfolgsrate, wohingegen für die Stadtteilinformationen das Modell nur mit räumlichem Effekt die beste Reklassifizierung aufweist. Insgesamt schneidet das Geoadditive Modell für beide endogene Variablen und alle drei möglichen Klassenanzahlen am besten ab. Außer bei dem zwei Klassenmodell zur Meinung zu Stuttgart 21 weisen beim Geoadditivem Modell die Gauss-Krüger Informationen als räumliche Effekte die höchste und die Stadtteile als räumliche Effekte die niedrigste Erfolgsrate auf. Da die Modelle ohne- oder nur mit räumlichem Effekt in der AIC-Untersuchung und Reklassifizierung in den meisten Fällen schlechter Abschnitten, wurden die Ansätze ohne- oder nur mit räumlichem Effekte nicht weiter verfolgt und als beste Modelle zur Extrapolation ausgeschlossen.
+Für die Modelle mit den kontinuierlichen Gauß-Krüger Informationen und den Bezirken als räumlichem Effekt hat das Geoadditive Modell die höchste Erfolgsrate, wohingegen für die Stadtteilinformationen das Modell nur mit räumlichem Effekt die beste Reklassifizierung aufweist. Insgesamt schneidet das Geoadditive Modell für beide endogene Variablen und alle drei möglichen Klassenanzahlen am besten ab. Außer bei dem zwei Klassenmodell zur Meinung zu Stuttgart 21 weisen beim Geoadditivem Modell die Gauß-Krüger Informationen als räumliche Effekte die höchste und die Stadtteile als räumliche Effekte die niedrigste Erfolgsrate auf. Da die Modelle ohne- oder nur mit räumlichem Effekt in der AIC-Untersuchung und Reklassifizierung in den meisten Fällen schlechter Abschnitten, wurden die Ansätze ohne- oder nur mit räumlichem Effekte nicht weiter verfolgt und als beste Modelle zur Extrapolation ausgeschlossen.
 
 \subsection{Kreuzvalidierung}
 
-Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb der eigenen Stichprobe der Modelle einzuschätzen. Die Ergebnisse zur Meinung zu Stuttgart 21 (Tabelle \ref{KreuzM}) zeigen eine ähnliche Erfolgsquote wie die innerhalb der Stichprobe vorgenommene Reklassifizierung (Tabelle \ref{evalS21}). Für das drei Klassenmodell liegt der Anteil der erfolgreich Klassifizierten Beobachtungen bei ca. 49\% und im zwei Klassenmodell zwischen 60\% und 63\%. Im drei Klassen Fall kann das Modell mit Stadtteilen als räumlichem Effekt ca. 3,5\%  mehr Beobachtungen richtig zuweisen als in der Reklassifizierung und das Modell mit Bezirken als räumlichem Effekt ca. 2\% mehr, womit es insgesamt auch die höchste Erfolgsrate aufweist. Die Erfolgsquote mit den Gauss-Krüger Informationen ist in etwa gleich geblieben, ähnlich wie die Modelle im zwei Klassen Fall.
+Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb der eigenen Stichprobe der Modelle einzuschätzen. Die Ergebnisse zur Meinung zu Stuttgart 21 (Tabelle \ref{KreuzM}) zeigen eine ähnliche Erfolgsquote wie die innerhalb der Stichprobe vorgenommene Reklassifizierung (Tabelle \ref{evalS21}). Für das drei Klassenmodell liegt der Anteil der erfolgreich Klassifizierten Beobachtungen bei ca. 49\% und im zwei Klassenmodell zwischen 60\% und 63\%. Im drei Klassen Fall kann das Modell mit Stadtteilen als räumlichem Effekt ca. 3,5\%  mehr Beobachtungen richtig zuweisen als in der Reklassifizierung und das Modell mit Bezirken als räumlichem Effekt ca. 2\% mehr, womit es insgesamt auch die höchste Erfolgsrate aufweist. Die Erfolgsquote mit den Gauß-Krüger Informationen ist in etwa gleich geblieben, ähnlich wie die Modelle im zwei Klassen Fall.
  
 \begin{table}[h]
 \centering
@@ -552,7 +572,7 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
 \begin{tabular}{lcccccccccc}
 \hline \hline
 \multicolumn{11}{c}{Drei Klassen}                                                                                                                                                                                                        \\ \hline 
-\multicolumn{1}{c}{}                                                     & \multicolumn{1}{c|}{}  & \multicolumn{3}{c|}{Gauss-Krüger}            & \multicolumn{3}{c|}{Bezirke}                 & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
+\multicolumn{1}{c}{}                                                     & \multicolumn{1}{c|}{}  & \multicolumn{3}{c|}{Gauß-Krüger}            & \multicolumn{3}{c|}{Bezirke}                 & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
                                                                          & \multicolumn{1}{c|}{}  & \multicolumn{9}{c}{Geschätzte Klasse}                                                                                                \\
                                                                          & \multicolumn{1}{c|}{}  & 1       & 2   & \multicolumn{1}{c|}{3}       & 1       & 2   & \multicolumn{1}{c|}{3}       & 1           & 2           & 3          \\ \hline
 \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Wahre \\ Klasse \end{tabular}} & \multicolumn{1}{c|}{1} & 0,756   & 0   & \multicolumn{1}{c|}{0,244}   & 0,754   & 0   & \multicolumn{1}{c|}{0,246}   & 0,746           & 0           & 0,254        \\
@@ -561,7 +581,7 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
 \multicolumn{2}{l|}{Klassifikation Modell}                                                        & \multicolumn{3}{c|}{\multirow{2}{*}{0,4905}} & \multicolumn{3}{c|}{\multirow{2}{*}{0,4928}} & \multicolumn{3}{c}{\multirow{2}{*}{0,4893}} \\
 \multicolumn{2}{l|}{Insgeasmt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline
 \multicolumn{11}{c}{Zwei Klassen}                                                                                                                                                                                                        \\ \hline
-                                                                         & \multicolumn{1}{l|}{}  & \multicolumn{3}{c|}{Gauss-Krüger}             & \multicolumn{3}{c|}{Bezirke}                  & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
+                                                                         & \multicolumn{1}{l|}{}  & \multicolumn{3}{c|}{Gauß-Krüger}             & \multicolumn{3}{c|}{Bezirke}                  & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
                                                                          & \multicolumn{1}{l|}{}  & \multicolumn{9}{c}{Geschätzte Klasse}                                                                                                \\
                                                                          & \multicolumn{1}{l|}{}  & 1       & \multicolumn{2}{c|}{2}             & 1       & \multicolumn{2}{c|}{2}             & 1           & \multicolumn{2}{c}{2}    \\ \hline
 Wahre                                                                    & \multicolumn{1}{l|}{1} & 0,747   & \multicolumn{2}{c|}{0,253}         & 0,732   & \multicolumn{2}{c|}{0,268}         & 0,748         & \multicolumn{2}{c}{0,252}    \\
@@ -579,7 +599,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 \label{KreuzBew}
 \begin{tabular}{lc|ccccccccccccccc}
 \hline \hline
-\multicolumn{1}{c}{}                                                     &   & \multicolumn{5}{c|}{Gauss-Krüger}              & \multicolumn{5}{c|}{Bezirke}                   & \multicolumn{5}{c}{Stadtteile}              \\ \cline{3-17} 
+\multicolumn{1}{c}{}                                                     &   & \multicolumn{5}{c|}{Gauß-Krüger}              & \multicolumn{5}{c|}{Bezirke}                   & \multicolumn{5}{c}{Stadtteile}              \\ \cline{3-17} 
                                                                          &   & \multicolumn{15}{c}{Geschätzte Klasse}                                                                                                        \\
                                                                          &   & 1     & 2     & 3 & 4 & \multicolumn{1}{c|}{5} & 1     & 2     & 3 & 4 & \multicolumn{1}{c|}{5} & 1       & 2       & 3       & 4   & 5       \\ \hline
 \multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}W. \\ Kl.\end{tabular}} & 1 & 0,445 & 0,555 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,387 & 0,613 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,495   & 0,478   & 0,019   & 0   & 0,008   \\
@@ -593,13 +613,13 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 \end{tabular}
 \end{table}
 
-Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis der Kreuzvalidierung für die Bewertung der Wohngegend ist, dass die Erfolgsquote zwischen ca. 46\% und 49\% liegt. Die Modelle mit Gauss-Krüger Informationen und Bezirken als räumlichen Effekten haben vergleichbar wie in der Reklassifizierung abgeschnitten. Das Modell mit den Stadtteilen hingegen weißt eine ca 5\% höhere Genauigkeit auf. Insgesamt jedoch behält das Modell mit den Gauss-Krüger Informationen die höchste Erfolgsrate. Auffällig ist auch hier, dass eine Klasse in keinem Modell Beobachtungen zugewiesen bekommen hat und zwei weitere Klassen in zwei von drei Modellen keine Beobachtungen zugewiesen bekommen haben. Abbildung \ref{endogene} gibt dabei einen Hinweis auf die Ursache dieses Phänomens, denn die Kategorien \textit{sehr gut} und \textit{gut} sind überproportional häufig im Datensatz vertreten im Vergleich zu den Klassen \textit{schlecht} und \textit{sehr schlecht}, weshalb schon durch die relative Häufigkeit die Wahrscheinlichkeit dass eine Beobachtungen in einer der letzten drei Kategorien ist, sehr klein wird. Bei der Bewertung der Wohngegend wurde am häufigsten die zweite Klasse sowohl richtig als auch falsch geschätzt.\\
+Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis der Kreuzvalidierung für die Bewertung der Wohngegend ist, dass die Erfolgsquote zwischen ca. 46\% und 49\% liegt. Die Modelle mit Gauß-Krüger Informationen und Bezirken als räumlichen Effekten haben vergleichbar wie in der Reklassifizierung abgeschnitten. Das Modell mit den Stadtteilen hingegen weißt eine ca 5\% höhere Genauigkeit auf. Insgesamt jedoch behält das Modell mit den Gauß-Krüger Informationen die höchste Erfolgsrate. Auffällig ist auch hier, dass eine Klasse in keinem Modell Beobachtungen zugewiesen bekommen hat und zwei weitere Klassen in zwei von drei Modellen keine Beobachtungen zugewiesen bekommen haben. Abbildung \ref{endogene} gibt dabei einen Hinweis auf die Ursache dieses Phänomens, denn die Kategorien \textit{sehr gut} und \textit{gut} sind überproportional häufig im Datensatz vertreten im Vergleich zu den Klassen \textit{schlecht} und \textit{sehr schlecht}, weshalb schon durch die relative Häufigkeit die Wahrscheinlichkeit dass eine Beobachtungen in einer der letzten drei Kategorien ist, sehr klein wird. Bei der Bewertung der Wohngegend wurde am häufigsten die zweite Klasse sowohl richtig als auch falsch geschätzt.\\
 Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variablen, sowie das totale Unterschätzen einiger Klassen, wird in der weiteren Validierung und Extrapolation auf das Vorhersagen einzelner Beobachtungen verzichtet. Stattdessen wird in einem bestimmten Gebiet über die Wahrscheinlichkeiten der Beobachtungen aggregiert und ein Anteil geschätzt, um auch geringere Wahrscheinlichkeiten für Beobachtungen zu berücksichtigen.
 
 \subsection{Validierung}
 
 Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere Quadratische Abweichung und Überdeckungswahrscheinlichkeit der prognostizierten Anteile aus den Modellen, bezogen auf die wahren Anteile aus der Volksabstimmung. Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartet, dass das zwei Klassenmodell die beiden Kategorien signifikant besser prognostiziert.
-Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Kombination aus Modell, räumlichem Effekt und Datei zur Extrapolation es sich handelt. Die mittlere Spalte zeigt die mittlere quadratische Abweichung für die beiden Kategorien der Volksabstimmung und die rechte Spalte zeigt die Überdeckungswahrscheinlichkeit ebenfalls für diese Kategorien. Damit gibt die erste Reihe z.B. die statistischen Gütemaße für das drei Klassenmodell mit Gauss-Krüger Informationen als räumlichem Effekt aggregiert auf Bezirksebene mit dem Melderegister an. Die Prognoseintervalle zur Berechnung der Überdeckungswahrscheinlichkeit wurden mit Hilfe des Bootstraps ermittelt, sowie Mediane zur Ermittlung der Abweichung auch.
+Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Kombination aus Modell, räumlichem Effekt und Datei zur Extrapolation es sich handelt. Die mittlere Spalte zeigt die mittlere quadratische Abweichung für die beiden Kategorien der Volksabstimmung und die rechte Spalte zeigt die Überdeckungswahrscheinlichkeit ebenfalls für diese Kategorien. Damit gibt die erste Reihe z.B. die statistischen Gütemaße für das drei Klassenmodell mit Gauß-Krüger Informationen als räumlichem Effekt aggregiert auf Bezirksebene mit dem Melderegister an. Die Prognoseintervalle zur Berechnung der Überdeckungswahrscheinlichkeit wurden mit Hilfe des Bootstraps ermittelt, sowie Mediane zur Ermittlung der Abweichung auch.
 
 \begin{table}[h]
 \centering
@@ -609,7 +629,7 @@ Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Komb
 \hline \hline
                         &                               &                          &   & \multicolumn{2}{c|}{MSE} & \multicolumn{2}{c}{Überdeckungswk.} \\
                         &                               &                          &   & Zustimmung  & Ablehnung  & Zustimmung        & Ablehnung       \\ \hline
-\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}    & U & 0,04        & 0,749      & 1                 & 0,043           \\
+\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauß-Krüger} & \multirow{2}{*}{Bez.}    & U & 0,04        & 0,749      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,116       & 0,557      & 0,391             & 0               \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Sadtt.}  & U & 0,461       & 5,708      & 0,954             & 0,139           \\
                         &                               &                          & Z & 0,813       & 4,415      & 0,553             & 0,02            \\ \cline{2-8} 
@@ -621,7 +641,7 @@ Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Komb
                         &                               &                          & Z & 0,148       & 0,552      &     0,478         &     0 \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 0,646       & 6,367       &   0,947           &   0,225  \\
                         &                               &                          & Z & 1,078        & 4,336       &   0,66           &                0,1 \\ \hline
-\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauss-Krüger} & \multirow{2}{*}{Bez.}   & U & 0,312      & 0,312      &     0,826           &  0,826
+\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauß-Krüger} & \multirow{2}{*}{Bez.}   & U & 0,312      & 0,312      &     0,826           &  0,826
  \\
                         &                               &                          & Z & 0,152      & 0,152      &   0,522           &  0,522     \\ \cline{3-8} 
                         &                               & \multirow{2}{*}{Stadtt.} & U & 2,694       & 2,679     &   0,649          &  0,649   \\
@@ -644,17 +664,17 @@ Zuerst erfolgt ein Vergleich zwischen den beiden Modellierungsmöglichkeiten. F�
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT2}
- \caption{Illustration geschätzte gegen wahre Anteile für Gauss-Krüger Informationen extrapoliert auf  Melderegister mit zwei und drei Klassenmodell mit 95\% Quantielen}
+ \caption{Illustration geschätzte gegen wahre Anteile für Gauß-Krüger Informationen extrapoliert auf  Melderegister mit zwei und drei Klassenmodell mit 95\% Quantielen}
  \label{vali4}
  \end{center}
 \end{figure}
 
-Innerhalb des drei Klassenmodells lässt sich anhand von Tabelle \ref{vali} nicht eindeutig bestimmen, welcher räumliche Effekt das beste Modell liefert, da die größten Unterschiede sowohl bei dem MSE und der Überdeckung zwischen den Dateien auftreten, was auch darauf hinweisen kann, dass der Melderegister näher mit der Volksabstimmung übereinstimmt. Beim Melderegister liefert das Modell mit Stadtteilen als räumlichem Effekt das beste Modell auf Bezirksebene und auf Stadtteilebene das Modell mit Gauss-Krüger Informationen, wobei die Unterscheide eher marginal sind. Insgesamt kann das zwei Klassenmodell als bestes Prognosemodell verworfen werden, da das drei Klassenmodell die \textit{Zustimmung} und folglich auch die \textit{Ablehnung} deutlich genauer bestimmen kann.
+Innerhalb des drei Klassenmodells lässt sich anhand von Tabelle \ref{vali} nicht eindeutig bestimmen, welcher räumliche Effekt das beste Modell liefert, da die größten Unterschiede sowohl bei dem MSE und der Überdeckung zwischen den Dateien auftreten, was auch darauf hinweisen kann, dass der Melderegister näher mit der Volksabstimmung übereinstimmt. Beim Melderegister liefert das Modell mit Stadtteilen als räumlichem Effekt das beste Modell auf Bezirksebene und auf Stadtteilebene das Modell mit Gauß-Krüger Informationen, wobei die Unterscheide eher marginal sind. Insgesamt kann das zwei Klassenmodell als bestes Prognosemodell verworfen werden, da das drei Klassenmodell die \textit{Zustimmung} und folglich auch die \textit{Ablehnung} deutlich genauer bestimmen kann.
 
 \subsection{Extrapolation}
 
 Dieses Kapitel stellt nun die Prognostizierten Anteile der Klassen für gesamt Stuttgart von den noch verbliebenen Modellen vor. Dazu zeigt Abbildung \ref{S21Alle} die Extrapolierten Anteile der Modelle zur Meinung zu Stuttgart 21. Dargestellt ist der Median als Punktschätzer zusammen mit den Prognoseintervallen. Die gestrichelten Linien stellen die respektiven Anteile in der Stichprobe dar und die durchgezogenen Linien die Anteile aus der Volksabstimmung. Bei den noch verbliebenen Modellen handelt es sich um den drei Klassen Fall mit den drei räumlichen Effekten extrapoliert auf beide Dateien und den beiden Aggregaten Bezirke und Stadtteile. Deutlich erkennbar ist ein Unterschied zwischen den Extrapolierten Anteilen aus dem Zensus und dem Melderegister. Da die Validierung ergeben hat, dass die extrapolierten Anteile aus dem Melderegister näher mit den Anteilen aus der Volksabstimmung übereinstimmen wird sich im weiteren die Analyse au die Anteile aus dem Melderegister beziehen. Vorab zu sehen ist außerdem, dass die Anteile der Stichprobe und die Anteile der wahren Ergebnisse aus der Volksabstimmung deutliche Differenzen aufweisen. Während die Stichprobe für die Klasse \textit{Zustimmung} einen Anteil von ca. 47\% zeigt, haben sich in der Volksabstimmung 52,9\% für Stuttgart 21 ausgesprochen. Natürlich aber muss dabei auch beachtet werden, dass es sich dabei um unterschiedliche Erhebungen handelt und es bei der Volksabstimmung keine neutrale Klasse erfasst wurde.\\
-Auffällig sind die breiten Prognoseintervalle, die auf eine relativ hohe Unsicherheit hindeuten. Dies kann ein Indiz darauf sein, dass die Anzahl der Beobachtungen in der Stichprobe zu gering ist im Vergleich zur Grundgesamtheit. Zwischen den Modellen mit unterschiedlichen räumlichen Effekten weist das Modell mit Stadtteilen die höchste Unsicherheit auf. Die Punktschätzer von dem Modell mit Gauss-Krüger Informationen und Bezirken sind nahezu identisch. Die Punktschätzer des Stadtteilmodells weichen als einzige sichtbar ab und befinden sich am nächsten an dem Anteil der Volksabstimmung der Kategorie \textit{Zustimmung}, was allerdings nicht überbewertet werden sollte, da der Melderegister und die Volksabstimmung zu unterschiedlichen Zeitpunkten stattgefunden haben. 
+Auffällig sind die breiten Prognoseintervalle, die auf eine relativ hohe Unsicherheit hindeuten. Dies kann ein Indiz darauf sein, dass die Anzahl der Beobachtungen in der Stichprobe zu gering ist im Vergleich zur Grundgesamtheit. Zwischen den Modellen mit unterschiedlichen räumlichen Effekten weist das Modell mit Stadtteilen die höchste Unsicherheit auf. Die Punktschätzer von dem Modell mit Gauß-Krüger Informationen und Bezirken sind nahezu identisch. Die Punktschätzer des Stadtteilmodells weichen als einzige sichtbar ab und befinden sich am nächsten an dem Anteil der Volksabstimmung der Kategorie \textit{Zustimmung}, was allerdings nicht überbewertet werden sollte, da der Melderegister und die Volksabstimmung zu unterschiedlichen Zeitpunkten stattgefunden haben. 
 
 \begin{figure}[h]
  \begin{center}
@@ -664,7 +684,7 @@ Auffällig sind die breiten Prognoseintervalle, die auf eine relativ hohe Unsich
  \end{center}
 \end{figure}
 
-Aggregiert auf Bezirksebene Für die Klasse \textit{Zustimmung} hat das Modell mit Gauss-Krüger Informationen einen Anteil von 51,12\% prognostiziert. Das Bezirksmodell hat einen Anteil von 51,09\% ergeben und das Stadtteilmodell einen Anteil von 52,06\%. Damit ergibt 1 - \textit{Zustimmung} für jedes Modell eine sehr nahe Prognose der Ablehnung aus der Volksabstimmung von 47,1\%. Gegeben den Daten und den Modellen bedeutet dies, dass Personen, die angeben eine neutrale Meinung zu haben, höchst wahrscheinlich gegen Stuttgart 21 stimmen würden. Im drei Klassen Szenario sind die prognostizierten Anteile für die \textit{neutrale} Klasse 20,65\% vom Gauss-Krüger Modell, 20,67 vom Bezirkmodell und 20,78\%. Für die Klasse \textit{Ablehnung} sind die prognostizierten Anteile in gleicher Reihenfolge 28,22\%, 28,23\% und 27,15\%. Für eine theoretische Grundgesamtheit mit drei Kategorien lässt sich nur schwierig sagen, welches Modell die beste Prognose abgibt, da auch die geschätzten Anteile für alle Klasse relativ ähnlich sind. Den bisherigen Analyse zugrunde liegend und um die Frage nach dem besten Modell zur Extrapolation zu beantworten, wird in dieser Arbeit das Modell mit den Gauss-Krüger Informationen empfohlen. Es hat die besten Ergebnisse innerhalb der Stichprobe geliefert in der AIC Analyse  und der Reklassifizierung und die zweitbesten Ergebnisse außerhalb der Stichprobe bei der Kreuzvalidierung, wobei dort der Unterschied zum besseren Bezirkemodell nur marginal sind.
+Aggregiert auf Bezirksebene Für die Klasse \textit{Zustimmung} hat das Modell mit Gauß-Krüger Informationen einen Anteil von 51,12\% prognostiziert. Das Bezirksmodell hat einen Anteil von 51,09\% ergeben und das Stadtteilmodell einen Anteil von 52,06\%. Damit ergibt 1 - \textit{Zustimmung} für jedes Modell eine sehr nahe Prognose der Ablehnung aus der Volksabstimmung von 47,1\%. Gegeben den Daten und den Modellen bedeutet dies, dass Personen, die angeben eine neutrale Meinung zu haben, höchst wahrscheinlich gegen Stuttgart 21 stimmen würden. Im drei Klassen Szenario sind die prognostizierten Anteile für die \textit{neutrale} Klasse 20,65\% vom Gauß-Krüger Modell, 20,67 vom Bezirkmodell und 20,78\%. Für die Klasse \textit{Ablehnung} sind die prognostizierten Anteile in gleicher Reihenfolge 28,22\%, 28,23\% und 27,15\%. Für eine theoretische Grundgesamtheit mit drei Kategorien lässt sich nur schwierig sagen, welches Modell die beste Prognose abgibt, da auch die geschätzten Anteile für alle Klasse relativ ähnlich sind. Den bisherigen Analyse zugrunde liegend und um die Frage nach dem besten Modell zur Extrapolation zu beantworten, wird in dieser Arbeit das Modell mit den Gauß-Krüger Informationen empfohlen. Es hat die besten Ergebnisse innerhalb der Stichprobe geliefert in der AIC Analyse  und der Reklassifizierung und die zweitbesten Ergebnisse außerhalb der Stichprobe bei der Kreuzvalidierung, wobei dort der Unterschied zum besseren Bezirkemodell nur marginal sind.
 
 \begin{figure}[h]
  \begin{center}
@@ -674,7 +694,7 @@ Aggregiert auf Bezirksebene Für die Klasse \textit{Zustimmung} hat das Modell m
  \end{center}
 \end{figure}
 
-Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Sie ist analog zu der  bereits diskutierte Abbildung \ref{S21Alle} aufgebaut, außer dem Unterschied dass keine Anteile für die Grundgesamtheit verfügbar sind. Hier ist gerade bei den Klassen \textit{neutral}, \textit{gut} und \textit{sehr gut} ein deutlicher Unterschied zwischen den Modellen erkennbar, sowohl für den Punkt- als auch den Intervallschätzer. Auch zwischen den Dateien sind wie schon bei der Meinung zu Stuttgart 21 deutliche Unterscheide vorhanden. Um in dieser Arbeit konsistent zu bleiben und da der Melderegister mehr Beobachtungen hat, folgt die weitere Analyse wieder mit diesem. Die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen und den Klassen. Die schmalsten Prognoseintervalle liefert das Bezirkmodell, während das Gauss-Krüger- und Stadtteilmodell deutlich weitere Intervalle ergibt. Aggregiert auf Bezirksebene ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauss-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell.  Für die Klasse \textit{gut} wurden 40,84\% für das Gauss-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Es ist dabei ein deutlich größerer Unterschied zu beobachten als bei den geschätzten Anteilen der Meinung zu Stuttgart 21, wodurch die Wahl des finalen Prognosemodells noch zusätzliche Wichtigkeit bekommt. Wie bereits erwähnt, kann nur spekuliert werden, wo die wahren Anteile zur Bewertung der Wohngegend liegen. Dadurch stehen auch nur die drei Kriterien AIC, Reklassifizierung und Kreuvalidierung nur Verfügung. Nach diesen Kriterien wird auch für diesen Fall das Modell mit den Gauss-Krüger Informationen als bestes Prognosemodell empfohlen, da es in allen drei Situationen die besten Ergebnisse gezeigt hat.\\
+Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Sie ist analog zu der  bereits diskutierte Abbildung \ref{S21Alle} aufgebaut, außer dem Unterschied dass keine Anteile für die Grundgesamtheit verfügbar sind. Hier ist gerade bei den Klassen \textit{neutral}, \textit{gut} und \textit{sehr gut} ein deutlicher Unterschied zwischen den Modellen erkennbar, sowohl für den Punkt- als auch den Intervallschätzer. Auch zwischen den Dateien sind wie schon bei der Meinung zu Stuttgart 21 deutliche Unterscheide vorhanden. Um in dieser Arbeit konsistent zu bleiben und da der Melderegister mehr Beobachtungen hat, folgt die weitere Analyse wieder mit diesem. Die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen und den Klassen. Die schmalsten Prognoseintervalle liefert das Bezirkmodell, während das Gauß-Krüger- und Stadtteilmodell deutlich weitere Intervalle ergibt. Aggregiert auf Bezirksebene ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauß-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell.  Für die Klasse \textit{gut} wurden 40,84\% für das Gauß-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Es ist dabei ein deutlich größerer Unterschied zu beobachten als bei den geschätzten Anteilen der Meinung zu Stuttgart 21, wodurch die Wahl des finalen Prognosemodells noch zusätzliche Wichtigkeit bekommt. Wie bereits erwähnt, kann nur spekuliert werden, wo die wahren Anteile zur Bewertung der Wohngegend liegen. Dadurch stehen auch nur die drei Kriterien AIC, Reklassifizierung und Kreuvalidierung nur Verfügung. Nach diesen Kriterien wird auch für diesen Fall das Modell mit den Gauß-Krüger Informationen als bestes Prognosemodell empfohlen, da es in allen drei Situationen die besten Ergebnisse gezeigt hat.\\
 Zuletzt wurden die beiden besten Modelle genutzt um die Extrapolierten Anteile auf Stadtteileebene in Stuttgart darzustellen. Die beiden Abbildungen dazu befinden sich im Anhang. Für die Meinung zu Stuttgart 21 (Abbildung \ref{S21Extra}) kann dazu gut ein Vergleich mit den Anteile der Stichprobe aus Abbildung \ref{XYStuttgart3}, Abbildung \ref{BStuttgart21} und Abbildung \ref{SStuttgart21} vorgenommen werden. Dabei zu beachten ist, dass Abbildung \ref{S21Extra} mit unterschiedlicher Skalierung dargestellt wird, um deutlicher räumliche Unterschiede innerhalb der Klassen zu erkennen. Deutlich zu erkennen, ist dass die Lokalisierung der Anteile in den Kategorien sehr ähnlich ist zu der bereits besprochenen Lokalisierung im Parametrisierungsdatensatz ist. Die hohen Anteile der \textit{Zustimmung} befinden sich vor allem im Norden und Osten, die Klasse \textit{neutral} zeigt keine klare Struktur und die Klasse \textit{Ablehnung} findet sich besonders im Süden und Westen.\\
 Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein guter Vergleich mit den Anteilen des Parametrisierungsdatensatz (Abbildung \ref{XYWohnG5}, Abbildung \ref{BWohn}, Abbildung \ref{SWohn}) vorgenommen werden. Besonders interessant sind hier die Kategorien \textit{neutral}, \textit{schlecht} und \textit{sehr schlecht}. Aus Abbildung \ref{BWohn} geht z.B hervor, dass die höchsten Anteile dieser Klassen im Osten und teilweise im Norden lokalisiert werden können. Durch die Extrapolation konnten wir den Bereich nun genauer isolieren auf und um das Benzviertel herum. Hier scheinen die Bewohner Stuttgarts im Vergleich zum Rest der Stadt eher unzufrieden mit ihrer Wohngegend zu sein
 
@@ -685,9 +705,11 @@ Die beiden Datensätze zur Grundgesamtheit stammen aus einer Melderegister mit 4
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
 
 \textcolor{red}{In Benzviertel und Wasen gibt es keine einzige Beob. im Param. D aber in beiden extrap. D. Hier ist die Wohnz. schlechter als umzu}\\
-Insgesamt ist zu sagen, dass die Gauss-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
+Insgesamt ist zu sagen, dass die Gauß-Krüger Informationen ein relativ klaren Einblick in die Verteilung der Beobachtungen in der jeweiligen Klasse geben. Bei den diskreten räumlichen Informationen könnte die grobe Aufteilung auf Bezirksebene zu einem Underfitting und die sehr feine Aufteilung auf Stadtteilebene zu einem Overfitting führen [...]. Zudem ist zu vermuten, dass die räumlichen Informationen einen stärkeren Effekt auf die Bewertung der Wohngegend haben, als auf die Meinung zu Stuttgart 21.
 
 Ein \textit{B} von 1.000 erwies sich als ausreichend, da sich die Mittelwerte und Quantile bei einer Erhöhung kaum noch änderten.
+
+modelle: Frauen eher ablehnen deutete sich an: internet service stuttgart
 
 %============================================== Conlcusion =========================================================%
 
@@ -759,7 +781,7 @@ Ein \textit{B} von 1.000 erwies sich als ausreichend, da sich die Mittelwerte un
 %\begin{figure}[h]
 % \begin{center}
 % \includegraphics[scale=0.8]{Pictures/XYStuttgart5}
-% \caption{Gauss Krüger Informationen Stuttgart 21 (2)}
+% \caption{Gauß Krüger Informationen Stuttgart 21 (2)}
 % \label{endogene}
 % \end{center}
 %\end{figure}

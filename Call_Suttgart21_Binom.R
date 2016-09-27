@@ -17,7 +17,7 @@ library(dplyr)
 
 ## Einstellungen ##
 
-bearbeiter = 'Kai@Work'
+bearbeiter = 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -146,7 +146,21 @@ if(calculate_model){
   step.model.binom <- readRDS(file = "step.model_all_binom.rds")
 }
 
+model.i.2 <- data.frame(m = factor(c( 's(Spat)', 
+                's(Spat) + s(Alter)',
+                's(Spat) + Geschlecht + \n
+                 s(Alter)',
+                's(Spat) + Geschlecht + Nationalität +\n
+                 s(Alter)',
+                's(Spat) + Geschlecht + Nationalität +\n
+                 Familie + s(Alter)'
+               )), mm = factor(1:5))
+model.i.2$m <- factor(model.i.2$m, levels = model.i.2[order(model.i.2$mm), 'm'])
+aic.i <-c(3250.75, 3201.562, 3146.931, 3121.203, 3114.143)
+AIC.it.S21.2 <- data.frame(vari = 'Stuttgart 21 2 Klassen', model.i.2, aic.i)
 
+ggplot(AIC.it.S21.2, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(11) +
+  labs(x = 'Modell',  y = 'AIC')
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##

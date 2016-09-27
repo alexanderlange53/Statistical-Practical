@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -146,6 +146,17 @@ if(calculate_model) {
 } else {
   step.model.Bewertung.5 <- readRDS(file = "./Model_Results/step.mode.Bewertungl.5_all.rds")
 }
+
+model.i.2 <- data.frame(m = factor(c( 's(Spat)', 
+                                      's(Spat) + s(Alter)',
+                                      's(Spat) + Nationalität + \n
+                                       s(Alter)',
+                                      's(Spat) +  Nationalität +\n
+                                       Person + s(Alter)'
+                                      )), mm = factor(1:4))
+model.i.2$m <- factor(model.i.2$m, levels = model.i.2[order(model.i.2$mm), 'm'])
+aic.i <-c(7056.123, 7055.717, 7051.906, 7051.606)
+AIC.it.BW <- data.frame(vari = 'Bewertung Wohngegend', model.i.2, aic.i)
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
