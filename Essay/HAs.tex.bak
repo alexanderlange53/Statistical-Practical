@@ -476,7 +476,7 @@ Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell m
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
 \multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6378,220}          & 6525,747          \\
-                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6378,267}                             & \multicolumn{1}{c|}{6379,725}              & 6528,284          \\
+                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6380.659}                             & \multicolumn{1}{c|}{6379,725}              & 6528,284          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6456,706}                               & \multicolumn{1}{c|}{6535,627}          & 6605,946          \\ \hline
 \multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{3114,141}                             & \multicolumn{1}{c|}{3116,130}           & 3268,484          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116,130}           & 3271,325          \\
@@ -529,9 +529,9 @@ Dem räumlichen Effekt kommt bei der Bewertung der Wohnzufriedenheit eine besond
 
 \begin{figure}[htbp]
   \centering
- \subfigure[Kontinuierlich]{\includegraphics[scale=0.13]{Pictures/W_5_Kont_SpatEff.pdf}}%\quad
-  \subfigure[Diskret: Stadtbezirke]{\includegraphics[scale=0.55]{Pictures/W_5_Bezirke_SpatEff}}%\quad
-  \subfigure[Diskret: Stadtteile]{\includegraphics[scale=0.55]{Pictures/W_5_Stadtt_SpatEff}}
+ \subfigure[Kontinuierlich]{\includegraphics[scale=0.5]{Pictures/W_5_Kont_SpatEff.pdf}}%\quad
+  \subfigure[Diskret: Stadtbezirke]{\includegraphics[scale=0.5]{Pictures/W_5_Bezirke_SpatEff}}%\quad
+  \subfigure[Diskret: Stadtteile]{\includegraphics[scale=0.5]{Pictures/W_5_Stadtt_SpatEff}}
   \caption{Räumliche Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21.}
   \label{rEffS21}
 \end{figure}
@@ -763,11 +763,6 @@ modelle: Frauen eher ablehnen deutete sich an: internet service stuttgart
 \section*{Anhang}
 \addcontentsline{toc}{section}{\numberline{}Anhang}
 
-
-
-
-
-
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BarData}
@@ -816,6 +811,117 @@ modelle: Frauen eher ablehnen deutete sich an: internet service stuttgart
  \label{WohnExtra}
  \end{center}
 \end{figure}
+
+\clearpage
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Di, Sep 27, 2016 - 21:39:45
+\begin{table}[h] \centering 
+  \caption{Parameter Meinung zu Stuttgart 21 mit 3 Klassen} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{Meinung.zu.Stuttgart.21} \\ 
+\\[-1.8ex] & (A) & (B) & (C)\\ 
+\hline \\[-1.8ex] 
+ GeschlechtWeiblich & 0.524$^{***}$ & 0.508$^{***}$ & 0.538$^{***}$ \\ 
+  & (0.070) & (0.069) & (0.069) \\ 
+  & & & \\ 
+ NationalitätNicht Deutsch & $-$0.445$^{***}$ & $-$0.472$^{***}$ & $-$0.454$^{***}$ \\ 
+  & (0.110) & (0.109) & (0.110) \\ 
+  & & & \\ 
+ Familienstandledig & 0.090 &  & 0.084 \\ 
+  & (0.159) &  & (0.159) \\ 
+  & & & \\ 
+ Familienstandverheiratet & $-$0.176 &  & $-$0.189 \\ 
+  & (0.151) &  & (0.152) \\ 
+  & & & \\ 
+ Familienstandverwitwet & $-$0.356$^{*}$ &  & $-$0.413$^{**}$ \\ 
+  & (0.207) &  & (0.208) \\ 
+  & & & \\ 
+ Personenzahl.im.Haushalt & $-$0.340$^{***}$ & $-$0.369$^{***}$ & $-$0.348$^{***}$ \\ 
+  & (0.060) & (0.021) & (0.061) \\ 
+  & & & \\ \hline
+ s(X,Y) &  &  &  \\ 
+  & & & \\ 
+ s(Stadtbezirk) &  &  &  \\ 
+  & & & \\ 
+ s(Stadtteil)&  &  &  \\ 
+  & & & \\ 
+ s(Personenzahl.im.Haushalt,Altersklasse.Befragter) & $***$ & $***$ & $***$  \\ 
+  & & & \\ 
+ s(Altersklasse.Befragter) & $**$ & $***$  & $**$ \\ 
+  & & & \\ 
+ Constant & 0.000 & 0.000 & 0.000 \\ 
+  & (0.000) & (0.000) & (0.000) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 3,062 & 3,062 & 3,093 \\ 
+Log Likelihood & $-$3,186.494 & $-$3,187.330 & $-$3,210.754 \\ 
+UBRE & 3,197.650 & 3,195.841 & 3,219.511 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Di, Sep 27, 2016 - 21:54:03
+\begin{table}[!htbp] \centering 
+  \caption{Parameter Meinung zu Stuttgart 21 mit 2 Klassen} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{Meinung.zu.Stuttgart.21} \\ 
+\\[-1.8ex] & (A) & (B) & (C)\\ 
+\hline \\[-1.8ex] 
+ GeschlechtWeiblich & 0.644$^{***}$ & 0.646$^{***}$ & 0.642$^{***}$ \\ 
+  & (0.087) & (0.087) & (0.088) \\ 
+  & & & \\ 
+ NationalitätNicht Deutsch & $-$0.721$^{***}$ & $-$0.723$^{***}$ & $-$0.757$^{***}$ \\ 
+  & (0.154) & (0.154) & (0.156) \\ 
+  & & & \\ 
+ Familienstandledig & 0.022 & 0.037 & 0.102 \\ 
+  & (0.191) & (0.191) & (0.196) \\ 
+  & & & \\ 
+ Familienstandverheiratet & $-$0.333$^{**}$ & $-$0.316$^{*}$ & $-$0.215 \\ 
+  & (0.170) & (0.170) & (0.186) \\ 
+  & & & \\ 
+ Familienstandverwitwet & $-$0.244 & $-$0.234 & $-$0.431$^{*}$ \\ 
+  & (0.243) & (0.243) & (0.251) \\ 
+  & & & \\ 
+   Personenzahl.im.Haushalt &  &  & $-$0.155$^{**}$ \\ 
+  &  &  & (0.075) \\ 
+    & & & \\ \hline
+ s(X,Y) &  &  &  \\ 
+  & & & \\ 
+ s(Stadtbezirk) &  & $*$ &  \\ 
+  & & & \\ 
+ s(Stadtteil) &  &  & $*$ \\ 
+  & & & \\ 
+ s(Personenzahl.im.Haushalt,Altersklasse.Befragter) &  &  &  \\ 
+  & & & \\ 
+ s(Altersklasse.Befragter) & $***$ & $***$ & $**$ \\ 
+  & & & \\ 
+ Constant & $-$0.283$^{*}$ & $-$0.298$^{*}$ & 0.000 \\ 
+  & (0.171) & (0.171) & (0.000) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 2,377 & 2,377 & 2,394 \\ 
+Adjusted R$^{2}$ & 0.070 & 0.071 & 0.078 \\ 
+Log Likelihood & $-$1,556.448 & $-$1,556.146 & $-$1,537.527 \\ 
+UBRE & 1,563.538 & 1,561.176 & 1,544.394 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 \end{appendix}
 \clearpage

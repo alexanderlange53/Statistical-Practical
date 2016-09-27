@@ -163,7 +163,7 @@ AIC.it.BW <- data.frame(vari = 'Bewertung der Wohngegend', model.i.2, aic.i)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.Bewertung.5$model.spat
-
+m.gk.5 <- step.model.Bewertung.5$model.spat
 # Non Parametric Effects
 variables <- c('Altersklasse.Befragter', 'Personenzahl.im.Haushalt')
 g1 <-ggplot.model(m1, variables = variables)
@@ -410,6 +410,7 @@ table(cv.5.B$Observed.y, cv.5.B$Predicted.y)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.Bewertung.5.B$model.spat
+m.sb.5 <- step.model.Bewertung.5.B$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
@@ -619,6 +620,13 @@ crossval(cv.5.S, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.Bewertung.5.S$model.spat
+m.st.5 <- step.model.Bewertung.5.S$model.spat
+stargazer(m.gk.5, m.sb.5, m.st.5, title = 'Parameter Bewertung der Wohngegend')
+summary(m.gk.5)
+summary(m.sb.5)
+summary(m.st.5)
+
+
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 2, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 

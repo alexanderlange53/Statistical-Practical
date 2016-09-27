@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  27 SEP 2016 20:40
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.29)  27 SEP 2016 22:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -904,6 +904,12 @@ Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
 
 LaTeX Warning: Label `rEffS21' multiply defined.
 
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
 )
 \openout1 = `HAs.aux'.
 
@@ -1161,7 +1167,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 155.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 155.
-[2] <Pictures/BarResp.pdf, id=255, 578.16pt x 216.81pt>
+[2] <Pictures/BarResp.pdf, id=261, 578.16pt x 216.81pt>
 File: Pictures/BarResp.pdf Graphic file (type pdf)
 
 <use Pictures/BarResp.pdf>
@@ -1186,7 +1192,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 177.
 [3 <./Pictures/BarResp.pdf>]
-<Pictures/XYStuttgart3.png, id=280, 578.16pt x 289.08pt>
+<Pictures/XYStuttgart3.png, id=286, 578.16pt x 289.08pt>
 File: Pictures/XYStuttgart3.png Graphic file (type png)
 
 <use Pictures/XYStuttgart3.png>
@@ -1211,7 +1217,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 193.
 [4 <./Pictures/XYStuttgart3.png (PNG copy)>]
-<Pictures/XYWohnG5.png, id=294, 578.16pt x 469.755pt>
+<Pictures/XYWohnG5.png, id=300, 578.16pt x 469.755pt>
 File: Pictures/XYWohnG5.png Graphic file (type png)
 
 <use Pictures/XYWohnG5.png>
@@ -1231,7 +1237,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 212.
 [5 <./Pictures/XYWohnG5.png (PNG copy)>]
-<Pictures/BStuttgart3.pdf, id=306, 578.16pt x 289.08pt>
+<Pictures/BStuttgart3.pdf, id=312, 578.16pt x 289.08pt>
 File: Pictures/BStuttgart3.pdf Graphic file (type pdf)
 
 <use Pictures/BStuttgart3.pdf>
@@ -1242,7 +1248,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 215--216
  [] 
  []
 
-<Pictures/SStuttgart3.pdf, id=309, 578.16pt x 289.08pt>
+<Pictures/SStuttgart3.pdf, id=315, 578.16pt x 289.08pt>
 File: Pictures/SStuttgart3.pdf Graphic file (type pdf)
 
 <use Pictures/SStuttgart3.pdf>
@@ -1412,7 +1418,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 451.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 451.
- <Pictures/stepAIC.pdf, id=583, 578.16pt x 397.485pt>
+ <Pictures/stepAIC.pdf, id=589, 578.16pt x 397.485pt>
 File: Pictures/stepAIC.pdf Graphic file (type pdf)
 
 <use Pictures/stepAIC.pdf>
@@ -1448,7 +1454,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 496.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 496.
-[17] <Pictures/S21ModelEffects2.pdf, id=600, 578.16pt x 289.08pt>
+[17] <Pictures/S21ModelEffects2.pdf, id=606, 578.16pt x 289.08pt>
 File: Pictures/S21ModelEffects2.pdf Graphic file (type pdf)
 
 <use Pictures/S21ModelEffects2.pdf>
@@ -1459,7 +1465,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 499--500
  [] 
  []
 
-<Pictures/S21_3_Kont_SpatEff.pdf, id=601, 325.215pt x 289.08pt>
+<Pictures/S21_3_Kont_SpatEff.pdf, id=607, 325.215pt x 289.08pt>
 File: Pictures/S21_3_Kont_SpatEff.pdf Graphic file (type pdf)
 
 <use Pictures/S21_3_Kont_SpatEff.pdf>
@@ -1467,7 +1473,7 @@ Package pdftex.def Info: Pictures/S21_3_Kont_SpatEff.pdf used on input line 508
 .
 (pdftex.def)             Requested size: 162.6071pt x 144.53964pt.
 
-<Pictures/S21_3_Bezirke_SpatEff.pdf, id=602, 325.215pt x 289.08pt>
+<Pictures/S21_3_Bezirke_SpatEff.pdf, id=608, 325.215pt x 289.08pt>
 File: Pictures/S21_3_Bezirke_SpatEff.pdf Graphic file (type pdf)
 
 <use Pictures/S21_3_Bezirke_SpatEff.pdf>
@@ -1475,7 +1481,7 @@ Package pdftex.def Info: Pictures/S21_3_Bezirke_SpatEff.pdf used on input line
 509.
 (pdftex.def)             Requested size: 162.6071pt x 144.53964pt.
 
-<Pictures/S21_3_Stadtt_SpatEff.pdf, id=603, 325.215pt x 289.08pt>
+<Pictures/S21_3_Stadtt_SpatEff.pdf, id=609, 325.215pt x 289.08pt>
 File: Pictures/S21_3_Stadtt_SpatEff.pdf Graphic file (type pdf)
 
 <use Pictures/S21_3_Stadtt_SpatEff.pdf>
@@ -1511,7 +1517,7 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 518.
  [19 <./Pictures/S21_3_Kont_SpatEff.pdf> <./Pictures/S21_3_Bezirke_SpatEff.pdf>
  <./Pictures/S21_3_Stadtt_SpatEff.pdf>]
-<Pictures/BWModelEffects2.pdf, id=709, 578.16pt x 289.08pt>
+<Pictures/BWModelEffects2.pdf, id=715, 578.16pt x 289.08pt>
 File: Pictures/BWModelEffects2.pdf Graphic file (type pdf)
 
 <use Pictures/BWModelEffects2.pdf>
@@ -1531,14 +1537,14 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 529.
 [20 <./Pictures/BWModelEffects2.pdf>]
-<Pictures/W_5_Kont_SpatEff.pdf, id=724, 325.215pt x 289.08pt>
+<Pictures/W_5_Kont_SpatEff.pdf, id=730, 325.215pt x 289.08pt>
 File: Pictures/W_5_Kont_SpatEff.pdf Graphic file (type pdf)
 
 <use Pictures/W_5_Kont_SpatEff.pdf>
 Package pdftex.def Info: Pictures/W_5_Kont_SpatEff.pdf used on input line 532.
 (pdftex.def)             Requested size: 162.6071pt x 144.53964pt.
 
-<Pictures/W_5_Bezirke_SpatEff.pdf, id=725, 325.215pt x 289.08pt>
+<Pictures/W_5_Bezirke_SpatEff.pdf, id=731, 325.215pt x 289.08pt>
 File: Pictures/W_5_Bezirke_SpatEff.pdf Graphic file (type pdf)
 
 <use Pictures/W_5_Bezirke_SpatEff.pdf>
@@ -1546,7 +1552,7 @@ Package pdftex.def Info: Pictures/W_5_Bezirke_SpatEff.pdf used on input line 53
 3.
 (pdftex.def)             Requested size: 162.6071pt x 144.53964pt.
 
-<Pictures/W_5_Stadtt_SpatEff.pdf, id=726, 325.215pt x 289.08pt>
+<Pictures/W_5_Stadtt_SpatEff.pdf, id=732, 325.215pt x 289.08pt>
 File: Pictures/W_5_Stadtt_SpatEff.pdf Graphic file (type pdf)
 
 <use Pictures/W_5_Stadtt_SpatEff.pdf>
@@ -1621,7 +1627,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 678.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 678.
-[24] <Pictures/PaT2.pdf, id=841, 578.16pt x 289.08pt>
+[24] <Pictures/PaT2.pdf, id=847, 578.16pt x 289.08pt>
 File: Pictures/PaT2.pdf Graphic file (type pdf)
  <use Pictures/PaT2.pdf>
 Package pdftex.def Info: Pictures/PaT2.pdf used on input line 681.
@@ -1656,7 +1662,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 693.
  [26 <./Pictures/PaT2.pdf>]
-<Pictures/S21AlleModelle.pdf, id=859, 578.16pt x 252.945pt>
+<Pictures/S21AlleModelle.pdf, id=865, 578.16pt x 252.945pt>
 File: Pictures/S21AlleModelle.pdf Graphic file (type pdf)
 
 <use Pictures/S21AlleModelle.pdf>
@@ -1667,7 +1673,7 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 696--697
  [] 
  []
 
-<Pictures/WohngegendAlleModelle2.pdf, id=860, 578.16pt x 361.35pt>
+<Pictures/WohngegendAlleModelle2.pdf, id=866, 578.16pt x 361.35pt>
 File: Pictures/WohngegendAlleModelle2.pdf Graphic file (type pdf)
 
 <use Pictures/WohngegendAlleModelle2.pdf>
@@ -1784,65 +1790,65 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 764.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 764.
- <Pictures/BarData.pdf, id=908, 578.16pt x 578.16pt>
+ <Pictures/BarData.pdf, id=914, 578.16pt x 578.16pt>
 File: Pictures/BarData.pdf Graphic file (type pdf)
 
 <use Pictures/BarData.pdf>
-Package pdftex.def Info: Pictures/BarData.pdf used on input line 773.
+Package pdftex.def Info: Pictures/BarData.pdf used on input line 768.
 (pdftex.def)             Requested size: 462.52863pt x 462.52863pt.
 
-Overfull \hbox (7.28452pt too wide) in paragraph at lines 773--774
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 768--769
  [] 
  []
 
-<Pictures/BWohn.pdf, id=909, 578.16pt x 505.89pt>
+<Pictures/BWohn.pdf, id=915, 578.16pt x 505.89pt>
 File: Pictures/BWohn.pdf Graphic file (type pdf)
  <use Pictures/BWohn.pdf>
-Package pdftex.def Info: Pictures/BWohn.pdf used on input line 782.
+Package pdftex.def Info: Pictures/BWohn.pdf used on input line 777.
 (pdftex.def)             Requested size: 462.52863pt x 404.71254pt.
 
-Overfull \hbox (7.28452pt too wide) in paragraph at lines 782--783
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 777--778
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/SWohn.pdf, id=910, 578.16pt x 505.89pt>
+<Pictures/SWohn.pdf, id=916, 578.16pt x 505.89pt>
 File: Pictures/SWohn.pdf Graphic file (type pdf)
  <use Pictures/SWohn.pdf>
-Package pdftex.def Info: Pictures/SWohn.pdf used on input line 790.
+Package pdftex.def Info: Pictures/SWohn.pdf used on input line 785.
 (pdftex.def)             Requested size: 462.52863pt x 404.71254pt.
 
-Overfull \hbox (7.28452pt too wide) in paragraph at lines 790--791
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 785--786
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/S21Extra.pdf, id=911, 578.16pt x 289.08pt>
+<Pictures/S21Extra.pdf, id=917, 578.16pt x 289.08pt>
 File: Pictures/S21Extra.pdf Graphic file (type pdf)
 
 <use Pictures/S21Extra.pdf>
-Package pdftex.def Info: Pictures/S21Extra.pdf used on input line 806.
+Package pdftex.def Info: Pictures/S21Extra.pdf used on input line 801.
 (pdftex.def)             Requested size: 462.52863pt x 231.2643pt.
 
-Overfull \hbox (7.28452pt too wide) in paragraph at lines 806--807
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 801--802
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Pictures/BWohnExtra.pdf, id=912, 578.16pt x 505.89pt>
+<Pictures/BWohnExtra.pdf, id=918, 578.16pt x 505.89pt>
 File: Pictures/BWohnExtra.pdf Graphic file (type pdf)
 
 <use Pictures/BWohnExtra.pdf>
-Package pdftex.def Info: Pictures/BWohnExtra.pdf used on input line 814.
+Package pdftex.def Info: Pictures/BWohnExtra.pdf used on input line 809.
 (pdftex.def)             Requested size: 462.52863pt x 404.71254pt.
 
-Overfull \hbox (7.28452pt too wide) in paragraph at lines 814--815
+Overfull \hbox (7.28452pt too wide) in paragraph at lines 809--810
  [] 
  []
 
@@ -1850,87 +1856,131 @@ Overfull \hbox (7.28452pt too wide) in paragraph at lines 814--815
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 [33
 
  <./Pictures/BarData.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
  [34 <./Pictures/BWohn.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
  [35 <./Pictures/SWohn.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
  [36 <./Pictures/S21Extra.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 821.
+(babel)             in language  on input line 815.
  [37 <./Pictures/BWohnExtra.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 828--849
+Overfull \hbox (4.65564pt too wide) in paragraph at lines 822--869
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (4.65564pt too wide) in paragraph at lines 876--924
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 982.
+[38]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 982.
+ [39]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 982.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 982.
+ [40]
+Underfull \hbox (badness 10000) in paragraph at lines 989--1010
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 828--849
+Underfull \hbox (badness 10000) in paragraph at lines 989--1010
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 828--849
+Underfull \hbox (badness 10000) in paragraph at lines 989--1010
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 828--849
+Underfull \hbox (badness 10000) in paragraph at lines 989--1010
 
  []
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 849.
+(babel)             in language  on input line 1010.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 849.
+(babel)             in language  on input line 1010.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 849.
+(babel)             in language  on input line 1010.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 849.
-[38
+(babel)             in language  on input line 1010.
+[41
+
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 852.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 852.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1013.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1013.
  (./HAs.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 852.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 852.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1013.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1013.
+
 Package rerunfilecheck Info: File `HAs.out' has not changed.
 (rerunfilecheck)             Checksum: E913DB7FA45FDBDEFFDB206C2DEC0D1E;1513.
 
@@ -1940,13 +1990,13 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 852.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1013.
  ) 
 Here is how much of TeX's memory you used:
- 17987 strings out of 493304
- 308428 string characters out of 6139871
- 417175 words of memory out of 5000000
- 20910 multiletter control sequences out of 15000+600000
+ 17994 strings out of 493304
+ 308499 string characters out of 6139871
+ 420242 words of memory out of 5000000
+ 20911 multiletter control sequences out of 15000+600000
  13971 words of font info for 51 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,16n,75p,2839b,456s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1964,10 +2014,10 @@ msy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></us
 r/share/texmf/fonts/type1/public/tex-gyre/qhvr.pfb>
-Output written on HAs.pdf (42 pages, 13680262 bytes).
+Output written on HAs.pdf (45 pages, 13685694 bytes).
 PDF statistics:
- 1196 PDF objects out of 1200 (max. 8388607)
- 1019 compressed objects within 11 object streams
- 128 named destinations out of 1000 (max. 500000)
+ 1216 PDF objects out of 1440 (max. 8388607)
+ 1036 compressed objects within 11 object streams
+ 134 named destinations out of 1000 (max. 500000)
  320 words of extra memory for PDF output out of 10000 (max. 10000000)
 

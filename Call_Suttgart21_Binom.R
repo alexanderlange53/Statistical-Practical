@@ -167,6 +167,7 @@ ggplot(AIC.it.S21.2, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(11) +
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.binom$model.spat
+m.gk.2 <- step.model.binom$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
@@ -419,6 +420,7 @@ crossval(cv.2.B, sample)
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.binom.B$model.spat
+m.sb.2 <- step.model.binom.B$model.spat
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 2, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
@@ -609,6 +611,12 @@ if(calculate_model){
 #--------------------------------#
 ## GAM Plots ##
 m1 <- step.model.binom.S$model.spat
+m.st.2 <- step.model.binom.S$model.spat
+stargazer(m.gk.2, m.sb.2, m.st.2, title = 'Parameter Meinung zu Stuttgart 21 mit 2 Klassen')
+summary(m.gk.2)
+summary(m.sb.2)
+summary(m.st.2)
+
 plot(m1, select = 1, all = TRUE, ylab = "GK Hochwert", xlab = "GK Rechtswert") # Cont. spat. effect
 plot(m1, select = 3, all = TRUE, ylab = "s(Altersklasse)", xlab = "Altersklasse") # Alter
 
