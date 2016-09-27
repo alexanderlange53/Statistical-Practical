@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -168,7 +168,7 @@ model.i <- data.frame(m = factor(c(  's(Spat) + s(Personen, Alter)',
                )), mm = factor(1:6))
 model.i$m <- factor(model.i$m, levels = model.i[order(model.i$mm), 'm'])
 aic.i <-c(6456.846, 6408.784, 6390.473, 6381.882, 6379.428, 6379.345)
-AIC.it.S21.3 <- data.frame(vari = 'Stuttgart 21 drei Klassen', model.i, aic.i)
+AIC.it.S21.3 <- data.frame(vari = 'Meinung zu Stuttgart 21 mit drei Klassen', model.i, aic.i)
 
 ggplot(AIC.it.S21.3, aes(x = m, y = aic.i)) + geom_point()+ theme_bw(11) +
   labs(x = 'Modell',  y = 'AIC')

@@ -63,6 +63,8 @@
 
 \listoffigures % Abbildungsverzeichnis.
 
+\newpage
+
 \listoftables % Tabellenverzeichnis.
 
 \newpage
@@ -430,18 +432,21 @@ Nachdem im Material und Methoden Teil zunächst die Datensätze und statistische
 
 
 \subsection{Schrittweiser AIC Vergleich}
-Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. \textcolor{red}{ABB. X} zeigt den Verlauf der AIC Optimierung exemplarisch für das Prognosemodell der Meinung zu Stuttgart 21 mit kontinuierlichem räumlichen Effekt. \textcolor{red}{Hier könnte dann die Abb. die Du eben meinstest mit dem Verlauf hin}. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC in allen Fällen minderte, wurden vorgegeben.
+Durch die Kovariablenwahl mit Hilfe der schrittweisen AIC Funktion ist sichergestellt, dass die Kombination der sozioökonomischen Variablen einen sinnvollen Kompromiss aus Modellanpassung und Modellkomplexibilität widerspiegelt. Die Wechselwirkung zwischen \textit{Personenzahl im Haushalt} und \textit{Altersklasse des Befragten}, welche den AIC im Fall des drei Klassenmodells zur Meinung von Stuttgart 21 minderte, wurden zusammen mit dem räumlichem Effekt fest vorgegeben. Zur exemplarischen Darstellung der Funktion wurde Abbildung \ref{AIC} erstellt. Sie zeigt die Konvergenz des AIC für das Aktuell beste Modell, für welches wiederum die verbleibenden Kovariablen nacheinander getestet werden. Zu sehen ist, dass die Funktion für die Bewertung der Wohngegend bereits nach vier äußeren Iterationen keine Verbesserung des AIC mehr erreichen kann und die optimale Modellkomplexität gefunden wurde. Für die Modelle zur Meinung zu Stuttgart 21 ist die optimale Modellkomplexität nach fünf bzw. sechs äußeren Iterationen gefunden.
 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/stepAIC}
- \caption{stepAIC}
+ \caption{Konvergenz der äußeren Schleife der \textit{stepAIC} Funktion zur Ermittlung der optimalen Parameterkombinationen exemplarisch für alle Response Möglichkeiten mit Gauß-Krüger Informationen}
  \label{AIC}
  \end{center}
 \end{figure}
 
+Damit weißt das drei Klassenmodell zur Meinung zu Stuttgart 21 die höchste Modellkomplexität auf. Ein interessantes Ergebnis der \textit{stepAIC} Funktion ist zudem, dass neben einer Hinzunahme der Wechselwirkung auch die Hinzunahme der Anzahl der im Haushalt lebenden Personen für das zwei Klassenmodell keine Verbesserung des AIC erreicht, obwohl beide Modelle im Prinzip das gleiche Problem behandeln. Die geringste Komplexität weißt das Modell zur Bewertung der Wohngegend auf. Es ist deutlich erkennbar, dass die Hinzunahme weiterer Kovariablen nach dem räumlichem Effekt nur eine sehr geringe Verbesserung des AIC bewirken, so ist die Differenz zwischen dem Modell nur mit räumlichem Effekt und dem bestem Modell nur ca 10 Punkte. Im Gegensatz dazu konnte durch die Hinzunahme vom Kovariablen im zwei Klassenmodell zur Meinung zu Stauttgart 21 von ca 150 Punkten erreicht werden. Zu beachten ist jedoch auch, dass dies exemplarisch für die Gauss-Krüger Informationen ist, für die anderen räumlichen Effekte sind auch deutlich andere Parameterkombinationen anhand des AIC entstanden.
+
 \subsection{Modelle}
 Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb eines Modells gleich. In Tabelle \ref{stepAIC} wird demnach jedes geoadditive Modell dem reinen räumlichen Effekt je Modell die räumlichen Effekte den reinen Kovariableneffekten gegenübergestellt und mit dem geoadditiven Modell verglichen. Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
+
 
 Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell mit den Gauß-Krüger Informationen als qualitativ höchstes Modell hin. Beim zwei Klassen Fall schneidet das Geoadditive Modell in jedem Fall am besten ab, wobei hier das Modell mit Stadtteilen als räumlichem Effekt die höchste Qualität laut dem AIC aufweist.
 
@@ -483,20 +488,12 @@ Das erste geoadditive Modell zur Modellierung der Meinung zu Stuttgart 21 mit dr
 \end{figure}
 
 
-\begin{figure}[h]
- \begin{center}
- \includegraphics[scale=0.6]{Pictures/S21_3_Kont_SpatEff}
- \caption{Kontinuierlicher räumlicher Effekt des Vorhersagemodells zur Bewertung zu Stuttgart 21.}
- \label{S21_3_Kont_SpatEff}
- \end{center}
-\end{figure}
-
 \begin{figure}[htbp]
   \centering
-  \subfigure[eins]{\includegraphics[scale=0.40]{Pictures/S21_3_Kont_SpatEff}}\quad
-  \subfigure[zwei]{\includegraphics[scale=0.40]{Pictures/S21_3_Kont_SpatEff}}\quad
-  \subfigure[drei]{\includegraphics[scale=0.40]{Pictures/S21_3_Kont_SpatEff}}
-  \caption{mehrere Bilder nebeneinander}
+  \subfigure[Kontinuierlich]{\includegraphics[scale=0.49]{Pictures/S21_3_Kont_SpatEff}}\quad
+  \subfigure[Diskret: Stadtbezirke]{\includegraphics[scale=0.5]{Pictures/S21_3_Bezirke_SpatEff}}\quad
+  \subfigure[Diskret: Stadtteile]{\includegraphics[scale=0.5]{Pictures/S21_3_Stadtt_SpatEff}}
+  \caption{Räumliche Effekte des Vorhersagemodells zur Bewertung zu Stuttgart 21.}
 \end{figure}
 
 \begin{figure}[h]
