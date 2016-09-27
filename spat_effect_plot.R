@@ -77,8 +77,12 @@ attr(m1$smooth[[1]], "qrc")
 ret.plot <- ggplot(ggmat, aes(x = x, y = y, fill = coef), show.legend = FALSE) + geom_tile() + 
   scale_fill_gradient(low = colo[2],  high = "darkblue", na.value = 'transparent') + coord_equal() + coord_flip() + 
   stat_contour(data = ggmat, aes(x = x, y = y, z = coef), colour = 1) +
-  theme_bw(13) + theme(axis.text = element_blank(),
-                       axis.ticks = element_blank()) +
+  theme_bw(12) + theme(legend.position = 'right'
+                       ,axis.text.x=element_blank()
+                       ,axis.text.y=element_blank()
+                       ,axis.ticks.y=element_blank()
+                       ,axis.ticks.x=element_blank()
+                       ,plot.margin = unit(c(0.8,0.5,1,0.5), "cm")) +
   scale_alpha(range = c(0.1,1), guide=FALSE) + 
   labs(x = NULL, y = NULL, fill = 'Koef.')
 

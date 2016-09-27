@@ -22,7 +22,7 @@ library(visreg)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE # Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE
@@ -198,9 +198,12 @@ dev.off()
 
 # Spatial Effect
 spat.p.c <-spat.plot.cont(m1)
-pdf('./Essay/Pictures/S21_3_Kont_SpatEff.pdf', h = 5, w = 5.5)
-spat.p.c
-dev.off()
+#spat.p.c
+
+#pdf('./Essay/Pictures/S21_3_Kont_SpatEff.pdf', h = 5, w = 5.5)
+ggsave(plot = spat.p.c, filename = '/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Essay/Pictures/S21_3_Kont_SpatEff.pdf', device = 'pdf', height = 5, width = 5.5)
+
+
 
 AIC(step.model$model.spat)
 AIC(step.model$model.nospat)
