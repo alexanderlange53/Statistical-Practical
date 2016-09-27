@@ -39,17 +39,17 @@ spat.plot.disc <- function(m1, IFbezirk = TRUE) {
   ret.plot <- ggplot(data = geo.df, aes(x = long, y = lat, group = group, fill = coef, alpha = coef))+  
     geom_polygon(color = "black") +
     labs(x=NULL, y=NULL, title= NULL) +
-    scale_fill_gradient(name = "Koef.", low = colo[2], high = 'darkblue', guide = "colorbar") +
+    scale_fill_gradient(name = NULL, low = colo[2], high = 'darkblue', guide = "colorbar") +
     scale_alpha(range = c(0.8,1), guide=FALSE) +
     coord_equal(1)+
-    theme_bw(12) +
+    theme_bw(14) +
     theme(
       legend.position = 'right'
       ,axis.text.x=element_blank()
       ,axis.text.y=element_blank()
       ,axis.ticks.y=element_blank()
       ,axis.ticks.x=element_blank()
-    )
+    )  + guides(fill = guide_colorbar(barwidth = 0.7, barheight = 17))
   return(ret.plot)
 }
   
@@ -75,16 +75,16 @@ attr(m1$smooth[[1]], "qrc")
 
 # Idea 1: ggplot
 ret.plot <- ggplot(ggmat, aes(x = x, y = y, fill = coef), show.legend = FALSE) + geom_tile() + 
-  scale_fill_gradient(low = colo[2],  high = "darkblue", na.value = 'transparent') + coord_equal() + coord_flip() + 
+  scale_fill_gradient(low = colo[2],  high = "darkblue", na.value = 'transparent', name = NULL) + coord_equal() + coord_flip() + 
   stat_contour(data = ggmat, aes(x = x, y = y, z = coef), colour = 1) +
-  theme_bw(12) + theme(legend.position = 'right'
+  theme_bw(14) + theme(legend.position = 'right'
                        ,axis.text.x=element_blank()
                        ,axis.text.y=element_blank()
                        ,axis.ticks.y=element_blank()
                        ,axis.ticks.x=element_blank()
                        ,plot.margin = unit(c(0.8,0.5,1,0.5), "cm")) +
   scale_alpha(range = c(0.1,1), guide=FALSE) + 
-  labs(x = NULL, y = NULL, fill = 'Koef.')
+  labs(x = NULL, y = NULL) + guides(fill = guide_colorbar(barwidth = 0.7, barheight = 17))
 
 return(ret.plot)
 
