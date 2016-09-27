@@ -147,16 +147,16 @@ if(calculate_model) {
   step.model.Bewertung.5 <- readRDS(file = "./Model_Results/step.mode.Bewertungl.5_all.rds")
 }
 
-model.i.2 <- data.frame(m = factor(c( 's(Spat)', 
-                                      's(Spat) + s(Alter)',
-                                      's(Spat) + Nationalität + \n
-                                       s(Alter)',
-                                      's(Spat) +  Nationalität +\n
-                                       Person + s(Alter)'
-                                      )), mm = factor(1:4))
+model.i.2 <- data.frame(m = factor(c('s(Spat)', 
+                                     's(Spat) + s(Alter)',
+                                     's(Spat) + Nationalität + \n
+                                      s(Alter)',
+                                     's(Spat) +  Nationalität +\n
+                                      Person + s(Alter)'
+                                     )), mm = factor(1:4))
 model.i.2$m <- factor(model.i.2$m, levels = model.i.2[order(model.i.2$mm), 'm'])
-aic.i <-c(7056.123, 7055.717, 7051.906, 7051.606)
-AIC.it.BW <- data.frame(vari = 'Bewertung Wohngegend', model.i.2, aic.i)
+aic.i <-c(7062.108, 7055.717, 7051.906, 7051.606)
+AIC.it.BW <- data.frame(vari = 'Bewertung der Wohngegend', model.i.2, aic.i)
 
 #--------------------------------#
 ## Modelleffekte interpretieren ##
