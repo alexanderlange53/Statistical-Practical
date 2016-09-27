@@ -431,8 +431,14 @@ $$
 gilt.Die MSE lässt also auch zu einem gewissen Maße verzerrte Schätzer zu, was in bestimmten Situationen sehr hilfreich sein kann. Zudem hat ein konsistenter Schätzer die Eigenschaft, dass die mittlere 
 quadratische Abweichung bei unendlich groß werdender Stichprobe gen Null konvergiert \cite[p. 201]{HOG}. Ein weiteres 
 Kriterium ist die Überdeckungswahrscheinlichkeit. Sie gibt an, mit welcher Wahrscheinlichkeit das geschätzte 
-Konfidenzintervall den wahren Wert enthält. Erwartet wird hier, dass die Überdeckungswahrscheinlichkeit dem 
-Konfidenzniveau entspricht. Mögliche größere Abweichungen können durch die Approximation einer diskreten Verteilung 
+Konfidenzintervall den wahren Wert enthält und ist nach \cite{zhang} in der großen Stichprobe definiert als
+
+$$
+\lim\limits_{n \rightarrow \infty}{P(\theta \in S_{1-\alpha}(\hat{\theta})) < 1-\alpha},
+$$
+
+wobei $S_{1-\alpha}$ die Konfidenzregion von $\theta$ angibt. Erwartet wird hier also, dass die Überdeckungs"-wahrscheinlichkeit knapp unter dem
+Konfidenzniveau liegt. Mögliche größere Abweichungen können durch die Approximation einer diskreten Verteilung 
 durch eine stetige Verteilung resultieren, was z.B. oft bei der Approximation der Binomial- durch die Normalverteilung 
 vorkommt \cite[p. 102]{Int}.
 
@@ -503,7 +509,7 @@ Die Effekte des zweikategorialen Vorhersagemodells sind praktisch gleich \textco
 
 \begin{figure}[htbp]
   \centering
-  \subfigure[Kontinuierlich]{\includegraphics[scale=0.13]{Pictures/S21_3_Kont_SpatEff.png}}\quad
+ %\subfigure[Kontinuierlich]{\includegraphics[scale=0.13]{Pictures/S21_3_Kont_SpatEff.png}}\quad
   \subfigure[Diskret: Stadtbezirke]{\includegraphics[scale=0.55]{Pictures/S21_3_Bezirke_SpatEff}}\quad
   \subfigure[Diskret: Stadtteile]{\includegraphics[scale=0.55]{Pictures/S21_3_Stadtt_SpatEff}}
   \caption{Räumliche Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21.}

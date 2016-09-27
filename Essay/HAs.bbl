@@ -91,4 +91,10 @@ Wood, S.~N., Pya, N., and Säfken, B. (2016).
 \newblock {\em Journal of The American Statistical Association}, pages 1--58.
 \newblock arXiv: 1511.03864.
 
+\bibitem[Zhang, 1992]{zhang}
+Zhang, P. (1992).
+\newblock On the distributional properties of model selection criteria.
+\newblock {\em Journal of the American Statistical Association},
+  87(419):732--737.
+
 \end{thebibliography}

@@ -6,14 +6,9 @@
 \contentsline {figure}{\numberline {5}{\ignorespaces Anteile der Meinung zu Stuttgart 21 nach Stadtteilen.\relax }}{7}{figure.caption.7}
 \contentsline {figure}{\numberline {6}{\ignorespaces Konvergenz der \IeC {\"a}u\IeC {\ss }eren Schleife der \textit {stepAIC} Funktion zur Ermittlung der optimalen Parameterkombinationen exemplarisch f\IeC {\"u}r alle Response M\IeC {\"o}glichkeiten mit Gau\IeC {\ss }-Kr\IeC {\"u}ger Informationen\relax }}{16}{figure.caption.10}
 \contentsline {figure}{\numberline {7}{\ignorespaces Parametrische und nonparametrische Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem r\IeC {\"a}umlichen Trend.\relax }}{19}{figure.caption.12}
-<<<<<<< HEAD
-\contentsline {figure}{\numberline {8}{\ignorespaces R\IeC {\"a}umliche Effekte des Vorhersagemodells zur Bewertung zu Stuttgart 21.\relax }}{20}{figure.caption.13}
-=======
 \contentsline {figure}{\numberline {8}{\ignorespaces R\IeC {\"a}umliche Effekte des dreikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21.\relax }}{20}{figure.caption.13}
->>>>>>> 4883a0cd3665af0655398ef2792dcb80ce28591f
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Kontinuierlich}}}{20}{figure.caption.13}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Diskret: Stadtbezirke}}}{20}{figure.caption.13}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Diskret: Stadtteile}}}{20}{figure.caption.13}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Diskret: Stadtbezirke}}}{20}{figure.caption.13}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Diskret: Stadtteile}}}{20}{figure.caption.13}
 \contentsline {figure}{\numberline {9}{\ignorespaces Parametrische und nonparametrische Effekte des zweikategorialen Modell zur Vorhersage der Meinung zu Stuttgart 21 mit kontinuierlichem r\IeC {\"a}umlichen Trend.\relax }}{21}{figure.caption.14}
 \contentsline {figure}{\numberline {10}{\ignorespaces Illustration gesch\IeC {\"a}tzte gegen wahre Anteile f\IeC {\"u}r Gau\IeC {\ss }-Kr\IeC {\"u}ger Informationen extrapoliert auf Melderegister mit zwei und drei Klassenmodell mit 95\% Quantielen\relax }}{25}{figure.caption.20}
 \contentsline {figure}{\numberline {11}{\ignorespaces Vergleich der extrapolierten Gesamtanteile f\IeC {\"u}r Stuttgart mit allen gesch\IeC {\"a}tzten Modellen und beiden Extrapolationsdateien mit den wahren Anteilen, sowie den Anteilen der Stichprobe mit 95\% Quantielen zur Meinung zu Stuttgart 21\relax }}{26}{figure.caption.21}
