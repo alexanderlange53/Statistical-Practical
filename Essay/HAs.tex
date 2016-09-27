@@ -77,6 +77,8 @@
 \pagestyle{fancy}
 
 \section{Einleitung}
+
+
 Die Grundgesamtheit dieser Untersuchung ist die Bevölkerung Stuttgarts.
 Fragestellungen: Wie ist die Wohnzufriedenheit in Stuttgart? Wie ist die Meinung zu Stuttgart 21? Kleinräumige Extrapolation
 Obwohl die Formulierung \textit{nicht-parametrisch} für den in dieser Arbeit verwendeten Spline-Typ mathematisch unpräzise ist \cite[p. 1]{eilers1996}, wird sie, wie in der Literatur üblich, synonym für \textit{semiparametrisch} verwendet.
@@ -417,9 +419,16 @@ Ziel der Validierung ist es, die prognostizierten Anteile aus dem gewählten Mod
 Volksabstimmung \cite{Amt} zu vergleichen, um eine Aussage über die Qualität der geschätzten Prognosemodelle geben zu 
 können. Die Validierung erfolgt auf Stadtteil- und Bezirksebene, sowie für das Gesamtergebnis der Stadt Stuttgart. Dazu 
 werden insbesondere zwei statistische Gütemaße verwendet, das erste soll den Punktschätzer valideren und das zweite wird benutzt, um den Intervallschätzer zu validieren.\\
-Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungstreuen als auch effizienten Schätzer zu 
-finden. Als geeignetes Gütemaß hat sich die mittlere quadratische Abweichung erwiesen, da sie sowohl die Varianz, als 
-auch die quadrierte Verzerrung berücksichtigt. Zudem hat ein konsistenter Schätzer die Eigenschaft, dass die mittlere 
+Bei der Wahl des Schätzers geht es zum einen darum, einen möglichst erwartungstreuen als auch effizienten Schätzer, d.h. mit minimaler Varianz zu finden. Als geeignetes Gütemaß hat sich die mittlere quadratische Abweichung (MSE) erwiesen, da sie sowohl die Varianz, als 
+auch die quadrierte Verzerrung berücksichtigt. Für einen Schätzer $\hat{\theta}$ von dem wahren Parameter $\theta$ ist die MSE definiert als
+$$
+\text{MSE } = \mathbb{E}[(\hat{\theta} - \theta)^2],
+$$
+wobei sich durch den mittleren Verschiebungssatz der Varianz zeigen lässt, dass
+$$
+\text{MSE } = \mathbb{V}(\hat{\theta}) + \mathbb{B}(\hat{\theta})^2
+$$
+gilt.Die MSE lässt also auch zu einem gewissen Maße verzerrte Schätzer zu, was in bestimmten Situationen sehr hilfreich sein kann. Zudem hat ein konsistenter Schätzer die Eigenschaft, dass die mittlere 
 quadratische Abweichung bei unendlich groß werdender Stichprobe gen Null konvergiert \cite[p. 201]{HOG}. Ein weiteres 
 Kriterium ist die Überdeckungswahrscheinlichkeit. Sie gibt an, mit welcher Wahrscheinlichkeit das geschätzte 
 Konfidenzintervall den wahren Wert enthält. Erwartet wird hier, dass die Überdeckungswahrscheinlichkeit dem 
