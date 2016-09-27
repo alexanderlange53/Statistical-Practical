@@ -203,7 +203,7 @@ spat.p.c <-spat.plot.cont(m1)
 #spat.p.c
 
 #pdf('./Essay/Pictures/S21_3_Kont_SpatEff.pdf', h = 5, w = 5.5)
-ggsave(plot = spat.p.c, filename = '/home/kai/Dokumente/Master/Stat_Practical/Statistical-Practical/Essay/Pictures/S21_3_Kont_SpatEff.pdf', device = 'pdf', height = 5, width = 5.5)
+ggsave(plot = spat.p.c, filename = './Essay/Pictures/S21_3_Kont_SpatEff.pdf', device = 'pdf', height = 4, width = 4.5)
 
 
 
@@ -452,7 +452,7 @@ ggsave('./Essay/Pictures/S21GKParam.pdf', height = 2.5, width = 8)
 
 # Spatial effect
 spat.p.bez <- spat.plot.disc(m1)
-pdf('./Essay/Pictures/S21_3_Bezirke_SpatEff.pdf', h = 5, w = 5.5)
+pdf('./Essay/Pictures/S21_3_Bezirke_SpatEff.pdf', h = 4, w = 4.5)
 spat.p.bez
 dev.off()
 
@@ -691,7 +691,7 @@ summary(step.model.S$model.spat)
 # Spatial effect
 spat.p.steil <- spat.plot.disc(m1, IFbezirk = FALSE)
 
-pdf('./Essay/Pictures/S21_3_Stadtt_SpatEff.pdf', h = 5, w = 5.5)
+pdf('./Essay/Pictures/S21_3_Stadtt_SpatEff.pdf', h = 4, w = 4.5)
 spat.p.steil
 dev.off()
 
