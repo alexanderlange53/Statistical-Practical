@@ -401,7 +401,7 @@ Die zweite in dieser Arbeit vorgestellte Möglichkeit der Berücksichtigung räu
 
 
 ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s_i$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten der Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. Regionen, die eine gemeinsame Grenze mit $s_i$ teilen werden als Nachbarn erster Ordnung bezeichnet. Nur diese werden für die Glättung berücksichtigt.
-Ein praktisches Problem in der Implementierung eines Markov-Randomfields mit dem \texttt{mgcv} Paket ist, dass in jeder Region mindestens eine Beobachtung jeder Kategorie der abhängigen Variable vorkommen muss. Wie bereits in dem Kapitel zum Parametrisierungsdatensatz gezeigt fehlen insbesondere auf Stadtteilebene häufig einzelne Beobachtungen einer Kategorie oder auch Beobachtungen im Allgemeinen in einzelnen Regionen. Um die Implementierung dennoch möglich zu machen wurde eine Funktion erstellt, die partiell oder komplett fehlende Beobachtungen durch Pseudo-Beobachtungen ersetzt und anschließend mit Null gewichtet, während echte Beobachtungen mit eins gewichtet werden (siehe digitaler Anhang \textit{PseudoB.R}).
+Ein praktisches Problem in der Implementierung eines Markov-Randomfields mit dem \texttt{mgcv} Paket ist, dass in jeder Region mindestens eine Beobachtung jeder Kategorie der abhängigen Variable vorkommen muss. Wie bereits in dem Kapitel zum Parametrisierungsdatensatz gezeigt fehlen insbesondere auf Stadtteilebene häufig einzelne Beobachtungen einer Kategorie oder auch Beobachtungen im Allgemeinen in einzelnen Regionen. \textcolor{red}{Habe neue Sätze eingefügt} Es müssen aus methodischer Sicht nicht zwingend in der Region und Kategorie Beobachtungen vorhanden sein, jedoch erlaube die \texttt{gam()} Funktion aus dem \texttt{mgcv} keine leeren Region-Kategorie Kombinationen. Um die Implementierung dennoch möglich zu machen wurde eine Funktion erstellt, die partiell oder komplett fehlende Beobachtungen durch Pseudo-Beobachtungen ersetzt und mit Null gewichtet. Alle anderen (echten) Beobachtungen werden mit eins gewichtet (siehe digitaler Anhang \textit{PseudoB.R}).
 
 \subsubsection{Reklassifizierung}
 
@@ -465,28 +465,30 @@ Insgesamt deutet das AIC für den drei Klassen Fall auf das Geoadditive Modell m
 
 
 \subsection{Modelle}
-Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen ermittelt. Um die Einflüsse der räumlichen Effekte isoliert betrachten zu können, blieb die Kovariablenkombination innerhalb eines Modells gleich. In Tabelle \ref{stepAIC} wird demnach jedes geoadditive Modell dem reinen räumlichen Effekt je Modell die räumlichen Effekte den reinen Kovariableneffekten gegenübergestellt und mit dem geoadditiven Modell verglichen. Für die Meinung zu Stuttgart 21 im dreikategorialen lässt sich erkennen, dass das Geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht. \textcolor{red}{... Weiter beschreiben wenn neue Zahlen da sind ...}
+Über die schrittweise AIC Analyse wurde die geeignetste Kombination der sozioökonomischen Variablen jedes Modells festgelegt. In Tabelle \ref{stepAIC} wird der zusätzliche Effekt der räumlichen Komponente auf die Modelle betrachtet. Um die Einflüsse der räumlichen Effekte isoliert bewerten zu können, blieb die zuvor ermittelte Kovariablenkombination innerhalb eines Modells gleich. Die Kombination der sozioökonomischen Kovariablen ist in Tabelle \ref{stepAIC} folglich in jeder Zeile gleich. Jedes geoadditive Modell wird mit einem Modell ohne räumlichen Effekt sowie einem Modell nur mit dem räumlichen Effekt verglichen. Bei der Meinung zu Stuttgart 21 nach drei Kategorien lässt sich erkennen, dass das geoadditive Modell mit den kontinuierlichen Gauß-Krüger Informationen und den Stadtteil Informationen die höchste relative Qualität aufweist. 
+
+Die diskrete Modellierung des räumlichen Effekts verbessert das dreikategoriale Modell nicht.
 
 
 \begin{table}[h]
 \centering
-\caption{AIC Vergleich der unterschiedlichen räumlichen Effekte.}
+\caption{AIC der erstellten Modelle.}
 \label{stepAIC}
 \begin{tabular}{llccc}
 \hline \hline
 \multicolumn{5}{c}{Meinung zu Stuttgart 21}                                                                                                                                            \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6382,654}          & 6456,846          \\
-                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6455,284}                             & \multicolumn{1}{c|}{6383}              & 6455,284          \\
-                          & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6428,6}                               & \multicolumn{1}{c|}{6509,871}          & 6510,838          \\ \hline
-\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{3114,143}                             & \multicolumn{1}{c|}{3116.13}           & 3268,483          \\
-                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116.13}           & 3271,325          \\
-                          & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{3079,12}                              & \multicolumn{1}{c|}{3117.902}          & 3163,597          \\ \hline
+\multirow{3}{*}{Drei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{6379,345}                             & \multicolumn{1}{c|}{6378,220}          & 6525,747          \\
+                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{6378,267}                             & \multicolumn{1}{c|}{6379,725}              & 6528,284          \\
+                          & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{6456,706}                               & \multicolumn{1}{c|}{6535,627}          & 6605,946          \\ \hline
+\multirow{3}{*}{Zwei Kl.} & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{3114,141}                             & \multicolumn{1}{c|}{3116,130}           & 3268,484          \\
+                          & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{3115,858}                             & \multicolumn{1}{c|}{3116,130}           & 3271,325          \\
+                          & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{3149,607}                              & \multicolumn{1}{c|}{3180,433}          & 3298,017          \\ \hline
 \multicolumn{5}{c}{Bewertung der Wohngegend}                                                                                                                                           \\ \hline
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{\multirow{2}{*}{Geoadditives Modell}} & \multicolumn{1}{c|}{Modell ohne}       & Modell nur mit    \\
                           & \multicolumn{1}{l|}{}             & \multicolumn{1}{c|}{}                                     & \multicolumn{1}{c|}{räumlichem Effekt} & räumlichem Effekt \\ \hline
-                          & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{7051,606}                             & \multicolumn{1}{c|}{7318,815}          & 7062,108          \\
+                          & \multicolumn{1}{l|}{Gauß-Krüger} & \multicolumn{1}{c|}{7054,163}                             & \multicolumn{1}{c|}{7318,815}          & 7064,751          \\
                           & \multicolumn{1}{l|}{Bezirke}      & \multicolumn{1}{c|}{7175,601}                             & \multicolumn{1}{c|}{7318,815}          & 7197,003          \\
                           & \multicolumn{1}{l|}{Stadtteile}   & \multicolumn{1}{c|}{8252,374}                             & \multicolumn{1}{c|}{8567,358}          & 8750,801          \\ \hline \hline
 \end{tabular}
