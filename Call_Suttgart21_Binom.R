@@ -591,7 +591,7 @@ sample <- PseudoB2(sample, SpatOb =  stadtteile, binom = T, response)
 #sample$Stadtteil <- as.character(sample$Stadtteil)
 # Neue raeumliche Information, der rest bleibt gleich
 fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt) + s(Personenzahl.im.Haushalt, Altersklasse.Befragter, bs= \"tp\")"
-fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
+#fixed <- "s(Stadtteil, bs=\"mrf\", xt = zt)"
 #--------------------#
 ## Modellerstellung ##
 #--------------------#
