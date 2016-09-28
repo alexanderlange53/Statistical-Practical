@@ -22,6 +22,7 @@
 \contentsline {section}{\numberline {4}Diskussion}{30}{section.4}
 \contentsline {subsection}{\numberline {4.1}Schrittweiser AIC Vergleich}{30}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Modelle}{30}{subsection.4.2}
-\contentsline {section}{\numberline {5}Fazit}{32}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{33}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{35}{section.5}
+\contentsline {subsection}{\numberline {4.3}Reklassifizierung}{31}{subsection.4.3}
+\contentsline {section}{\numberline {5}Fazit}{33}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{34}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{36}{section.5}
