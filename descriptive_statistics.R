@@ -8,7 +8,7 @@ require(rgdal);require(rgeos);
 require(ggmap)
 
 # loading data
-bearbeiter <- 'Kai@Home'
+bearbeiter <- 'Alex'
 if(bearbeiter == 'Alex') {
   dataS <- read.csv2('/home/alex/Schreibtisch/Uni/statistisches_praktikum/Auswertung/Neue_Daten/Stuttgart21_aufbereitet_stadtteile.csv')
 } 
@@ -81,9 +81,9 @@ Personen
 
 # Monatliches Netto haushaltseinkommen
 # # rearranging of groups
-count4$Var1 <- c('900', '900-2000', '2000-2900', '2900-4000', 
+count4$Var1 <- c('<900', '900-2000', '2000-2900', '2900-4000', 
                  '4000-5000', '>5000')
-count4$Var1 <- factor(count4$Var1, levels = c('900', '900-2000', '2000-2900', '2900-4000', 
+count4$Var1 <- factor(count4$Var1, levels = c('<900', '900-2000', '2000-2900', '2900-4000', 
                                               '4000-5000', '>5000'))
 # Plotting              
 Einkommen <- FreqPlot(count4, 'Netto Einkommen der Haushalte')
