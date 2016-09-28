@@ -634,7 +634,8 @@ Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variable
 Bei der kleinräumigen Extrapolation ergab sich für die Modelle zur Modellierung der Meinung zu Stuttgart 21 die Möglichkeit der Validierung mit den Ergebnissen der Volksabstimmung. Daher werden die beiden geoadditiven Modelle (zwei- und dreikategorielle Response) vor der eigentlichen Darstellung der Extrapolation zunächst validiert.
 
 \subsubsection{Validierung}
-Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere quadratische Abweichung und Überdeckungswahrscheinlichkeit der prognostizierten Anteile aus den Modellen, bezogen auf die wahren Anteile aus der Volksabstimmung. Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartet, dass das zwei Klassenmodell die beiden Kategorien signifikant besser prognostiziert.
+Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere MSE der prognostizierten Anteile aus den Modellen in Bezug auf die Anteile aus der Volksabstimmung. In der linken Spalte ist kodiert, welches der parametrisierten geoadditiven Modelle verwendet wurde und welche auf welche Datei diese Modele angewendet wurden. Ganz links ist die Anzahl der Variablenausprägung der Response zu sehen. Daraufhin wird die Form des räumlichen Effekts beschrieben. Die nächste Angabe ist die Aggregationsebene mit der die kleinräumige Extrapolation durchgeführt wurde. Die letzte Angabe der ersten Spalte verschlüsselt den Namen der Datei mit der die Extrapolation durchgeführt wurde (\textit{M}: Melderegister, \textit{Z}: Zensus).
+
 Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Kombination aus Modell, räumlichem Effekt und Datei zur Extrapolation es sich handelt. Die mittlere Spalte zeigt die mittlere quadratische Abweichung für die beiden Kategorien der Volksabstimmung und die rechte Spalte zeigt die Überdeckungswahrscheinlichkeit ebenfalls für diese Kategorien. Damit gibt die erste Reihe z.B. die statistischen Gütemaße für das drei Klassenmodell mit Gauß-Krüger Informationen als räumlichem Effekt aggregiert auf Bezirksebene mit dem Melderegister an. Die Prognoseintervalle zur Berechnung der Überdeckungswahrscheinlichkeit wurden mit Hilfe des Bootstraps ermittelt, sowie Mediane zur Ermittlung der Abweichung auch.
 
 \begin{table}[h]
@@ -645,31 +646,31 @@ Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Komb
 \hline \hline
                         &                               &                          &   & \multicolumn{2}{c|}{MSE} & \multicolumn{2}{c}{Überdeckungswk.} \\
                         &                               &                          &   & Zustimmung  & Ablehnung  & Zustimmung        & Ablehnung       \\ \hline
-\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauß-Krüger} & \multirow{2}{*}{Bez.}    & U & 0,04        & 0,749      & 1                 & 0,043           \\
+\multirow{12}{*}{3 Kl.} & \multirow{4}{*}{Gauß-Krüger} & \multirow{2}{*}{Bez.}    & M & 0,04        & 0,749      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,116       & 0,557      & 0,391             & 0               \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Sadtt.}  & U & 0,461       & 5,708      & 0,954             & 0,139           \\
+                        &                               & \multirow{2}{*}{Sadtt.}  & M & 0,461       & 5,708      & 0,954             & 0,139           \\
                         &                               &                          & Z & 0,813       & 4,415      & 0,553             & 0,02            \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0,041       & 0,756      & 1                 & 0,043           \\
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & M & 0,041       & 0,756      & 1                 & 0,043           \\
                         &                               &                          & Z & 0,117       & 0,562      & 0,522             & 0               \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,482       & 5,678      & 0,934             & 0,139           \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 0,482       & 5,678      & 0,934             & 0,139           \\
                         &                               &                          & Z & 0,835       & 4,38       & 0,567             & 0,027           \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,032      & 0,862     &      1             &   0,043          \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & M & 0,032      & 0,862     &      1             &   0,043          \\
                         &                               &                          & Z & 0,148       & 0,552      &     0,478         &     0 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 0,646       & 6,367       &   0,947           &   0,225  \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 0,646       & 6,367       &   0,947           &   0,225  \\
                         &                               &                          & Z & 1,078        & 4,336       &   0,66           &                0,1 \\ \hline
-\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauß-Krüger} & \multirow{2}{*}{Bez.}   & U & 0,312      & 0,312      &     0,826           &  0,826
+\multirow{12}{*}{2 Kl.}  & \multirow{4}{*}{Gauß-Krüger} & \multirow{2}{*}{Bez.}   & M & 0,312      & 0,312      &     0,826           &  0,826
  \\
                         &                               &                          & Z & 0,152      & 0,152      &   0,522           &  0,522     \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,694       & 2,679     &   0,649          &  0,649   \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,694       & 2,679     &   0,649          &  0,649   \\
                         &                               &                          & Z & 1,581       & 1,569      &  0,46            &   0,46   \\ \cline{2-8} 
-                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & U & 0,312       & 0,312      &  0,826            &   0,826    \\
+                        & \multirow{4}{*}{Bezirke}      & \multirow{2}{*}{Bez.}    & M & 0,312       & 0,312      &  0,826            &   0,826    \\
                         &                               &                          & Z & 0,153       & 0,153      &  0,565            &  0,565    \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,642       & 2,645      &  0,636           &   0,636    \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,642       & 2,645      &  0,636           &   0,636    \\
                         &                               &                          & Z & 1,527       & 1,513    &  0,433            &    0,44   
 \\ \cline{2-8} 
-                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & U & 0,524       & 0,524      &   0,043          &    0,043 \\
+                        & \multirow{4}{*}{Stadtteile}   & \multirow{2}{*}{Bez.}    & M & 0,524       & 0,524      &   0,043          &    0,043 \\
                         &                               &                          & Z & 0,172       & 0,172      &     0,652        &     0,652 \\ \cline{3-8} 
-                        &                               & \multirow{2}{*}{Stadtt.} & U & 2,813        &  2,797      &  0,848     &  0,848 \\
+                        &                               & \multirow{2}{*}{Stadtt.} & M & 2,813        &  2,797      &  0,848     &  0,848 \\
                         &                               &                          & Z & 1,758        & 1,746     &    0,693     &     0,713
                          \\ \hline \hline
 \end{tabular}
@@ -729,16 +730,17 @@ Der Bahnhof liegt an der nördlichen Grenze des Stadtviertels \textit{Mitte}, al
 Die Wohnzufriedenheit hängt sehr viel stärker von der Lage der Wohnung ab als von den sozioökonomischen Kovariablen. Da die räumliche Lage bereits einen sehr hohen Erklärungsgehalt hat, sind deshalb weniger Kovariablen erforderlich als es bei der Meinung zu Stuttgart 21 der Fall ist. Umso wichtiger ist folglich die Auswahl des geeigneten räumlichen Effektes. Nach visueller Einschätzung ist die Auflösung des diskreten Effekts auf Stadtbezirksebene nicht hoch genug um das komplexe räumliche Muster zu beschreiben. Das Modell auf Stadtteilebene erscheint hingegen zu komplex zu sein, da insbesondere im Zentrum sehr kleinflächige Strukturen mit zum Teil sehr unterschiedlichen Parameterausprägungen zu sehen sind. Der kontinuierliche Effekt ist offensichtlich ein Kompromiss zwischen den beiden diskreten Trends. Die kleinräumig unterschiedlichen Parameterausprägungen, wie sie z. B. im Nordosten zu sehen sind werden durch das kontinuierliche Modell dargestellt. Dabei schwanken die Parameter, insbesondere im Zentrum, weniger stark als beim Modell auf Stadtteilebene. Die Analyse der AIC (Tabelle \ref{stepAIC}) unterstreicht diese visuellen Einschätzungen.
 
 \subsection{Reklassifizierung}
-Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Resppnse-Variablen vorteilhaft gegenüber reinen GAM sind. Sowohl bei zwei- als auch bei dreikategorialer Response bei der Modellierung der Meinung zu Stuttgart 21 bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse (Tabelle \ref{evalS21}). Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab. Die Ergebnisse der Reklassifizierung der Wohnzufriedenheit (Tabelle \ref{evalB}) fügen sich ebenfalls in die Vorüberlegungen ein. Das diskrete Modell erweist sich als vorteilhaft. Bemerkenswerterweise ist durchschnittliche Anteil korrekt reklassifizierter Beobachtungen bei dem geoadditiven Modell mit diskreten räumlichem Trend Modell auf Stadtteilebene schlechter als bei den Modellen mit sozioökonomischen Kovariablen und dem alleinigen räumlichen Trend. Dies zeigt, wie die visuelle Analyse bereits andeutete, dass die Parameteranzahl deutlich zu hoch ist.
+Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Resppnse-Variablen vorteilhaft gegenüber reinen GAM sind. Sowohl bei zwei- als auch bei dreikategorialer Response bei der Modellierung der Meinung zu Stuttgart 21 bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse (Tabelle \ref{evalS21}). Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab. Die Ergebnisse der Reklassifizierung der Wohnzufriedenheit (Tabelle \ref{evalB}) fügen sich ebenfalls in die Vorüberlegungen ein. Das diskrete Modell erweist sich als vorteilhaft. Bemerkenswerterweise ist durchschnittliche Anteil korrekt reklassifizierter Beobachtungen bei dem geoadditiven Modell mit diskreten räumlichem Trend Modell auf Stadtteilebene schlechter als bei den Modellen mit sozioökonomischen Kovariablen und dem alleinigen räumlichen Trend. Dies zeigt, wie die visuelle Analyse bereits andeutete, dass die Parameteranzahl deutlich zu hoch ist, das Modell also überangepasst ist.
 
 \subsection{Kreuzvalidierung}
 Die Kreuzvalidierung ist eine sehr computerintensive Berechnung. Daher wurden die ohnehin nicht vielversprechenden Modelle ohne räumlichen Trend und nur mit räumlichen Trend bei dieser Analyse nicht mehr berücksichtigt. Zunächst ist zu bemerken, dass der durchschnittliche korrekt klassifizierte Anteil der Beobachtungen \textit{out-of-sample} (Tabellen \ref{KreuzM} und \ref{KreuzBew}) den korrekt reklassifizierten Anteil der Beobachtungen (Tabellen \ref{evalS21} und \ref{evalB}) stets sehr ähnelt. Abweichungen sind als Zufall zu interpretieren. Dies deutet darauf hin, das die Modelle sehr robust sind.
 In dieser Betrachtungsebene zeigt sich auch erstmals, dass die guten Ergebnisse bei der Reklassifizierung und der Kreuzvalidierung in erster Linie durch die korrekte Schätzung der wahrscheinlichsten Gruppen zurückzuführen sind. Die weniger wahrscheinlichen Gruppen werden praktisch nie korrekt reklassifiziert. Diese individuelle Fehleinschätzung spielt für die in dieser Arbeit angestrebte räumliche Extrapolation jedoch keine Rolle, da hierzu mittlere Anteile auf regionaler Ebene gebildet werden.
 
+\subsection{Kleinräumige Extrapolation}
 
-\subsection{Validierung}
+\subsubsection{Validierung}
 Da Stimmanteile zur Volksabstimmung zu Stuttgart 21 vorlagen, konnte das Ergebnis der räumlichen Extrapolation mit dem tatsächlichen Ergebnis vergleichen werden.
-
+Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartet, dass das zwei Klassenmodell die beiden Kategorien signifikant besser prognostiziert.
 
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
 
