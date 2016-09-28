@@ -19,8 +19,9 @@
 \contentsline {subsection}{\numberline {3.2}Modelle}{18}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Reklassifizierung}{23}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{24}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Validierung}{26}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{28}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.5}Kleinr\IeC {\"a}umige Extrapolation}{26}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Validierung}{26}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}Punkt- und Intervallsch\IeC {\"a}tzung}{28}{subsubsection.3.5.2}
 \contentsline {section}{\numberline {4}Diskussion}{32}{section.4}
 \contentsline {subsection}{\numberline {4.1}Schrittweiser AIC Vergleich}{32}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Modelle}{32}{subsection.4.2}
