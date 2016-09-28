@@ -3,105 +3,61 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: HAs.aux
 The style file: apalike.bst
 Database file #1: LiteraturStuttgart.bib.bib
+You're missing a field name---line 33 of file LiteraturStuttgart.bib.bib
+ : 
+ : =======
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 34 of file LiteraturStuttgart.bib.bib
+ : @phdthesis{Lubeck
+ :                  ,
+I'm skipping whatever remains of this entry
 Warning--entry type for "google" isn't style-file defined
---line 123 of file LiteraturStuttgart.bib.bib
+--line 131 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
-<<<<<<< HEAD
---line 198 of file LiteraturStuttgart.bib.bib
+--line 219 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "bundesamt" isn't style-file defined
---line 209 of file LiteraturStuttgart.bib.bib
+--line 230 of file LiteraturStuttgart.bib.bib
 Warning--I didn't find a database entry for "gu1993"
-You've used 23 entries,
+You've used 24 entries,
             1935 wiz_defined-function locations,
-            606 strings with 6888 characters,
-and the built_in function-call counts, 7463 in all, are:
-= -- 739
-> -- 239
-< -- 21
-+ -- 74
-- -- 74
-* -- 569
-:= -- 1356
-add.period$ -- 68
-call.type$ -- 23
-change.case$ -- 145
-chr.to.int$ -- 23
-cite$ -- 23
-duplicate$ -- 311
-empty$ -- 541
-format.name$ -- 105
-if$ -- 1448
+            610 strings with 7002 characters,
+and the built_in function-call counts, 7699 in all, are:
+= -- 763
+> -- 246
+< -- 22
++ -- 76
+- -- 76
+* -- 584
+:= -- 1403
+add.period$ -- 70
+call.type$ -- 24
+change.case$ -- 151
+chr.to.int$ -- 24
+cite$ -- 24
+duplicate$ -- 321
+empty$ -- 556
+format.name$ -- 108
+if$ -- 1491
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 23
-newline$ -- 116
-num.names$ -- 69
-pop$ -- 124
+newline$ -- 120
+num.names$ -- 72
+pop$ -- 128
 preamble$ -- 1
-purify$ -- 152
+purify$ -- 158
 quote$ -- 0
-skip$ -- 245
+skip$ -- 254
 stack$ -- 0
-substring$ -- 462
+substring$ -- 474
 swap$ -- 30
-=======
---line 211 of file LiteraturStuttgart.bib.bib
-Warning--entry type for "bundesamt" isn't style-file defined
---line 222 of file LiteraturStuttgart.bib.bib
-Warning--I didn't find a database entry for "gu1993"
-Too many commas in name 1 of "Arthur Benz, Fabian Dosch, Dietrich Fürst, Ekkehard Hein" for entry Planung
-while executing---line 1023 of file apalike.bst
-Too many commas in name 1 of "Arthur Benz, Fabian Dosch, Dietrich Fürst, Ekkehard Hein" for entry Planung
-while executing---line 1023 of file apalike.bst
-Too many commas in name 1 of "Arthur Benz, Fabian Dosch, Dietrich Fürst, Ekkehard Hein" for entry Planung
-while executing---line 1098 of file apalike.bst
-You've used 23 entries,
-            1935 wiz_defined-function locations,
-            603 strings with 6864 characters,
-and the built_in function-call counts, 7208 in all, are:
-= -- 717
-> -- 217
-< -- 22
-+ -- 66
-- -- 66
-* -- 534
-:= -- 1318
-add.period$ -- 67
-call.type$ -- 23
-change.case$ -- 141
-chr.to.int$ -- 23
-cite$ -- 23
-duplicate$ -- 307
-empty$ -- 526
-format.name$ -- 95
-if$ -- 1396
-int.to.chr$ -- 1
-int.to.str$ -- 0
-missing$ -- 22
-newline$ -- 115
-num.names$ -- 69
-pop$ -- 120
-preamble$ -- 1
-purify$ -- 148
-quote$ -- 0
-skip$ -- 244
-stack$ -- 0
-substring$ -- 441
-swap$ -- 29
->>>>>>> 8637f2ad4cfde112e7084a967b0437a8551ab6fa
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 126
+type$ -- 132
 warning$ -- 0
-<<<<<<< HEAD
-while$ -- 63
+while$ -- 65
 width$ -- 0
-write$ -- 290
-(There were 4 warnings)
-=======
-while$ -- 62
-width$ -- 0
-write$ -- 287
-(There were 3 error messages)
->>>>>>> 8637f2ad4cfde112e7084a967b0437a8551ab6fa
+write$ -- 300
+(There were 2 error messages)
