@@ -605,7 +605,7 @@ Klasse                                                                   & \mult
 \end{tabular}
 \end{table}
 
-Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelnen Klassen entnehmen. Die Tabelle zeigt die Anteile der Zuordnung von Beobachtungen der jeweiligen Klasse auf die eigene und jede der anderen Klassen. Die Hauptdiagonale liefert die Anteile der korrekt zugeordneten Beobachtungen. Die Einträge auf den Nebendiagonalen geben damit an, wie viele Beobachtungen einer Klasse relativ zur Gesamtzahl der Beobachtungen in eine falsche Klasse zugeordnet wurden. Markant ist, dass der zweiten Klasse in keinem Modell Beobachtungen zugeordnet wurden, weder falsch noch richtig. Mehrheitlich wurden diese der ersten Kategorie zugewiesen. Zudem ist die erste Klasse am öftesten richtig prognostiziert worden, allerdings wurden ihr auch die meisten falsch klassifizierten Beobachtungen zugeordnet. Dies gilt für alle drei Modelle. Im zwei Klassen Fall wurde das Problem der nicht geschätzten zweiten Klasse durch ihr auslassen umgangen. Allerdings findet sich auch hier ein deutlich häufigeres falsches zuordnen der zweiten Klasse in die erste als anders herum. 
+Zudem lässt sich anhand von Tabelle \ref{KreuzM} die Trefferquote der einzelnen Klassen entnehmen. Die Tabelle zeigt die Anteile der Zuordnung von Beobachtungen der jeweiligen Klasse auf die eigene und jede der anderen Klassen. Die Hauptdiagonale liefert die Anteile der korrekt zugeordneten Beobachtungen. Die Einträge auf den Nebendiagonalen geben damit an, wie viele Beobachtungen einer Klasse relativ zur Gesamtzahl der Beobachtungen in eine falsche Klasse zugeordnet wurden. Markant ist, dass der zweiten Klasse in keinem Modell Beobachtungen zugeordnet wurden, weder falsch noch richtig. Mehrheitlich wurden diese der ersten Kategorie zugewiesen. Zudem ist die erste Klasse am öftesten richtig prognostiziert worden, allerdings wurden ihr auch die meisten falsch klassifizierten Beobachtungen zugeordnet. Dies gilt für alle drei Modelle. Im zwei Klassen Fall wurde das Problem der nicht geschätzten zweiten Klasse durch ihr auslassen umgangen. Allerdings findet sich auch hier ein deutlich häufigeres falsches zuordnen der zweiten Klasse in die erste als anders herum. 
 
 \begin{table}[h]
 \centering
@@ -627,7 +627,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 \end{tabular}
 \end{table}
 
-Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis der Kreuzvalidierung für die Bewertung der Wohngegend ist, dass die Erfolgsquote zwischen ca. 46\% und 49\% liegt. Die Modelle mit Gauß-Krüger Informationen und Bezirken als räumlichen Effekten haben vergleichbar wie in der Reklassifizierung abgeschnitten. Das Modell mit den Stadtteilen hingegen weißt eine ca 5\% höhere Genauigkeit auf. Insgesamt jedoch behält das Modell mit den Gauß-Krüger Informationen die höchste Erfolgsrate. Auffällig ist auch hier, dass eine Klasse in keinem Modell Beobachtungen zugewiesen bekommen hat und zwei weitere Klassen in zwei von drei Modellen keine Beobachtungen zugewiesen bekommen haben. Abbildung \ref{endogene} gibt dabei einen Hinweis auf die Ursache dieses Phänomens, denn die Kategorien \textit{sehr gut} und \textit{gut} sind überproportional häufig im Datensatz vertreten im Vergleich zu den Klassen \textit{schlecht} und \textit{sehr schlecht}, weshalb schon durch die relative Häufigkeit die Wahrscheinlichkeit dass eine Beobachtungen in einer der letzten drei Kategorien ist, sehr klein wird. Bei der Bewertung der Wohngegend wurde am häufigsten die zweite Klasse sowohl richtig als auch falsch geschätzt.\\
+Tabelle \ref{KreuzBew} ist analog zu Tabelle \ref{KreuzM} aufgebaut. Das Ergebnis der Kreuzvalidierung für die Bewertung der Wohngegend ist, dass die Erfolgsquote zwischen ca. 46\% und 49\% liegt. Die Modelle mit Gauß-Krüger Informationen und Bezirken als räumlichen Effekten haben vergleichbar wie in der Reklassifizierung abgeschnitten. Das Modell mit den Stadtteilen hingegen weißt eine ca 5\% höhere Genauigkeit auf. Insgesamt jedoch behält das Modell mit den Gauß-Krüger Informationen die höchste Erfolgsrate. Auffällig ist auch hier, dass eine Klasse in keinem Modell Beobachtungen zugewiesen bekommen hat und zwei weitere Klassen in zwei von drei Modellen keine Beobachtungen zugewiesen bekommen haben. Abbildung \ref{endogene} gibt dabei einen Hinweis auf die Ursache dieses Phänomens, denn die Kategorien \textit{sehr gut} und \textit{gut} sind überproportional häufig im Datensatz vertreten im Vergleich zu den Klassen \textit{schlecht} und \textit{sehr schlecht}, weshalb schon durch die relative Häufigkeit die Wahrscheinlichkeit dass eine Beobachtungen in einer der letzten drei Kategorien ist, sehr klein wird. Bei der Bewertung der Wohngegend wurde am häufigsten die zweite Klasse sowohl richtig als auch falsch geschätzt.\\
 Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variablen, sowie das totale Unterschätzen einiger Klassen, wird in der weiteren Validierung und Extrapolation auf das Vorhersagen einzelner Beobachtungen verzichtet. Stattdessen wird in einem bestimmten Gebiet über die Wahrscheinlichkeiten der Beobachtungen aggregiert und ein Anteil geschätzt, um auch geringere Wahrscheinlichkeiten für Beobachtungen zu berücksichtigen.
 
 \subsection{Kleinräumige Extrapolation}
@@ -853,36 +853,36 @@ Diese Arbeit zeigt beispielhaft die Durchführung einer kleinräumigen Extrapola
 \hline \\[-1.8ex] 
  & \multicolumn{3}{c}{\textit{Abhängige Variable:}} \\ 
 \cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{Meinung.zu.Stuttgart.21} \\ 
+\\[-1.8ex] & \multicolumn{3}{c}{Meinung zu Stuttgart 21} \\ 
 \\[-1.8ex] & (A) & (B) & (C)\\ 
 \hline \\[-1.8ex] 
- GeschlechtWeiblich & 0.524$^{***}$ & 0.508$^{***}$ & 0.538$^{***}$ \\ 
+ Geschlecht: Weiblich & 0.524$^{***}$ & 0.508$^{***}$ & 0.538$^{***}$ \\ 
   & (0.070) & (0.069) & (0.069) \\ 
   & & & \\ 
- NationalitätNicht Deutsch & $-$0.445$^{***}$ & $-$0.472$^{***}$ & $-$0.454$^{***}$ \\ 
+ Nationalität: Nicht Deutsch & $-$0.445$^{***}$ & $-$0.472$^{***}$ & $-$0.454$^{***}$ \\ 
   & (0.110) & (0.109) & (0.110) \\ 
   & & & \\ 
- Familienstandledig & 0.090 &  & 0.084 \\ 
+ Familienstand: ledig & 0.090 &  & 0.084 \\ 
   & (0.159) &  & (0.159) \\ 
   & & & \\ 
- Familienstandverheiratet & $-$0.176 &  & $-$0.189 \\ 
+ Familienstand: verheiratet & $-$0.176 &  & $-$0.189 \\ 
   & (0.151) &  & (0.152) \\ 
   & & & \\ 
- Familienstandverwitwet & $-$0.356$^{*}$ &  & $-$0.413$^{**}$ \\ 
+ Familienstand: verwitwet & $-$0.356$^{*}$ &  & $-$0.413$^{**}$ \\ 
   & (0.207) &  & (0.208) \\ 
   & & & \\ 
- Personenzahl.im.Haushalt & $-$0.340$^{***}$ & $-$0.369$^{***}$ & $-$0.348$^{***}$ \\ 
+ Personenzahl im Haushalt & $-$0.340$^{***}$ & $-$0.369$^{***}$ & $-$0.348$^{***}$ \\ 
   & (0.060) & (0.021) & (0.061) \\ 
   & & & \\ \hline
- s(X,Y) &  &  &  \\ 
+ s(X,Y) & $*$ &  &  \\ 
   & & & \\ 
- s(Stadtbezirk) &  &  &  \\ 
+ s(Stadtbezirk) &  & $*$ &  \\ 
   & & & \\ 
- s(Stadtteil)&  &  &  \\ 
+ s(Stadtteil)&  &  & $*$ \\ 
   & & & \\ 
- s(Personenzahl.im.Haushalt,Altersklasse.Befragter) & $***$ & $***$ & $***$  \\ 
+ s(Personenzahl im Haushalt, Altersklasse Befragter) & $***$ & $***$ & $***$  \\ 
   & & & \\ 
- s(Altersklasse.Befragter) & $**$ & $***$  & $**$ \\ 
+ s(Altersklasse Befragter) & $***$ & $***$  & $***$ \\ 
   & & & \\ 
  Konstante & 0.000 & 0.000 & 0.000 \\ 
   & (0.000) & (0.000) & (0.000) \\ 
@@ -907,36 +907,36 @@ UBRE & 3,197.650 & 3,195.841 & 3,219.511 \\
 \hline \\[-1.8ex] 
  & \multicolumn{3}{c}{\textit{Abhängige Variable:}} \\ 
 \cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{Meinung.zu.Stuttgart.21} \\ 
+\\[-1.8ex] & \multicolumn{3}{c}{Meinung zu Stuttgart 21} \\ 
 \\[-1.8ex] & (A) & (B) & (C)\\ 
 \hline \\[-1.8ex] 
- GeschlechtWeiblich & 0.644$^{***}$ & 0.646$^{***}$ & 0.642$^{***}$ \\ 
+ Geschlecht: Weiblich & 0.644$^{***}$ & 0.646$^{***}$ & 0.642$^{***}$ \\ 
   & (0.087) & (0.087) & (0.088) \\ 
   & & & \\ 
- NationalitätNicht Deutsch & $-$0.721$^{***}$ & $-$0.723$^{***}$ & $-$0.757$^{***}$ \\ 
+ Nationalität: Nicht Deutsch & $-$0.721$^{***}$ & $-$0.723$^{***}$ & $-$0.757$^{***}$ \\ 
   & (0.154) & (0.154) & (0.156) \\ 
   & & & \\ 
- Familienstandledig & 0.022 & 0.037 & 0.102 \\ 
+ Familienstand: ledig & 0.022 & 0.037 & 0.102 \\ 
   & (0.191) & (0.191) & (0.196) \\ 
   & & & \\ 
- Familienstandverheiratet & $-$0.333$^{**}$ & $-$0.316$^{*}$ & $-$0.215 \\ 
+ Familienstand: verheiratet & $-$0.333$^{**}$ & $-$0.316$^{*}$ & $-$0.215 \\ 
   & (0.170) & (0.170) & (0.186) \\ 
   & & & \\ 
- Familienstandverwitwet & $-$0.244 & $-$0.234 & $-$0.431$^{*}$ \\ 
+ Familienstand: verwitwet & $-$0.244 & $-$0.234 & $-$0.431$^{*}$ \\ 
   & (0.243) & (0.243) & (0.251) \\ 
   & & & \\ 
-   Personenzahl.im.Haushalt &  &  & $-$0.155$^{**}$ \\ 
+   Personenzahl im Haushalt &  &  & $-$0.155$^{**}$ \\ 
   &  &  & (0.075) \\ 
     & & & \\ \hline
- s(X,Y) &  &  &  \\ 
+ s(X,Y) & $*$ &  &  \\ 
   & & & \\ 
- s(Stadtbezirk) &  & $*$ &  \\ 
+ s(Stadtbezirk) &  & $**$ &  \\ 
   & & & \\ 
- s(Stadtteil) &  &  & $*$ \\ 
+ s(Stadtteil) &  &  & $**$ \\ 
   & & & \\ 
- s(Personenzahl.im.Haushalt,Altersklasse.Befragter) &  &  &  \\ 
+ s(Personenzahl im Haushalt, Altersklasse Befragter) &  &  &  \\ 
   & & & \\ 
- s(Altersklasse.Befragter) & $***$ & $***$ & $**$ \\ 
+ s(Altersklasse Befragter) & $***$ & $***$ & $***$ \\ 
   & & & \\ 
  Konstante & $-$0.283$^{*}$ & $-$0.298$^{*}$ & 0.000 \\ 
   & (0.171) & (0.171) & (0.000) \\ 
@@ -963,25 +963,25 @@ UBRE & 1,563.538 & 1,561.176 & 1,544.394 \\
 \hline \\[-1.8ex] 
  & \multicolumn{3}{c}{\textit{Abhängige Variable:}} \\ 
 \cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{Bewertung.Wohngegend} \\ 
+\\[-1.8ex] & \multicolumn{3}{c}{Bewertung Wohngegend} \\ 
 \\[-1.8ex] & (A) & (B) & (C)\\ 
 \hline \\[-1.8ex] 
- NationalitätNicht Deutsch & 0.289$^{***}$ & 0.359$^{***}$ &  \\ 
+ Nationalität: Nicht Deutsch & 0.289$^{***}$ & 0.359$^{***}$ &  \\ 
   & (0.107) & (0.106) &  \\ 
   & & & \\ 
- Personenzahl.im.Haushalt & $-$0.043 & $-$0.047 &  \\ 
+ Personenzahl im Haushalt & $-$0.043 & $-$0.047 &  \\ 
   & (0.032) & (0.032) &  \\ 
   & & & \\ 
- Familienstandledig &  &  & 0.021 \\ 
+ Familienstand: ledig &  &  & 0.021 \\ 
   &  &  & (0.157) \\ 
   & & & \\ 
- Familienstandverheiratet &  &  & 0.561$^{***}$ \\ 
+ Familienstand: verheiratet &  &  & 0.561$^{***}$ \\ 
   &  &  & (0.149) \\ 
   & & & \\ 
- Familienstandverwitwet &  &  & $-$0.286 \\ 
+ Familienstand: verwitwet &  &  & $-$0.286 \\ 
   &  &  & (0.204) \\ 
   & & & \\ 
- GeschlechtWeiblich &  &  & $-$0.318$^{***}$ \\ 
+ Geschlecht: Weiblich &  &  & $-$0.318$^{***}$ \\ 
   &  &  & (0.067) \\ \hline
    & & & \\ 
  s(X,Y) & $***$ &  &  \\ 
@@ -990,9 +990,9 @@ UBRE & 1,563.538 & 1,561.176 & 1,544.394 \\
   & & & \\ 
  s(Stadtteil) &  &  & $***$ \\ 
   & & & \\ 
- s(Altersklasse.Befragter) & $**$ & $***$  & $***$ \\ 
+ s(Altersklasse Befragter) & $***$ & $***$  & $***$ \\ 
   & & & \\ 
- s(Personenzahl.im.Haushalt) &  &  & $***$ \\ 
+ s(Personenzahl im Haushalt) &  &  & $***$ \\ 
   & & & \\ 
  Konstante & $-$0.339$^{***}$ & $-$0.357$^{***}$ & $-$0.271$^{*}$ \\ 
   & (0.084) & (0.083) & (0.143) \\ 
