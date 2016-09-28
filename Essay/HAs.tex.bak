@@ -78,7 +78,10 @@
 
 \section{Einleitung}
 Kleinräumige Extrapolation von Umfragedaten besitzt vor allem eine hohe Relevanz bei Städten, Kommunen und Gemeinden um städtische oder ländliche Planung auf wissenschaftlich fundierten Erkenntnissen voranzutreiben \cite{Planung}. Dabei kann die konkrete Fragestellung bzw. das Anwendungsgebiet sehr vielfältig sein. Es kann genutzt werden, um z.B. Landschaftsbilder nach den Vorstellungen und im Einvernehmen mit den Einwohnern einer Region zu Planen \cite{Natur}, oder um die Infrastruktur von Kommunen den Bedürfnissen der Bürger durch den demographischen Wandel anzupassen \cite{Lubeck}.\\
-So werden auch in dieser Arbeit Regionale Daten genutzt, um spezifische Fragestellungen zu beantworten, die mit den Aufgaben einer städtischen Verwaltung korrespondieren. Konkret handelt es sich um Daten zur Bevölkerung Stuttgarts. Dabei stehen Stichprobendatensätze zur Verfügung die in etwa 0,05\% der Gesamtbevölkerung, also der Grundgesamtheit, Stuttgarts repräsentieren. Ziel dieser Arbeit ist es anhand von statistischen Methoden die Informationen der Stichprobe zu nutzen um nachfolgende Fragestellungen für die Grundgesamtheit Stuttgarts zu beantworten.\\
+
+Bei einer kleinräumigen Extrapolation werden also die Beobachtungen einer Stichprobe genutzt um ein Regressionsmodell zu erstellen mit dessen Hilfe die benötigten Informationen auf eine deutlich größere Datei projiziert wird.
+
+So werden auch in dieser Arbeit regionale Daten genutzt, um spezifische Fragestellungen zu beantworten, die mit den Aufgaben einer städtischen Verwaltung korrespondieren. Konkret handelt es sich um Daten zur Bevölkerung Stuttgarts. Dabei stehen Stichprobendatensätze zur Verfügung die in etwa 0,05\% der Gesamtbevölkerung, also der Grundgesamtheit, Stuttgarts repräsentieren. Ziel dieser Arbeit ist es anhand von statistischen Methoden die Informationen der Stichprobe zu nutzen um nachfolgende Fragestellungen für die Grundgesamtheit Stuttgarts zu beantworten.\\
 Es handelt sich zum einen um die Frage: Wie ist die Meinung zu Stuttgart 21? Zum anderen geht es um die Frage: Wie ist die Wohnzufriedenheit in Stuttgart?\\
 In der Arbeit werden weder die Motive der Fragestellungen, noch Erklärungen zu möglichen Ergebnissen aus der Extrapolation thematisiert. Auch wird die Methodik der Erhebung der Stichprobe oder die Art der Befragung nicht berücksichtigt. Die Arbeit verfolgt einen rein methodisch orientierten Ansatz, d.h. konkret soll im Verlauf der Arbeit das beste statistische Modell gefunden werden, um diese Fragestellungen mit der größtmöglichen Sicherheit zu beantworten. Dabei liegt ein besonderer Schwerpunkt auf der Untersuchung der unterschiedlichen räumlichen Effekte, sowie der multinomialen Modellierung der endogenen Variablen. Sämtliche Berechnungen wurden mit Hilfe der Statistik Software \texttt{R} vorgenommen \cite{RCore} \\
 Die Arbeit gliedert sich so auf, dass zunächst die Stichprobe, sowie die Dateien zur Grundgesamtheit deskriptiv vorgestellt und untersucht werden. Anschließend werden die in dieser Arbeit verwendeten statistischen Methoden thematisiert. Zunächst in Bezug auf die Kovariablenwahl und Regressionsmethode, anschließend auf die Modellwahl und Validierung der Modelle. Im Anschluss daran erfolgt die Vorstellung der Ergebnisse aus dem Methodenteil. Die Struktur im Ergebnisteil wird dabei bestimmt von dem Ziel das --im statistischen Sinne-- beste Modell zu finden. Zudem werden im Ergebnisteil die Resultate der Extrapolation aus den besten Modellen gezeigt, um die Fragestellungen beantworten zu können. Anschließend folgt ein Diskussionsteil, der die Methodik und Ergebnisse noch einmal aufgreift. Abgeschlossen wird die Arbeit mit einem Fazit.
@@ -396,25 +399,30 @@ Die zweite in dieser Arbeit vorgestellte Möglichkeit der Berücksichtigung räu
 \eta_{i} =\mathbf{x}'_i \boldsymbol{\beta}+f_{i}(\mathbf{z}_{i})+f_{spat}(s_i)
 \end{equation}
 
-
 ausgedrückt werden \cite[p. 541]{fahrmeir2013regression}. Wobei $s_i$ die Zugehörigkeit zu einer diskreten Region kodiert. Im Regressionsmodell hat jede Region folglich einen eigenen Koeffizienten. Um geglättete räumliche Strukturen zu erhalten wird jeder Koeffizient über quadrierte Abweichung der Koeffizienten der Nachbarregionen penalisiert \cite[p. 522]{fahrmeir2013regression}. Regionen, die eine gemeinsame Grenze mit $s_i$ teilen werden als Nachbarn erster Ordnung bezeichnet. Nur diese werden für die Glättung berücksichtigt.
 Ein praktisches Problem in der Implementierung eines Markov-Randomfields mit dem \texttt{mgcv} Paket ist, dass in jeder Region mindestens eine Beobachtung jeder Kategorie der abhängigen Variable vorkommen muss. Wie bereits in dem Kapitel zum Parametrisierungsdatensatz gezeigt fehlen insbesondere auf Stadtteilebene häufig einzelne Beobachtungen einer Kategorie oder auch Beobachtungen im Allgemeinen in einzelnen Regionen. Es müssen aus methodischer Sicht nicht zwingend in der Region und Kategorie Beobachtungen vorhanden sein, jedoch erlaube die \texttt{gam()} Funktion aus dem \texttt{mgcv} keine leeren Region-Kategorie Kombinationen. Um die Implementierung dennoch möglich zu machen wurde eine Funktion erstellt, die partiell oder komplett fehlende Beobachtungen durch Pseudo-Beobachtungen ersetzt und mit Null gewichtet. Alle anderen (echten) Beobachtungen werden mit eins gewichtet (siehe digitaler Anhang \textit{PseudoB.R}).
 
 \subsubsection{Reklassifizierung}
-
 Das verfahren der Reklassifizierung wird genutzt, um die Prognosequalität der Modelle innerhalb der Stichprobe zu überprüfen.Im Gegensatz zur nachfolgenden Kreuzvaildierung zeichnet sich die Reklassifizierung durch eine simple Implementation und geringe Rechenzeit aus, was ihr zusätzlich auch in dieser Arbeit Attraktivität verleiht. Bei dem Verfahren selbst wird der vollständige Stichprobendatensatz genutzt um mithilfe des vorher parametrisierten Modells die Klassen der Beobachtungen in dem Datensatz zu Prognostizieren. Anschließend lässt sich ermitteln wie oft Beobachtungen in die richtige oder eine falsche Klasse prognostiziert wurde. Dies ist möglich sowohl für die Modelle insgesamt, als auch für die jeweils einzelnen Klassen.
-
 
 \subsubsection{Kreuzvalidierung}
 Die Kreuzvalidierung gibt im Gegensatz zur bereits beschriebenen Reklassifizierung , die Möglichkeit die Modelle auf ihre Prognosequalität außerhalb der Stichprobe zu prüfen und ist deshalb von besonderem Interesse.
 Für die Modellerstellung der additiven Modelle lag eine Stichprobe von 3.143 Beobachtungen vor. Informationen zur Grundgesamtheit dieser Stichprobe lagen nicht vor. Die Qualität der parametrisierten Modelle ließ sich folglich nicht anhand einer Grundgesamtheit validieren, sondern musste an der Stichprobe selbst eingeschätzt werden. Die erstellten Modelle wurden an anderen Daten als den Parametrisierungsdaten angewendet. Aus diesem Grunde ist war vor allem die Modellqualität außerhalb der Parametrisierungsdaten interessant. Daher wurde eine \textit{Leave-One-Out} Kreuzvalidierung durchgeführt \cite[p. 149]{fahrmeir2013regression}, in welcher jeweils eine Beobachtung zufällig entfernt wurde. Mit den verbliebenen Datensätzen wurde das additive Modell, welches sich zuvor im schrittweisen AIC Vergleich als am vorteilhaftesten herausgestellt hat, neu parametrisiert und die entfernte Beobachtung mit diesem Modell vorhergesagt. Dies wurde so lange wiederholt bis jeder Datensatz einmal entfernt (und geschätzt) wurde. Mit diesen Daten ließ sich eine Statistik zur Reklassifikation der Beobachtungen außerhalb der Stichprobe erstellen.
 
+\newpage
+\subsection{Kleinräumige Extrapolation}
+Zur Durchführung der kleinräumigen Extrapolation wurden die erstellten und getesteten Regressionsmodelle an den beiden Dateien \textit{Melderegister} und \textit{Zensus} angewendet. Die Anteile der Bürgermeinungen zu Stuttgart 21 und zu Bewertungen werden damit in die ganze Fläche Stuttgarts projiziert.
+
+\subsubsection{Punktschätzung}
+Die Regressionsmodelle werden zunächst an jedem Datensatz des\textit{Melderegisters} und des \textit{Zensus} angewendet. Die Ausprägungswahrscheinlichkeiten auf Response-Ebene werden für jeden Datensatz dokumentiert. Geschätzt wird folglich nicht die individuelle Ausprägung, sondern die Wahrscheinlichkeiten jeder Ausprägung der Response-Variablen. Mit diesen Wahrscheinlichkeiten Gruppenmittelwerte für beliebige Gruppen von Interesse gebildet. In dieser Arbeit werden Gruppenmittelwerte für die Stadtteile und die Stadtbezirke Stuttgarts sowie für ganz Stuttgart gebildet.
 
 \subsubsection{Prognoseintervalle}
 Die Intervalle zu den Punktschätzungen liefern zusätzliche wichtige Informationen, da die Punkt"-schätzungen alleine keine Angaben zur Unsicherheit beinhalten. Das Prognoseintervall gibt an, mit welcher Wahrscheinlichkeit die unbekannte wahre Punktschätzung von einer Konfidenzregion überdeckt wird. Mit dem Vertrauensintervall erhält man die Relation der Unsicherheit zur Punktschätzung und somit ein weiteres Modellgütemerkmal \cite[p. 471]{fahrmeir2013regression}. Des weiteren wurden die Intervalle genutzt um Überdeckungswahrscheinlichkeiten des Volksabstimmungsergebnisses \cite{Amt} zu berechnen. Grundsätzlich gibt es die Möglichkeiten die Intervalle entweder aus Modelleigenschaften abzuleiten oder Bootstrap-Intervalle durch wiederholte zufällige Modellreparametrisierungen und Punktschätzungen zu berechnen. Bei ersterem Vorgehen unterliegen die Intervallberechnungen, je nach gewählter Berechnungsmethode, asymptotischen Eigenschaften oder Verteilungsannahmen. So wird zur analytischen Berechnung von Score-Konfidenzintervallen \cite[p. 64 ff.]{held2008}, welche den Vorteil haben, dass sie invariant gegenüber eindeutigen Parametertransformationen sind, beispielsweise die Fischer-Information benötigt. Sie sind deshalb oft nur schwer analytisch zu berechnen \cite[p. 74]{held2008}. Andere Intervalle, wie beispielsweise das Wald-Konfidenzintervall, sind obligatorisch symmetrisch \cite[p. 60]{held2008} und werden der wahren Datenverteilung daher oft nicht gerecht. Bei beiden Intervallen hängt die tatsächliche Überdeckungswahrscheinlichkeit der unbekannten wahren Parameter bei binärer Response Variable zudem von der Parameterausprägung sowie der Beobachtungsanzahl der Modellstichprobe ab und entspricht deshalb in ungünstigen Kombinationen nicht der nominellen, also der gewünschten Überdeckungswahrscheinlichkeit \cite{Int}. 
-\\Bootstrap Intervalle hingegen können für jede Form der statistischen Inferenz berechnet werden \cite{diciccio1996}. Da in dieser Arbeit Modelle mit unterschiedlichen Verteilungsannahmen und unterschiedlichen räumlichen Effekten verglichen werden, bietet es sich an auf die verteilungsunabhängigen Bootstrap-Intervallschätzungen zurückzugreifen. Von Interesse sind weniger die Intervalle um die Modellparameter als vielmehr die Intervalle um die Punktschätzungen, also die einzelnen Hochrechnungen. Dementsprechend wurden Bootstrap-Intervalle für jede einzelne Punktschätzung berechnet. Zur Berechnung der Intervalle wurde jedes Modell 1.000 mal mit einer Zufallsstichprobe (\textit{Ziehen-mit-Zurücklegen}) aus der Parameterisierungsstichprobe reprametrisiert. Um den Einfluss des Stichprobenumfangs zu eliminieren, enthielt jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Mit jedem neuparametrisierten Modell wurde eine kleinräumige Extrapolation durchgeführt. Die Hochrechnungsergebnisse wurden genutzt um die arithmetischen Mittel, die Mediane sowie untere und obere 95 \% Perzentile der Punktschätzungen zu berechnen.
+\\Bootstrap Intervalle hingegen können für jede Form der statistischen Inferenz berechnet werden \cite{diciccio1996}. Da in dieser Arbeit Modelle mit unterschiedlichen Verteilungsannahmen und unterschiedlichen räumlichen Effekten verglichen werden, bietet es sich an auf die verteilungsunabhängigen Bootstrap-Intervallschätzungen zurückzugreifen. Von Interesse sind weniger die Intervalle um die Modellparameter als vielmehr die Intervalle um die Punktschätzungen, also die einzelnen Hochrechnungen. Dementsprechend wurden Bootstrap-Intervalle für jede einzelne Punktschätzung berechnet. Zur Berechnung der Intervalle wurde jedes Modell 1.000 mal mit einer Zufallsstichprobe (\textit{Ziehen-mit-Zurücklegen}) aus der Parameterisierungsstichprobe reprametrisiert. Um den Einfluss des Stichprobenumfangs zu eliminieren, enthielt jede Stichprobe die tatsächliche Anzahl der Beobachtungen. Mit jedem neuparametrisierten Modell wurde eine kleinräumige Extrapolation durchgeführt. Die Hochrechnungsergebnisse wurden genutzt um die arithmetischen Mittel, die Mediane sowie untere und obere 95 \% Perzentile der Punktschätzungen zu berechnen. Diese beiden Mittelwerte bieten eine zusätzlich die Möglichkeit der Modellevaluation, indem sie mit der Punktschätzung vergleichen werden. Systematische Abweichungen der mittleren Schätzungen der Bootstrap Ergebnisse von den Punktschätzungen deuten auf einen Bias in der Schätzung hin.
 
 \subsubsection{Validierung}
+Da keine Informatuionen über die Grundgesamtheit verfügbar sind, ist eine Validierung mit echten Daten nicht möglich. Im Falle der Meinung zu Stuttgart 21 bietet sich jedoch die Chance, die Ergebnisse der Extrapolation mit dem Ausgang der Volksabstimmung 2011 \cite{Amt} zu vergleichen. Es wird angenommen, dass die Volksabstimmungsergebnisse dem wahren Wert unserer Stichprobe entsprechen.
+
 Ziel der Validierung ist es, die prognostizierten Anteile aus dem gewählten Modell mit den wahren Anteilen aus der 
 Volksabstimmung \cite{Amt} zu vergleichen, um eine Aussage über die Qualität der geschätzten Prognosemodelle geben zu 
 können. Die Validierung erfolgt auf Stadtteil- und Bezirksebene, sowie für das Gesamtergebnis der Stadt Stuttgart. Dazu 
@@ -510,7 +518,7 @@ Zusammenfassend ist zu sagen, dass die geoadditiven Modelle tendenziell zumindes
   \label{rEffS21}
 \end{figure}
 
-Der erste erstellte Modelltyp beschreibt die Meinung zu Stuttgart 21 in drei Kategorien (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) über die\textit{Altersklasse des Befragten}, die \textit{Personenzahl im Haushalt}, den \textit{Familienstand}, die \textit{Nationalität}, das \textit{Geschlecht} und den kontinuierlichem räumlichen Effekt. Aus Abbildung \ref{GKParam} und Tabelle \ref{ParameterTabS213spat} (A) geht die Signifikanz der Modellparameter hervor. Hierbei ist zu beachten, dass \textit{Zustimmung} mit 1 und \textit{Ablehnung} mit 3 kodiert wurde. Je höher der Effekt, desto höher ist also die Wahrscheinlichkeit der \textit{Ablehnung}. Die \textit{Altersklasse des Befragten} zeigte einen stark nichtlinearen Trend. Die Wahrscheinlichkeit der Ablehnung ist in den jüngeren Altersklassen bis 2 (15 bis 35 Jahre) am geringsten. Sie steigt bis zu ihrem Höhepunkt bei Altersklasse  4 und 5 (45 bis 65 Jahre) an und fällt dann relativ stark wieder ab. Die Personenzahl im Haushalt ging, entgegen der Erwartungen, parametrisch in das Modell ein. Der Effekt zeigt einen stark negativen linearen Trend. Die Wahrscheinlichkeit der \textit{Ablehnung} ist also in Single-Haushalten mit deutlichem Abstand am höchsten. Die Kategorien des Familienstands unterscheiden sich zwar nicht signifikant von 0, werden jedoch aufgrund der leichten AIC Verringerung dennoch berücksichtigt. Es ist ersichtlich, dass \textit{geschiedene} und \textit{ledige} Bürger eher eine ablehnende Haltung gegenüber Stuttgart 21 zeigen \textit{verheiratete} oder \textit{verwitwete}. Deutlicher sind die Effekte der Nationalität und des Geschlechts. \textit{Deutsche} Bürger zeigen eine signifikant höhere Ablehnungswahrscheinlichkeit als ausländische Bürger. Der Unterschied zwischen den Geschlechtern ist etwa ebenso stark. Männer haben eine geringere Ablehnungswahrscheinlichkeit als Frauen. Die beschriebenen Ausprägungen der sozioökonomischen Kovariablen finden sich in näherungsweise gleicher Ausprägung in allen dreikategorialen geoadditiven Vorhersagemodellen der Meinung zu Stuttgart 21 \ref{ParameterTabS213spat}. Ausnahme bildet einzig der Familienstand im diskreten räumlichen Modell auf Stadtbezirksebene, welcher nach schrittweiser AIC Analyse nicht in dieses Modell eingeflossen ist. Aus diesem Grunde stehen die Kovariablenausrprägungen stellvertretend für alle drei geoadditiven Modelle für die Vorhersage der Meinung zu Stuttgart 21 in drei Kategorien.\\
+Der erste erstellte Modelltyp beschreibt die Meinung zu Stuttgart 21 in drei Kategorien (\textit{Zustimmung}, \textit{Neutral} und \textit{Ablehnung}) über die\textit{Altersklasse des Befragten}, die \textit{Personenzahl im Haushalt}, den \textit{Familienstand}, die \textit{Nationalität}, das \textit{Geschlecht} und den kontinuierlichem räumlichen Effekt. Aus Abbildung \ref{GKParam} und Tabelle \ref{ParameterTabS213spat} (A) geht die Signifikanz der Modellparameter hervor. Hierbei ist zu beachten, dass \textit{Zustimmung} mit 1 und \textit{Ablehnung} mit 3 kodiert wurde. Je höher der Effekt, desto höher ist also die Wahrscheinlichkeit der \textit{Ablehnung}. Die \textit{Altersklasse des Befragten} zeigte einen stark nichtlinearen Trend. Die Wahrscheinlichkeit der Ablehnung ist in den jüngeren Altersklassen bis 2 (15 bis 35 Jahre) am geringsten. Sie steigt bis zu ihrem Höhepunkt bei Altersklasse  4 und 5 (45 bis 65 Jahre) an und fällt dann relativ stark wieder ab. Die Personenzahl im Haushalt ging, entgegen der Erwartungen, parametrisch in das Modell ein. Der Effekt zeigt einen stark negativen linearen Trend. Die Wahrscheinlichkeit der \textit{Ablehnung} ist also in Single-Haushalten mit deutlichem Abstand am höchsten. Die Kategorien des Familienstands unterscheiden sich zwar nicht signifikant von 0, werden jedoch aufgrund der leichten AIC Verringerung dennoch berücksichtigt. Es ist ersichtlich, dass \textit{geschiedene} und \textit{ledige} Bürger eher eine ablehnende Haltung gegenüber Stuttgart 21 zeigen \textit{verheiratete} oder \textit{verwitwete}. Deutlicher sind die Effekte der Nationalität und des Geschlechts. \textit{Deutsche} Bürger zeigen eine signifikant höhere Ablehnungswahrscheinlichkeit als ausländische Bürger. Der Unterschied zwischen den Geschlechtern ist etwa ebenso stark. Männer haben eine geringere Ablehnungswahrscheinlichkeit als Frauen. Die beschriebenen Ausprägungen der sozioökonomischen Kovariablen finden sich in näherungsweise gleicher Ausprägung in allen dreikategorialen geoadditiven Vorhersagemodellen der Meinung zu Stuttgart 21 (Tabelle \ref{ParameterTabS213spat}). Ausnahme bildet einzig der Familienstand im diskreten räumlichen Modell auf Stadtbezirksebene, welcher nach schrittweiser AIC Analyse nicht in dieses Modell eingeflossen ist. Aus diesem Grunde stehen die Kovariablenausrprägungen stellvertretend für alle drei geoadditiven Modelle für die Vorhersage der Meinung zu Stuttgart 21 in drei Kategorien.\\
 Die visuelle Überprüfung der unterschiedlichen Parameterausprägungen der räumlichen Effekte (Abbildung \ref{rEffS21}) offenbart ein deutliches Nord-Süd Gefälle der Ablehnungswahrscheinlichkeit. In \textit{Stammheim} im äußersten Norden ist der räumliche Einfluss auf den Prädiktor bei allen drei räumlichen Modellen unter -0,1 und damit am geringsten in ganz Stuttgart. Des weiteren ist die Ablehnungswahrscheinlichkeit in den nördlichen Bezirken \textit{Zuffenhausen}, \textit{Münster} und \textit{Bad Cannstadt} im Vergleich zu allen Stadtteilen sehr gering. Die Ablehnungswahrscheinlichkeit steigt tendenziell in südlicher Richtung. Etwa in der Mitte der Stadt, verlaufend vom Stadtbezirk \textit{Weilimsdorf} im Westen über \textit{Feuerbach}, \textit{Mitte} und \textit{Wangen} bis nach \textit{Obertürkheim} im Osten, ist der räumliche Modelleinfluss nahe 0. Südlich dieser Linie steigen die Parameterausprägungen tendenziell in südwestlicher Richtung. Im Bezirk \textit{Vaihingen} sind mit deutlichem Abstand die höchste Ablehnungswahrscheinlichkeiten zu sehen. Dieser grundsätzliche Trend ist in allen drei Modellen ähnlich ausgeprägt. Nach Stadtteilen aufgelöst (Abbildung \ref{rEffS21} (c)) lassen sich die räumlichen Trends jedoch noch kleinräumiger darstellen. Innerhalb des südlichen Bereichs (in dem die Ablehnung tendenziell höher ist) sind in dieser Auflösungsebene Hot-Spots sichtbar. So zeigt sich, dass die Ablehnungswahrscheinlichkeit innerhalb \textit{Vaihingens} inhomogen verteilt ist. Der Stadtteil \textit{Vaihingen-Mitte} zeigt die höchste Parameterausprägung aller Stuttgarter Stadtteile. Die Parameter der anderen Stadtteile \textit{Vaihingens} sind deutlich kleiner. Aus diesen Grunde ist die Skala der Parameterausprägung auf Stadtteilebene (Abbildung \ref{rEffS21} (c)) höher als auf Stadtbezirksebene Abbildung \ref{rEffS21} (b)). Weitere nennenswerte Abweichungen der Stadtteile innerhalb ihrer Bezirke ergeben sich nur noch in dem relativ großen Bezirk \textit{West}. Während die Haltung in \textit{Solitude} eher \textit{zustimmend} ist, nehmen Bürger aus \textit{Kräherwald} und \textit{Wildpark} eher eine Ablehnende Haltung ein. Dieser Stadtbezirk nimmt eine Sonderstellung ein, da er sehr wenige, in den Stadtteilen \textit{Kräherwald} und \textit{Wildpark} gar keine, Beobachtungen zeigt. Die Parameterausprägung ist demnach stark von den Nachbarregionen getrieben. In allen anderen Stadtbezirken Stuttgarts ist die Parameterausprägung innerhalb der Stadtteile vergleichsweise homogen. Hier entsprechen die Parameterausprägungen der Stadtteile folglich näherungsweise den Parameterausprägungen der dazugehörigen Stadtbezirke.\\
 Die Effekte des zweiten Modelltyps, also des Vorhersagemodells mit zweikategorialer Response, sind praktisch gleich \ref{ParameterTabS212spat} zu dem Modell mit drei Kategorien. Auch hier ist ein Nord-Süd Gefälle ersichtlich. Der Bezirk \textit{Vaihingen} zeigt, insbesondere im Stadtteil \textit{Vaihingen-Mitte}, die höchste Ablehnungswahrscheinlichkeit, während diese in \textit{Stammheim} am geringsten ist.\\
 \begin{figure}[h]
@@ -534,11 +542,11 @@ Dem räumlichen Effekt kommt bei der Bewertung der Wohnzufriedenheit eine besond
 
 \subsection{Reklassifizierung}
 
-Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{evalS21}) zeigen, dass die Erfolgsquote im drei Klassenmodell zwischen 44\% und 50\% liegt und im zwei Klassenmodell zwischen 55\% und 62\% liegt. Zum Vergleich mit einem reinen Zufallsmodell, dass im drei Klassenmodell eine Erfolgswahrscheinlichkeit von 1/3 und im zwei Klassenmodell von 1/2 hat, weißen die geschätzten Modelle eine höhere Erfolgsquote auf. Auch bei einem Vergleich mit Tabelle \ref{endogene} zeigt sich, dass die geschätzten Modelle besser abschneiden, als ein triviales Wählen der immer gleichen Klasse mit der höchsten Anzahl der Beobachtungen.
+Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{evalS21}) zeigen, dass die Erfolgsquote im drei Klassenmodell zwischen 44\% und 50\% liegt und im zwei Klassenmodell zwischen 55\% und 62\% liegt. Zum Vergleich mit einem reinen Zufallsmodell, dass im drei Klassenmodell eine Erfolgswahrscheinlichkeit von 1/3 und im zwei Klassenmodell von 1/2 hat, weisen die geschätzten Modelle eine höhere Erfolgsquote auf. Auch bei einem Vergleich mit Tabelle \ref{endogene} zeigt sich, dass die geschätzten Modelle besser abschneiden, als ein triviales Wählen der immer gleichen Klasse mit der höchsten Anzahl der Beobachtungen.
 
 \begin{table}[h]
 \centering
-\caption{Reklassifizierung der Meinung zu Stuttgart 21}
+\caption{Mittlerer Anteil der korrekt reklassifizierten Beobachtungen zur Meinung zu Stuttgart 21.}
 \label{evalS21}
 \begin{tabular}{ll|c|c|c}
 \hline \hline
@@ -553,12 +561,12 @@ Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{e
 \end{tabular}
 \end{table}
 
-Des weiteren ist zu sehen, dass das Geoadditive Modell in fast allen Fällen die höchste Erfolgsquote aufweist. Abweichungen bestehen im drei Klassenmodell mit Stadtteilen als räumlichem Effekt und im zwei Klassenmodell mit Bezirken als räumlichem Effekt. Außerdem ist zu beachten, dass im drei Klassenmodell das Modell nur mit räumlichem Effekt besser abschneidet als das Modell ohne räumlichem Effekt, während sich für zwei Klassen diese Situation umgekehrt hat.\\
+Des weiteren ist zu sehen, dass das geoadditive Modell in fast allen Fällen die höchste Erfolgsquote aufweist. Abweichungen bestehen im drei Klassenmodell mit Stadtteilen als räumlichem Effekt und im zwei Klassenmodell mit Bezirken als räumlichem Effekt. Außerdem ist zu beachten, dass im drei Klassenmodell das Modell nur mit räumlichem Effekt besser abschneidet als das Modell ohne räumlichem Effekt, während sich für zwei Klassen diese Situation umgekehrt hat.\\
 Für die Reklassifikation der Bewertung der Wohngegend (Tabelle \ref{evalB}) ergibt sich eine Erfolgsquote zwischen 40\% und 50\%. Damit ist auch hier eine deutliche Verbesserung gegenüber rein zufälligem Wählen oder dauerhaftem Wählen einer Klasse gegeben. 
 
 \begin{table}[h]
 \centering
-\caption{Reklassifizierung der Bewertung der Wohngegend}
+\caption{Mittlerer Anteil der korrekt reklassifizierten Beobachtungen zur Bewertung der Wohngegend.}
 \label{evalB}
 \begin{tabular}{l|c|c|c}
 \hline \hline
@@ -578,7 +586,7 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
  
 \begin{table}[h]
 \centering
-\caption{Kreuzvalidierung der Meinung zu Stuttgart 21 nach einzelnen Klassen}
+\caption{Mittlerer Anteil korrekt klassifizierter Beobachtungen durch Kreuzvalidierung des Modells zu Modellierung der Meinung zu Stuttgart 21 nach einzelnen Klassen.}
 \label{KreuzM}
 \begin{tabular}{lcccccccccc}
 \hline \hline
@@ -588,9 +596,9 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
                                                                          & \multicolumn{1}{c|}{}  & 1       & 2   & \multicolumn{1}{c|}{3}       & 1       & 2   & \multicolumn{1}{c|}{3}       & 1           & 2           & 3          \\ \hline
 \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Wahre \\ Klasse \end{tabular}} & \multicolumn{1}{c|}{1} & 0,756   & 0   & \multicolumn{1}{c|}{0,244}   & 0,754   & 0   & \multicolumn{1}{c|}{0,246}   & 0,746           & 0           & 0,254        \\
                                                                          & \multicolumn{1}{c|}{2} & 0,673   & 0   & \multicolumn{1}{c|}{0,327}   & 0,670   & 0   & \multicolumn{1}{c|}{0,330}   & 0,663          & 0           & 0,337        \\
-                                                                         & \multicolumn{1}{c|}{3} & 0,521   & 0   & \multicolumn{1}{c|}{0,479}   & 0,511   & 0   & \multicolumn{1}{c|}{0,489}   & 0,509      & 0           & 0.491     \\ \hline
+                                                                         & \multicolumn{1}{c|}{3} & 0,521   & 0   & \multicolumn{1}{c|}{0,479}   & 0,511   & 0   & \multicolumn{1}{c|}{0,489}   & 0,509      & 0           & 0,491     \\ \hline
 \multicolumn{2}{l|}{Klassifikation Modell}                                                        & \multicolumn{3}{c|}{\multirow{2}{*}{0,4905}} & \multicolumn{3}{c|}{\multirow{2}{*}{0,4928}} & \multicolumn{3}{c}{\multirow{2}{*}{0,4893}} \\
-\multicolumn{2}{l|}{Insgeasmt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline
+\multicolumn{2}{l|}{Insgesamt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline
 \multicolumn{11}{c}{Zwei Klassen}                                                                                                                                                                                                        \\ \hline
                                                                          & \multicolumn{1}{l|}{}  & \multicolumn{3}{c|}{Gauß-Krüger}             & \multicolumn{3}{c|}{Bezirke}                  & \multicolumn{3}{c}{Stadtteile}         \\ \cline{3-11} 
                                                                          & \multicolumn{1}{l|}{}  & \multicolumn{9}{c}{Geschätzte Klasse}                                                                                                \\
@@ -606,7 +614,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 
 \begin{table}[h]
 \centering
-\caption{Kreuzvalidierung der Bewertung der Wohngegend nach einzelnen Klassen}
+\caption{Mittlerer Anteil korrekt klassifizierter Beobachtungen durch Kreuzvalidierung des Modells zu Modellierung Wohnzufriedenheit nach einzelnen Klassen.}
 \label{KreuzBew}
 \begin{tabular}{lc|ccccccccccccccc}
 \hline \hline
@@ -618,7 +626,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
                                                                          & 3 & 0,149 & 0,845 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,153 & 0,847 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,142   & 0,771   & 0,079   & 0   & 0,008   \\
                                                                          & 4 & 0,141 & 0,859 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,141 & 0,859 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,099   & 0,474   & 0,349   & 0   & 0,078   \\
                                                                          & 5 & 0,114 & 0,886 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,086 & 0,914 & 0 & 0 & \multicolumn{1}{c|}{0} & 0,031   & 0,275   & 0,556   & 0   & 0,138   \\ \hline
-\multicolumn{2}{l|}{Klass.}                                              & \multicolumn{5}{c|}{\multirow{3}{*}{0.4918}}   & \multicolumn{5}{c|}{\multirow{3}{*}{0,4704}}   & \multicolumn{5}{c}{\multirow{3}{*}{0,4594}} \\
+\multicolumn{2}{l|}{Klass.}                                              & \multicolumn{5}{c|}{\multirow{3}{*}{0,4918}}   & \multicolumn{5}{c|}{\multirow{3}{*}{0,4704}}   & \multicolumn{5}{c}{\multirow{3}{*}{0,4594}} \\
 \multicolumn{2}{l|}{M.}                                                  & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\
 \multicolumn{2}{l|}{Insg.}                                               & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c|}{}                          & \multicolumn{5}{c}{}                        \\ \hline  \hline
 \end{tabular}
@@ -628,8 +636,9 @@ Tabelle \ref{evalB} ist analog zu Tabelle \ref{evalS21} aufgebaut. Das Ergebnis 
 Durch das relativ hohe Überschätzen einer Klasse bei beiden endogenen Variablen, sowie das totale Unterschätzen einiger Klassen, wird in der weiteren Validierung und Extrapolation auf das Vorhersagen einzelner Beobachtungen verzichtet. Stattdessen wird in einem bestimmten Gebiet über die Wahrscheinlichkeiten der Beobachtungen aggregiert und ein Anteil geschätzt, um auch geringere Wahrscheinlichkeiten für Beobachtungen zu berücksichtigen.
 
 \subsection{Validierung}
+Kein Bias -> Mittelw. statt Punkts.
 
-Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere Quadratische Abweichung und Überdeckungswahrscheinlichkeit der prognostizierten Anteile aus den Modellen, bezogen auf die wahren Anteile aus der Volksabstimmung. Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartet, dass das zwei Klassenmodell die beiden Kategorien signifikant besser prognostiziert.
+Die Ergebnisse der Validierung sind aus Tabelle \ref{vali} ersichtlich. Die Tabelle zeigt die mittlere quadratische Abweichung und Überdeckungswahrscheinlichkeit der prognostizierten Anteile aus den Modellen, bezogen auf die wahren Anteile aus der Volksabstimmung. Da in dieser Volksabstimmung nur Informationen zu zwei Klassen verfügbar sind, wird erwartet, dass das zwei Klassenmodell die beiden Kategorien signifikant besser prognostiziert.
 Tabelle \ref{vali} ist so aufgebaut, dass die linke Spalte angibt um welche Kombination aus Modell, räumlichem Effekt und Datei zur Extrapolation es sich handelt. Die mittlere Spalte zeigt die mittlere quadratische Abweichung für die beiden Kategorien der Volksabstimmung und die rechte Spalte zeigt die Überdeckungswahrscheinlichkeit ebenfalls für diese Kategorien. Damit gibt die erste Reihe z.B. die statistischen Gütemaße für das drei Klassenmodell mit Gauß-Krüger Informationen als räumlichem Effekt aggregiert auf Bezirksebene mit dem Melderegister an. Die Prognoseintervalle zur Berechnung der Überdeckungswahrscheinlichkeit wurden mit Hilfe des Bootstraps ermittelt, sowie Mediane zur Ermittlung der Abweichung auch.
 
 \begin{table}[h]
@@ -683,8 +692,7 @@ Zuerst erfolgt ein Vergleich zwischen den beiden Modellierungsmöglichkeiten. F�
 Innerhalb des drei Klassenmodells lässt sich anhand von Tabelle \ref{vali} nicht eindeutig bestimmen, welcher räumliche Effekt das beste Modell liefert, da die größten Unterschiede sowohl bei dem MSE und der Überdeckung zwischen den Dateien auftreten, was auch darauf hinweisen kann, dass der Melderegister näher mit der Volksabstimmung übereinstimmt. Beim Melderegister liefert das Modell mit Stadtteilen als räumlichem Effekt das beste Modell auf Bezirksebene und auf Stadtteilebene das Modell mit Gauß-Krüger Informationen, wobei die Unterscheide eher marginal sind. Insgesamt kann das zwei Klassenmodell als bestes Prognosemodell verworfen werden, da das drei Klassenmodell die \textit{Zustimmung} und folglich auch die \textit{Ablehnung} deutlich genauer bestimmen kann.
 
 \subsection{Extrapolation}
-
-Dieses Kapitel stellt nun die Prognostizierten Anteile der Klassen für gesamt Stuttgart von den noch verbliebenen Modellen vor. Dazu zeigt Abbildung \ref{S21Alle} die Extrapolierten Anteile der Modelle zur Meinung zu Stuttgart 21. Dargestellt ist der Median als Punktschätzer zusammen mit den Prognoseintervallen. Die gestrichelten Linien stellen die respektiven Anteile in der Stichprobe dar und die durchgezogenen Linien die Anteile aus der Volksabstimmung. Bei den noch verbliebenen Modellen handelt es sich um den drei Klassen Fall mit den drei räumlichen Effekten extrapoliert auf beide Dateien und den beiden Aggregaten Bezirke und Stadtteile. Deutlich erkennbar ist ein Unterschied zwischen den Extrapolierten Anteilen aus dem Zensus und dem Melderegister. Da die Validierung ergeben hat, dass die extrapolierten Anteile aus dem Melderegister näher mit den Anteilen aus der Volksabstimmung übereinstimmen wird sich im weiteren die Analyse au die Anteile aus dem Melderegister beziehen. Vorab zu sehen ist außerdem, dass die Anteile der Stichprobe und die Anteile der wahren Ergebnisse aus der Volksabstimmung deutliche Differenzen aufweisen. Während die Stichprobe für die Klasse \textit{Zustimmung} einen Anteil von ca. 47\% zeigt, haben sich in der Volksabstimmung 52,9\% für Stuttgart 21 ausgesprochen. Natürlich aber muss dabei auch beachtet werden, dass es sich dabei um unterschiedliche Erhebungen handelt und es bei der Volksabstimmung keine neutrale Klasse erfasst wurde.\\
+Dieses Kapitel stellt nun die prognostizierten Anteile der Klassen für gesamt Stuttgart von den noch verbliebenen Modellen vor. Dazu zeigt Abbildung \ref{S21Alle} die Extrapolierten Anteile der Modelle zur Meinung zu Stuttgart 21. Dargestellt ist der Median als Punktschätzer zusammen mit den Prognoseintervallen. Die gestrichelten Linien stellen die respektiven Anteile in der Stichprobe dar und die durchgezogenen Linien die Anteile aus der Volksabstimmung. Bei den noch verbliebenen Modellen handelt es sich um den drei Klassen Fall mit den drei räumlichen Effekten extrapoliert auf beide Dateien und den beiden Aggregaten Bezirke und Stadtteile. Deutlich erkennbar ist ein Unterschied zwischen den Extrapolierten Anteilen aus dem Zensus und dem Melderegister. Da die Validierung ergeben hat, dass die extrapolierten Anteile aus dem Melderegister näher mit den Anteilen aus der Volksabstimmung übereinstimmen wird sich im weiteren die Analyse au die Anteile aus dem Melderegister beziehen. Vorab zu sehen ist außerdem, dass die Anteile der Stichprobe und die Anteile der wahren Ergebnisse aus der Volksabstimmung deutliche Differenzen aufweisen. Während die Stichprobe für die Klasse \textit{Zustimmung} einen Anteil von ca. 47\% zeigt, haben sich in der Volksabstimmung 52,9\% für Stuttgart 21 ausgesprochen. Natürlich aber muss dabei auch beachtet werden, dass es sich dabei um unterschiedliche Erhebungen handelt und es bei der Volksabstimmung keine neutrale Klasse erfasst wurde.\\
 Auffällig sind die breiten Prognoseintervalle, die auf eine relativ hohe Unsicherheit hindeuten. Dies kann ein Indiz darauf sein, dass die Anzahl der Beobachtungen in der Stichprobe zu gering ist im Vergleich zur Grundgesamtheit. Zwischen den Modellen mit unterschiedlichen räumlichen Effekten weist das Modell mit Stadtteilen die höchste Unsicherheit auf. Die Punktschätzer von dem Modell mit Gauß-Krüger Informationen und Bezirken sind nahezu identisch. Die Punktschätzer des Stadtteilmodells weichen als einzige sichtbar ab und befinden sich am nächsten an dem Anteil der Volksabstimmung der Kategorie \textit{Zustimmung}, was allerdings nicht überbewertet werden sollte, da der Melderegister und die Volksabstimmung zu unterschiedlichen Zeitpunkten stattgefunden haben. 
 
 \begin{figure}[h]
@@ -707,7 +715,7 @@ Aggregiert auf Bezirksebene Für die Klasse \textit{Zustimmung} hat das Modell m
 
 Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Sie ist analog zu der  bereits diskutierte Abbildung \ref{S21Alle} aufgebaut, außer dem Unterschied dass keine Anteile für die Grundgesamtheit verfügbar sind. Hier ist gerade bei den Klassen \textit{neutral}, \textit{gut} und \textit{sehr gut} ein deutlicher Unterschied zwischen den Modellen erkennbar, sowohl für den Punkt- als auch den Intervallschätzer. Auch zwischen den Dateien sind wie schon bei der Meinung zu Stuttgart 21 deutliche Unterscheide vorhanden. Um in dieser Arbeit konsistent zu bleiben und da der Melderegister mehr Beobachtungen hat, folgt die weitere Analyse wieder mit diesem. Die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen und den Klassen. Die schmalsten Prognoseintervalle liefert das Bezirkmodell, während das Gauß-Krüger- und Stadtteilmodell deutlich weitere Intervalle ergibt. Aggregiert auf Bezirksebene ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauß-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell.  Für die Klasse \textit{gut} wurden 40,84\% für das Gauß-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Es ist dabei ein deutlich größerer Unterschied zu beobachten als bei den geschätzten Anteilen der Meinung zu Stuttgart 21, wodurch die Wahl des finalen Prognosemodells noch zusätzliche Wichtigkeit bekommt. Wie bereits erwähnt, kann nur spekuliert werden, wo die wahren Anteile zur Bewertung der Wohngegend liegen. Dadurch stehen auch nur die drei Kriterien AIC, Reklassifizierung und Kreuvalidierung nur Verfügung. Nach diesen Kriterien wird auch für diesen Fall das Modell mit den Gauß-Krüger Informationen als bestes Prognosemodell empfohlen, da es in allen drei Situationen die besten Ergebnisse gezeigt hat.\\
 Zuletzt wurden die beiden besten Modelle genutzt um die Extrapolierten Anteile auf Stadtteileebene in Stuttgart darzustellen. Die beiden Abbildungen dazu befinden sich im Anhang. Für die Meinung zu Stuttgart 21 (Abbildung \ref{S21Extra}) kann dazu gut ein Vergleich mit den Anteile der Stichprobe aus Abbildung \ref{XYStuttgart3}, Abbildung \ref{BStuttgart21} und Abbildung \ref{SStuttgart21} vorgenommen werden. Dabei zu beachten ist, dass Abbildung \ref{S21Extra} mit unterschiedlicher Skalierung dargestellt wird, um deutlicher räumliche Unterschiede innerhalb der Klassen zu erkennen. Deutlich zu erkennen, ist dass die Lokalisierung der Anteile in den Kategorien sehr ähnlich ist zu der bereits besprochenen Lokalisierung im Parametrisierungsdatensatz ist. Die hohen Anteile der \textit{Zustimmung} befinden sich vor allem im Norden und Osten, die Klasse \textit{neutral} zeigt keine klare Struktur und die Klasse \textit{Ablehnung} findet sich besonders im Süden und Westen.\\
-Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein guter Vergleich mit den Anteilen des Parametrisierungsdatensatz (Abbildung \ref{XYWohnG5}, Abbildung \ref{BWohn}, Abbildung \ref{SWohn}) vorgenommen werden. Besonders interessant sind hier die Kategorien \textit{neutral}, \textit{schlecht} und \textit{sehr schlecht}. Aus Abbildung \ref{BWohn} geht z.B hervor, dass die höchsten Anteile dieser Klassen im Osten und teilweise im Norden lokalisiert werden können. Durch die Extrapolation konnten wir den Bereich nun genauer isolieren auf und um das Benzviertel herum. Hier scheinen die Bewohner Stuttgarts im Vergleich zum Rest der Stadt eher unzufrieden mit ihrer Wohngegend zu sein
+Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein guter Vergleich mit den Anteilen des Parametrisierungsdatensatz (Abbildung \ref{XYWohnG5}, Abbildung \ref{BWohn}, Abbildung \ref{SWohn}) vorgenommen werden. Besonders interessant sind hier die Kategorien \textit{neutral}, \textit{schlecht} und \textit{sehr schlecht}. Aus Abbildung \ref{BWohn} geht z.B hervor, dass die höchsten Anteile dieser Klassen im Osten und teilweise im Norden lokalisiert werden können. Durch die Extrapolation konnten wir den Bereich nun genauer isolieren auf und um das Benzviertel herum. Hier scheinen die Bewohner Stuttgarts im Vergleich zum Rest der Stadt eher unzufrieden mit ihrer Wohngegend zu sein.
 
 
 \clearpage
@@ -720,14 +728,20 @@ Das AIC bildet eine gute Basis, um die geeignete Kovariablenkombination zu ident
 
 \subsection{Modelle}
 Der räumliche Effekt bringt in allen Modellen eine Verbesserung der Anpassung. Selbst in den Modellen, in denen der AIC sich durch den räumlichen Glättungsterm nicht verändert, kann von einer Verbesserung des Modells durch den räumlichen Effekt ausgegangen werden. Da die Modellkomplexibilität sich durch den räumlichen Effekt erhöht hat, impliziert ein unverändertes AIC eine bessere Modellanpassung. Da die Geodaten, die für die räumliche Komponente notwendig sind, in allen Dateien einfach verfügbar sind, gibt es keinen Grund auf diese Information im Modell zu verzichten.\\
+Die univariaten Parameter haben relativ starken Einfluss auf die Ablehnungswahrscheinlichkeit. Bei der genaueren Betrachtung der räumlichen Effekte (Abbildung \ref{rEffS21}) zeigt sich jedoch, dass der räumliche Effekt sich ebenfalls auf die Ablehnungswahrscheinlichkeit auswirkt. Es gibt einen klaren räumlichen Trend in den Daten, wenngleich dieser in Relation zu den sozioökonomischen Kovariablen relativ schwach ausgeprägten ist. Die Meinung eines Bürgers zu Stuttgart 21 hängt also eindeutig auch von der Lage seine Wohnung ab. In erster Linie ist die Meinung jedoch von den sozioökonomischen Kovariablen bestimmt (Abbildung \ref{GKParam}). Die Wahl des räumlichen Effektes ist dabei zweitrangig. Die Änderung der Parameterausprägung von Nord nach Süd ist stetig und nur sehr gering ausgeprägt. Der kontinuierliche räumliche Effekt liefert daher praktisch die gleichen Informationen wie der diskrete Trend auf Stadtbezirksebene. Die höhere Auflösung auf Stadtteilebene liefert nur im Süden zusätzliche Informationen. Diese hohe Auflösungsebene, die eine Vielzahl zusätzlicher Modellparameter mit sich bringt, scheint also nicht sinnvoll zu sein. Die Interpretation der Modelleffekte ergibt also, wie die AIC-Betrachtung (Tabelle \ref{stepAIC}), dass die beiden geoadditiven Modelle mit stetigem und diskretem räumlichen Trend auf Stadtbezirksebene für die Prognose der Meinung zu Stuttgart 21 gleichwertig und, dass das Modell auf Stadtteilebene nachrangig ist.\\
+Der Bahnhof liegt an der nördlichen Grenze des Stadtviertels \textit{Mitte}, also ziemlich genau auf der Konturlinie, die den Übergang von \textit{Zustimmung} zu \textit{Ablehnung} markiert. Bürger, die südlich des Bahnhofs wohnen zeigen demnach eine höhere Ablehnungswahrscheinlichkeit als Bürger aus der nördlichen Hälfte Stuttgarts.\\
+Die Wohnzufriedenheit hängt sehr viel stärker von der Lage der Wohnung ab als von den sozioökonomischen Kovariablen. Da die räumliche Lage bereits einen sehr hohen Erklärungsgehalt hat, sind deshalb weniger Kovariablen erforderlich als es bei der Meinung zu Stuttgart 21 der Fall ist. Umso wichtiger ist folglich die Auswahl des geeigneten räumlichen Effektes. Nach visueller Einschätzung ist die Auflösung des diskreten Effekts auf Stadtbezirksebene nicht hoch genug um das komplexe räumliche Muster zu beschreiben. Das Modell auf Stadtteilebene erscheint hingegen zu komplex zu sein, da insbesondere im Zentrum sehr kleinflächige Strukturen mit zum Teil sehr unterschiedlichen Parameterausprägungen zu sehen sind. Der kontinuierliche Effekt ist offensichtlich ein Kompromiss zwischen den beiden diskreten Trends. Die kleinräumig unterschiedlichen Parameterausprägungen, wie sie z. B. im Nordosten zu sehen sind werden durch das kontinuierliche Modell dargestellt. Dabei schwanken die Parameter, insbesondere im Zentrum, weniger stark als beim Modell auf Stadtteilebene. Die Analyse der AIC (Tabelle \ref{stepAIC}) unterstreicht diese visuellen Einschätzungen.
 
-Bei der genaueren Betrachtung der räumlichen Effekte der Meinung zu Stuttgart 21 (Abbildung \ref{rEffS21}) zeigt sich dann auch wie der räumliche Effekt auf die Ablehnungswahrscheinlichkeit wirkt. Es gibt einen klaren räumlichen Trend in den Daten, wenngleich dieser in Relation zu den sozioökonomischen Kovariablen relativ schwach ausgeprägten ist.
+\subsection{Reklassifizierung}
+Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Resppnse-Variablen vorteilhaft gegenüber reinen GAM sind. Sowohl bei zwei- als auch bei dreikategorialer Response bei der Modellierung der Meinung zu Stuttgart 21 bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse (Tabelle \ref{evalS21}). Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab. Die Ergebnisse der Reklassifizierung der Wohnzufriedenheit (Tabelle \ref{evalB}) fügen sich ebenfalls in die Vorüberlegungen ein. Das diskrete Modell erweist sich als vorteilhaft. Bemerkenswerterweise ist durchschnittliche Anteil korrekt reklassifizierter Beobachtungen bei dem geoadditiven Modell mit diskreten räumlichem Trend Modell auf Stadtteilebene schlechter als bei den Modellen mit sozioökonomischen Kovariablen und dem alleinigen räumlichen Trend. Dies zeigt, wie die visuelle Analyse bereits andeutete, dass die Parameteranzahl deutlich zu hoch ist.
+
+\subsection{Kreuzvalidierung}
+Die Kreuzvalidierung ist eine sehr computerintensive Berechnung. Daher wurden die ohnehin nicht vielversprechenden Modelle ohne räumlichen Trend und nur mit räumlichen Trend bei dieser Analyse nicht mehr berücksichtigt. Zunächst ist zu bemerken, dass der durchschnittliche korrekt klassifizierte Anteil der Beobachtungen \textit{out-of-sample} (Tabellen \ref{KreuzM} und \ref{KreuzBew}) den korrekt reklassifizierten Anteil der Beobachtungen (Tabellen \ref{evalS21} und \ref{evalB}) stets sehr ähnelt. Abweichungen sind als Zufall zu interpretieren. Dies deutet darauf hin, das die Modelle sehr robust sind.
+In dieser Betrachtungsebene zeigt sich auch erstmals, dass die guten Ergebnisse bei der Reklassifizierung und der Kreuzvalidierung in erster Linie durch die korrekte Schätzung der wahrscheinlichsten Gruppen zurückzuführen sind. Die weniger wahrscheinlichen Gruppen werden praktisch nie korrekt reklassifiziert. Diese individuelle Fehleinschätzung spielt für die in dieser Arbeit angestrebte räumliche Extrapolation jedoch keine Rolle, da hierzu mittlere Anteile auf regionaler Ebene gebildet werden.
 
 
-
-
-
-
+\subsection{Validierung}
+Da Stimmanteile zur Volksabstimmung zu Stuttgart 21 vorlagen, konnte das Ergebnis der räumlichen Extrapolation mit dem tatsächlichen Ergebnis vergleichen werden.
 
 
 Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushaltseinkommen in beiden Grundgesamtheiten fehlen und somit die Variable nicht für die Prognose verwendet werden kann. Auch war eine denkbare Erstellung von Proxy-Variablen nicht möglich. Eine genaue Auflistung der enthaltenen Variablen aus den Grundgesamtheiten ist im Anhang verfügbar. Die Arbeit zielt darauf ab, die Meinung der Befragten zu dem Projekt Stuttgart 21 und die Zufriedenheit mit der Wohngegend der Befragten auf die Grundgesamtheit zu extrapolieren. Daher ist es sinnvoll die Ausprägungen dieser Variablen genauer zu untersuchen.\\
@@ -746,7 +760,7 @@ Die Arbeit hat gezeigt, dass es möglich ist die Effekte die die Meinung der Bü
 Die Fragestellungen ließen sich damit ebenfalls zufriedenstellend beantworten. Für gesamt Stuttgart haben 51,12\% eine positive Meinung zu Stuttgart 21, 20,65\% eine neutrale Meinung und 28,22\% haben eine negative Meinung zu Stuttgart 21. Wobei eine Validierung mit den Ergebnissen der Volksabstimmung gezeigt hat, dass vermutlich der Großteil der Personen die Angegeben haben eine neutrale Meinung zu haben, bei einer Abstimmung eher zur Ablehnung tendieren. Für die Bewertung der Wohngegend ließ sich sich ermitteln, dass 42,52\% der Bürger Stuttgarts eine sehr gute und 40,84\% eine gute Meinung ihrer Wohngegend haben. Zudem haben 13,02\% eine neutrale Meinung zu ihrer Wohngegend und 2,68\% bewerten ihre Wohngegend mit schlecht, sowie 0,95\% mit sehr schlecht.\\
 Für weitere Analysen der kleinräumigen Extrapolation für diese Fragestellungen wäre es interessant den Einfluss weiterer Kovariablen zu Prüfen, um noch sicherere Prognosen zu erreichen. Außerdem wäre es sinnvoll model avereging Ansätze zu verfolgen, z.B. über gewichtete AIC \cite{WAIC}.
 
-
+Diese Arbeit zeigt beispielhaft die Durchführung einer kleinräumigen Extrapolation. Extrapolationen auf anderer, z. B. auch nicht-räumlicher, Aggregationsebene wären ebenfalls denkbar. So könnten die Daten dieser Arbeit beispielsweise genutzt werden, um die Meinungen nach anderen vorhandenen Variablen der beiden Extrapolationsdateien hochzurechnen. Denkbar wäre beispielsweise der Vergleich der Wohnzufriedenheit von Bürgern mit Wohneigentum mit Bürgern die zur Miete wohnen.
 \clearpage
 
 
@@ -841,36 +855,36 @@ Für weitere Analysen der kleinräumigen Extrapolation für diese Fragestellunge
 \hline \\[-1.8ex] 
  & \multicolumn{3}{c}{\textit{Abhängige Variable:}} \\ 
 \cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{Meinung.zu.Stuttgart.21} \\ 
+\\[-1.8ex] & \multicolumn{3}{c}{Meinung zu Stuttgart 21} \\ 
 \\[-1.8ex] & (A) & (B) & (C)\\ 
 \hline \\[-1.8ex] 
- GeschlechtWeiblich & 0.524$^{***}$ & 0.508$^{***}$ & 0.538$^{***}$ \\ 
+ Geschlecht: Weiblich & 0.524$^{***}$ & 0.508$^{***}$ & 0.538$^{***}$ \\ 
   & (0.070) & (0.069) & (0.069) \\ 
   & & & \\ 
- NationalitätNicht Deutsch & $-$0.445$^{***}$ & $-$0.472$^{***}$ & $-$0.454$^{***}$ \\ 
+ Nationalität: Nicht Deutsch & $-$0.445$^{***}$ & $-$0.472$^{***}$ & $-$0.454$^{***}$ \\ 
   & (0.110) & (0.109) & (0.110) \\ 
   & & & \\ 
- Familienstandledig & 0.090 &  & 0.084 \\ 
+ Familienstand: ledig & 0.090 &  & 0.084 \\ 
   & (0.159) &  & (0.159) \\ 
   & & & \\ 
- Familienstandverheiratet & $-$0.176 &  & $-$0.189 \\ 
+ Familienstand: verheiratet & $-$0.176 &  & $-$0.189 \\ 
   & (0.151) &  & (0.152) \\ 
   & & & \\ 
- Familienstandverwitwet & $-$0.356$^{*}$ &  & $-$0.413$^{**}$ \\ 
+ Familienstand: verwitwet & $-$0.356$^{*}$ &  & $-$0.413$^{**}$ \\ 
   & (0.207) &  & (0.208) \\ 
   & & & \\ 
- Personenzahl.im.Haushalt & $-$0.340$^{***}$ & $-$0.369$^{***}$ & $-$0.348$^{***}$ \\ 
+ Personenzahl im Haushalt & $-$0.340$^{***}$ & $-$0.369$^{***}$ & $-$0.348$^{***}$ \\ 
   & (0.060) & (0.021) & (0.061) \\ 
   & & & \\ \hline
- s(X,Y) &  &  &  \\ 
+ s(X,Y) & $*$ &  &  \\ 
   & & & \\ 
- s(Stadtbezirk) &  &  &  \\ 
+ s(Stadtbezirk) &  & $*$ &  \\ 
   & & & \\ 
- s(Stadtteil)&  &  &  \\ 
+ s(Stadtteil)&  &  & $*$ \\ 
   & & & \\ 
- s(Personenzahl.im.Haushalt,Altersklasse.Befragter) & $***$ & $***$ & $***$  \\ 
+ s(Personenzahl im Haushalt, Altersklasse Befragter) & $***$ & $***$ & $***$  \\ 
   & & & \\ 
- s(Altersklasse.Befragter) & $**$ & $***$  & $**$ \\ 
+ s(Altersklasse Befragter) & $***$ & $***$  & $***$ \\ 
   & & & \\ 
  Konstante & 0.000 & 0.000 & 0.000 \\ 
   & (0.000) & (0.000) & (0.000) \\ 
@@ -895,36 +909,36 @@ UBRE & 3,197.650 & 3,195.841 & 3,219.511 \\
 \hline \\[-1.8ex] 
  & \multicolumn{3}{c}{\textit{Abhängige Variable:}} \\ 
 \cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{Meinung.zu.Stuttgart.21} \\ 
+\\[-1.8ex] & \multicolumn{3}{c}{Meinung zu Stuttgart 21} \\ 
 \\[-1.8ex] & (A) & (B) & (C)\\ 
 \hline \\[-1.8ex] 
- GeschlechtWeiblich & 0.644$^{***}$ & 0.646$^{***}$ & 0.642$^{***}$ \\ 
+ Geschlecht: Weiblich & 0.644$^{***}$ & 0.646$^{***}$ & 0.642$^{***}$ \\ 
   & (0.087) & (0.087) & (0.088) \\ 
   & & & \\ 
- NationalitätNicht Deutsch & $-$0.721$^{***}$ & $-$0.723$^{***}$ & $-$0.757$^{***}$ \\ 
+ Nationalität: Nicht Deutsch & $-$0.721$^{***}$ & $-$0.723$^{***}$ & $-$0.757$^{***}$ \\ 
   & (0.154) & (0.154) & (0.156) \\ 
   & & & \\ 
- Familienstandledig & 0.022 & 0.037 & 0.102 \\ 
+ Familienstand: ledig & 0.022 & 0.037 & 0.102 \\ 
   & (0.191) & (0.191) & (0.196) \\ 
   & & & \\ 
- Familienstandverheiratet & $-$0.333$^{**}$ & $-$0.316$^{*}$ & $-$0.215 \\ 
+ Familienstand: verheiratet & $-$0.333$^{**}$ & $-$0.316$^{*}$ & $-$0.215 \\ 
   & (0.170) & (0.170) & (0.186) \\ 
   & & & \\ 
- Familienstandverwitwet & $-$0.244 & $-$0.234 & $-$0.431$^{*}$ \\ 
+ Familienstand: verwitwet & $-$0.244 & $-$0.234 & $-$0.431$^{*}$ \\ 
   & (0.243) & (0.243) & (0.251) \\ 
   & & & \\ 
-   Personenzahl.im.Haushalt &  &  & $-$0.155$^{**}$ \\ 
+   Personenzahl im Haushalt &  &  & $-$0.155$^{**}$ \\ 
   &  &  & (0.075) \\ 
     & & & \\ \hline
- s(X,Y) &  &  &  \\ 
+ s(X,Y) & $*$ &  &  \\ 
   & & & \\ 
- s(Stadtbezirk) &  & $*$ &  \\ 
+ s(Stadtbezirk) &  & $**$ &  \\ 
   & & & \\ 
- s(Stadtteil) &  &  & $*$ \\ 
+ s(Stadtteil) &  &  & $**$ \\ 
   & & & \\ 
- s(Personenzahl.im.Haushalt,Altersklasse.Befragter) &  &  &  \\ 
+ s(Personenzahl im Haushalt, Altersklasse Befragter) &  &  &  \\ 
   & & & \\ 
- s(Altersklasse.Befragter) & $***$ & $***$ & $**$ \\ 
+ s(Altersklasse Befragter) & $***$ & $***$ & $***$ \\ 
   & & & \\ 
  Konstante & $-$0.283$^{*}$ & $-$0.298$^{*}$ & 0.000 \\ 
   & (0.171) & (0.171) & (0.000) \\ 
@@ -951,25 +965,25 @@ UBRE & 1,563.538 & 1,561.176 & 1,544.394 \\
 \hline \\[-1.8ex] 
  & \multicolumn{3}{c}{\textit{Abhängige Variable:}} \\ 
 \cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{Bewertung.Wohngegend} \\ 
+\\[-1.8ex] & \multicolumn{3}{c}{Bewertung Wohngegend} \\ 
 \\[-1.8ex] & (A) & (B) & (C)\\ 
 \hline \\[-1.8ex] 
- NationalitätNicht Deutsch & 0.289$^{***}$ & 0.359$^{***}$ &  \\ 
+ Nationalität: Nicht Deutsch & 0.289$^{***}$ & 0.359$^{***}$ &  \\ 
   & (0.107) & (0.106) &  \\ 
   & & & \\ 
- Personenzahl.im.Haushalt & $-$0.043 & $-$0.047 &  \\ 
+ Personenzahl im Haushalt & $-$0.043 & $-$0.047 &  \\ 
   & (0.032) & (0.032) &  \\ 
   & & & \\ 
- Familienstandledig &  &  & 0.021 \\ 
+ Familienstand: ledig &  &  & 0.021 \\ 
   &  &  & (0.157) \\ 
   & & & \\ 
- Familienstandverheiratet &  &  & 0.561$^{***}$ \\ 
+ Familienstand: verheiratet &  &  & 0.561$^{***}$ \\ 
   &  &  & (0.149) \\ 
   & & & \\ 
- Familienstandverwitwet &  &  & $-$0.286 \\ 
+ Familienstand: verwitwet &  &  & $-$0.286 \\ 
   &  &  & (0.204) \\ 
   & & & \\ 
- GeschlechtWeiblich &  &  & $-$0.318$^{***}$ \\ 
+ Geschlecht: Weiblich &  &  & $-$0.318$^{***}$ \\ 
   &  &  & (0.067) \\ \hline
    & & & \\ 
  s(X,Y) & $***$ &  &  \\ 
@@ -978,9 +992,9 @@ UBRE & 1,563.538 & 1,561.176 & 1,544.394 \\
   & & & \\ 
  s(Stadtteil) &  &  & $***$ \\ 
   & & & \\ 
- s(Altersklasse.Befragter) & $**$ & $***$  & $***$ \\ 
+ s(Altersklasse Befragter) & $***$ & $***$  & $***$ \\ 
   & & & \\ 
- s(Personenzahl.im.Haushalt) &  &  & $***$ \\ 
+ s(Personenzahl im Haushalt) &  &  & $***$ \\ 
   & & & \\ 
  Konstante & $-$0.339$^{***}$ & $-$0.357$^{***}$ & $-$0.271$^{*}$ \\ 
   & (0.084) & (0.083) & (0.143) \\ 
