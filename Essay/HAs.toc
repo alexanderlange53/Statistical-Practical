@@ -15,10 +15,10 @@
 \contentsline {section}{\numberline {3}Ergebnisse}{15}{section.3}
 \contentsline {subsection}{\numberline {3.1}Schrittweiser AIC Vergleich}{16}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Modelle}{17}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{21}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{22}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{23}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Validierung}{24}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Extrapolation}{26}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.5}Validierung}{25}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{27}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{30}{section.4}
 \contentsline {section}{\numberline {5}Fazit}{30}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{31}{section.5}

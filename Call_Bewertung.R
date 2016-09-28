@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Alex'
+bearbeiter <- 'Kai@Home'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
