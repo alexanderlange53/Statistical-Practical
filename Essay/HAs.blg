@@ -6,49 +6,48 @@ Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "google" isn't style-file defined
 --line 120 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
---line 208 of file LiteraturStuttgart.bib.bib
+--line 225 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "bundesamt" isn't style-file defined
---line 219 of file LiteraturStuttgart.bib.bib
-Warning--I didn't find a database entry for "gu1993"
-You've used 24 entries,
+--line 236 of file LiteraturStuttgart.bib.bib
+You've used 25 entries,
             1935 wiz_defined-function locations,
-            610 strings with 7002 characters,
-and the built_in function-call counts, 7699 in all, are:
-= -- 763
-> -- 246
-< -- 22
-+ -- 76
-- -- 76
-* -- 584
-:= -- 1403
-add.period$ -- 70
-call.type$ -- 24
-change.case$ -- 151
-chr.to.int$ -- 24
-cite$ -- 24
-duplicate$ -- 321
-empty$ -- 556
-format.name$ -- 108
-if$ -- 1491
+            616 strings with 7197 characters,
+and the built_in function-call counts, 8103 in all, are:
+= -- 805
+> -- 259
+< -- 23
++ -- 80
+- -- 80
+* -- 621
+:= -- 1471
+add.period$ -- 73
+call.type$ -- 25
+change.case$ -- 158
+chr.to.int$ -- 25
+cite$ -- 25
+duplicate$ -- 335
+empty$ -- 586
+format.name$ -- 115
+if$ -- 1570
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 23
-newline$ -- 120
-num.names$ -- 72
-pop$ -- 128
+missing$ -- 24
+newline$ -- 125
+num.names$ -- 75
+pop$ -- 132
 preamble$ -- 1
-purify$ -- 158
+purify$ -- 165
 quote$ -- 0
-skip$ -- 254
+skip$ -- 265
 stack$ -- 0
-substring$ -- 474
-swap$ -- 30
+substring$ -- 511
+swap$ -- 31
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 132
+type$ -- 138
 warning$ -- 0
-while$ -- 65
+while$ -- 69
 width$ -- 0
-write$ -- 300
-(There were 4 warnings)
+write$ -- 313
+(There were 3 warnings)

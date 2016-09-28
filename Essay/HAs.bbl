@@ -48,6 +48,13 @@ Georgii, H.-O. (2009).
 \newblock http://maps.googleapis.com/maps/api/staticmap?
   center=48.778306,9.180159\&zoom=11\&size=640x640\&scale=2\&maptype=terrain\&language=en-en\&sensor=false.
 
+\bibitem[Gu and Wahba, 1993]{gu1993}
+Gu, C. and Wahba, G. (1993).
+\newblock Semiparametric {Analysis} of {Variance} with {Tensor} {Product}
+  {Thin} {Plate} {Splines}.
+\newblock {\em Journal of the Royal Statistical Society. Series B
+  (Methodological)}, 55(2):353--368.
+
 \bibitem[Held, 2008]{held2008}
 Held, L. (2008).
 \newblock {\em Methoden der statistischen {Inferenz}: {Likelihood} und
