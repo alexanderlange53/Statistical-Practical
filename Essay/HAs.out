@@ -9,20 +9,23 @@
 \BOOKMARK [3][-]{subsubsection.2.2.2}{Modelle}{subsection.2.2}% 9
 \BOOKMARK [3][-]{subsubsection.2.2.3}{Reklassifizierung}{subsection.2.2}% 10
 \BOOKMARK [3][-]{subsubsection.2.2.4}{Kreuzvalidierung}{subsection.2.2}% 11
-\BOOKMARK [3][-]{subsubsection.2.2.5}{Prognoseintervalle}{subsection.2.2}% 12
-\BOOKMARK [3][-]{subsubsection.2.2.6}{Validierung}{subsection.2.2}% 13
-\BOOKMARK [1][-]{section.3}{Ergebnisse}{}% 14
-\BOOKMARK [2][-]{subsection.3.1}{Schrittweiser AIC Vergleich}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.2}{Modelle}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.3}{Reklassifizierung}{section.3}% 17
-\BOOKMARK [2][-]{subsection.3.4}{Kreuzvalidierung}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.5}{Validierung}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.6}{Extrapolation}{section.3}% 20
-\BOOKMARK [1][-]{section.4}{Diskussion}{}% 21
-\BOOKMARK [2][-]{subsection.4.1}{Schrittweiser AIC Vergleich}{section.4}% 22
-\BOOKMARK [2][-]{subsection.4.2}{Modelle}{section.4}% 23
-\BOOKMARK [2][-]{subsection.4.3}{Reklassifizierung}{section.4}% 24
-\BOOKMARK [2][-]{subsection.4.4}{Kreuzvalidierung}{section.4}% 25
-\BOOKMARK [1][-]{section.5}{Fazit}{}% 26
-\BOOKMARK [1][-]{section.5}{Literatur}{}% 27
-\BOOKMARK [1][-]{section.5}{Anhang}{}% 28
+\BOOKMARK [2][-]{subsection.2.3}{Kleinr\344umige Extrapolation}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Punktsch\344tzung}{subsection.2.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Prognoseintervalle}{subsection.2.3}% 14
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Validierung}{subsection.2.3}% 15
+\BOOKMARK [1][-]{section.3}{Ergebnisse}{}% 16
+\BOOKMARK [2][-]{subsection.3.1}{Schrittweiser AIC Vergleich}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Modelle}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Reklassifizierung}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.4}{Kreuzvalidierung}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.5}{Validierung}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.6}{Extrapolation}{section.3}% 22
+\BOOKMARK [1][-]{section.4}{Diskussion}{}% 23
+\BOOKMARK [2][-]{subsection.4.1}{Schrittweiser AIC Vergleich}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.2}{Modelle}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.3}{Reklassifizierung}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.4}{Kreuzvalidierung}{section.4}% 27
+\BOOKMARK [2][-]{subsection.4.5}{Validierung}{section.4}% 28
+\BOOKMARK [1][-]{section.5}{Fazit}{}% 29
+\BOOKMARK [1][-]{section.5}{Literatur}{}% 30
+\BOOKMARK [1][-]{section.5}{Anhang}{}% 31
