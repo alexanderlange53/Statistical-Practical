@@ -4,57 +4,51 @@ The top-level auxiliary file: HAs.aux
 The style file: apalike.bst
 Database file #1: LiteraturStuttgart.bib.bib
 Warning--entry type for "google" isn't style-file defined
---line 125 of file LiteraturStuttgart.bib.bib
+--line 123 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
---line 200 of file LiteraturStuttgart.bib.bib
+--line 198 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "bundesamt" isn't style-file defined
---line 211 of file LiteraturStuttgart.bib.bib
+--line 209 of file LiteraturStuttgart.bib.bib
 Warning--I didn't find a database entry for "gu1993"
-Too many commas in name 1 of "Arthur Benz, Fabian Dosch, Dietrich Fürst, Ekkehard Hein" for entry Planung
-while executing---line 1023 of file apalike.bst
-Too many commas in name 1 of "Arthur Benz, Fabian Dosch, Dietrich Fürst, Ekkehard Hein" for entry Planung
-while executing---line 1023 of file apalike.bst
-Too many commas in name 1 of "Arthur Benz, Fabian Dosch, Dietrich Fürst, Ekkehard Hein" for entry Planung
-while executing---line 1098 of file apalike.bst
-You've used 22 entries,
+You've used 23 entries,
             1935 wiz_defined-function locations,
-            599 strings with 6750 characters,
-and the built_in function-call counts, 6972 in all, are:
-= -- 693
-> -- 210
+            606 strings with 6888 characters,
+and the built_in function-call counts, 7463 in all, are:
+= -- 739
+> -- 239
 < -- 21
-+ -- 64
-- -- 64
-* -- 519
-:= -- 1271
-add.period$ -- 65
-call.type$ -- 22
-change.case$ -- 135
-chr.to.int$ -- 22
-cite$ -- 22
-duplicate$ -- 297
-empty$ -- 511
-format.name$ -- 92
-if$ -- 1353
++ -- 74
+- -- 74
+* -- 569
+:= -- 1356
+add.period$ -- 68
+call.type$ -- 23
+change.case$ -- 145
+chr.to.int$ -- 23
+cite$ -- 23
+duplicate$ -- 311
+empty$ -- 541
+format.name$ -- 105
+if$ -- 1448
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 22
-newline$ -- 111
-num.names$ -- 66
-pop$ -- 116
+missing$ -- 23
+newline$ -- 116
+num.names$ -- 69
+pop$ -- 124
 preamble$ -- 1
-purify$ -- 142
+purify$ -- 152
 quote$ -- 0
-skip$ -- 235
+skip$ -- 245
 stack$ -- 0
-substring$ -- 429
-swap$ -- 29
+substring$ -- 462
+swap$ -- 30
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 120
+type$ -- 126
 warning$ -- 0
-while$ -- 60
+while$ -- 63
 width$ -- 0
-write$ -- 277
-(There were 3 error messages)
+write$ -- 290
+(There were 4 warnings)

@@ -20,6 +20,6 @@
 \contentsline {subsection}{\numberline {3.5}Validierung}{25}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Extrapolation}{27}{subsection.3.6}
 \contentsline {section}{\numberline {4}Diskussion}{30}{section.4}
-\contentsline {section}{\numberline {5}Fazit}{30}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{31}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{33}{section.5}
+\contentsline {section}{\numberline {5}Fazit}{31}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{32}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{34}{section.5}

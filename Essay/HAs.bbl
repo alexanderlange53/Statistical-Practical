@@ -5,17 +5,17 @@ Akaike, H. (1981).
 \newblock Likelihood of a model and information criteria.
 \newblock {\em Journal of Econometrics}, pages 3--14.
 
-\bibitem[Arthur~Benz, 1998]{Planung}
-Arthur~Benz, Fabian~Dosch, D. F. E.~H. (1998).
-\newblock Methoden und instrumente der räumlichen plaung.
-\newblock {\em Akademie für Raumforschung und Landesplanung}.
-
 \bibitem[Bender, 2008]{Lubeck}
 Bender, G. (2008).
 \newblock {\em Konzept eines kleinräumigen Indikatoren- und Prognosesystems
   zur Beobachtung des demographischen Wandels - das Beispiel der Hansestadt
   Lübeck}.
 \newblock PhD thesis, Christian-Albrechts-Universität zu Kiel.
+
+\bibitem[Benz et~al., 1998]{Planung}
+Benz, A., Dosch, F., Fürst, D., and Hein, E. (1998).
+\newblock Methoden und instrumente der räumlichen plaung.
+\newblock {\em Akademie für Raumforschung und Landesplanung}.
 
 \bibitem[DiCiccio and Efron, 1996]{diciccio1996}
 DiCiccio, T.~J. and Efron, B. (1996).
@@ -90,6 +90,11 @@ Venables, W.~N. and Ripley, B.~D. (2002).
 \newblock {\em Modern Applied Statistics with S}.
 \newblock Springer, New York, fourth edition.
 \newblock ISBN 0-387-95457-0.
+
+\bibitem[Wagenmakers and Farrell, 2004]{WAIC}
+Wagenmakers, E.-J. and Farrell, S. (2004).
+\newblock Aic model selection using akaike weights.
+\newblock {\em Psychonomic Bulletin \& Review}, 11(1):192--196.
 
 \bibitem[Wickham, 2009]{ggplot}
 Wickham, H. (2009).
