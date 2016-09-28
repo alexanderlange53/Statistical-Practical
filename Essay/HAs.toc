@@ -10,6 +10,7 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Modelle}{10}{subsubsection.2.2.2}
 \contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{13}{subsubsection.2.2.3}
 \contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{13}{subsubsection.2.2.4}
+<<<<<<< HEAD
 \contentsline {subsubsection}{\numberline {2.2.5}Prognoseintervalle}{14}{subsubsection.2.2.5}
 \contentsline {subsubsection}{\numberline {2.2.6}Validierung}{15}{subsubsection.2.2.6}
 \contentsline {section}{\numberline {3}Ergebnisse}{15}{section.3}
@@ -27,3 +28,25 @@
 \contentsline {section}{\numberline {5}Fazit}{34}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{35}{section.5}
 \contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{37}{section.5}
+=======
+\contentsline {subsection}{\numberline {2.3}Kleinr\IeC {\"a}umige Extrapolation}{15}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Punktsch\IeC {\"a}tzung}{15}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Prognoseintervalle}{15}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Validierung}{16}{subsubsection.2.3.3}
+\contentsline {section}{\numberline {3}Ergebnisse}{17}{section.3}
+\contentsline {subsection}{\numberline {3.1}Schrittweiser AIC Vergleich}{17}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Modelle}{18}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{23}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{24}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Validierung}{26}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Extrapolation}{28}{subsection.3.6}
+\contentsline {section}{\numberline {4}Diskussion}{32}{section.4}
+\contentsline {subsection}{\numberline {4.1}Schrittweiser AIC Vergleich}{32}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Modelle}{32}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Reklassifizierung}{33}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Kreuzvalidierung}{34}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Validierung}{34}{subsection.4.5}
+\contentsline {section}{\numberline {5}Fazit}{35}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{36}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{38}{section.5}
+>>>>>>> 56a3a82a78bf234fb451f490fc6cdbf1910fb354
