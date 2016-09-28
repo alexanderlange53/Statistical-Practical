@@ -538,7 +538,7 @@ Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{e
 
 \begin{table}[h]
 \centering
-\caption{Reklassifizierung der Meinung zu Stuttgart 21}
+\caption{Mittlerer Anteil der korrekt reklassifizierten Beobachtungen zur Meinung zu Stuttgart 21.}
 \label{evalS21}
 \begin{tabular}{ll|c|c|c}
 \hline \hline
@@ -558,7 +558,7 @@ Für die Reklassifikation der Bewertung der Wohngegend (Tabelle \ref{evalB}) erg
 
 \begin{table}[h]
 \centering
-\caption{Reklassifizierung der Bewertung der Wohngegend}
+\caption{Mittlerer Anteil der korrekt reklassifizierten Beobachtungen zur Bewertung der Wohngegend.}
 \label{evalB}
 \begin{tabular}{l|c|c|c}
 \hline \hline
@@ -578,7 +578,7 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
  
 \begin{table}[h]
 \centering
-\caption{Kreuzvalidierung der Meinung zu Stuttgart 21 nach einzelnen Klassen}
+\caption{Mittlerer Anteil korrekt klassifizierter Beobachtungen durch Kreuzvalidierung des Modells zu Modellierung der Meinung zu Stuttgart 21 nach einzelnen Klassen.}
 \label{KreuzM}
 \begin{tabular}{lcccccccccc}
 \hline \hline
@@ -588,7 +588,7 @@ Die Kreuzvalidierung wurde vorgenommen, um die Vorhersagequalität außerhalb de
                                                                          & \multicolumn{1}{c|}{}  & 1       & 2   & \multicolumn{1}{c|}{3}       & 1       & 2   & \multicolumn{1}{c|}{3}       & 1           & 2           & 3          \\ \hline
 \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Wahre \\ Klasse \end{tabular}} & \multicolumn{1}{c|}{1} & 0,756   & 0   & \multicolumn{1}{c|}{0,244}   & 0,754   & 0   & \multicolumn{1}{c|}{0,246}   & 0,746           & 0           & 0,254        \\
                                                                          & \multicolumn{1}{c|}{2} & 0,673   & 0   & \multicolumn{1}{c|}{0,327}   & 0,670   & 0   & \multicolumn{1}{c|}{0,330}   & 0,663          & 0           & 0,337        \\
-                                                                         & \multicolumn{1}{c|}{3} & 0,521   & 0   & \multicolumn{1}{c|}{0,479}   & 0,511   & 0   & \multicolumn{1}{c|}{0,489}   & 0,509      & 0           & 0.491     \\ \hline
+                                                                         & \multicolumn{1}{c|}{3} & 0,521   & 0   & \multicolumn{1}{c|}{0,479}   & 0,511   & 0   & \multicolumn{1}{c|}{0,489}   & 0,509      & 0           & 0,491     \\ \hline
 \multicolumn{2}{l|}{Klassifikation Modell}                                                        & \multicolumn{3}{c|}{\multirow{2}{*}{0,4905}} & \multicolumn{3}{c|}{\multirow{2}{*}{0,4928}} & \multicolumn{3}{c}{\multirow{2}{*}{0,4893}} \\
 \multicolumn{2}{l|}{Insgeasmt}                                                                    & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c|}{}                        & \multicolumn{3}{c}{}                   \\ \hline
 \multicolumn{11}{c}{Zwei Klassen}                                                                                                                                                                                                        \\ \hline
@@ -606,7 +606,7 @@ Zudem lässt sich anhand von Tabelle \ref{evalS21} die Trefferquote der einzelne
 
 \begin{table}[h]
 \centering
-\caption{Kreuzvalidierung der Bewertung der Wohngegend nach einzelnen Klassen}
+\caption{Mittlerer Anteil korrekt klassifizierter Beobachtungen durch Kreuzvalidierung des Modells zu Modellierung Wohnzufriedenheit nach einzelnen Klassen.}
 \label{KreuzBew}
 \begin{tabular}{lc|ccccccccccccccc}
 \hline \hline
@@ -725,7 +725,15 @@ Der Bahnhof liegt an der nördlichen Grenze des Stadtviertels \textit{Mitte}, al
 Die Wohnzufriedenheit hängt sehr viel stärker von der Lage der Wohnung ab als von den sozioökonomischen Kovariablen. Da die räumliche Lage bereits einen sehr hohen Erklärungsgehalt hat, sind deshalb weniger Kovariablen erforderlich als es bei der Meinung zu Stuttgart 21 der Fall ist. Umso wichtiger ist folglich die Auswahl des geeigneten räumlichen Effektes. Nach visueller Einschätzung ist die Auflösung des diskreten Effekts auf Stadtbezirksebene nicht hoch genug um das komplexe räumliche Muster zu beschreiben. Das Modell auf Stadtteilebene erscheint hingegen zu komplex zu sein, da insbesondere im Zentrum sehr kleinflächige Strukturen mit zum Teil sehr unterschiedlichen Parameterausprägungen zu sehen sind. Der kontinuierliche Effekt ist offensichtlich ein Kompromiss zwischen den beiden diskreten Trends. Die kleinräumig unterschiedlichen Parameterausprägungen, wie sie z. B. im Nordosten zu sehen sind werden durch das kontinuierliche Modell dargestellt. Dabei schwanken die Parameter, insbesondere im Zentrum, weniger stark als beim Modell auf Stadtteilebene. Die Analyse der AIC (Tabelle \ref{stepAIC}) unterstreicht diese visuellen Einschätzungen.
 
 \subsection{Reklassifizierung}
-Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Resppnse-Variablen vorteilhaft gegenüber reinen GAM sind. Beim Vergleich der Modelle zu Modellierung der Meinung zu Stuttgart 21 muss beachtet werden, dass. Sowohl bei zwei- als auch bei dreikategorialer Response bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse. Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab.
+Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Resppnse-Variablen vorteilhaft gegenüber reinen GAM sind. Sowohl bei zwei- als auch bei dreikategorialer Response bei der Modellierung der Meinung zu Stuttgart 21 bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse (Tabelle \ref{evalS21}). Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab. Die Ergebnisse der Reklassifizierung der Wohnzufriedenheit (Tabelle \ref{evalB}) fügen sich ebenfalls in die Vorüberlegungen ein. Das diskrete Modell erweist sich als vorteilhaft. Bemerkenswerterweise ist durchschnittliche Anteil korrekt reklassifizierter Beobachtungen bei dem geoadditiven Modell mit diskreten räumlichem Trend Modell auf Stadtteilebene schlechter als bei den Modellen mit sozioökonomischen Kovariablen und dem alleinigen räumlichen Trend. Dies zeigt, wie die visuelle Analyse bereits andeutete, dass die Parameteranzahl deutlich zu hoch ist.
+
+\subsection{Kreuzvalidierung}
+Die Kreuzvalidierung ist eine sehr computerintensive Berechnung. Daher wurden die ohnehin nicht vielversprechenden Modelle ohne räumlichen Trend und nur mit räumlichen Trend bei dieser Analyse nicht mehr berücksichtigt. Zunächst ist zu bemerken, dass der durchschnittliche korrekt klassifizierte Anteil der Beobachtungen \textit{out-of-sample} (Tabellen ) den korrekt reklassifizierten Anteil der Beobachtungen (Tabellen \ref{evalS21} und \ref{evalB}) stets sehr ähnelt. Abweichungen sind als Zufall zu interpretieren. Dies deutet darauf hin, das die Modelle sehr robust sind.
+In dieser Betrachtungsebene zeigt sich auch erstmals, dass die guten Ergebnisse bei der Reklassifizierung und der Kreuzvalidierung in erster Linie durch die korrekte Schätzung der wahrscheinlichsten Gruppen zurückzuführen sind. Die weniger wahrscheinlichen Gruppen werden praktisch nie korrekt reklassifiziert. Dies spielt für die in dieser Arbeit angestrebte räumliche Extrapolation jedoch keine Rolle.
+
+
+Abweichungen zur
+
 
 Beim
 
