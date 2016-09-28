@@ -64,6 +64,10 @@ Lawrence D.~Brown, T. Tony~Cai, A.~D. (2001).
 \newblock Interval estimation for a binomial proportion.
 \newblock {\em Statistical Science}.
 
+\bibitem[{QGIS Development Team}, 2016]{qgis2016}
+{QGIS Development Team} (2016).
+\newblock {QGIS} {Geographic} {Information} {System}.
+
 \bibitem[{R Core Team}, 2016]{RCore}
 {R Core Team} (2016).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
