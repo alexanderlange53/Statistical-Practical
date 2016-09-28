@@ -3,21 +3,12 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: HAs.aux
 The style file: apalike.bst
 Database file #1: LiteraturStuttgart.bib.bib
-You're missing a field name---line 33 of file LiteraturStuttgart.bib.bib
- : 
- : =======
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-Repeated entry---line 34 of file LiteraturStuttgart.bib.bib
- : @phdthesis{Lubeck
- :                  ,
-I'm skipping whatever remains of this entry
 Warning--entry type for "google" isn't style-file defined
---line 131 of file LiteraturStuttgart.bib.bib
+--line 120 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "Amt" isn't style-file defined
---line 219 of file LiteraturStuttgart.bib.bib
+--line 208 of file LiteraturStuttgart.bib.bib
 Warning--entry type for "bundesamt" isn't style-file defined
---line 230 of file LiteraturStuttgart.bib.bib
+--line 219 of file LiteraturStuttgart.bib.bib
 Warning--I didn't find a database entry for "gu1993"
 You've used 24 entries,
             1935 wiz_defined-function locations,
@@ -60,4 +51,4 @@ warning$ -- 0
 while$ -- 65
 width$ -- 0
 write$ -- 300
-(There were 2 error messages)
+(There were 4 warnings)
