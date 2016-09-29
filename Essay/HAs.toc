@@ -1,6 +1,5 @@
 \select@language {ngerman}
 \contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
-<<<<<<< HEAD
 \contentsline {section}{\numberline {2}Material und Methoden}{3}{section.2}
 \contentsline {subsection}{\numberline {2.1}Daten}{3}{subsection.2.1}
 \contentsline {subsubsection}{\numberline {2.1.1}Parametrisierungsstichprobe}{3}{subsubsection.2.1.1}
@@ -10,7 +9,7 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Schrittweiser AIC Vergleich}{10}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Modelle}{11}{subsubsection.2.2.2}
 \contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{14}{subsubsection.2.2.3}
-\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{14}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{15}{subsubsection.2.2.4}
 \contentsline {subsection}{\numberline {2.3}Kleinr\IeC {\"a}umige Extrapolation}{16}{subsection.2.3}
 \contentsline {subsubsection}{\numberline {2.3.1}Punktsch\IeC {\"a}tzung}{16}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}Prognoseintervalle}{16}{subsubsection.2.3.2}
@@ -23,38 +22,14 @@
 \contentsline {subsection}{\numberline {3.5}Kleinr\IeC {\"a}umige Extrapolation}{27}{subsection.3.5}
 \contentsline {subsubsection}{\numberline {3.5.1}Validierung}{27}{subsubsection.3.5.1}
 \contentsline {subsubsection}{\numberline {3.5.2}Pronose}{29}{subsubsection.3.5.2}
-=======
-\contentsline {section}{\numberline {2}Material und Methoden}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Daten}{2}{subsection.2.1}
-\contentsline {subsubsection}{\numberline {2.1.1}Parametrisierungsstichprobe}{2}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}Melderegister}{7}{subsubsection.2.1.2}
-\contentsline {subsubsection}{\numberline {2.1.3}Zensus}{7}{subsubsection.2.1.3}
-\contentsline {subsection}{\numberline {2.2}Statistische Methoden}{9}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Schrittweiser AIC Vergleich}{9}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Modelle}{10}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{13}{subsubsection.2.2.3}
-\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{13}{subsubsection.2.2.4}
-\contentsline {subsection}{\numberline {2.3}Kleinr\IeC {\"a}umige Extrapolation}{15}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Punktsch\IeC {\"a}tzung}{15}{subsubsection.2.3.1}
-\contentsline {subsubsection}{\numberline {2.3.2}Prognoseintervalle}{15}{subsubsection.2.3.2}
-\contentsline {subsubsection}{\numberline {2.3.3}Validierung}{16}{subsubsection.2.3.3}
-\contentsline {section}{\numberline {3}Ergebnisse}{17}{section.3}
-\contentsline {subsection}{\numberline {3.1}Schrittweiser AIC Vergleich}{17}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Modelle}{18}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Reklassifizierung}{23}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Kreuzvalidierung}{24}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Kleinr\IeC {\"a}umige Extrapolation}{26}{subsection.3.5}
-\contentsline {subsubsection}{\numberline {3.5.1}Validierung}{26}{subsubsection.3.5.1}
-\contentsline {subsubsection}{\numberline {3.5.2}Pronose}{28}{subsubsection.3.5.2}
->>>>>>> 44e08d35dbf0e914ed9b86b728de2dc65391d3ff
-\contentsline {section}{\numberline {4}Diskussion}{33}{section.4}
-\contentsline {subsection}{\numberline {4.1}Schrittweiser AIC Vergleich}{33}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Modelle}{33}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Reklassifizierung}{34}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Kreuzvalidierung}{35}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Kleinr\IeC {\"a}umige Extrapolation}{35}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Validierung}{35}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}Prognose}{36}{subsubsection.4.5.2}
-\contentsline {section}{\numberline {5}Fazit}{38}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{39}{section.5}
-\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{41}{section.5}
+\contentsline {section}{\numberline {4}Diskussion}{34}{section.4}
+\contentsline {subsection}{\numberline {4.1}Schrittweiser AIC Vergleich}{34}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Modelle}{34}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Reklassifizierung}{35}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Kreuzvalidierung}{36}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Kleinr\IeC {\"a}umige Extrapolation}{36}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Validierung}{36}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}Prognose}{37}{subsubsection.4.5.2}
+\contentsline {section}{\numberline {5}Fazit}{39}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Literatur}{40}{section.5}
+\contentsline {section}{\hbox to\@tempdima {\hfil }Anhang}{42}{section.5}
