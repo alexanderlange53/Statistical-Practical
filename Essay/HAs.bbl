@@ -71,6 +71,13 @@ Lawrence D.~Brown, T. Tony~Cai, A.~D. (2001).
 \newblock Interval estimation for a binomial proportion.
 \newblock {\em Statistical Science}.
 
+\bibitem[Posada and Buckley, 2004]{ModelAver}
+Posada, D. and Buckley, T.~R. (2004).
+\newblock Model selection and model averaging in phylogenetics: Advantages of
+  akaike information criterion and bayesian approaches over likelihood ratio
+  tests.
+\newblock {\em Systematic Biology}.
+
 \bibitem[{QGIS Development Team}, 2016]{qgis2016}
 {QGIS Development Team} (2016).
 \newblock {QGIS} {Geographic} {Information} {System}.

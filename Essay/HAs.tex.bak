@@ -767,7 +767,7 @@ Für gesamt Stuttgart bedeuten die Ergebnisse, dass 51\% der Bürger eine \texti
 In der Parametrsierungsstichprobe sind noch weitere Variablen enthalten, die für die Modellparametrisierung zur Verfügung stehen. Von diesen birgt insbesondere das \textit{monatliche Nettoeinkommen} ein hohes Potenzial. Im Laufe der Modellierung stellte sich heraus, dass das \textit{monatliche Nettoeinkommen} einen hohen Erklärungsgehalt hat. Wen es gelingt, diese Variable in einem der Hochrechnungsdateien zu generieren oder zu approximieren, könnt dies die Schätzgenauigkeit nochmals recht deutlich erhöhen.
 \\
 
-Außerdem wäre es sinnvoll model avereging Ansätze zu verfolgen, z.B. über gewichtete AIC \cite{WAIC}. \textcolor{red}{hier fehlt noch ein Satz zur Erläuterung von m. av. warum wäre das ein Vorteil?}\\
+Außerdem wäre es sinnvoll model avereging Ansätze zu verfolgen, z.B. über gewichtete AIC \cite{WAIC}. Dabei werden die Schätzer und Standardfehler aus den Modellen kombiniert, wodurch Unsicherheiten in der Modellwahl direkt in die Parameterschätzer mit einfließen können.\\
 
 Diese Arbeit zeigt beispielhaft die Durchführung einer kleinräumigen Extrapolation inklusive der Interpreation der einzelnen Modellkomponenten. es sind sicherlich auch noch weitere Auswertungen und Interpretationen mit den Daten und Modellen dieser Arbeit möglich. So könnte beispielsweise auch eine andere nicht-räumliche Aggregationsebene interessant sein. Die Daten dieser Arbeit könnten z. B. genutzt werden, um die Meinungen nach weiteren Variablen hochzurechnen. Denkbar wäre beispielsweise der Vergleich der Wohnzufriedenheit von Bürgern mit Wohneigentum mit Bürgern die zur Miete wohnen.\\
 \clearpage
