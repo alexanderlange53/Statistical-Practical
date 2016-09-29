@@ -876,18 +876,20 @@ dev.off()
 predlist <- list(S21.3.U.Ko.IntSB[,-c(1,8,9,10)], S21.3.Z.Ko.IntSB[,-c(1,8,9,10)], 
                  S21.3.U.SB.IntSB[,-c(1,8,9,10)], S21.3.Z.SB.IntSB[,-c(1,8,9,10)],
                  S21.3.U.ST.IntSB[,-c(1,8,9,10)], S21.3.Z.ST.IntSB[,-c(1,8,9,10)])
-models <- c('1 Gauss-Krüger M.', '1 Gauss-Krüger auf Z.', 
+models <- data.frame(m = c('1 Gauss-Kr. M.', '1 Gauss-Kr. Z.', 
             '1 Bezirke M.', '1 Bezirke Z.',
             '1 Stadtteile M.',
             '1 Stadtteile Z.', 
-            '2 Gauss-Krüger M.', '2 Gauss-Krüger Z.', 
+            '2 Gauss-Kr. M.', '2 Gauss-Kr. Z.', 
             '2 Bezirke M.', '2 Bezirke Z.',
             '2 Stadtteile M.',
             '2 Stadteile Z.', 
-            '3 Gauss-Krüger M.', '3 Gauss-Krüger Z.', 
+            '3 Gauss-Kr. M.', '3 Gauss-Kr. Z.', 
             '3 Bezirke M.', '3 Bezirke Z.',
             '3 Stadteile M.',
-            '3 Stadteile Z.')
+            '3 Stadteile Z.'), mm = seq(1,18))
+models$m <- factor(models$m, levels = models[order(models$mm), 'm'])
+models <- models$m
 ResultPlot(predlist = predlist,  sample = sample, 
            models = models)
 ggsave('./Essay/Pictures/S21AlleModelle.pdf', height = 3.5, width = 8)

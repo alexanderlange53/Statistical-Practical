@@ -9,7 +9,7 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Schrittweiser AIC Vergleich}{9}{subsubsection.2.2.1}
 \contentsline {subsubsection}{\numberline {2.2.2}Modelle}{10}{subsubsection.2.2.2}
 \contentsline {subsubsection}{\numberline {2.2.3}Reklassifizierung}{13}{subsubsection.2.2.3}
-\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{14}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.4}Kreuzvalidierung}{13}{subsubsection.2.2.4}
 \contentsline {subsection}{\numberline {2.3}Kleinr\IeC {\"a}umige Extrapolation}{15}{subsection.2.3}
 \contentsline {subsubsection}{\numberline {2.3.1}Punktsch\IeC {\"a}tzung}{15}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}Prognoseintervalle}{15}{subsubsection.2.3.2}

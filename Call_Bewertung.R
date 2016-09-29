@@ -17,7 +17,7 @@ library(reshape2)
 
 ## Einstellungen ##
 
-bearbeiter <- 'Kai@Work'
+bearbeiter <- 'Alex'
 loadGeo <- TRUE # Geodaten laden?
 calculate_model <- FALSE# Modelle erstellen und als RDS speichern? Oder als RDS laden
 cross_eval <- FALSE # Kreuzevaluierung
@@ -787,23 +787,23 @@ if(calc_CI) {
 predlist <- list(W.5.U.Ko.IntSB[,-c(1,12:16)], W.5.Z.Ko.IntSB[,-c(1,12:16)],
                  W.5.U.SB.IntSB[,-c(1,12:16)], W.5.Z.SB.IntSB[,-c(1,12:16)],
                  W.5.U.ST.IntSB[,-c(1,12:16)], W.5.Z.ST.IntSB[,-c(1,12:16)])
-models <- c('1 Gauss-Krüger M.', '1 Gauss-Krüger Z.', 
+models <- c('1 Gauss-Kr. M.', '1 Gauss-Kr. Z.', 
             '1 Bezirke M.', '1 Bezirke Z.',
             '1 Stadteile M.',
             '1 Stadteile Z.', 
-            '2 Gauss-Krüger M.', '2 Gauss-Krüger Z.', 
+            '2 Gauss-Kr. M.', '2 Gauss-Kr. Z.', 
             '2 Bezirke M.', '2 Bezirke Z.',
             '2 Stadteile M.',
             '2 Stadteile Z.', 
-            '3 Gauss-Krüger M.', '3 Gauss-Krüger Z.',
+            '3 Gauss-Kr. M.', '3 Gauss-Kr. Z.',
             '3 Bezirke M.', '3 Bezirke Z.',
             '3 Stadteile M.',
             '3 Stadteile Z.', 
-            '4 Gauss-Krüger M.', '4 Gauss-Krüger Z.',
+            '4 Gauss-Kr. M.', '4 Gauss-Kr. Z.',
             '4 Bezirke M.', '4 Bezirke Z.',
             '4 Stadteile M.',
             '4 Stadteile Z.',
-            '5 Gauss-Krüger M.', '5 Gauss-Krüger Z.', 
+            '5 Gauss-Kr. M.', '5 Gauss-Kr. Z.', 
             '5 Bezirke M.', '5 Bezirke Z.',
             '5 Stadteile M.',
             '5 Stadteile Z.')
