@@ -815,7 +815,7 @@ colSums(W.5.U.Ko.IntSB[,17:21])/sum(W.5.U.Ko.IntSB[,17:21])*100
 colSums(W.5.U.SB.IntSB[,17:21])/sum(W.5.U.SB.IntSB[,17:21])*100
 colSums(W.5.U.ST.IntSB[,17:21])/sum(W.5.U.ST.IntSB[,17:21])*100
 
-ex <- ExtraPlot(W.5.U.Ko.IntST[,c(1,17:21)], stadtteile, samescale = T)
+ex <- ExtraPlot(W.5.U.Ko.IntST[,c(1,17:21)], Stadtteile = stadtteile, samescale = F)
 pdf('./Essay/Pictures/BWohnExtra.pdf', height = 7, width = 8)
 marrangeGrob(ex, nrow = 2, ncol = 3, top = NULL)
 dev.off()

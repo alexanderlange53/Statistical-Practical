@@ -455,7 +455,7 @@ SepPlot <- function(dataS,  bezirke, response = 'Meinung.zu.Stuttgart.21', Kateg
   }
 }
 
-ExtraPlot <- function(Extrapolation, stadtteile, samescale = F){
+ExtraPlot <- function(Extrapolation, Stadtteile, samescale = F){
   require(colorspace)
   colo <- diverge_hsv(3)
   if(samescale == F){
@@ -505,7 +505,7 @@ ExtraPlot <- function(Extrapolation, stadtteile, samescale = F){
           ,axis.text.y=element_blank()
           ,axis.ticks.y=element_blank()
           ,axis.ticks.x=element_blank()
-        ) 
+        ) + guides(fill = guide_colorbar(barwidth = 9, barheight = 0.7))
     }
     
     p <- mapply(pplot, bb.facet, name, SIMPLIFY = F)
