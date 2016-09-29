@@ -23,6 +23,8 @@ for(b in 1:nboot) {
   indmat[,b] <- sample(1:n, size=n, replace=TRUE)
   wmat[,b] <- sample[indmat[,b],gewichte]
 }
+
+
 bootfun <- function(b) {
   cat("Bootstrap sample ",b," (von ",nboot,")\n",sep="")
   # if(all(unique(sample[, aggregation] %in% unique(sample[indmat[,b], aggregation])))) {
@@ -47,6 +49,9 @@ bootfun <- function(b) {
   return((helpsum))
   
 }
+
+
+
 boot <- foreach(r=1:nboot, .combine = "cbind") %dopar%
   bootfun(r)
 
