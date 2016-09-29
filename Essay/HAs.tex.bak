@@ -708,9 +708,27 @@ Die Extrapolationsergebnisse der geoadditiven Modelle mit kontinuierlichem räum
  \end{center}
 \end{figure}
 
-Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Die Darstellung entspricht in ihrem Aufbau der Abbildung \ref{S21Alle}. Es ist auch hier zu sehen, dass die direkt per Mittelwert aus der Parametrisierungsstichprobe berechneten Anteile teils von den Anteilen nach der kleinräumigen Extrapolation abweichen. Bei den Klassen 3 (\textit{neutral}), 2 (\textit{gut}) und 1 (\textit{sehr gut}) ist ein deutlicher Unterschied erkennbar. Teils werden die direkt berechneten Mittelwerte von den Prognoseintevallen der kleinräumigen Extrapolation nicht geschnitten. Es kann demnach durch visuelle Einschätzung von einem signifikanten Unterschied ausgegangen werden. Es zeigt sich auch bei der Modellierung der Wohnzufriedenheit, dass die Schätzung von den Extrapolationsdateien abhängt. Teilweise Unterscheiden sich die geschätzten Anteile beim \textit{Melderegister} und beim \textit{Zensus}. Die Ergebnisse auf Grundlage des \textit{Melderegisters} werden im folgenden der Übersichtlichkeit halber stellvertretend für alle Ergebnisse näher beschrieben. Aggregiert für gesamt Stuttgart ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauß-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell. Für die Klasse \textit{gut} wurden 40,84\% für das Gauß-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Im Vergleich zur Auswertung zur Meinung zum Projekt Stuttgart 21 hängen die Ergebnisse der Modllierung der Wohnzufriedenheit stärker vom gewählten Modell ab. Auch die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen. Das Bezirke liefert in der Regel die schmalsten Prognoseintervalle.\\
-Zuletzt wurden die beiden Modelle mit diskretem räumlichen Term genutzt um die Meinung zu Stuttgart 21 und die Wohnzufriedenheit auf Stadtteilebene zu prognostizieren. \textcolor{red}{das sind eigentlich die Hauptergebnisse unserer Hausarbeit. ich würde die hier darstellen} Die beiden Abbildungen dazu befinden sich im Anhang. Für die Meinung zu Stuttgart 21 (Abbildung \ref{S21Extra}) kann dazu gut ein Vergleich mit den direkten Anteilen der Parametrisierungsstichprobe aus den Abbildungen \ref{XYStuttgart3}, \ref{BStuttgart21} und \ref{SStuttgart21} vorgenommen werden. Dabei zu beachten ist, dass Abbildung \ref{S21Extra} mit unterschiedlicher Skalierung dargestellt wird. Zunächst ist die räumliche Segregation mit erhöhtem Anteil der \textit{Zustimmung} im Norden, der \textit{neutralen} Haltung im Zentrum und \textit{Ablehnung} im Süden und Südwesten noch deutlich sichtbar.\\
+Die Ergebnisse der Extrapolation für die Bewertung der Wohngegend sind aus Abbildung \ref{WAlle} ersichtlich. Die Darstellung entspricht in ihrem Aufbau der Abbildung \ref{S21Alle}. Es ist auch hier zu sehen, dass die direkt per Mittelwert aus der Parametrisierungsstichprobe berechneten Anteile teils von den Anteilen nach der kleinräumigen Extrapolation abweichen. Bei den Klassen 3 (\textit{neutral}), 2 (\textit{gut}) und 1 (\textit{sehr gut}) ist ein deutlicher Unterschied erkennbar.
+Teils werden die direkt berechneten Mittelwerte von den Prognoseintevallen der kleinräumigen Extrapolation nicht geschnitten. Es kann demnach durch visuelle Einschätzung von einem signifikanten Unterschied ausgegangen werden. Es zeigt sich auch bei der Modellierung der Wohnzufriedenheit, dass die Schätzung von den Extrapolationsdateien abhängt. Teilweise Unterscheiden sich die geschätzten Anteile beim \textit{Melderegister} und beim \textit{Zensus}. Die Ergebnisse auf Grundlage des \textit{Melderegisters} werden im folgenden der Übersichtlichkeit halber stellvertretend für alle Ergebnisse näher beschrieben. Aggregiert für gesamt Stuttgart ergeben sich für die Klasse \textit{sehr gut} 42,52\% für das Gauß-Krüger Modell, 47,18\% für das Bezirkmodell und 49,71 \% für das Stadtteilmodell. Für die Klasse \textit{gut} wurden 40,84\% für das Gauß-Krüger Modell, 37,37\% für das Bezirkmodell und 31,98 \% für das Stadtteilmodell prognostiziert. Die Klasse \textit{neutral} wurde von den Modellen in bisheriger Reihenfolge mit 13,08\%, 11,86\% und 10,91\% ermittelt. Die prognostizierten Anteile der Personen mit der Meinung \textit{schlecht}  sind 2,68\%, 2,61\% und 4,37\% . Die letzte Klasse \textit{sehr schlecht} wurde mit 0,95\%, 0,97\% und 3,03\% vorhergesagt. Im Vergleich zur Auswertung zur Meinung zum Projekt Stuttgart 21 hängen die Ergebnisse der Modllierung der Wohnzufriedenheit stärker vom gewählten Modell ab. Auch die Prognoseintervalle unterscheiden sich relativ stark zwischen den Modellen. Das Bezirke liefert in der Regel die schmalsten Prognoseintervalle.\\
+Zuletzt wurden die beiden Modelle mit diskretem räumlichen Term genutzt um die Meinung zu Stuttgart 21 und die Wohnzufriedenheit auf Stadtteilebene zu prognostizieren. Für die Meinung zu Stuttgart 21 (Abbildung \ref{S21Extra}) kann dazu gut ein Vergleich mit den direkten Anteilen der Parametrisierungsstichprobe aus den Abbildungen \ref{XYStuttgart3}, \ref{BStuttgart21} und \ref{SStuttgart21} vorgenommen werden. Dabei zu beachten ist, dass Abbildung \ref{S21Extra} mit unterschiedlicher Skalierung dargestellt wird. Zunächst ist die räumliche Segregation mit erhöhtem Anteil der \textit{Zustimmung} im Norden, der \textit{neutralen} Haltung im Zentrum und \textit{Ablehnung} im Süden und Südwesten noch deutlich sichtbar.
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/S21Extra}
+ \caption{Extrapolierte Anteile auf Stadtteilebene für die Meinung zu Stuttgart 21 mit dem besten Modell.}
+ \label{S21Extra}
+ \end{center}
+\end{figure}
+
 Auch für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfalls ein Vergleich mit den Anteilen des Parametrisierungsdatensatzes (Abbildungen \ref{XYWohnG5}, \ref{BWohn} und \ref{SWohn}) vornehmen. Wie in den Rohdaten ist die räumliche Verteilung der Wohnzufriedenheit sehr kleinräumig strukturiert. Während die \textit{sehr guten} Einschätzungen vor allem südlich des Stadtzentrums zu finden sind, sind die \textit{guten} Bewertungen eher zentral bis nördlich lokalisiert. An den Stadträndern und sowie häufiger in Hot-Spots mitten zwischen den besseren Kategorien finden sich höhere Anteile der Kategorien \textit{schlecht} und \textit{sehr schlecht}. Besonders interessant ist, dass die schlechtesten Bewertungen in den Stadtvierteln \textit{Wasen} und \textit{Benzviertel} und den umliegendem Stadtteilen nördlich des Stadtzentrums liegen.
+
+\begin{figure}[h]
+ \begin{center}
+ \includegraphics[scale=0.8]{Pictures/BWohnExtra}
+ \caption{Extrapolierte Anteile auf Stadtteilebene für die Bewertung der Wohngegend mit dem besten Modell.}
+ \label{WohnExtra}
+ \end{center}
+\end{figure}
 
 \clearpage
 \section{Diskussion}
@@ -827,21 +845,6 @@ Weiterhin ist zu beachten, dass Informationen zu dem monatlichen Netto Haushalts
 % \end{center}
 %\end{figure}
 
-\begin{figure}[h]
- \begin{center}
- \includegraphics[scale=0.8]{Pictures/S21Extra}
- \caption{Extrapolierte Anteile auf Stadtteilebene für die Meinung zu Stuttgart 21 mit dem besten Modell}
- \label{S21Extra}
- \end{center}
-\end{figure}
-
-\begin{figure}[h]
- \begin{center}
- \includegraphics[scale=0.8]{Pictures/BWohnExtra}
- \caption{Extrapolierte Anteile auf Stadtteilebene für die Bewertung der Wohngegend mit dem besten Modell}
- \label{WohnExtra}
- \end{center}
-\end{figure}
 
 \clearpage
 
