@@ -42,7 +42,7 @@
 \textsc{Matr. Nr.:} & & \textsc{21426614, 20707176}\\
 \textsc{Studiengang:} & & \textsc{Angewandte Statistik}\\
 \textsc{Mail:} & & \textsc{Alexander.lange$ @ $stud.uni-goettingen.de}\\
-\textsc{} & & \textsc{Kai.Husmann$ @ $forst.uni-goettingen.de}\\
+\textsc{} & & \textsc{Kai.Husmann$ @ $stud.uni-goettingen.de}\\
 \textsc{Kurs:} & & \textsc{Statistisches Praktikum}\\
 \textsc{Kursleiter:} & & \textsc{Prof.Dr. Thomas Kneib}\\
 \textsc{Lehrstuhl:} & & \textsc{Statistik}\\
@@ -78,9 +78,8 @@
 
 \section{Einleitung}
 Die kleinräumige Extrapolation von Umfragedaten ist vor allem bei Städten, Kommunen und Gemeinden eine vielversprechende Methode, um städtische oder ländliche Planung auf wissenschaftlich fundierten Erkenntnissen voranzutreiben \cite{Planung}. Dabei können die konkrete Fragestellung und das Anwendungsgebiet sehr vielfältig sein. Kleinräumige Extrapolationen werden genutzt, um z.B. Landschaftsbilder nach den Vorstellungen und im Einvernehmen mit den Einwohnern einer Region zu planen \cite{Natur}, oder um die Infrastruktur von Kommunen den sich durch den demographischen Wandel ändernden Bedürfnissen der Bürger anzupassen \cite{Lubeck}.\\
-Bei einer kleinräumigen Extrapolation werden die Erkenntnisse einer Stichprobe auf die Grundgesamtheit dieser Stichprobe projiziert. Hierzu werden relevante Regeln und Eigenschaften der Stichprobe genutzt, um eine Variable von Interesse aus der Grundgesamtheit zu prognostizieren, bei welcher diese Variablen nicht bekannt sind. Üblicherweise wird ein auf den Daten der Stichprobe basierendes Regressionsmodell parametrisiert und an der Grundgesamtheit angewendet. Mit diesem Ansatz werden im Wesentlichen zwei Ziele verfolgt. Einerseits werden durch die Extrapolation selbst neue, interessante Informationen über die Grundgesamtheit verfügbar, ohne diese für jedes Individuum der Grundgesamtheit erheben zu müssen. Eine einfache deskriptive Auswertung der relevanten Variablen aus der Stichprobe führt oft zu verzerrten Schätzungen, da in der Regel einige Gruppen über- und einige unterrepräsentiert sind. Des Weiteren lassen sich aus den Regressionsmodellen häufig, beispielsweise durch Interpretation der Modellparameter oder der Modellintervalle, interessante Sekundärinformationen gewinnen. Kleinräumige Extrapolationen sind also eine effektive Methode, um relevante Informationen, die nicht mit vertretbarem Aufwand bei einer Grundgesamtheit erhoben werden können, valide zu ergänzen.\\
-Ziel dieser Arbeit ist es, kleinräumige Extrapolationen für zwei Beispiele in Stuttgart durchzuführen. Konkret geht es um die Extrapolation der Fragen: \textit{Wie ist die Meinung der Bürger Stuttgarts zum Projekt Stuttgart 21?} und \textit{Wie bewerten die Bürger Stuttgarts ihre Wohngegend?}. Dazu parametrisieren wir mithilfe einer Stichprobe, die ca. 0,05\% der Gesamtbevölkerung Stuttgarts umfasst, geoadditive Regressionsmodelle und wenden diese an zwei Erhebungen mit deutlich größerem Stichprobenumfang an. Wir zeigen in dieser Arbeit, dass die Extrapolation mit diesen Modellen möglich und auch sinnvoll ist und warum die einfache deskriptive Auswertung der Stichprobe nicht zum gewünschten Ergebnis führt.\\
-Dabei liegt der Schwerpunkt dieser Arbeit auf der Untersuchung verschiedener statistischer Methoden. Wir überprüfen, in welchen Fällen und in welcher Form räumliche Informationen und verschiedene Verteilungsannahmen zu einem Erkenntnisgewinn in Bezug auf die Fragestellungen führen. Hierzu wird eine Vielzahl additiver Modelle anhand mehrerer Evaluierungsmethoden geprüft. Am Ende steht eine fundierte Einschätzung über die vielversprechendsten Möglichkeit der Modellierung der beiden Fragestellungen.\\
+Bei einer kleinräumigen Extrapolation werden die Erkenntnisse einer Stichprobe auf die Grundgesamtheit dieser Stichprobe projiziert. Hierzu werden relevante Regeln und Eigenschaften der Stichprobe genutzt, um eine Variable von Interesse aus der Grundgesamtheit zu prognostizieren, bei welcher diese Variablen nicht bekannt sind. Üblicherweise wird ein auf den Daten der Stichprobe basierendes Regressionsmodell parametrisiert und an der Grundgesamtheit angewendet. Mit diesem Ansatz werden im Wesentlichen zwei Ziele verfolgt. Einerseits werden durch die Extrapolation selbst neue, interessante Informationen über die Grundgesamtheit verfügbar, ohne diese für jedes Individuum der Grundgesamtheit erheben zu müssen. Eine einfache deskriptive Auswertung der relevanten Variablen aus der Stichprobe führt oft zu verzerrten Schätzungen, da in der Regel einige Gruppen über- und einige unterrepräsentiert sind. Des Weiteren lassen sich aus den Regressionsmodellen häufig, beispielsweise durch Interpretation der Modellparameter oder der Modellintervalle, interessante Sekundärinformationen gewinnen. Kleinräumige Extrapolationen sind also eine effektive Methode, um relevante Informationen, die nicht mit vertretbarem Aufwand bei einer Grundgesamtheit erhoben werden können, zu ergänzen.\\
+Ziel dieser Arbeit ist es, kleinräumige Extrapolationen für zwei Beispiele in Stuttgart durchzuführen. Konkret geht es um die Extrapolation der Fragen: \textit{Wie ist die Meinung der Bürger Stuttgarts zum Projekt Stuttgart 21?} und \textit{Wie bewerten die Bürger Stuttgarts ihre Wohngegend?}. Dazu parametrisieren wir mithilfe einer Stichprobe, die ca. 0,05\% der Gesamtbevölkerung Stuttgarts umfasst, geoadditive Regressionsmodelle und wenden diese an zwei Erhebungen mit deutlich größerem Stichprobenumfang an. Wir zeigen in dieser Arbeit, dass die Extrapolation mit diesen Modellen möglich und auch sinnvoll ist und warum die einfache deskriptive Auswertung der Stichprobe nicht zum gewünschten Ergebnis führt. Dabei liegt der Schwerpunkt dieser Arbeit auf der Untersuchung verschiedener statistischer Methoden. Wir überprüfen, in welchen Fällen und in welcher Form räumliche Informationen und verschiedene Verteilungsannahmen zu einem Erkenntnisgewinn in Bezug auf die Fragestellungen führen. Hierzu wird eine Vielzahl additiver Modelle anhand mehrerer Evaluierungsmethoden geprüft. Am Ende steht eine fundierte Einschätzung über die vielversprechendsten Möglichkeit der Modellierung der beiden Fragestellungen.\\
 \newpage
 
 %=================================================== Main Part  ====================================================%
@@ -107,7 +106,7 @@ Lage in Stadtteil und Stadtbezirk bekannt.\\
 
 \begin{table}[h]
 \centering
-\caption{Erhobene sozioökonomische und geographische Variablen der Parameterisierungsstichprobe und deren Anzahl der Ausprägungen sowie vermutete Modellierung im additiven Modell.}
+\caption{Sozioökonomische und geographische Variablen der Parameterisierungsstichprobe und deren Anzahl der Ausprägungen sowie vermutete Modellierung im additiven Modell.}
 \label{Datensatz}
 \adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
            max width=\textwidth}{
@@ -139,7 +138,7 @@ kontinuierliche räumliche Effekt durch ein Tensor Produkt und die diskreten rä
 Für die Auswahl der geeigneten Regressionsmethode und der Ergebnisinterpretation ist es hilfreich, das Verhältnis der 
 Häufigkeiten der Kategorienausprägungen der abhängigen Variable zu kennen und seltene Ereignisse zu identifizieren. 
 Während die meisten befragten Personen ihre Wohngegend mit \textit{gut} oder \textit{sehr gut} bewertet haben, treten 
-Beobachtungen mit \textit{schlechter} oder \textit{sehr schlechter} Einschätzung relativ selten auf (Tabelle 
+Beobachtungen mit \textit{schlechter} oder \textit{sehr schlechter} Einschätzung relativ selten auf (Abbildung 
 \ref{endogene}). Im Vergleich sind die Verhältnisse der Gruppenhäufigkeiten zur Meinung zu Stuttgart 21 
 ausgeglichener. Die \textit{neutrale} Haltung ist etwa halb so häufig vertreten wie die \textit{zustimmende} Haltung. 
 Bei beiden Variablen wurde die für die Modellierung irrelevante Kategorie 
@@ -165,14 +164,13 @@ Gruppen \textit{sehr gut} und \textit{gut} zu \textit{Zustimmung} und \textit{sc
 berücksichtigt werden sollen, reduziert sich der Stichprobenumfang auf 2377 Beobachtungen. Dadurch bleibt die 
 Möglichkeit erhalten, eine multinomial verteilte abhängige Variable zu modellieren und trotzdem eine Validierung für 
 zwei Klassen vorzunehmen. Für die exogen in die Analyse einfließenden Variablen sind detailliertere Informationen zu den 
-Häufigkeiten der Ausprägungen im Anhang verfügbar (Abbildung \ref{exogen_parametrisierungsdatensatz}). \\
-
+Häufigkeiten der Ausprägungen im Anhang verfügbar (Abbildung \ref{exogen_parametrisierungsdatensatz}).\\
 Da in dieser Arbeit ein Schwerpunkt auf der Analyse unterschiedlicher räumlicher Effekte liegt, vergleicht dieser Abschnitt alle drei räumlichen Effekte in Bezug zu den beiden endogenen Variablen. Abbildung \ref{XYStuttgart3} zeigt die absolute Häufigkeit der Beobachtungen der Meinung zu Stuttgart 21 in kontinuierlicher räumlicher Lage. Zur besseren Übersicht wurden nicht alle Beobachtungen geplottet, sondern Beobachtungsdichten über bivariate normalverteilte Kerndichteschätzer mit festem Abstand für jede Richtungen ermittelt \cite{ggplot} sowie \cite{MASS}. Um die Hintergrundkarte einbinden zu können, wurden die Gauß-Krüger Koordinaten in Dezimalgrad umgerechnet. Da absolute Dichten dargestellt werden, ist die Dichte der Kategorien nicht nur von der Anzahl der Kategorien selbst, sondern auch von der Einwohnerdichte beeinflusst. Des weiteren wird die Dichte von der Ausschöfung, also der Anzahl beantworteter Befragungsbögen, beeinflusst. Wegen der hohen Einwohnerdichte im Innenstadtbereich sind dort die Beobachtungsdichten aller 3 Klassen tendenziell höher als in den Randbezirken. Des weiteren ersichtlich ist, dass einige Bereiche, wie das Naturschutzgebiet \textit{Rotwildpark} im Westen oder der \textit{Schurwald} im Osten, aufgrund ihrer geographischen Beschaffenheit oder Landnutzungsform nicht oder relativ dünn besiedelt sind.
 
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/XYStuttgart3.png}
- \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in drei Gruppen. Quelle der Hintergrundgrafik: \cite{google}.}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Meinung zu Stuttgart 21 in drei Gruppen. Quelle der Hintergrundkarte: \cite{google}.}
  \label{XYStuttgart3}
  \end{center}
 \end{figure}
@@ -186,7 +184,7 @@ Abbildung \ref{XYWohnG5} zeigt die Dichte der Beobachtungen der fünf Kategorien
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/XYWohnG5.png}
- \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Wohnzufriedenheit in fünf Gruppen. Quelle der Hintergrundgrafik: \cite{google}}
+ \caption{Kontur Plot der absoluten Anzahl der Gruppenbeobachtungen zur Wohnzufriedenheit in fünf Gruppen. Quelle der Hintergrundkarte: \cite{google}}
  \label{XYWohnG5}
  \end{center}
 \end{figure}
@@ -209,13 +207,7 @@ angedeutet, zeigen sich negative Wohngebietseinschätzungen vor allem im Nordost
  \end{center}
 \end{figure}
 
-Die dritte und letzte untersuchte räumliche Agrregationsebene ist die Stadtteilebene. Abbildung \ref{SStuttgart21} 
-zeigt die räumliche Verteilung von \textit{Zustimmung}, \textit{Ablehnung} und \textit{neutraler} Haltung. Wie aus 
-Tabelle \ref{Datensatz} hervorgeht, ist die Stadtteilebene deutlich feiner aufgelöst als die Bezirksebene. Dies führt in 
-der Abbildung dazu, dass einige Stadtteile mit geringer Gesamteinwohneranzahl in einer oder mehreren Klassen keine 
-Beobachtungen zeigen. Es gibt im Umkehrschluss auch Stadtteile, in denen eine Klasse zu 100 \% vertreten ist. 
-Außerdem gibt es in dieser Aggregationsebene sogar Stadtteile ohne jede Beobachtung, wie z. B. das \textit{Benzviertel} im 
-Innenstadtbereich oder die bereits angesprochenen Lagen im Westen.
+Die dritte und letzte untersuchte räumliche Agrregationsebene ist die Stadtteilebene. Abbildung \ref{SStuttgart21} zeigt die räumliche Verteilung von \textit{Zustimmung}, \textit{Ablehnung} und \textit{neutraler} Haltung. Wie aus Tabelle \ref{Datensatz} hervorgeht, ist die Stadtteilebene deutlich feiner aufgelöst als die Bezirksebene. Dies führt dazu, dass einige Stadtteile mit geringer Gesamteinwohneranzahl in einer oder mehreren Klassen keine Beobachtungen zeigen. Es gibt im Umkehrschluss auch Stadtteile, in denen eine Klasse zu 100 \% vertreten ist. Außerdem gibt es in dieser Aggregationsebene sogar Stadtteile ohne jede Beobachtung, wie z. B. das \textit{Benzviertel} im Innenstadtbereich oder die bereits angesprochenen Lagen im Westen.
 
 \begin{figure}[h]
  \begin{center}
@@ -244,7 +236,6 @@ geographische Verknüpfung wurde mit dem freien Geoinformationssystem QGIS \cite
 jeder Umfrage erhoben wurden. Es ergibt sich ein Überschneidungsbereich der fünf sozioökonomischen Variablen 
 \textit{Altersklasse Befragter}, \textit{Geschlecht}, \textit{Nationalität}, \textit{Familienstand} und 
 \textit{Personenzahl im Haushalt}. Die Variablenkategorien wurden zum Teil umkodiert, um gleiche Ausprägungen in allen Dateien zu gewährleisten.
-
 \begin{table}[h]
 \centering
 \caption{Sozioökonomische und geographische Variablen des Melderegisters und deren Anzahl der Ausprägungen.}
@@ -407,22 +398,24 @@ Bootstrap Intervalle hingegen können für jede Form der statistischen Inferenz 
 Da keine Informationen über die Grundgesamtheit verfügbar sind, ist eine Validierung mit echten Daten nicht möglich. Im Falle der Meinung zu Stuttgart 21 bietet sich jedoch die Chance, die Ergebnisse der Extrapolation mit dem Ausgang der Volksabstimmung 2011 \cite{Amt} zu vergleichen. Es wird angenommen, dass die Volksabstimmungsergebnisse dem wahren Wert der Grundgesamtheit unserer Stichprobe entsprechen. Unter dieser Annahme können die mittlere quadratische Abweichung (MSE) und die Überdeckungswahrscheinlichkeit berechnet werden. Es liegen Volksabstimmungsergebnisse auf Stadtbezirks- und Stadtteilebene vor. Die Validierung erfolgt daher sowohl auf Stadtteil- als auch auf Bezirksebene. Hinzu kommt das Gesamtergebnis der Stadt Stuttgart. Das MSE soll den Punktschätzer valideren. Die Überdeckungswahrscheinlichkeit wird genutzt, um den Intervallschätzer zu validieren.\\
 Bei der Wahl des Schätzers geht es zum einen darum, einen effizienten Schätzer, d.h. erwartungstreu mit minimaler Varianz, zu finden. Als geeignetes Gütemaß hat sich die MSE erwiesen, da sie sowohl die Varianz, als 
 auch die quadrierte Verzerrung berücksichtigt. Für einen Schätzer $\hat{\theta}$ von dem wahren Parameter $\theta$ ist die MSE definiert als
-$$
-\text{MSE } = \mathbb{E}[(\hat{\theta} - \theta)^2],
-$$
-wobei sich durch den mittleren Verschiebungssatz der Varianz zeigen lässt, dass
-$$
-\text{MSE } = \mathbb{V}(\hat{\theta}) + \mathbb{B}(\hat{\theta})^2
-$$
 
+\begin{equation}
+\text{MSE } = \mathbb{E}[(\hat{\theta} - \theta)^2],
+\end{equation}
+
+wobei sich durch den mittleren Verschiebungssatz der Varianz zeigen lässt, dass
+
+\begin{equation}
+\text{MSE } = \mathbb{V}(\hat{\theta}) + \mathbb{B}(\hat{\theta})^2
+\end{equation}
 gilt. Der MSE lässt also auch zu einem gewissen Maße verzerrte Schätzer zu, was in bestimmten Situationen sehr hilfreich sein kann. Zudem hat ein konsistenter Schätzer die Eigenschaft, dass die mittlere 
 quadratische Abweichung bei unendlich groß werdender Stichprobe gen null konvergiert \cite[p. 201]{HOG}. Ein weiteres 
 Kriterium ist die Überdeckungswahrscheinlichkeit. Sie gibt an, mit welcher Wahrscheinlichkeit das geschätzte 
 Konfidenzintervall den wahren Wert enthält und ist nach \cite{zhang} in der großen Stichprobe definiert als
 
-$$
-\lim\limits_{n \rightarrow \infty}{P(\theta \in S_{1-\alpha}(\hat{\theta})) < 1-\alpha},
-$$
+\begin{equation}
+ \lim\limits_{n \rightarrow \infty}{P(\theta \in S_{1-\alpha}(\hat{\theta})) < 1-\alpha},
+\end{equation}
 
 wobei $S_{1-\alpha}$ die Konfidenzregion von $\theta$ angibt. Erwartet wird hier also, dass die Überdeckungs"-wahrscheinlichkeit knapp unter dem
 Konfidenzniveau liegt. 
@@ -517,9 +510,7 @@ Dem räumlichen Effekt kommt bei der Bewertung der Wohnzufriedenheit eine besond
 
 \subsection{Reklassifizierung}
 
-Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{evalS21}) zeigen, dass die Erfolgsquote im Drei-Klassen-Modell zwischen 44\% und 50\% und im Zwei-Klassen-Modell zwischen 55\% und 62\% lag. Zum Vergleich mit einem reinen Zufallsmodell, das im Drei-Klassen-Modell eine Erfolgswahrscheinlichkeit von 1/3 und im Zwei-Klassen-Modell von 1/2 hat, wiesen die geschätzten Modelle eine höhere Erfolgsquote auf. 
-
-\textcolor{red}{Auch bei einem Vergleich mit Tabelle \ref{endogene} zeigt sich, dass die geschätzten Modelle besser abschnitten als ein triviales Wählen der immer gleichen Klasse mit der höchsten Anzahl der Beobachtungen.}
+Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{evalS21}) zeigen, dass die Erfolgsquote im Drei-Klassen-Modell zwischen 44\% und 50\% und im Zwei-Klassen-Modell zwischen 55\% und 62\% lag. Zum Vergleich mit einem reinen Zufallsmodell, das im Drei-Klassen-Modell eine Erfolgswahrscheinlichkeit von 1/3 und im Zwei-Klassen-Modell von 1/2 hat, wiesen die geschätzten Modelle eine höhere Erfolgsquote auf.
 
 \begin{table}[h]
 \centering
@@ -539,7 +530,7 @@ Die Ergebnisse der Reklassifizierung zur Meinung zu Stuttgart 21 (Tabelle \ref{e
 \end{table}
 
 Des weiteren ist zu sehen, dass das geoadditive Modell in fast allen Fällen die höchste Erfolgsquote aufwies. Abweichungen sind nur beim Drei-Klassen-Modell mit räumlichem Effekt auf Stadtteilebene und beim Zwei-Klassen-Modell mit räumlichem Effekt auf Bezirksebene zu beobachten.\\
-Für die Reklassifikation der Bewertung der Wohngegend (Tabelle \ref{evalB}) ergibt sich eine Erfolgsquote zwischen 40\% und 50\%. Damit ist auch hier eine deutliche Verbesserung gegenüber rein zufälligem Wählen oder dauerhaftem Wählen einer Klasse gegeben. \textcolor{red}{was bedeutet hier dauerhaft?}
+Für die Reklassifikation der Bewertung der Wohngegend (Tabelle \ref{evalB}) ergibt sich eine Erfolgsquote zwischen 40\% und 50\%. Damit ist auch hier eine deutliche Verbesserung gegenüber rein zufälligem Wählen.
 
 \begin{table}[h]
 \centering
@@ -660,7 +651,7 @@ Zunächst wird das dreikategoriale geoadditive Modell mit dem zweikategorialen M
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/PaT2}
- \caption{Geschätzte gegen wahre prognostizierte Anteile der Zustimmung zu Stuttgart 21 der geoadditiven Modelle mir zweikategorialer und dreikategoriealer Response (je mit kontinuierlicher räumlicher Information). Zur Extrapolation wurde die Melderegister-Datei ausgewählt. Zusätzlich zu den Prognosen sind die 95\%-Perzentile dargestellt.}
+ \caption{Geschätzte gegen wahre prognostizierte Anteile der Zustimmung zu Stuttgart 21 der geoadditiven Modelle mit zweikategorialer und dreikategoriealer Response (je mit kontinuierlicher räumlicher Information). Zur Extrapolation wurde die Melderegister-Datei ausgewählt. Zusätzlich zu den Prognosen sind die 95\%-Perzentile dargestellt.}
  \label{vali4}
  \end{center}
 \end{figure}
@@ -696,7 +687,7 @@ Zuletzt wurden die beiden Modelle mit diskretem räumlichen Term genutzt, um die
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/S21Extra}
- \caption{Extrapolierte Anteile auf Stadtteilebene für die Meinung zu Stuttgart 21 mit dem besten Modell.}
+ \caption{Extrapolierte Anteile der Bewertung der Meinung zu Stuttgart 21 auf Stadtteilebene. Hochrechnung durch das zweikategoriale geoadditive Modelle mit kontinuierlichem räumlichen Trend.}
  \label{S21Extra}
  \end{center}
 \end{figure}
@@ -706,7 +697,7 @@ Für die Bewertung der Wohngegend (Abbildung \ref{WohnExtra}) lässt sich ebenfa
 \begin{figure}[h]
  \begin{center}
  \includegraphics[scale=0.8]{Pictures/BWohnExtra}
- \caption{Extrapolierte Anteile auf Stadtteilebene für die Bewertung der Wohngegend mit dem besten Modell.}
+ \caption{Extrapolierte Anteile der Bewertung der Wohnzufriedenheit auf Stadtteilebene. Hochrechnung durch das geoadditive Modelle mit kontinuierlichem räumlichen Trend.}
  \label{WohnExtra}
  \end{center}
 \end{figure}
@@ -725,7 +716,7 @@ Der Bahnhof liegt an der nördlichen Grenze des Stadtviertels \textit{Mitte}, al
 Die Wohnzufriedenheit hängt sehr viel stärker von der Lage der Wohnung ab als von den sozioökonomischen Kovariablen. Da die räumliche Lage bereits einen sehr hohen Erklärungsgehalt hat, sind weniger Kovariablen erforderlich. Umso wichtiger ist folglich die Auswahl des geeigneten räumlichen Effektes. Nach visueller Einschätzung ist die Auflösung des diskreten Effekts auf Stadtbezirksebene nicht hoch genug, um das komplexe räumliche Muster zu beschreiben. Das Modell auf Stadtteilebene erscheint hingegen zu komplex zu sein, da insbesondere im Zentrum sehr kleinflächige Strukturen mit zum Teil sehr unterschiedlichen Parameterausprägungen zu sehen sind, die anhand der Rohdaten nicht unbedingt nachvollzogen werden können. Der kontinuierliche Effekt ist offensichtlich ein Kompromiss zwischen den beiden diskreten Trends. Die kleinräumig unterschiedlichen Parameterausprägungen, wie sie z.B. im Nordosten zu sehen sind, werden durch das kontinuierliche Modell dargestellt. Dabei schwanken die Parameter, insbesondere im Zentrum, weniger stark als beim Modell auf Stadtteilebene. Die Analyse der AIC (Tabelle \ref{stepAIC}) unterstreicht diese visuellen Einschätzungen.
 
 \subsection{Reklassifizierung}
-Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Response-Variablen vorteilhaft gegenüber reinen GAM sind. Sowohl bei zwei- als auch bei dreikategorialer Response bei der Modellierung der Meinung zu Stuttgart 21 bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse (Tabelle \ref{evalS21}). Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab. Die Ergebnisse der Reklassifizierung der Wohnzufriedenheit (Tabelle \ref{evalB}) fügen sich ebenfalls in die Vorüberlegungen ein. Das diskrete Modell erweist sich als vorteilhaft. Bemerkenswerterweise ist der durchschnittliche Anteil der korrekt reklassifizierten Beobachtungen bei dem geoadditiven Modell mit diskretem räumlichen Trend auf Stadtteilebene schlechter als bei den reinen GAM und den Modellen mit alleinigem räumlichen Trend. Dies zeigt, wie die visuelle Analyse bereits andeutete, dass die Parameteranzahl deutlich zu hoch ist, das Modell also überangepasst ist.
+Die Reklassifizierung bildet das erste absolute Modellqualitätskriterium. Es zeigt sich, wie zuvor angedeutet, dass die geoadditiven Modelle bei allen drei Ausprägungen der Response-Variablen vorteilhaft gegenüber reinen GAM sind. Sowohl bei zwei- als auch bei dreikategorialer Response bei der Modellierung der Meinung zu Stuttgart 21 (Tabelle \ref{evalS21}) bestätigen sich die Ergebnisse aus der visuellen Interpretation sowie der AIC Analyse. Die Berücksichtigung des räumlichen Trends verbessert die Schätzgenauigkeit. Dabei sind der kontinuierliche und der diskrete räumliche Trend auf Bezirksniveau gleichwertig. Der räumliche Trend auf Stadtteilebene schneidet schlechter ab. Die Ergebnisse der Reklassifizierung der Wohnzufriedenheit (Tabelle \ref{evalB}) fügen sich ebenfalls in die Vorüberlegungen ein. Das diskrete Modell erweist sich als vorteilhaft. Bemerkenswerterweise ist der durchschnittliche Anteil der korrekt reklassifizierten Beobachtungen bei dem geoadditiven Modell mit diskretem räumlichen Trend auf Stadtteilebene schlechter als bei den reinen GAM und den Modellen mit alleinigem räumlichen Trend. Dies zeigt, wie die visuelle Analyse bereits andeutete, dass die Parameteranzahl deutlich zu hoch ist, das Modell also überangepasst ist.
 
 \subsection{Kreuzvalidierung}
 Die Kreuzvalidierung ist eine sehr computerintensive Berechnung. Daher wurden die ohnehin nicht vielversprechenden Modelle ohne räumlichen Trend und nur mit räumlichem Trend bei dieser Analyse nicht mehr berücksichtigt. Zunächst ist zu bemerken, dass der durchschnittliche korrekt klassifizierte Anteil der Beobachtungen \textit{out-of-sample} (Tabellen \ref{KreuzM} und \ref{KreuzBew}) den korrekt reklassifizierten Anteil der Beobachtungen (Tabellen \ref{evalS21} und \ref{evalB}) stets sehr ähnelt. Abweichungen sind als Zufall zu interpretieren. Dies deutet darauf hin, dass die Modelle sehr robust sind.
@@ -996,27 +987,21 @@ UBRE & 3,550.796 & 3,598.430 & 4,158.075 \\
 
 %\section{Eigenständigkeitserklärung}
 
-Hiermit versichere ich, dass ich die vorliegende Hausarbeit selbstständig verfasst und keine anderen als die angegebenen
-Hilfsmittel benutzt habe. Alle wörtlich oder sinngemäß den Schriften anderer entnommenen Stellen
-habe ich unter Angabe der Quellen kenntlich gemacht. Dies gilt auch für beigefügte Zeichnungen, Skizzen, bildliche
+Hiermit versichern wir, dass wir die vorliegende Hausarbeit selbstständig verfasst und keine anderen als die angegebenen
+Hilfsmittel benutzt haben. Alle wörtlich oder sinngemäß den Schriften anderer entnommenen Stellen
+haben wir unter Angabe der Quellen kenntlich gemacht. Dies gilt auch für beigefügten Zeichnungen, Skizzen, bildliche
 Darstellungen und dergleichen.\\
-\\
-Mir ist bewusst, dass ich mich im Falle einer unbeabsichtigten oder vorsätzlichen Missachtung durch den fehlerhaften
-Umgang mit Quellen unter Umständen strafbar mache und die vorliegende Hausarbeit mit nicht ausreichend
+Uns ist bewusst, dass wir uns im Falle einer unbeabsichtigten oder vorsätzlichen Missachtung durch den fehlerhaften
+Umgang mit Quellen unter Umständen strafbar machen und die vorliegende Hausarbeit mit nicht ausreichend
 bewertet wird.
 \\
 \\Göttingen, den
-\\Unterschrift
+\\
 \vspace*{4cm}
 \\
-Hiermit erlaube ich, dass meine Arbeit auf Betrug und falsche, sowie fehlende Zitate auch online geprüft wird.\\
-\\
-Mir ist bewusst, dass ich mich im Falle einer unbeabsichtigten oder vorsätzlichen Missachtung durch den fehlerhaften
-Umgang mit Quellen unter Umständen strafbar mache und die vorliegende Hausarbeit mit nicht ausreichend
-bewertet wird.
+Hiermit erlauben wir, dass unsere Arbeit auf Betrug und falsche, sowie fehlende Zitate auch online geprüft wird.\\
 \\
 \\Göttingen, den
-\\Unterschrift
 \clearpage
 
 
